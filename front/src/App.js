@@ -1,12 +1,19 @@
-import logo from './logo.svg';
+
 import './App.css';
-import Main from './page/Main';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Footer from "./components/Footer";
+import RouteConfig from "./util/RouteConfig";
 
 function App() {
   return (
-    <div className="App">
-      <Main></Main>
-    </div>
+      <Router>
+          <div className="App">
+              <div className="wrap">
+                  <Footer></Footer>
+                  <RouteConfig></RouteConfig>
+              </div>
+          </div>
+      </Router>
   );
 }
 
