@@ -6,12 +6,12 @@ function Main() {
         <div>
             <div className="main">
                 <div className="container">
-                    <header className="header">
+                    <div className="main_top">
                         <button type="button" className="user_country">
                             <span className="blind">나라 선택</span>
                         </button>
                         Let's Find Your<br/>Words!
-                    </header>
+                    </div>
 
                     <div className="search_box">
                         <input type="text" className="text_input" placeholder="단어를 검색해보세요"/>
