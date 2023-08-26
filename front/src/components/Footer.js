@@ -8,22 +8,16 @@ function Footer() {
         <footer>
             <ul className="footer_list">
                 <li className="list">
-                    <a href="" className="link">
-                        Home
-                    </a>
+                    <Link to="/" className="link">Home</Link>
                 </li>
                 <li className="list">
                     <Link to="/word" className="link">Add</Link>
                 </li>
                 <li className="list">
-                    <a href="" className="link">
-                        Library
-                    </a>
+                    <Link to="/library" className="link">Library</Link>
                 </li>
                 <li className="list">
-                    <a href="" className="link">
-                        Profile
-                    </a>
+                    <Link to="/profile" className="link">Profile</Link>
                 </li>
             </ul>
         </footer>
