@@ -121,3 +121,13 @@ footer {position:fixed;left:0;bottom:0;width:100%;background:#fff;z-index:100;bo
 .footer_list .list {width:100%}
 .footer_list .list .link {display:block;padding:20px 0;width:100%;text-align:center}
 .footer_list .list .link:before {display:block;margin:0 auto 12px;width:24px;height:24px;background:#000;content:''}
+
+.consonant_list {display:flex;flex-wrap:wrap;margin-bottom:40px}
+.consonant_list .list .link {padding:5px 8px}
+.consonant_list .list .link.active {color:#fff;font-weight:bold;border-radius:48px;background:#EB5757}
+
+
+.word_box .tit {margin-bottom:12px;padding:8px;border-radius:8px;background:#F5F5F5}
+.word_box .word_list .list {}
+.word_box .list+.list {margin-top:24px}
+.word_box .item {display:flex;width:100%}
