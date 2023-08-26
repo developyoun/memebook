@@ -7,9 +7,7 @@ function App() {
   return (
       <Router>
           <div className="App">
-              <div className="wrap">
-                  <RouteConfig></RouteConfig>
-              </div>
+              <RouteConfig></RouteConfig>
           </div>
       </Router>
   );

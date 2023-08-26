@@ -72,8 +72,7 @@ button {border:0;background:transparent;cursor:pointer}
 .blind {overflow:hidden;clip:rect(1px,1px,1px,1px);position:absolute !important;width:1px;height:1px}
 
 /* 공통 레이아웃 */
-.wrap {padding-bottom:150px}
-.container {margin:50px auto;padding:0 20px;min-width:360px;max-width:1280px;box-sizing:border-box}
+.container {margin:50px auto;padding:0 20px 150px 20px;min-width:360px;max-width:1280px;box-sizing:border-box}
 
 /* 공통 폼요소 */
 .input_box .tit {margin-bottom:12px;color:#406A52}
