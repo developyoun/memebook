@@ -8,7 +8,6 @@ import meme.book.back.service.WordService;
 import meme.book.back.utils.NationCode;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +25,7 @@ public class WordController {
     public List<WordEntity> getWordListController(@PathVariable NationCode nationCode,
                                                   @RequestParam(defaultValue = "1") int page,
                                                   @RequestParam(defaultValue = "10") int pageSize) {
-        Pageable pages = PageRequest.of(page, pageSize);
+        Pageable pages = PageRequest.of(page-1, pageSize);
         log.info("### Nation: {}, Page: {}", nationCode, pages);
 
         return wordService.getWordListService(nationCode, pages);
