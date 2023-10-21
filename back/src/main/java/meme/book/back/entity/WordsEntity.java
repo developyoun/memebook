@@ -1,17 +1,21 @@
 package meme.book.back.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
+import lombok.*;
+import meme.book.back.dto.WordDto;
 import meme.book.back.utils.NationCode;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+@Getter
+@ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
 @Entity
-@Getter @Setter @Accessors(chain = true)
 @Table(name = "words")
-public class WordEntity {
+public class WordsEntity {
 
     // 단어 고유 번호
     @Id
@@ -37,6 +41,17 @@ public class WordEntity {
     private Long wordRegMem;
 
     // 단어 등록일
+    @CreatedDate
     @Column(name = "WORD_REG_DTM")
     private LocalDateTime wordRegDtm;
+
+    @Builder
+    public WordsEntity(WordDto wordDto) {
+        this.wordIdx = wordDto.getWordIdx();
+        this.originWord = wordDto.getOriginWord();
+        this.resultWord = wordDto.getResultWord();
+        this.wordNation = wordDto.getWordNation();
+        this.wordRegMem = wordDto.getWordRegMem();
+        this.wordRegDtm = wordDto.getWordRegDtm();
+    }
 }

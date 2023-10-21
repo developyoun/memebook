@@ -39,8 +39,8 @@ public class DBConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(
             EntityManagerFactoryBuilder builder,
             @Qualifier("datasource") DataSource datasource,
-            @Qualifier("jpaProperties") JpaProperties jpaProperties
-    ) {
+            @Qualifier("jpaProperties") JpaProperties jpaProperties) {
+
         return builder.dataSource(datasource)
                 .properties(jpaProperties.getProperties())
                 .packages("meme.book.back")
@@ -50,8 +50,7 @@ public class DBConfig {
 
     @Bean("transactionManager")
     public PlatformTransactionManager transactionManager(
-            @Qualifier("entityManagerFactory") LocalContainerEntityManagerFactoryBean entityManagerFactoryBean
-    ) {
+            @Qualifier("entityManagerFactory") LocalContainerEntityManagerFactoryBean entityManagerFactoryBean) {
         return new JpaTransactionManager(Objects.requireNonNull(entityManagerFactoryBean.getObject()));
     }
 }

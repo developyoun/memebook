@@ -6,15 +6,9 @@ import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.core.io.ClassPathResource;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 @Configuration
-//@EnableEncryptableProperties
+@EnableEncryptableProperties
 public class EncryptConfig {
 
     @Value("${jasypt.encryptor.password}")
