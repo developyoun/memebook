@@ -1,0 +1,38 @@
+/* 플로팅 푸터박스 */
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: #fff;
+  z-index: 100;
+  box-sizing: border-box;
+
+  .footer_list {
+    display: flex;
+    padding-right: 10px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+
+    .list {
+      width: 100%;
+
+      .link {
+        display: block;
+        padding: 20px 0;
+        width: 100%;
+        text-align: center;
+
+        &:before {
+          display: block;
+          margin: 0 auto 12px;
+          width: 24px;
+          height: 24px;
+          background: #000;
+          content: '';
+        }
+      }
+    }
+  }
+}

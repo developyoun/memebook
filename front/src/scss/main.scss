@@ -1,0 +1,191 @@
+/* 메인 - 공통 */
+.main {
+  .tit {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
+
+/* 메인 - 나라 선택 */
+.main_top {
+  display: flex;
+  align-items: center;
+  color: #406A52;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 26px;
+
+  .user_country {
+    display: block;
+    margin-right: 12px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #000;
+  }
+}
+
+/* 메인 - 검색 */
+.search_box {
+  margin: 30px 0 60px;
+}
+
+/* 메인 - 인기순위 */
+.pupular_box {
+  .popular_list {
+    display: flex;
+    flex-direction: column;
+    height: 184px;
+    flex-wrap: wrap;
+
+    li {
+      display: flex;
+      width: 50%;
+      counter-increment: list-number;
+      align-items: center;
+      justify-content: space-between;
+
+      .keyword {
+        overflow: hidden;
+        width: 100%;
+        color: #373f57;
+        font-size: 15px;
+        letter-spacing: -0.5px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &:before {
+          display: inline-flex;
+          margin-right: 8px;
+          width: 22px;
+          height: 22px;
+          border: 1px solid #406A52;
+          border-radius: 4px;
+          color: #5c667b;
+          font-size: 13px;
+          line-height: 18px;
+          content: counter(list-number);
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
+      .date {
+        color: #406A52;
+        font-size: 12px;
+        letter-spacing: -0.5px;
+      }
+
+      & + li {
+        margin: 16px 8px 0 0;
+      }
+
+      &:first-child {
+        .keyword {
+          &:before {
+            color: #fff;
+            background: #406A52;
+          }
+        }
+      }
+
+      &:nth-child(-n+5) {
+        .date {
+          margin-right: 8px;
+        }
+      }
+
+      &:nth-child(6) {
+        margin-top: 0;
+      }
+
+      &:nth-child(-n+3) {
+        p {
+          &:before {
+            border-color: #4876ef;
+            color: #4876ef;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+/* 메인 - 출석체크 */
+.daily_box {
+  margin: 40px 0 45px;
+
+  .daily_list {
+    display: flex;
+    align-items: center;
+
+    li {
+      width: 100%;
+
+      .day {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        width: 32px;
+        height: 32px;
+        color: #808080;
+        border-radius: 50%;
+        background: #F5F9FC;
+
+        &.check {
+          background: #EB5757;
+
+          span {
+            display: none;
+          }
+
+          &:after {
+            display: block;
+            width: 16px;
+            height: 16px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17' height='16' viewBox='0 0 17 16' fill='none'%3E%3Cpath d='M8.26475 3.01932C9.83075 1.61332 12.2507 1.65999 13.7594 3.17132C15.2674 4.68332 15.3194 7.09132 13.9167 8.66199L8.26342 14.3233L2.61142 8.66199C1.20875 7.09132 1.26142 4.67932 2.76875 3.17132C4.27875 1.66199 6.69408 1.61132 8.26475 3.01932V3.01932Z' fill='white'/%3E%3C/svg%3E") no-repeat;
+            content: '';
+          }
+        }
+      }
+    }
+  }
+}
+
+/* 메인 - 출석횟수,단어등록횟수 */
+.main {
+  .check_list {
+    .list {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .link {
+        display: block;
+        width: 100%;
+      }
+
+      strong {
+        color: #EB5757;
+      }
+
+      & + .list {
+        margin-top: 26px;
+      }
+
+      &:after {
+        display: block;
+        width: 14px;
+        height: 14px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M5.22095 2.38012L9.02428 6.18345C9.47345 6.63262 9.47345 7.36762 9.02428 7.81678L5.22095 11.6201' stroke='%23406A52' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat;
+        content: '';
+      }
+    }
+  }
+}
