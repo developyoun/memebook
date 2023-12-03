@@ -1,7 +1,7 @@
 import './../App.css';
 import Footer from "../components/Footer";
 
-function Profile() {
+export default function Profile() {
     return (
         <div className="layer">
             <div className="layer_header">
@@ -15,5 +15,3 @@ function Profile() {
         </div>
     );
 }
-
-export default Profile;

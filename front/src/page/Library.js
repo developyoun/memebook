@@ -2,7 +2,7 @@ import './../App.css';
 import Footer from "../components/Footer";
 import WordList from "../components/WordList";
 
-function Word() {
+export default function Word() {
     return (
         <div className="layer">
             <div className="layer_header">
@@ -43,4 +43,3 @@ function Word() {
     );
 }
 
-export default Word;

@@ -1,19 +1,10 @@
 import './../App.css';
 import { useHistory } from 'react-router-dom';
 
-function Word() {
-    const goBack = () => {
-        // 브라우저 뒤로가기 실행
-        window.history.back();
-    };
+export default function Word() {
+
     return (
         <div className="layer">
-            <div className="layer_header">
-                <button className="btn_back" onClick={goBack}>
-                    <span className="blind">뒤로가기</span>
-                </button>
-                <h1 className="tit">단어 등록</h1>
-            </div>
             <div className="container">
                 <div className="input_box">
                     <h4 className="tit">
@@ -37,5 +28,3 @@ function Word() {
         </div>
     );
 }
-
-export default Word;

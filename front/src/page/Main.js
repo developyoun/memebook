@@ -1,7 +1,7 @@
 import './../App.css';
 import Footer from "../components/Footer";
 
-function Main() {
+export default function Main() {
     return (
         <div>
             <div className="main">
@@ -132,5 +132,3 @@ function Main() {
         </div>
     );
 }
-
-export default Main;
