@@ -5,6 +5,15 @@ jasypt:
 spring:
   profiles:
     active: local
+
+---
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+  config:
+    activate:
+      on-profile: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     jdbc-url: ENC(eVbnLbOrwt0KJbCM/BBzB570b/pm4j6Il09dawtRx/JgU5wcryoZtYAKfKX9GpB6VJQYBLfhL7OR+iS5qtLD0f3WDWyFNEJ3Y6SWjWRunTeZM9E0dUzKLYCGuSf7A+Qc)
@@ -18,18 +27,21 @@ spring:
     show-sql: true
 
 ---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jdbc-url: ENC(eVbnLbOrwt0KJbCM/BBzB570b/pm4j6Il09dawtRx/JgU5wcryoZtYAKfKX9GpB6VJQYBLfhL7OR+iS5qtLD0f3WDWyFNEJ3Y6SWjWRunTeZM9E0dUzKLYCGuSf7A+Qc)
+    username: ENC(5NBd9cnYOkWZYLhQ8Wv8o8VtvAetE6km)
+    password: ENC(zDWPbvueOKZhMDSsXMgif0/4raNTroCu)
+  jpa:
+    properties:
+      hibernate:
+        database: mysql
+        format_sql: true
 
-#spring:
-#  profiles:
-#    active: dev
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306
-#    username: root
-#    password: Jaeho6599!@
-#  jpa:
-#    database: mysql
-#
 #---
 #
 #spring:

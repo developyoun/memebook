@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <script src="/utils.js"></script>
+  <script src="/api.js"></script>
+  <script src="/init.js"></script>
+  <script src="/word.js"></script>
+  <div id="container">
+    <label for="page"><input id="page" placeholder="페이지 입력" value="1"></label>
+    <label for="pageSize"><input id="pageSize"placeholder="페이징 사이즈" value="20"></label>
+    <button id="getDataList">데이터 전체 불러오기</button>
+
+    <button id="reaction-like"> 좋아요 +1 </button>
+    <button id="reaction-hate"> 싫어요 +1 </button>
+    <hr>
+    <div>
+      <label for="originWord">
+        <input type="text" id="originWord" placeholder="원본 단어 입력">
+      </label>
+      <label for="resultWord">
+        <input type="text" id="resultWord" placeholder="결과 단어 입력">
+      </label>
+      <label for="wordNation">
+        <select id="wordNation">
+          <option value="KOR">한국</option>
+          <option value="JPN">일본</option>
+          <option value="ENG">미국</option>
+          <option value="VNM">베트남</option>
+        </select>
+      </label>
+      <button id="submitWord">새로운 단어 생성</button>
+      <hr>
+      <label for="memberId">
+        <input type="text" id="memberId" placeholder="회원 아이디 입력">
+      </label>
+      <label for="memberPassword">
+        <input type="text" id="memberPassword" placeholder="회원 패스워드 입력">
+      </label>
+      <label for="nickname">
+        <input type="text" id="nickname" placeholder="닉네임 입력">
+      </label>
+      <label for="nationCode">
+        <select id="nationCode">
+          <option value="KOR">한국</option>
+          <option value="JPN">일본</option>
+          <option value="ENG">미국</option>
+          <option value="VNM">베트남</option>
+        </select>
+      </label>
+      <button id="createMember">회원가입하기</button>
+
+    </div>
+
+    <table data-th-border="2" id="wordListTable">
+      <tbody id="wordList"></tbody>
+    </table>
+
+  </div>
+</body>
+</html>
