@@ -1,4 +1,3 @@
-import '../scss/common.scss';
 import './../scss/homeFooter.scss'
 import React from "react";
 import {Link} from 'react-router-dom';
@@ -8,16 +7,16 @@ export default function HomeFooter() {
     <footer>
       <ul className="footer_list">
         <li className="list">
-          <Link to="/" className="link">Home</Link>
+          <Link to="/" className="link home">Home</Link>
         </li>
         <li className="list">
-          <Link to="/word" className="link">Add</Link>
+          <Link to="/word" className="link word">Add</Link>
         </li>
         <li className="list">
-          <Link to="/library" className="link">Library</Link>
+          <Link to="/library" className="link library">Library</Link>
         </li>
         <li className="list">
-          <Link to="/profile" className="link">Profile</Link>
+          <Link to="/profile" className="link profile">Profile</Link>
         </li>
       </ul>
     </footer>

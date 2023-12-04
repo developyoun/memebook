@@ -1,4 +1,3 @@
-import '../scss/common.scss';
 import './../scss/layerHeader.scss'
 
 function LayerHeader() {

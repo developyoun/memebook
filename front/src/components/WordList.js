@@ -1,5 +1,3 @@
-import '../scss/common.scss';
-
 function WordList() {
   return (
     <ul className="word_wrap">

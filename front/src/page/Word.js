@@ -1,4 +1,3 @@
-import '../scss/common.scss';
 import './../scss/word.scss'
 import Title from './Title'
 

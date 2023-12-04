@@ -1,5 +1,4 @@
-import '../scss/common.scss';
-
+import './../scss/layerHeader.scss'
 export default function Title(props) {
   const goBack = () => {
     // 브라우저 뒤로가기 실행

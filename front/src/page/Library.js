@@ -1,4 +1,3 @@
-import '../scss/common.scss';
 import './../scss/library.scss'
 import HomeFooter from "../components/HomeFooter";
 import WordList from "../components/WordList";

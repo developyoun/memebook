@@ -1,4 +1,5 @@
 import './scss/common.scss';
+import './scss/reset.scss';
 import {Route, Routes} from 'react-router-dom';
 import Main from "./page/Main";
 import Word from "./page/Word";

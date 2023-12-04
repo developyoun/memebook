@@ -1,4 +1,3 @@
-import '../scss/common.scss';
 import HomeFooter from "../components/HomeFooter";
 import Title from "./Title";
 

@@ -1,14 +1,23 @@
 import '../scss/common.scss';
 import './../scss/main.scss'
 import HomeFooter from "../components/HomeFooter";
+import CountryChoice from "../components/modal/CountryChoice";
+import {useState} from "react";
 
 export default function Main() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [studyCountryType, setStudyCountryType] = useState('');
+  const countryChoice = (selectedCountryType) => {
+    setModalOpen(!modalOpen);
+    setStudyCountryType(selectedCountryType);
+  }
+
   return (
-    <div>
+    <>
       <div className="main">
         <div className="container">
           <div className="main_top">
-            <button type="button" className="user_country">
+            <button type="button" className={`user_country ${studyCountryType}`} onClick={countryChoice}>
               <span className="blind">나라 선택</span>
             </button>
             Let's Find Your<br/>Words!
@@ -21,51 +30,6 @@ export default function Main() {
           <div className="pupular_box">
             <h3 className="tit">💡 오늘 하루 인기 검색어 TOP </h3>
             <ul className="popular_list">
-              <li>
-                <a href="" className="keyword">
-                  인싸
-                </a>
-              </li>
-              <li>
-                <a href="" className="keyword">
-                  인싸
-                </a>
-              </li>
-              <li>
-                <a href="" className="keyword">
-                  인싸
-                </a>
-              </li>
-              <li>
-                <a href="" className="keyword">
-                  인싸
-                </a>
-              </li>
-              <li>
-                <a href="" className="keyword">
-                  인싸
-                </a>
-              </li>
-              <li>
-                <a href="" className="keyword">
-                  인싸
-                </a>
-              </li>
-              <li>
-                <a href="" className="keyword">
-                  인싸
-                </a>
-              </li>
-              <li>
-                <a href="" className="keyword">
-                  인싸
-                </a>
-              </li>
-              <li>
-                <a href="" className="keyword">
-                  인싸
-                </a>
-              </li>
               <li>
                 <a href="" className="keyword">
                   인싸
@@ -129,7 +93,13 @@ export default function Main() {
           </ul>
         </div>
       </div>
+      {
+        modalOpen && (
+          <CountryChoice countryChoiceClose={(selectedCountryType) => countryChoice(selectedCountryType)}></CountryChoice>
+        )
+      }
       <HomeFooter></HomeFooter>
-    </div>
+
+    </>
   );
 }
