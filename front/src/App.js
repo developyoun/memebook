@@ -1,17 +1,19 @@
 import './scss/common.scss';
 import './scss/reset.scss';
+import React from "react";
 import {Route, Routes} from 'react-router-dom';
 import Main from "./page/Main";
-import Word from "./page/Word";
+import WordAdd from "./page/WordAdd";
 import Library from "./page/Library";
 import Profile from "./page/Profile";
-import React from "react";
+import WordDetail from "./page/WordDetail";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Main/>}/>
-      <Route path="/word" element={<Word/>}/>
+      <Route path="/wordAdd" element={<WordAdd/>}/>
+      <Route path="/word/:id" element={<WordDetail/>}/>
       <Route path="/library" element={<Library/>}/>
       <Route path="/profile" element={<Profile/>}/>
     </Routes>

@@ -1,7 +1,7 @@
 import './../scss/word.scss'
 import Title from './Title'
 
-export default function Word() {
+export default function WordAdd() {
 
   return (
     <div className="layer">

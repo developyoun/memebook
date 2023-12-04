@@ -10,7 +10,7 @@ export default function HomeFooter() {
           <Link to="/" className="link home">Home</Link>
         </li>
         <li className="list">
-          <Link to="/word" className="link word">Add</Link>
+          <Link to="/wordAdd" className="link word">Add</Link>
         </li>
         <li className="list">
           <Link to="/library" className="link library">Library</Link>

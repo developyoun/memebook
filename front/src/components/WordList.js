@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom';
+import React from "react";
 function WordList() {
   return (
     <ul className="word_wrap">
@@ -5,7 +7,7 @@ function WordList() {
         <h3 className="word_tit">ㄱ</h3>
         <ul className="word_list">
           <li>
-            <a href="" className="item">개개개</a>
+            <Link to="/word/1" className="item">개개개</Link>
           </li>
           <li>
             <a href="" className="item">거거거</a>

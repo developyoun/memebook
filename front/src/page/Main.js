@@ -2,14 +2,13 @@ import '../scss/common.scss';
 import './../scss/main.scss'
 import HomeFooter from "../components/HomeFooter";
 import CountryChoice from "../components/modal/CountryChoice";
-import {useState} from "react";
-import { useDispatch } from 'react-redux';
-import { setNativeCountryType, setStudyCountryType } from './../util/action';
+import {useEffect, useState} from "react";
 
 export default function Main() {
   const [modalOpen, setModalOpen] = useState(false);
   const [studyCountryType, setStudyCountryType] = useState('');
 
+  // 모달 열고 닫히기
   const countryChoiceClose = ({countryChoiceClose}) => {
     setModalOpen(!modalOpen);
   }
@@ -19,6 +18,10 @@ export default function Main() {
     setStudyCountryType(selectType);
     setModalOpen(!modalOpen);
   }
+
+  // useEffect(() => {
+  //   window.scrollTo(0,0);
+  // }, []);
 
   return (
     <>

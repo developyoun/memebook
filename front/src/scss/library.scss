@@ -15,6 +15,9 @@
         background: #EB5757;
       }
     }
+    &+.list {
+      margin-left:4px;
+    }
   }
 }
 

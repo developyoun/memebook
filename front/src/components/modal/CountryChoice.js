@@ -1,8 +1,6 @@
-import {useEffect, useState} from "react";
 import './../../scss/countryChoice.scss'
 import { useDispatch, useSelector } from 'react-redux';
 import { setNativeCountryType, setStudyCountryType, setNativeCountryTxt, setStudyCountryTxt } from './../../util/action';
-
 
 export default function CountryChoice({ countryChoiceClose, selectType }) {
   const dispatch = useDispatch();
