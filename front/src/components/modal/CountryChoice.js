@@ -1,23 +1,34 @@
 import {useEffect, useState} from "react";
 import './../../scss/countryChoice.scss'
+import { useDispatch, useSelector } from 'react-redux';
+import { setNativeCountryType, setStudyCountryType, setNativeCountryTxt, setStudyCountryTxt } from './../../util/action';
 
-export default function CountryChoice({countryChoiceClose, selectedCountryType }) {
-  const [nativeCountryType, setNativeCountryType] = useState('');
-  const [studyCountryType, setStudyCountryType] = useState('');
 
+export default function CountryChoice({ countryChoiceClose, selectType }) {
+  const dispatch = useDispatch();
+  // 모국어와 배울 언어 계속 저장
+  const nativeCountryType = useSelector(state => state.nativeCountryType);
+  const nativeCountryTxt = useSelector(state => state.nativeCountryTxt);
+  const studyCountryType = useSelector(state => state.studyCountryType);
+  const studyCountryTxt = useSelector(state => state.studyCountryTxt);
+  
   // 모국어
-  const nativeCountryChange = (state) => {
-    setNativeCountryType(state);
+  const nativeCountryChange = (type, txt) => {
+    dispatch(setNativeCountryType(type));
+    dispatch(setNativeCountryTxt(txt));
+  }
+  
+  // 선택한 언어
+  const studyCountryChange = (type, txt) => {
+    dispatch(setStudyCountryType(type));
+    dispatch(setStudyCountryTxt(txt));
   }
 
-  // 배울언어
-  const studyCountryChange = (state) => {
-    setStudyCountryType(state);
+  // 선택한 언어 밖으로
+  const countrySave = () => {
+    selectType(studyCountryType);
   }
-  const handleSave = () => {
-    countryChoiceClose({ selectedCountryType });
-  }
-
+  
   return (
     <div className="modalBox">
       <div className="inner">
@@ -26,24 +37,30 @@ export default function CountryChoice({countryChoiceClose, selectedCountryType }
           <div className="country_state">
             <div className="state_box">
               <h5 className="country_txt">모국어</h5>
+
+              {/* 선택된 언어 */}
               <div className={`state ${nativeCountryType}`}>
                 <span className="blind">모국어/native language</span>
               </div>
-              <span  className="txt">대한민국</span>
+
+              {/* 언어 이름 */}
+              <span  className="txt">{nativeCountryTxt ? nativeCountryTxt : '선택'}</span>
+
+              {/* 언어 리스트 */}
               <ul className="country_list">
                 <li>
-                  <button type="button" className="state korean" onClick={() => nativeCountryChange('korean')}>
+                  <button type="button" className="state korean" onClick={() => nativeCountryChange('korean', '한국')}>
                     <span className="blind">모국어/native language</span>
                   </button>
 
                 </li>
                 <li>
-                  <button type="button" className="state english" onClick={() => nativeCountryChange('english')}>
+                  <button type="button" className="state english" onClick={() => nativeCountryChange('english', '미국')}>
                     <span className="blind">모국어/native language</span>
                   </button>
                 </li>
                 <li>
-                  <button type="button" className="state japanese" onClick={() => nativeCountryChange('japanese')}>
+                  <button type="button" className="state japanese" onClick={() => nativeCountryChange('japanese', '일본')}>
                     <span className="blind">모국어/native language</span>
                   </button>
                 </li>
@@ -51,23 +68,29 @@ export default function CountryChoice({countryChoiceClose, selectedCountryType }
             </div>
             <div className="state_box">
               <h5 className="country_txt">배울 언어</h5>
+
+              {/* 선택된 언어 */}
               <div className={`state ${studyCountryType}`}>
                 <span className="blind">배울 언어/study language</span>
               </div>
-              <span  className="txt">일본</span>
+
+              {/* 언어 이름 */}
+              <span  className="txt">{studyCountryTxt ? studyCountryTxt : '선택'}</span>
+
+              {/* 언어 리스트 */}
               <ul className="country_list">
                 <li>
-                  <button type="button" className="state korean" onClick={() => studyCountryChange('korean')}>
+                  <button type="button" className="state korean" onClick={() => studyCountryChange('korean', '한국')}>
                     <span className="blind">모국어/native language</span>
                   </button>
                 </li>
                 <li>
-                  <button type="button" className="state english" onClick={() => studyCountryChange('english')}>
+                  <button type="button" className="state english" onClick={() => studyCountryChange('english', '미국')}>
                     <span className="blind">모국어/native language</span>
                   </button>
                 </li>
                 <li>
-                  <button type="button" className="state japanese" onClick={() => studyCountryChange('japanese')}>
+                  <button type="button" className="state japanese" onClick={() => studyCountryChange('japanese', '일본')}>
                     <span className="blind">모국어/native language</span>
                   </button>
                 </li>
@@ -75,7 +98,7 @@ export default function CountryChoice({countryChoiceClose, selectedCountryType }
             </div>
           </div>
           <div className="btn_btm">
-            <button type="button" className="country_save" onClick={handleSave}>저장</button>
+            <button type="button" className="country_save" onClick={countrySave}>저장</button>
           </div>
           <button type="button" className="btn_close" onClick={countryChoiceClose}>
             <span className="blind">닫기</span>
