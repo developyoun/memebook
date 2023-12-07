@@ -1,35 +1,48 @@
-import '../scss/common.scss';
-import './../scss/main.scss'
+import './../scss/main.scss';
+import {useEffect, useState} from "react";
 import HomeFooter from "../components/HomeFooter";
 import CountryChoice from "../components/modal/CountryChoice";
-import {useEffect, useState} from "react";
+import NickName from "../components/modal/NickName";
 
 export default function Main() {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [nicknameModalOpen, setNicknameModalOpen] = useState(true);
+  const [countryModalOpen, setCountryModalOpen] = useState(false);
   const [studyCountryType, setStudyCountryType] = useState('');
+
+  // 닉네임 설정 모달
+  const nickNameClose = ({nickNameClose}) => {
+    setNicknameModalOpen(!nicknameModalOpen);
+  }
 
   // 모달 열고 닫히기
   const countryChoiceClose = ({countryChoiceClose}) => {
-    setModalOpen(!modalOpen);
+    setCountryModalOpen(!countryModalOpen);
   }
 
   // 선택한 언어 저장
   const studyCountrySave = (selectType) => {
     setStudyCountryType(selectType);
-    setModalOpen(!modalOpen);
+    setCountryModalOpen(!countryModalOpen);
   }
 
-  // useEffect(() => {
-  //   window.scrollTo(0,0);
-  // }, []);
+  useEffect(() => {
+    window.scrollTo(0,0);
+  }, []);
 
   return (
     <>
       {
-        modalOpen && (
+        countryModalOpen && (
           <CountryChoice countryChoiceClose={countryChoiceClose} selectType={studyCountrySave}></CountryChoice>
         )
       }
+
+      {
+        nicknameModalOpen && (
+          <NickName nickNameClose={nickNameClose}></NickName>
+        )
+      }
+
       <div className="main">
         <div className="container">
           <div className="main_top">
