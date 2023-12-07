@@ -1,26 +1,22 @@
 import React from 'react';
-import { GoogleLogin } from 'react-google-login';
+import {GoogleLogin, GoogleOAuthProvider} from "@react-oauth/google";
 
-export default function YourComponent() {
-  const responseGoogle = (response) => {
-    console.log(response);
-    console.log('성공');
-  }
-
-  const errorGoogle = (response) => {
-    console.log(response);
-    console.log('실패');
-  }
+export default function Login() {
+  console.log()
 
   return (
     <div>
-      <GoogleLogin
-        clientId="737922215512-imhvrh23ct18vvnt3q4ldd95h3aca43r.apps.googleusercontent.com"
-        buttonText="Google로 로그인"
-        onSuccess={responseGoogle}
-        onFailure={errorGoogle}
-        cookiePolicy={'single_host_origin'}
-      />
+      <GoogleOAuthProvider clientId="">
+        <GoogleLogin
+          buttonText="Google로 로그인"
+          onSuccess={(res) => {
+            console.log(res)
+          }}
+          onError={()=> {
+            console.log('실패');
+          }}
+        />
+      </GoogleOAuthProvider>
     </div>
   );
 }
