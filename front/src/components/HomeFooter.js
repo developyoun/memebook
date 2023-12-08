@@ -7,7 +7,7 @@ export default function HomeFooter() {
     <footer>
       <ul className="footer_list">
         <li className="list">
-          <Link to="/" className="link home">Home</Link>
+          <Link to="/main" className="link home">Home</Link>
         </li>
         <li className="list">
           <Link to="/wordAdd" className="link word">Add</Link>

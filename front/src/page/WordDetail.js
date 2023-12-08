@@ -1,7 +1,12 @@
 import './../scss/wordDetail.scss'
 import Title from "../components/Title";
+import {useEffect} from "react";
 
 export default function WordDetail() {
+
+  useEffect(() => {
+    window.scrollTo(0,0);
+  }, []);
 
   return (
     <div className="layer">

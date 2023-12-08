@@ -10,7 +10,7 @@ function WordList() {
             <Link to="/word/1" className="item">개개개</Link>
           </li>
           <li>
-            <a href="" className="item">거거거</a>
+            <Link to="" className="item">거거거</Link>
           </li>
         </ul>
       </li>
@@ -18,7 +18,28 @@ function WordList() {
         <h3 className="word_tit">ㄴ</h3>
         <ul className="word_list">
           <li>
-            <a href="" className="item">내내내</a>
+            <Link to="" className="item">내내내</Link>
+          </li>
+          <li>
+            <Link to="" className="item">내내내</Link>
+          </li>
+          <li>
+            <Link to="" className="item">내내내</Link>
+          </li>
+          <li>
+            <Link to="" className="item">내내내</Link>
+          </li>
+          <li>
+            <Link to="" className="item">내내내</Link>
+          </li>
+          <li>
+            <Link to="" className="item">내내내</Link>
+          </li>
+          <li>
+            <Link to="" className="item">내내내</Link>
+          </li>
+          <li>
+            <Link to="" className="item">내내내</Link>
           </li>
         </ul>
       </li>
