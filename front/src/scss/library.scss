@@ -3,8 +3,9 @@
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 40px;
-
+  gap:12px 8px;
   .list {
+
     .link {
       padding: 5px 8px;
 
@@ -12,11 +13,8 @@
         color: #fff;
         font-weight: bold;
         border-radius: 48px;
-        background: #EB5757;
+        background: var(--red);
       }
-    }
-    &+.list {
-      margin-left:4px;
     }
   }
 }

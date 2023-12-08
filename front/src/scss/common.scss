@@ -1,3 +1,6 @@
+:root {
+  --red: #EB5757;
+}
 /* 공통 레이아웃 */
 .container {
   margin: 50px auto;
@@ -42,6 +45,12 @@
   border: 1px solid #B8C8BE;
   border-radius: 16px;
   box-sizing: border-box;
+}
+
+.invalid_msg {
+  margin-top:10px;
+  font-size:14px;
+  color:var(--red);
 }
 
 /* 공통 모달 폼 */

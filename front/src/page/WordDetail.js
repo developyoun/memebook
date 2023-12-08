@@ -1,10 +1,12 @@
 import './../scss/wordDetail.scss'
+import Title from "../components/Title";
 
 export default function WordDetail() {
 
   return (
     <div className="layer">
-      <div className="container">
+      <Title></Title>
+      <div className="container word_detail">
         <h1 className="word_tit">무야호</h1>
         <ul className="word_mean_list">
           <li className="list">

@@ -1,7 +1,7 @@
 import './../scss/library.scss'
 import HomeFooter from "../components/HomeFooter";
 import WordList from "../components/WordList";
-import Title from "./Title";
+import Title from "../components/Title";
 
 export default function Word() {
   return (
@@ -34,6 +34,24 @@ export default function Word() {
           </li>
           <li className="list">
             <a href="" className="link">ㅇ</a>
+          </li>
+          <li className="list">
+            <a href="" className="link">ㅈ</a>
+          </li>
+          <li className="list">
+            <a href="" className="link">ㅊ</a>
+          </li>
+          <li className="list">
+            <a href="" className="link">ㅋ</a>
+          </li>
+          <li className="list">
+            <a href="" className="link">ㅌ</a>
+          </li>
+          <li className="list">
+            <a href="" className="link">ㅍ</a>
+          </li>
+          <li className="list">
+            <a href="" className="link">ㅎ</a>
           </li>
         </ul>
         <WordList></WordList>

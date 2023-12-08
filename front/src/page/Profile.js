@@ -1,5 +1,5 @@
 import HomeFooter from "../components/HomeFooter";
-import Title from "./Title";
+import Title from "../components/Title";
 
 export default function Profile() {
   return (

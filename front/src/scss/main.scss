@@ -44,7 +44,7 @@
 }
 
 /* 메인 - 인기순위 */
-.pupular_box {
+.popular_box {
   .popular_list {
     display: flex;
     flex-direction: column;
@@ -148,7 +148,7 @@
         background: #F5F9FC;
 
         &.check {
-          background: #EB5757;
+          background: var(--red);
 
           span {
             display: none;
@@ -181,7 +181,7 @@
       }
 
       strong {
-        color: #EB5757;
+        color: var(--red);
       }
 
       & + .list {

@@ -56,7 +56,7 @@ export default function Main() {
             <input type="text" className="text_input" placeholder="단어를 검색해보세요"/>
           </div>
 
-          <div className="pupular_box">
+          <div className="popular_box">
             <h3 className="tit">💡 오늘 하루 인기 검색어 TOP </h3>
             <ul className="popular_list">
               <li>
