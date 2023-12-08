@@ -1,4 +1,4 @@
-import './../../scss/countryChoice.scss'
+import '../../scss/modal/countryChoice.scss'
 import { useDispatch, useSelector } from 'react-redux';
 import { setNativeCountryType, setStudyCountryType, setNativeCountryTxt, setStudyCountryTxt } from './../../util/action';
 
