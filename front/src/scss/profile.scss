@@ -10,7 +10,7 @@
   }
 }
 
-.user_con {
+.user_box {
   .user_tit {
     display:flex;
     align-items:center;
@@ -21,5 +21,8 @@
       margin-left:6px;
       color:var(--red)
     }
+  }
+  &+.user_box {
+    margin-top:24px;
   }
 }

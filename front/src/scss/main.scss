@@ -195,6 +195,11 @@
         background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M5.22095 2.38012L9.02428 6.18345C9.47345 6.63262 9.47345 7.36762 9.02428 7.81678L5.22095 11.6201' stroke='%23406A52' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat;
         content: '';
       }
+      &.visit {
+        &:after {
+          content:none;
+        }
+      }
     }
   }
 }

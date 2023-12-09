@@ -1,8 +1,13 @@
 import './../scss/wordDetail.scss'
 import Title from "../components/Title";
-import {useEffect} from "react";
+import {useState, useEffect} from "react";
 
 export default function WordDetail() {
+  const [scrapeCheck, setScrapeCheck] = useState(false);
+
+  const ScrapeBtn = () => {
+    setScrapeCheck(!scrapeCheck);
+  }
 
   useEffect(() => {
     window.scrollTo(0,0);
@@ -19,7 +24,7 @@ export default function WordDetail() {
               <span className="name">김누징</span>
               <ul className="util_list">
                 <li>
-                  <button type="button" className="btn_scrape">
+                  <button type="button" className={`btn_scrape ${scrapeCheck ? 'active' : ''}`} onClick={ScrapeBtn}>
                     <span className="blind">스크랩</span>
                   </button>
                 </li>

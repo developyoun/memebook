@@ -1,4 +1,5 @@
 import './../scss/main.scss';
+import {Link} from 'react-router-dom';
 import {useEffect, useState} from "react";
 import HomeFooter from "../components/HomeFooter";
 import CountryChoice from "../components/modal/CountryChoice";
@@ -110,14 +111,19 @@ export default function Main() {
 
           <ul className="check_list">
             <li className="list">
-              <a href="" className="link">
+              <Link to="" className="link">
                 ✏ 지금까지 <strong>3</strong>개의 단어를 등록했어요
-              </a>
+              </Link>
             </li>
             <li className="list">
-              <a href="" className="link">
+              <Link to="" className="link">
+                아직 스크랩한 단어가 없어요
+              </Link>
+            </li>
+            <li className="list visit">
+              <p className="link">
                 🏡 연속 방문 최대 <strong>12</strong>번을 달성했어요
-              </a>
+              </p>
             </li>
           </ul>
         </div>
