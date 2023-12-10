@@ -1,10 +1,15 @@
 import './../scss/wordDetail.scss'
 import Title from "../components/Title";
 import {useState, useEffect} from "react";
+import CommentPort from "../components/modal/CommentPort";
 
 export default function WordDetail() {
   const [scrapeCheck, setScrapeCheck] = useState(false);
+  const [reportOpen, setReportOpen] = useState(false);
 
+  const commentReportOpen = ({commentPortClose}) => {
+    setReportOpen(!reportOpen);
+  }
   const ScrapeBtn = () => {
     setScrapeCheck(!scrapeCheck);
   }
@@ -15,6 +20,11 @@ export default function WordDetail() {
 
   return (
     <div className="layer">
+      {
+        reportOpen && (
+          <CommentPort></CommentPort>
+        )
+      }
       <Title></Title>
       <div className="container word_detail">
         <h1 className="word_tit">무야호</h1>
@@ -41,7 +51,7 @@ export default function WordDetail() {
                   <span className="count">1</span>
                 </li>
                 <li>
-                  <button type="button" className="btn_report">
+                  <button type="button" className="btn_report" onClick={commentReportOpen}>
                     <span className="blind">신고하기</span>
                   </button>
                 </li>
