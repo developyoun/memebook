@@ -8,13 +8,22 @@ export default function CommentPort({commentPortClose}) {
         <h2 className="report_tit">신고하기</h2>
         <ul className="report_list">
           <li>
-            부적절한 홍보
+            <div className="check_label">
+              <input id="report_01" type="checkbox"/>
+              <label htmlFor="report_01">부적절한 홍보</label>
+            </div>
           </li>
           <li>
-            개인정보 노출
+            <div className="check_label">
+              <input id="report_02" type="checkbox"/>
+              <label htmlFor="report_02">개인정보 노출</label>
+            </div>
           </li>
           <li>
-            단어와 맞지 않는 설명
+            <div className="check_label">
+              <input id="report_03" type="checkbox"/>
+              <label htmlFor="report_03">단어와 맞지 않는 설명</label>
+            </div>
           </li>
         </ul>
         <div className="btn_btm">

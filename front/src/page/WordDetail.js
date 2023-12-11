@@ -22,7 +22,7 @@ export default function WordDetail() {
     <div className="layer">
       {
         reportOpen && (
-          <CommentPort></CommentPort>
+          <CommentPort commentPortClose={commentReportOpen}></CommentPort>
         )
       }
       <Title></Title>

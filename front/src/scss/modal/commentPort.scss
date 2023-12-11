@@ -19,3 +19,12 @@
     }
   }
 }
+
+.report_list {
+  padding:24px 0;
+  li {
+    &+li {
+      margin-top:12px;
+    }
+  }
+}
