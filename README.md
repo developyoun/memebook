@@ -7,8 +7,26 @@
 ## Front-End *👩 김유진*
 
 ### ⚙️ Stack
+- React 18.2
+- Typescript 5.3.3
+- Javascript
+- HTML
+- SCSS
 
+### Installation
+```
+npm install --save react-router-dom redux react-redux @leecheuk/react-google-login typescript @types/react @types/react-dom @types/react-router-dom
+```
 
+### Verson
+```
+react-dom: 18.2.0
+react-redux: 9.0.2
+react-router-dom: 6.20.1
+react-scripts: 5.0.1
+redux-thunk: 3.0.1
+sass: 1.69.5
+```
 
 ----
 

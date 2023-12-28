@@ -1,46 +1,64 @@
-import './../App.css';
-import Footer from "../components/Footer";
+import './../scss/library.scss'
+import HomeFooter from "../components/HomeFooter";
 import WordList from "../components/WordList";
+import Title from "../components/Title";
 
-function Word() {
-    return (
-        <div className="layer">
-            <div className="layer_header">
-                <h1 className="tit">사전</h1>
-            </div>
-            <div className="container">
-                <ul className="consonant_list">
-                    <li className="list">
-                        <a href="" className="link active">ㄱ</a>
-                    </li>
-                    <li className="list">
-                        <a href="" className="link">ㄴ</a>
-                    </li>
-                    <li className="list">
-                        <a href="" className="link">ㄷ</a>
-                    </li>
-                    <li className="list">
-                        <a href="" className="link">ㄹ</a>
-                    </li>
-                    <li className="list">
-                        <a href="" className="link">ㅁ</a>
-                    </li>
-                    <li className="list">
-                        <a href="" className="link">ㅂ</a>
-                    </li>
-                    <li className="list">
-                        <a href="" className="link">ㅅ</a>
-                    </li>
-                    <li className="list">
-                        <a href="" className="link">ㅇ</a>
-                    </li>
-                </ul>
-                <WordList></WordList>
-            </div>
+export default function Word() {
+  return (
+    <div className="layer">
 
-            <Footer></Footer>
-        </div>
-    );
+      <Title title="사전"></Title>
+
+      <div className="container">
+        <ul className="consonant_list">
+          <li className="list">
+            <a href="" className="link active">ㄱ</a>
+          </li>
+          <li className="list">
+            <a href="" className="link">ㄴ</a>
+          </li>
+          <li className="list">
+            <a href="" className="link">ㄷ</a>
+          </li>
+          <li className="list">
+            <a href="" className="link">ㄹ</a>
+          </li>
+          <li className="list">
+            <a href="" className="link">ㅁ</a>
+          </li>
+          <li className="list">
+            <a href="" className="link">ㅂ</a>
+          </li>
+          <li className="list">
+            <a href="" className="link">ㅅ</a>
+          </li>
+          <li className="list">
+            <a href="" className="link">ㅇ</a>
+          </li>
+          <li className="list">
+            <a href="" className="link">ㅈ</a>
+          </li>
+          <li className="list">
+            <a href="" className="link">ㅊ</a>
+          </li>
+          <li className="list">
+            <a href="" className="link">ㅋ</a>
+          </li>
+          <li className="list">
+            <a href="" className="link">ㅌ</a>
+          </li>
+          <li className="list">
+            <a href="" className="link">ㅍ</a>
+          </li>
+          <li className="list">
+            <a href="" className="link">ㅎ</a>
+          </li>
+        </ul>
+        <WordList></WordList>
+      </div>
+
+      <HomeFooter></HomeFooter>
+    </div>
+  );
 }
 
-export default Word;

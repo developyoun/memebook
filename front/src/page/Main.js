@@ -1,136 +1,136 @@
-import './../App.css';
-import Footer from "../components/Footer";
+import './../scss/main.scss';
+import {Link} from 'react-router-dom';
+import {useEffect, useState} from "react";
+import HomeFooter from "../components/HomeFooter";
+import CountryChoice from "../components/modal/CountryChoice";
+import NickName from "../components/modal/NickName";
 
-function Main() {
-    return (
-        <div>
-            <div className="main">
-                <div className="container">
-                    <div className="main_top">
-                        <button type="button" className="user_country">
-                            <span className="blind">나라 선택</span>
-                        </button>
-                        Let's Find Your<br/>Words!
-                    </div>
+export default function Main() {
+  const [nicknameModalOpen, setNicknameModalOpen] = useState(true);
+  const [countryModalOpen, setCountryModalOpen] = useState(false);
+  const [studyCountryType, setStudyCountryType] = useState('');
 
-                    <div className="search_box">
-                        <input type="text" className="text_input" placeholder="단어를 검색해보세요"/>
-                    </div>
+  // 닉네임 설정 모달
+  const nickNameClose = ({nickNameClose}) => {
+    setNicknameModalOpen(!nicknameModalOpen);
+  }
 
-                    <div className="pupular_box">
-                        <h3 className="tit">💡 오늘 하루 인기 검색어 TOP  </h3>
-                        <ul className="popular_list">
-                            <li>
-                                <a href="" className="keyword">
-                                    인싸
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" className="keyword">
-                                    인싸
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" className="keyword">
-                                    인싸
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" className="keyword">
-                                    인싸
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" className="keyword">
-                                    인싸
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" className="keyword">
-                                    인싸
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" className="keyword">
-                                    인싸
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" className="keyword">
-                                    인싸
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" className="keyword">
-                                    인싸
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" className="keyword">
-                                    인싸
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+  // 모달 열고 닫히기
+  const countryChoiceClose = ({countryChoiceClose}) => {
+    setCountryModalOpen(!countryModalOpen);
+  }
 
-                    <div className="daily_box">
-                        <h3 className="tit">🌻 출석체크</h3>
-                        <ul className="daily_list">
-                            <li>
-                                <div className="day check">
-                                    <span>월</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="day">
-                                    <span>화</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="day">
-                                    <span>수</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="day">
-                                    <span>목</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="day">
-                                    <span>금</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="day">
-                                    <span>토</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="day">
-                                    <span>일</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+  // 선택한 언어 저장
+  const studyCountrySave = (selectType) => {
+    setStudyCountryType(selectType);
+    setCountryModalOpen(!countryModalOpen);
+  }
 
-                    <ul className="check_list">
-                        <li className="list">
-                            <a href="" className="link">
-                                ✏ 지금까지 <strong>3</strong>개의 단어를 등록했어요
-                            </a>
-                        </li>
-                        <li className="list">
-                            <a href="" className="link">
-                                🏡 연속 방문 최대 <strong>12</strong>번을 달성했어요
-                            </a>
-                        </li>
-                    </ul>
+  useEffect(() => {
+    window.scrollTo(0,0);
+  }, []);
+
+  return (
+    <>
+      {
+        countryModalOpen && (
+          <CountryChoice countryChoiceClose={countryChoiceClose} selectType={studyCountrySave}></CountryChoice>
+        )
+      }
+
+      {
+        nicknameModalOpen && (
+          <NickName nickNameClose={nickNameClose}></NickName>
+        )
+      }
+
+      <div className="main">
+        <div className="container">
+          <div className="main_top">
+            <button type="button" className={`user_country ${studyCountryType}`} onClick={countryChoiceClose}>
+              <span className="blind">나라 선택</span>
+            </button>
+            Let's Find Your<br/>Words!
+          </div>
+
+          <div className="search_box">
+            <input type="text" className="text_input" placeholder="단어를 검색해보세요"/>
+          </div>
+
+          <div className="popular_box">
+            <h3 className="tit">💡 오늘 하루 인기 검색어 TOP </h3>
+            <ul className="popular_list">
+              <li>
+                <a href="" className="keyword">
+                  인싸
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="daily_box">
+            <h3 className="tit">🌻 출석체크</h3>
+            <ul className="daily_list">
+              <li>
+                <div className="day check">
+                  <span>월</span>
                 </div>
-            </div>
-            <Footer></Footer>
-        </div>
-    );
-}
+              </li>
+              <li>
+                <div className="day">
+                  <span>화</span>
+                </div>
+              </li>
+              <li>
+                <div className="day">
+                  <span>수</span>
+                </div>
+              </li>
+              <li>
+                <div className="day">
+                  <span>목</span>
+                </div>
+              </li>
+              <li>
+                <div className="day">
+                  <span>금</span>
+                </div>
+              </li>
+              <li>
+                <div className="day">
+                  <span>토</span>
+                </div>
+              </li>
+              <li>
+                <div className="day">
+                  <span>일</span>
+                </div>
+              </li>
+            </ul>
+          </div>
 
-export default Main;
+          <ul className="check_list">
+            <li className="list">
+              <Link to="" className="link">
+                ✏ 지금까지 <strong>3</strong>개의 단어를 등록했어요
+              </Link>
+            </li>
+            <li className="list">
+              <Link to="" className="link">
+                아직 스크랩한 단어가 없어요
+              </Link>
+            </li>
+            <li className="list visit">
+              <p className="link">
+                🏡 연속 방문 최대 <strong>12</strong>번을 달성했어요
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <HomeFooter></HomeFooter>
+
+    </>
+  );
+}

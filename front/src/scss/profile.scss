@@ -1,0 +1,28 @@
+.user_info {
+  margin-bottom:24px;
+  padding-bottom:24px;
+  border-bottom:1px solid #ddd;
+  .name {
+    font-size:24px
+  }
+  .visit_count {
+    margin-top:16px;
+  }
+}
+
+.user_box {
+  .user_tit {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:12px;
+    .count {
+      display:inline-block;
+      margin-left:6px;
+      color:var(--red)
+    }
+  }
+  &+.user_box {
+    margin-top:24px;
+  }
+}
