@@ -17,14 +17,14 @@ public class MemberController {
 
     // 신규 회원 생성 (회원가입)
     @PostMapping("/create")
-    public ResponseDto createMemberController(@RequestBody MemberDto memberDto) {
+    public ResponseDto createMember(@RequestBody MemberDto memberDto) {
         log.info("### Create New Member: {}", memberDto);
 
         return ResponseDto.of(memberService.createMemberService(memberDto));
     }
 
     @GetMapping("/exist")
-    public ResponseDto existMemberNicknameController(@RequestParam String nickname) {
+    public ResponseDto existMemberNickname(@RequestParam String nickname) {
         log.info("### Check Exist Nickname: {}", nickname);
 
         return ResponseDto.of(memberService.isExistNickname(nickname));

@@ -2,8 +2,8 @@ package meme.book.back;
 
 import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.WordDto;
+import meme.book.back.repository.TestInterface;
 import meme.book.back.service.WordService;
-import meme.book.back.utils.DatetimeUtils;
 import meme.book.back.utils.NationCode;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,14 @@ public class WordTest {
     @Autowired
     WordService wordService;
 
+    @Autowired
+    TestInterface testInterface;
+
     @Test
     void createWordTest() {
+
+        testInterface.test();
+
         LocalDateTime now = LocalDateTime.now();
         log.info("### Now: {}", now);
 
