@@ -16,9 +16,9 @@ spring:
       on-profile: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    jdbc-url: ENC(yH6GXym65OL5z8WzA4N9IAmNgjIDKnh6i4+YKtWySvQh5JwkOgR9/Q==)
-    username: ENC(5IjygS93BN8NrhBcXCw1Qh5AGG4FMEL7)
-    password: ENC(QOmdI98Tlby5UR+hI+yq6YRut9tf5Bvn)
+    jdbc-url: ENC(rArQ8g1hmfOG2cd1OXBzngPH7WDqPo/7OcbfS9cIOsmCqZSrCy6lHg==)
+    username: ENC(HZSF5UjiWuyTmPgUcfGf01H9EZ7l4lKi)
+    password: ENC(VvsJNkYIify/HqVOCIBRXlq12D6ehHPa)
   jpa:
     properties:
       hibernate:
@@ -33,9 +33,9 @@ spring:
       on-profile: dev
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    jdbc-url: ENC(yH6GXym65OL5z8WzA4N9IAmNgjIDKnh6i4+YKtWySvQh5JwkOgR9/Q==)
-    username: ENC(5IjygS93BN8NrhBcXCw1Qh5AGG4FMEL7)
-    password: ENC(QOmdI98Tlby5UR+hI+yq6YRut9tf5Bvn)
+    jdbc-url: ENC(rArQ8g1hmfOG2cd1OXBzngPH7WDqPo/7OcbfS9cIOsmCqZSrCy6lHg==)
+    username: ENC(HZSF5UjiWuyTmPgUcfGf01H9EZ7l4lKi)
+    password: ENC(VvsJNkYIify/HqVOCIBRXlq12D6ehHPa)
   jpa:
     properties:
       hibernate:
