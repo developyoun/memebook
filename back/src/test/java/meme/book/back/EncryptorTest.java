@@ -18,6 +18,7 @@ public class EncryptorTest {
     @Test
     void encryptTest() {
         StringEncryptor encryptor = encryptConfig.jasyptEncryptor();
+        System.out.println(encryptor.decrypt("d6tFslBknyZIPphKepbf84F5gB67xFWAlXiXv/wSWSJNDYnsq/QNu9dM9UJOQySt"));
         System.out.println(encryptor.decrypt("HZSF5UjiWuyTmPgUcfGf01H9EZ7l4lKi"));
         System.out.println(encryptor.decrypt("VvsJNkYIify/HqVOCIBRXlq12D6ehHPa"));
     }

@@ -16,7 +16,7 @@ spring:
       on-profile: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    jdbc-url: ENC(rArQ8g1hmfOG2cd1OXBzngPH7WDqPo/7OcbfS9cIOsmCqZSrCy6lHg==)
+    jdbc-url: ENC(d6tFslBknyZIPphKepbf84F5gB67xFWAlXiXv/wSWSJNDYnsq/QNu9dM9UJOQySt)
     username: ENC(HZSF5UjiWuyTmPgUcfGf01H9EZ7l4lKi)
     password: ENC(VvsJNkYIify/HqVOCIBRXlq12D6ehHPa)
   jpa:
