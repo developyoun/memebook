@@ -15,7 +15,7 @@
 
 ### Installation
 ```
-npm install --save react-router-dom redux react-redux @leecheuk/react-google-login typescript @types/react @types/react-dom @types/react-router-dom
+npm install
 ```
 
 ### Verson
