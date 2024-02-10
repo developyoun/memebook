@@ -2,6 +2,7 @@ package meme.book.back.dto;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import meme.book.back.utils.ErrorCode;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -33,5 +34,11 @@ public class ResponseDto {
                 .setData(data);
     }
 
+    public static ResponseDto error(ErrorCode errorCode) {
+        return new ResponseDto()
+                .setStatus(errorCode.getStatus())
+                .setMessage(errorCode.getMessage())
+                .setData(null);
+    }
 
 }

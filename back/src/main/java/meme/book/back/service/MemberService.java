@@ -3,9 +3,13 @@ package meme.book.back.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.MemberDto;
+import meme.book.back.dto.ResponseDto;
 import meme.book.back.entity.MembersEntity;
 import meme.book.back.repository.MemberRepository;
+import meme.book.back.utils.ErrorCode;
+import meme.book.back.utils.NationCode;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -15,18 +19,60 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     // 신규 회원 생성
+    @Transactional
     public MemberDto createMemberService(MemberDto memberDto) {
-        MembersEntity membersEntity = memberRepository.save(new MembersEntity(memberDto));
+        MembersEntity membersEntity = memberRepository.save(new MembersEntity());
         log.info("### Create New Member: {}", membersEntity);
 
         return MemberDto.toDto(membersEntity);
     }
 
     // 중복 닉네임 체크
-    public Boolean isExistNickname(String nickname) {
-        Boolean isExist = memberRepository.existsByNickname(nickname);
+    @Transactional(readOnly = true)
+    public boolean isExistNickname(String nickname) {
+        boolean isExist = memberRepository.existsByNickname(nickname);
         log.info("### Check Member nickname: {}, Exist: {}", nickname, isExist);
 
-        return isExist;
+        return memberRepository.existsByNickname(nickname);
     }
+
+    // 신규 닉네임 생성
+    @Transactional
+    public ResponseDto saveNickname(String nickname) {
+        // 기존 닉네임 존재시 에러 반환
+        if (isExistNickname(nickname)) {
+            log.info("### 이미 존재하는 닉네임입니다. Nickname: {}", nickname);
+            return ResponseDto.error(ErrorCode.ALREADY_EXIST_NICKNAME);
+        }
+
+        MembersEntity member = new MembersEntity().setNickname(nickname);
+        memberRepository.save(member);
+
+        log.info("### Complete Save Nickname: {}", nickname);
+        return ResponseDto.of(member.getNickname());
+    }
+
+    // 저장된 국가 코드 조회
+    @Transactional(readOnly = true)
+    public ResponseDto getNationCodeByMemberIdx(String memberIdx) {
+        MembersEntity member = memberRepository.findByMemberIdx(Long.parseLong(memberIdx));
+        log.info("### member: {}", member);
+
+        return ResponseDto.of(MemberDto.toDto(member));
+    }
+
+    // 회원 국가 변경
+    @Transactional
+    public ResponseDto updateNationByMemberIdx(Long memberIdx, NationCode hostNation, NationCode targetNation) {
+        MembersEntity member = memberRepository.findByMemberIdx(memberIdx);
+
+        member.setHostNation(hostNation);
+        member.setTargetNation(targetNation);
+        memberRepository.save(member);
+        log.info("### Complete update Nation: memberIdx: {}, host nation: {}, target nation: {}", memberIdx, hostNation, targetNation);
+
+        return ResponseDto.of(MemberDto.toDto(member));
+
+    }
+
 }

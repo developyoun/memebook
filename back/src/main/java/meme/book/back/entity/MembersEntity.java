@@ -3,6 +3,7 @@ package meme.book.back.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import lombok.experimental.Accessors;
 import meme.book.back.dto.MemberDto;
 import meme.book.back.utils.NationCode;
 import org.springframework.data.annotation.CreatedDate;
@@ -10,10 +11,12 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+@Accessors(chain = true)
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter // 삭제 예정
 @Getter
 @ToString
 @EntityListeners(AuditingEntityListener.class)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "members")
 public class MembersEntity {
@@ -25,12 +28,10 @@ public class MembersEntity {
     private Long memberIdx;
 
     // 회원 ID
-    @NotNull
     @Column(name = "MEMBER_ID")
     private String memberId;
 
     // 회원 PW
-    @NotNull
     @Column(name = "MEMBER_PW")
     private String memberPw;
 
@@ -44,26 +45,19 @@ public class MembersEntity {
     private String imgUrl;
 
     // 회원 소속 국가
-    @NotNull
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "NATION")
-    private NationCode nationCode;
+    @Column(name = "HOST_NATION")
+    private NationCode hostNation = NationCode.KOR;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "TARGET_NATION")
+    private NationCode targetNation = NationCode.ALL;
 
     // 회원 가입일
     @CreatedDate
     @Column(name = "MEMBER_REG_DTM")
     private LocalDateTime memberRegDtm;
 
-    @Builder
-    public MembersEntity(MemberDto memberDto) {
-        this.memberIdx = memberDto.getMemberIdx();
-        this.memberId = memberDto.getMemberId();
-        this.memberPw = memberDto.getMemberPw();
-        this.nickname = memberDto.getNickname();
-        this.imgUrl = memberDto.getImgUrl();
-        this.nationCode = memberDto.getNationCode();
-        this.memberRegDtm = memberDto.getMemberRegDtm();
-    }
-
 }
+
 

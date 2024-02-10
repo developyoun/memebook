@@ -27,8 +27,11 @@ public class MemberDto {
     // 프로필 이미지
     private String imgUrl;
 
-    // 회원 소속 국가
-    private NationCode nationCode;
+    // 회원 국가
+    private NationCode hostNation;
+
+    // 대상 국가
+    private NationCode targetNation;
 
     // 회원 가입일
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
@@ -41,7 +44,8 @@ public class MemberDto {
                 .setMemberPw(membersEntity.getMemberPw())
                 .setNickname(membersEntity.getNickname())
                 .setImgUrl(membersEntity.getImgUrl())
-                .setNationCode(membersEntity.getNationCode())
+                .setHostNation(membersEntity.getHostNation())
+                .setTargetNation(membersEntity.getTargetNation())
                 .setMemberRegDtm(membersEntity.getMemberRegDtm());
     }
 }
