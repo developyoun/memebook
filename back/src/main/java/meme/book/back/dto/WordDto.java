@@ -15,30 +15,40 @@ public class WordDto {
     // 단어 고유 번호
     private Long wordIdx;
 
-    // 기존 단어
-    private String originWord;
+    // 단어명
+    private String wordTitle;
 
-    // 결과 단어
-    private String resultWord;
+    // 단어 설명
+    private String wordContent;
 
     // 단어 국가
     private NationCode wordNation;
 
     // 단어 등록자
-    private Long wordRegMem;
+    private Long regMem;
 
     // 단어 등록일
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-    private LocalDateTime wordRegDtm;
+    private LocalDateTime regDtm;
+
+    // 단어 수정자
+    private Long modMem;
+
+    // 단어 수정일
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+    private LocalDateTime modDtm;
 
     // entity -> DTO
     public static WordDto toDto(WordsEntity wordsEntity) {
         return new WordDto()
                 .setWordIdx(wordsEntity.getWordIdx())
-                .setOriginWord(wordsEntity.getOriginWord())
-                .setResultWord(wordsEntity.getResultWord())
+                .setWordTitle(wordsEntity.getWordTitle())
+                .setWordContent(wordsEntity.getWordContent())
                 .setWordNation(wordsEntity.getWordNation())
-                .setWordRegMem(wordsEntity.getWordRegMem())
-                .setWordRegDtm(wordsEntity.getWordRegDtm());
+                .setRegMem(wordsEntity.getRegMem())
+                .setRegDtm(wordsEntity.getRegDtm())
+                .setModMem(wordsEntity.getModMem())
+                .setModDtm(wordsEntity.getModDtm())
+                ;
     }
 }

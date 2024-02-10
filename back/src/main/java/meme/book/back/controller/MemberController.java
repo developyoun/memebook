@@ -18,32 +18,24 @@ public class MemberController {
 
     @PostMapping("/create/nickname")
     public ResponseDto createNicknameController(@RequestParam String nickname) {
-        log.info("### Create Nickname: {}", nickname);
-
         return memberService.saveNickname(nickname);
     }
 
     // 신규 회원 생성 (회원가입)
     @PostMapping("/create")
     public ResponseDto createMemberController(@RequestBody MemberDto memberDto) {
-        log.info("### Create New Member: {}", memberDto);
-
         return ResponseDto.of(memberService.createMemberService(memberDto));
     }
 
     // 닉네임 존재 유무 조회
     @GetMapping("/exist/nickname")
     public ResponseDto existNicknameController(@RequestParam String nickname) {
-        log.info("### Check Exist Nickname: {}", nickname);
-
         return ResponseDto.of(memberService.isExistNickname(nickname));
     }
 
     // 국가 조회
     @GetMapping("/nation")
     public ResponseDto getNationCodeController(@RequestParam String memberIdx) {
-        log.info("### Find Nation Code By MemberIdx: {}", memberIdx);
-
         return ResponseDto.of(memberService.getNationCodeByMemberIdx(memberIdx));
     }
 
@@ -52,8 +44,6 @@ public class MemberController {
     public ResponseDto updateMember(@RequestParam Long memberIdx,
                                     @RequestParam NationCode hostNation,
                                     @RequestParam NationCode targetNation) {
-        log.info("### Update Nation memberIdx: {}, host nation: {}, target nation: {}", memberIdx, hostNation, targetNation);
-
         return memberService.updateNationByMemberIdx(memberIdx, hostNation, targetNation);
     }
 }

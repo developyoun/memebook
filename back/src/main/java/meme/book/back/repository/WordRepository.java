@@ -10,4 +10,6 @@ public interface WordRepository extends JpaRepository<WordsEntity, Long> {
 
     Page<WordsEntity> findAllByWordNationEquals(NationCode nationCode, Pageable pages);
 
+    // 단어 단일 조회
+    WordsEntity findByWordIdx(Long wordIdx);
 }

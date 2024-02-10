@@ -1,5 +1,6 @@
 package meme.book.back.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.ResponseDto;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/word")
+@RequestMapping("api/word")
 public class WordController {
 
     private final WordService wordService;
@@ -28,12 +29,16 @@ public class WordController {
         return ResponseDto.of(wordService.getWordListService(nationCode, pages));
     }
 
-    // 단어 등록 API
+    // 단어 등록 Controller
     @PostMapping("/create")
     public ResponseDto createWordController(@RequestBody WordDto requestWordDto) {
-        log.info("Request Word: {}", requestWordDto);
+        return wordService.createWordService(requestWordDto);
+    }
 
-        return ResponseDto.of(wordService.createWordService(requestWordDto));
+    // 단어 수정 Controller
+    @PutMapping("/update")
+    public ResponseDto updateWordController(@RequestBody WordDto requestWordDto) {
+        return wordService.updateWordService(requestWordDto);
     }
 
 }
