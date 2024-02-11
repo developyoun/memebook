@@ -5,10 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.ResponseDto;
 import meme.book.back.dto.WordDto;
 import meme.book.back.entity.WordsEntity;
+import meme.book.back.exception.CustomException;
 import meme.book.back.repository.WordRepository;
+import meme.book.back.utils.ErrorCode;
 import meme.book.back.utils.NationCode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +21,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class WordService {
 
     private final WordRepository wordRepository;
+
+    @Transactional(readOnly = true)
+    public ResponseDto getWordService(Long wordIdx) {
+        WordsEntity word = wordRepository.findByWordIdx(wordIdx)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_WORD));
+        log.info("### Get Word: {}", word);
+
+        return ResponseDto.of(WordDto.toDto(word));
+    }
+
 
     @Transactional(readOnly = true)
     public Page<WordDto> getWordListService(NationCode nationCode, Pageable pages) {
@@ -36,7 +49,6 @@ public class WordService {
     // 단어 생성
     @Transactional
     public ResponseDto createWordService(WordDto requestWordDto) {
-
         WordsEntity wordsEntity = wordRepository.save(new WordsEntity(requestWordDto));
         log.info("### Create New Word: {}", wordsEntity);
 
@@ -46,7 +58,8 @@ public class WordService {
     // 단어 수정
     @Transactional
     public ResponseDto updateWordService(WordDto wordDto) {
-        WordsEntity word = wordRepository.findByWordIdx(wordDto.getWordIdx());
+        WordsEntity word = wordRepository.findByWordIdx(wordDto.getWordIdx())
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_WORD));
         log.info("### Find word: {}", word);
 
         word.setWordTitle(wordDto.getWordTitle())

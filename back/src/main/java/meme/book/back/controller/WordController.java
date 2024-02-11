@@ -19,6 +19,12 @@ public class WordController {
 
     private final WordService wordService;
 
+    // 단일 단어 조회
+    @GetMapping("/{wordIdx}")
+    public ResponseDto getWordController(@PathVariable Long wordIdx) {
+        return wordService.getWordService(wordIdx);
+    }
+
     // 단어 리스트 조회
     @GetMapping("/list/{nationCode}")
     public ResponseDto getWordListController(@PathVariable NationCode nationCode,
