@@ -1,14 +1,14 @@
 ## ✅ API 문서
 
-| 분류 | URL                                                          | 메소드 | 설명             | 비고 |
-| ---- | ------------------------------------------------------------ | ------ | ---------------- | ---- |
-| 회원 | [api/member/create/nickname?nickname={닉네임}](#1.-회원-닉네임-생성) | POST   | 닉네임 생성      |      |
-| 회원 | [api/member/exist/nickname?nickname={닉네임}](#2.닉네임-중복-조회) | GET    | 닉네임 중복 조회 |      |
-| 회원 | [api/member/nation?memberIdx={회원번호}](#3.-회원-국가-조회) | GET    | 회원 국가 조회   |      |
-| 회원 | [api/member/update/nation?memberIdx={회원번호}&originNation={원래 국가}&targetNation={대상 국가}](#4.-회원-국가-변경) | PUT    | 회원 국가 변경   |      |
-| 단어 | [api/word/list/{국가명}](#5.-단어-리스트-조회)               | GET    | 단어 리스트 조회 |      |
-| 단어 | [api/word/create](#6.-단어-생성)                             | POST   | 단어 생성        |      |
-| 단어 | [api/word/update](#7.-단어-수정)                             | PUT    | 단어 수정        |      |
+| 분류 | URL                        | 메소드 | 설명             | 비고                                               |
+| ---- | -------------------------- | ------ | ---------------- | -------------------------------------------------- |
+| 회원 | api/member/create/nickname | POST   | 닉네임 생성      | - nickname                                         |
+| 회원 | api/member/exist/nickname  | GET    | 닉네임 중복 조회 | - nickname                                         |
+| 회원 | api/member/nation          | GET    | 회원 국가 조회   | - memberIdx                                        |
+| 회원 | *api/member/update/nation* | PUT    | 회원 국가 변경   | - memberIdx<br />- originNation<br />- tagetNation |
+| 단어 | *api/word/list*            | GET    | 단어 리스트 조회 |                                                    |
+| 단어 | *api/word/create*          | POST   | 단어 생성        |                                                    |
+| 단어 | *api/word/update*          | PUT    | 단어 수정        |                                                    |
 
 ### ✨회원
 
@@ -265,4 +265,3 @@ URL: ***api/word/update***
 }
 ``````
 
-### 
