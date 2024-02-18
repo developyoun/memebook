@@ -56,7 +56,7 @@
 {
   "status": "OK",
   "message": "Success",
-  "data": true (또는 false)
+  "data": true // (또는 false)
 }
 ``````
 
@@ -158,7 +158,7 @@
         "modMem": null,
         "modDtm": null
       },
-      ...
+      //...
     ],
     "pageable": {
       "pageNumber": 0,
@@ -201,11 +201,11 @@ URL: ***api/word/create***
 
 ``````json
 {
-  wordTitle: "웃찾사",		// 단어명
-  wordContent: "웃음을 찾는 사람들의 줄임말로 대한민국의...",		// 단어 설명
- 	wordNation: "KOR",		// 단어 국가 분류
-  RegMem: 123123,		// 등록 회원 번호
-  ModMem: 123123,		// 수정 회원 번호 (초기 등록시, 등록 회원 번호와 동일)
+  "wordTitle": "웃찾사",		// 단어명
+  "wordContent": "웃음을 찾는 사람들의 줄임말로 대한민국의...",		// 단어 설명
+  "wordNation": "KOR",		// 단어 국가 분류
+  "RegMem": 123123,		// 등록 회원 번호
+  "ModMem": 123123,		// 수정 회원 번호 (초기 등록시, 등록 회원 번호와 동일)
 }
 ``````
 
@@ -216,14 +216,14 @@ URL: ***api/word/create***
   "status": "OK",
   "message": "Success",
   "data": {
-		wordIdx: 123123,
-    wordTitle: "웃찾사",
-    wordContent: "웃음을 찾는 사람들의 줄임말로 대한민국의...",
-    wordNation: "KOR",
-    regMem: 123123,
-    modMem: 123123,
-    RegDtm: "2024-02-18 12:02:44",
-		modDtm: "2024-02-18 12:02:44"
+    "wordIdx": 123123,
+    "wordTitle": "웃찾사",
+    "wordContent": "웃음을 찾는 사람들의 줄임말로 대한민국의...",
+    "wordNation": "KOR",
+    "regMem": 123123,
+    "modMem": 123123,
+    "RegDtm": "2024-02-18 12:02:44",
+		"modDtm": "2024-02-18 12:02:44"
   }
 }
 ``````
@@ -238,11 +238,11 @@ URL: ***api/word/update***
 
 ``````json
 {
-  wordIdx: 119
-  wordTitle: "우찻아",		// 단어명
-  wordContent: "웃찾사의 후속작...",		// 단어 설명
- 	wordNation: "KOR",		// 단어 국가 분류
-  ModMem: 321321,		// 수정 회원 번호 (초기 등록시, 등록 회원 번호와 동일)
+  "wordIdx": 119
+  "wordTitle": "우찻아",		// 단어명
+  "wordContent": "웃찾사의 후속작...",		// 단어 설명
+  "wordNation": "KOR",		// 단어 국가 분류
+  "ModMem": 321321,		// 수정 회원 번호 (초기 등록시, 등록 회원 번호와 동일)
 }
 ``````
 
@@ -253,14 +253,14 @@ URL: ***api/word/update***
   "status": "OK",
   "message": "Success",
   "data": {
-		wordIdx: 119,
-    wordTitle: "우찾아",
-    wordContent: "웃찾사의 후속작...",
-    wordNation: "KOR",
-    regMem: 123123,
-    modMem: 321321,
-    RegDtm: "2024-02-18 12:02:44",
-		modDtm: "2024-02-20 09:56:53"
+    "wordIdx": 119,
+    "wordTitle": "우찾아",
+    "wordContent": "웃찾사의 후속작...",
+    "wordNation": "KOR",
+    "regMem": 123123,
+    "modMem": 321321,
+    "RegDtm": "2024-02-18 12:02:44",
+		"modDtm": "2024-02-20 09:56:53"
   }
 }
 ``````
