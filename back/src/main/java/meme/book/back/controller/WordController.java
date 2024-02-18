@@ -1,6 +1,5 @@
 package meme.book.back.controller;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.ResponseDto;
@@ -18,6 +17,12 @@ import org.springframework.web.bind.annotation.*;
 public class WordController {
 
     private final WordService wordService;
+
+    // 단일 단어 조회
+    @GetMapping("/{wordIdx}")
+    public ResponseDto getWordController(@PathVariable Long wordIdx) {
+        return wordService.getWordService(wordIdx);
+    }
 
     // 단어 리스트 조회
     @GetMapping("/list/{nation}")
