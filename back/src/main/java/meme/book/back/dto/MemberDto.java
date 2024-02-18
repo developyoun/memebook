@@ -28,7 +28,7 @@ public class MemberDto {
     private String imgUrl;
 
     // 회원 국가
-    private NationCode hostNation;
+    private NationCode originNation;
 
     // 대상 국가
     private NationCode targetNation;
@@ -44,7 +44,7 @@ public class MemberDto {
                 .setMemberPw(membersEntity.getMemberPw())
                 .setNickname(membersEntity.getNickname())
                 .setImgUrl(membersEntity.getImgUrl())
-                .setHostNation(membersEntity.getHostNation())
+                .setOriginNation(membersEntity.getOriginNation())
                 .setTargetNation(membersEntity.getTargetNation())
                 .setMemberRegDtm(membersEntity.getMemberRegDtm());
     }

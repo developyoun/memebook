@@ -45,8 +45,8 @@ public class MembersEntity {
 
     // 회원 소속 국가
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "HOST_NATION")
-    private NationCode hostNation = NationCode.KOR;
+    @Column(name = "ORIGIN_NATION")
+    private NationCode originNation = NationCode.KOR;
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "TARGET_NATION")

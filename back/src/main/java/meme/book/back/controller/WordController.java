@@ -20,13 +20,13 @@ public class WordController {
     private final WordService wordService;
 
     // 단어 리스트 조회
-    @GetMapping("/list/{nationCode}")
-    public ResponseDto getWordListController(@PathVariable NationCode nationCode,
+    @GetMapping("/list/{nation}")
+    public ResponseDto getWordListController(@PathVariable NationCode nation,
                                              @RequestParam(defaultValue = "1") int page,
                                              @RequestParam(defaultValue = "10") int pageSize) {
         Pageable pages = PageRequest.of(page-1, pageSize);
 
-        return ResponseDto.of(wordService.getWordListService(nationCode, pages));
+        return ResponseDto.of(wordService.getWordListService(nation, pages));
     }
 
     // 단어 등록 Controller

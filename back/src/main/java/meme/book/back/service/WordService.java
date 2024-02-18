@@ -20,13 +20,13 @@ public class WordService {
     private final WordRepository wordRepository;
 
     @Transactional(readOnly = true)
-    public Page<WordDto> getWordListService(NationCode nationCode, Pageable pages) {
+    public Page<WordDto> getWordListService(NationCode nation, Pageable pages) {
         Page<WordDto> wordDtoList;
 
-        if (nationCode.equals(NationCode.ALL)) {
+        if (nation.equals(NationCode.ALL)) {
             wordDtoList = wordRepository.findAll(pages).map(WordDto::toDto);
         } else {
-            wordDtoList = wordRepository.findAllByWordNationEquals(nationCode, pages).map(WordDto::toDto);
+            wordDtoList = wordRepository.findAllByWordNationEquals(nation, pages).map(WordDto::toDto);
         }
         log.debug("Find All Words Count: {}", wordDtoList.getSize());
 

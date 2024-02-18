@@ -58,20 +58,28 @@ public class MemberService {
         MembersEntity member = memberRepository.findByMemberIdx(Long.parseLong(memberIdx));
         log.info("### member: {}", member);
 
-        return ResponseDto.of(MemberDto.toDto(member));
+        return ResponseDto.of(new MemberDto()
+                .setMemberIdx(member.getMemberIdx())
+                .setOriginNation(member.getOriginNation())
+                .setTargetNation(member.getTargetNation())
+        );
     }
 
     // 회원 국가 변경
     @Transactional
-    public ResponseDto updateNationByMemberIdx(Long memberIdx, NationCode hostNation, NationCode targetNation) {
+    public ResponseDto updateNationByMemberIdx(Long memberIdx, NationCode originNation, NationCode targetNation) {
         MembersEntity member = memberRepository.findByMemberIdx(memberIdx);
 
-        member.setHostNation(hostNation);
+        member.setOriginNation(originNation);
         member.setTargetNation(targetNation);
         memberRepository.save(member);
-        log.info("### Complete update Nation: memberIdx: {}, host nation: {}, target nation: {}", memberIdx, hostNation, targetNation);
+        log.info("### Complete update Nation: memberIdx: {}, host nation: {}, target nation: {}", memberIdx, originNation, targetNation);
 
-        return ResponseDto.of(MemberDto.toDto(member));
+        return ResponseDto.of(new MemberDto()
+                .setMemberIdx(member.getMemberIdx())
+                .setOriginNation(member.getOriginNation())
+                .setTargetNation(member.getTargetNation())
+        );
 
     }
 

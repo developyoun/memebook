@@ -42,8 +42,8 @@ public class MemberController {
     // 회원 국가 변경
     @PutMapping("/update/nation")
     public ResponseDto updateMember(@RequestParam Long memberIdx,
-                                    @RequestParam NationCode hostNation,
+                                    @RequestParam NationCode originNation,
                                     @RequestParam NationCode targetNation) {
-        return memberService.updateNationByMemberIdx(memberIdx, hostNation, targetNation);
+        return memberService.updateNationByMemberIdx(memberIdx, originNation, targetNation);
     }
 }
