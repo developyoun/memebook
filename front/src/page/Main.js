@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import HomeFooter from "../components/HomeFooter";
 import CountryChoice from "../components/modal/CountryChoice";
 import NickName from "../components/modal/NickName";
+import {memebookApi} from "../util/memebookApi";
 
 export default function Main() {
   const [nicknameModalOpen, setNicknameModalOpen] = useState(true);
@@ -29,6 +30,20 @@ export default function Main() {
   useEffect(() => {
     window.scrollTo(0,0);
   }, []);
+
+  useEffect(() => {
+    async function fatchApi() {
+      try {
+        const wordList = await memebookApi.wordList('KOR');
+        console.log(wordList)
+      } catch (error) {
+        console.log(error)
+        console.log('에러')
+      }
+    }
+
+    fatchApi();
+  });
 
   return (
     <>
