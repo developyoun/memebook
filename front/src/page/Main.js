@@ -11,11 +11,13 @@ export default function Main() {
   const [countryModalOpen, setCountryModalOpen] = useState(false);
   const [studyCountryType, setStudyCountryType] = useState('');
   const [nickname, setNickname] = useState('');
+  const [nicknameSave, setNicknameSave] = useState('');
 
   // 닉네임 설정 모달
   const nickNameClose = ({nickNameClose}) => {
     setNicknameModalOpen(!nicknameModalOpen);
-    console.log(nickname)
+    setNicknameSave(nickname);
+    console.log(nickname);
     nickNamePost();
   }
 
@@ -23,7 +25,6 @@ export default function Main() {
     try {
       const nickNameApi = await memebookApi.ninkName(nickname);
       console.log('성공');
-
     } catch (error) {
       console.log(error)
       console.log('에러')
@@ -32,7 +33,6 @@ export default function Main() {
 
   const nickNameValue = (event) => {
     setNickname(event.target.value);
-    console.log(event.target.value);
   }
 
   // 모달 열고 닫히기
@@ -72,6 +72,11 @@ export default function Main() {
             <button type="button" className={`user_country ${studyCountryType}`} onClick={countryChoiceClose}>
               <span className="blind">나라 선택</span>
             </button>
+            {
+              nicknameSave && (
+               <>{nicknameSave}님<br/></>
+              )
+            }
             Let's Find Your<br/>Words!
           </div>
 
