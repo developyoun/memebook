@@ -10,14 +10,26 @@ export default function Main() {
   const [nicknameModalOpen, setNicknameModalOpen] = useState(true);
   const [countryModalOpen, setCountryModalOpen] = useState(false);
   const [studyCountryType, setStudyCountryType] = useState('');
+  const [nickname, setNickname] = useState('');
 
   // 닉네임 설정 모달
   const nickNameClose = ({nickNameClose}) => {
     setNicknameModalOpen(!nicknameModalOpen);
+
+    // async function fatchApi() {
+    //   try {
+    //     const wordList = await memebookApi.ninkName('KOR');
+    //     console.log(wordList)
+    //   } catch (error) {
+    //     console.log(error)
+    //     console.log('에러')
+    //   }
+    // }
+    // fatchApi();
   }
 
   // 모달 열고 닫히기
-  const countryChoiceClose = ({countryChoiceClose}) => {
+  const countryChoiceClose = ({}) => {
     setCountryModalOpen(!countryModalOpen);
   }
 
@@ -27,23 +39,14 @@ export default function Main() {
     setCountryModalOpen(!countryModalOpen);
   }
 
+  const nickNameValue = (event) => {
+    setNickname(event.target.value);
+    console.log(event.target.value);
+  }
+
   useEffect(() => {
     window.scrollTo(0,0);
   }, []);
-
-  useEffect(() => {
-    async function fatchApi() {
-      try {
-        const wordList = await memebookApi.wordList('KOR');
-        console.log(wordList)
-      } catch (error) {
-        console.log(error)
-        console.log('에러')
-      }
-    }
-
-    fatchApi();
-  });
 
   return (
     <>
@@ -55,7 +58,7 @@ export default function Main() {
 
       {
         nicknameModalOpen && (
-          <NickName nickNameClose={nickNameClose}></NickName>
+          <NickName nickNameAdd={nickNameClose} nickNameInput={nickNameValue}></NickName>
         )
       }
 

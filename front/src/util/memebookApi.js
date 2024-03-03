@@ -5,5 +5,6 @@ const request = axios.create({
 })
 
 export const memebookApi = {
-  wordList : (country) => request.get(`api/word/list/${country}`)
+  wordList : (country) => request.get(`api/word/list/${country}`),
+  ninkName : (nickname) => request.post(`api/member/create/nickname?nickname=${nickname}`)
 }
