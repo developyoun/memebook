@@ -15,17 +15,24 @@ export default function Main() {
   // 닉네임 설정 모달
   const nickNameClose = ({nickNameClose}) => {
     setNicknameModalOpen(!nicknameModalOpen);
+    console.log(nickname)
+    nickNamePost();
+  }
 
-    // async function fatchApi() {
-    //   try {
-    //     const wordList = await memebookApi.ninkName('KOR');
-    //     console.log(wordList)
-    //   } catch (error) {
-    //     console.log(error)
-    //     console.log('에러')
-    //   }
-    // }
-    // fatchApi();
+  async function nickNamePost() {
+    try {
+      const nickNameApi = await memebookApi.ninkName(nickname);
+      console.log('성공');
+
+    } catch (error) {
+      console.log(error)
+      console.log('에러')
+    }
+  }
+
+  const nickNameValue = (event) => {
+    setNickname(event.target.value);
+    console.log(event.target.value);
   }
 
   // 모달 열고 닫히기
@@ -39,10 +46,7 @@ export default function Main() {
     setCountryModalOpen(!countryModalOpen);
   }
 
-  const nickNameValue = (event) => {
-    setNickname(event.target.value);
-    console.log(event.target.value);
-  }
+
 
   useEffect(() => {
     window.scrollTo(0,0);
