@@ -5,7 +5,6 @@ import HomeFooter from "../components/HomeFooter";
 import CountryChoice from "../components/modal/CountryChoice";
 import NickName from "../components/modal/NickName";
 import {memebookApi} from "../util/memebookApi";
-import commonEvent from "../util/commonEvent";
 
 export default function Main() {
   const [nicknameModalOpen, setNicknameModalOpen] = useState(true);
