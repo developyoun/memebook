@@ -5,6 +5,7 @@ import HomeFooter from "../components/HomeFooter";
 import CountryChoice from "../components/modal/CountryChoice";
 import NickName from "../components/modal/NickName";
 import {memebookApi} from "../util/memebookApi";
+import commonEvent from "../util/commonEvent";
 
 export default function Main() {
   const [nicknameModalOpen, setNicknameModalOpen] = useState(true);
@@ -12,6 +13,14 @@ export default function Main() {
   const [studyCountryType, setStudyCountryType] = useState('');
   const [nickname, setNickname] = useState('');
   const [nicknameSave, setNicknameSave] = useState('');
+
+  const [isDark, setIsDark] = useState(false);
+
+  const darkModeCheck = () => {
+    const body = document.body;
+    setIsDark(!isDark);
+    !isDark ?  body.classList.add('dark') :  body.classList.remove('dark');
+  }
 
   // 닉네임 설정 모달
   const nickNameClose = ({nickNameClose}) => {
@@ -68,8 +77,8 @@ export default function Main() {
 
       <div className="main">
         <div className="dark_mode_box">
-          <input type="checkbox" id="toggle"/>
-          <label htmlFor="toggle" className="dark_mode_switch">
+          <input type="checkbox" id="toggle" onChange={darkModeCheck}/>
+          <label htmlFor="toggle" className="dark_mode_switch" >
             <div className="circle"></div>
           </label>
         </div>
