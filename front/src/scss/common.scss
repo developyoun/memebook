@@ -1,8 +1,10 @@
 :root {
   --primary:#436759;
   --primary-sub:#79B23D;
-  --red: #EB5757;
+  --bg-gray:#f5f5f7;
+  --red: #dd3434;
 }
+
 /* 공통 레이아웃 */
 .container {
   margin: 50px auto;
@@ -20,19 +22,6 @@
   .input_box {
     .tit {
       margin-bottom: 12px;
-      color: #406A52;
-    }
-
-    & + .input_box {
-      margin-top: 32px;
-    }
-  }
-
-  /* 공통 폼요소 */
-  .input_box {
-    .tit {
-      margin-bottom: 12px;
-      color: #406A52;
     }
 
     & + .input_box {
@@ -42,16 +31,18 @@
 }
 
 .text_input {
-  padding: 16px;
+  padding: 12px;
   width: 100%;
+  font-size:14px;
   border: 1px solid #B8C8BE;
-  border-radius: 16px;
+  border-radius: 12px;
   box-sizing: border-box;
 }
 
 .invalid_msg {
   margin-top:10px;
   color:var(--red);
+  font-size:12px;
 }
 
 /* 공통 모달 폼 */
