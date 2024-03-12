@@ -75,12 +75,6 @@ export default function Main() {
       }
 
       <div className="main">
-        <div className="dark_mode_box">
-          <input type="checkbox" id="toggle" onChange={darkModeCheck}/>
-          <label htmlFor="toggle" className="dark_mode_switch" >
-            <div className="circle"></div>
-          </label>
-        </div>
 
         <div className="container">
           <div className="main_top">

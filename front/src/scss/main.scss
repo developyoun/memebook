@@ -203,3 +203,34 @@
     }
   }
 }
+
+.dark {
+  .text_input {
+    color:#fff;
+    background:var(--dark--primary);
+  }
+  .main_top {
+    color:#fff;
+  }
+  .main {
+    .tit {
+      color:#fff;
+    }
+    .check_list {
+      .list {
+        .link {
+          color:#fff;
+        }
+      }
+    }
+  }
+  .popular_box {
+    .popular_list {
+      li {
+        .keyword {
+          color:#fff;
+        }
+      }
+    }
+  }
+}
