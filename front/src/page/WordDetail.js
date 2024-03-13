@@ -1,5 +1,6 @@
 import './../scss/wordDetail.scss'
 import Title from "../components/Title";
+import {Link} from 'react-router-dom';
 import {useState, useEffect} from "react";
 import CommentPort from "../components/modal/CommentPort";
 
@@ -31,7 +32,7 @@ export default function WordDetail() {
         <ul className="word_mean_list">
           <li className="list">
             <div className="mean_top">
-              <span className="name">김누징</span>
+              <Link to="" className="name">김누징</Link>
               <ul className="util_list">
                 <li>
                   <button type="button" className={`btn_scrape ${scrapeCheck ? 'active' : ''}`} onClick={ScrapeBtn}>
