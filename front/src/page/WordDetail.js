@@ -7,12 +7,23 @@ import CommentPort from "../components/modal/CommentPort";
 export default function WordDetail() {
   const [scrapeCheck, setScrapeCheck] = useState(false);
   const [reportOpen, setReportOpen] = useState(false);
+  const [likeCheck, setLikeCheck] = useState(true);
+  const [likeCount, setLikeCount] = useState(0);
 
   const commentReportOpen = ({commentPortClose}) => {
     setReportOpen(!reportOpen);
   }
   const ScrapeBtn = () => {
     setScrapeCheck(!scrapeCheck);
+  }
+
+  const LikeCount = () => {
+    setLikeCheck(!likeCheck);
+    if (likeCheck === true) {
+      setLikeCount(likeCount + 1);
+    } else {
+      setLikeCount(likeCount - 1);
+    }
   }
 
   useEffect(() => {
@@ -40,10 +51,12 @@ export default function WordDetail() {
                   </button>
                 </li>
                 <li>
-                  <button type="button" className="btn_like">
+                  <button type="button" className="btn_like" onClick={LikeCount}>
                     <span className="blind">좋아요</span>
                   </button>
-                  <span className="count">1</span>
+                  <span className="count">
+                    {likeCount}
+                  </span>
                 </li>
                 <li>
                   <button type="button" className="btn_dislike">
