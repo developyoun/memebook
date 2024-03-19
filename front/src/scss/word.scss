@@ -1,6 +1,7 @@
 /* 하단 플로팅 버튼 */
 .floating_box {
-  padding: 20px;
+  margin-top:20px;
+  padding: 20px 0;
   width: 100%;
   background:#fff;
   box-sizing: border-box;
@@ -17,4 +18,9 @@
   font-weight: bold;
   border-radius: 32px;
   background: #406A52;
+}
+
+.character_count {
+  margin-left:auto;
+  font-size:12px;
 }

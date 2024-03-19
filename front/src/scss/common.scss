@@ -19,34 +19,36 @@
 .container {
   margin:0 auto;
   padding: 50px 20px 150px 20px;
-  min-width: 360px;
+  min-width: 280px;
   max-width: 1280px;
   box-sizing: border-box;
-  /* 공통 폼요소 */
   .input_box {
     .tit {
       margin-bottom: 12px;
     }
-
     & + .input_box {
       margin-top: 32px;
     }
   }
+  .text_input {
+    padding: 12px;
+    width: 100%;
+    font-size:14px;
+    border: 1px solid #B8C8BE;
+    border-radius:6px;
+    box-sizing: border-box;
+    resize:none;
+  }
+
+  .input_sub {
+    display:flex;
+    align-items:center;
+    margin-top:8px;
+  }
 }
 
-
-
-.text_input {
-  padding: 12px;
-  width: 100%;
-  font-size:14px;
-  border: 1px solid #B8C8BE;
-  border-radius: 12px;
-  box-sizing: border-box;
-}
-
+/* 유효성 문구 */
 .invalid_msg {
-  margin-top:10px;
   color:var(--red);
   font-size:12px;
 }
