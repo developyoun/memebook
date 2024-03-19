@@ -13,14 +13,6 @@ export default function Main() {
   const [nickname, setNickname] = useState('');
   const [nicknameSave, setNicknameSave] = useState('');
 
-  const [isDark, setIsDark] = useState(false);
-
-  const darkModeCheck = () => {
-    const body = document.body;
-    setIsDark(!isDark);
-    !isDark ?  body.classList.add('dark') :  body.classList.remove('dark');
-  }
-
   // 닉네임 설정 모달
   const nickNameClose = ({nickNameClose}) => {
     setNicknameModalOpen(!nicknameModalOpen);
@@ -54,8 +46,6 @@ export default function Main() {
     setCountryModalOpen(!countryModalOpen);
   }
 
-
-
   useEffect(() => {
     window.scrollTo(0,0);
   }, []);
@@ -78,6 +68,11 @@ export default function Main() {
 
         <div className="container">
           <div className="main_top">
+            {
+              studyCountryType === '' && (
+                <span className="country_badge">언어 선택 하셨나요?</span>
+              )
+            }
             <button type="button" className={`user_country ${studyCountryType}`} onClick={countryChoiceClose}>
               <span className="blind">나라 선택</span>
             </button>
@@ -148,17 +143,17 @@ export default function Main() {
           <ul className="check_list">
             <li className="list">
               <Link to="" className="link">
-                ✏ 지금까지 <strong>3</strong>개의 단어를 등록했어요
+                &#128394; 지금까지 <strong>3</strong>개의 단어를 등록했어요
               </Link>
             </li>
             <li className="list">
               <Link to="" className="link">
-                아직 스크랩한 단어가 없어요
+                &#127775; 아직 스크랩한 단어가 없어요
               </Link>
             </li>
             <li className="list visit">
               <p className="link">
-                🏡 연속 방문 최대 <strong>12</strong>번을 달성했어요
+                &#127969; 연속 방문 최대 <strong>12</strong>번을 달성했어요
               </p>
             </li>
           </ul>
