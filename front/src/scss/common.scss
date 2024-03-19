@@ -3,16 +3,12 @@
   --primary-sub:#79B23D;
   --bg-gray:#f5f5f7;
   --red: #dd3434;
-  --dark--primary:#131615;
-  --dark-primary-sub:#07100c;
+  --dark-primary:#131615;
+  --dark-primary-sub:#474747;
 }
 
 .wrap {
   transition: 0.3s;
-  /* 다크 모드 */
-  &.dark {
-    background:var(--dark--primary);
-  }
 }
 
 /* 공통 레이아웃 */
@@ -30,21 +26,21 @@
       margin-top: 32px;
     }
   }
-  .text_input {
-    padding: 12px;
-    width: 100%;
-    font-size:14px;
-    border: 1px solid #B8C8BE;
-    border-radius:6px;
-    box-sizing: border-box;
-    resize:none;
-  }
-
   .input_sub {
     display:flex;
     align-items:center;
     margin-top:8px;
   }
+}
+
+.text_input {
+  padding: 12px;
+  width: 100%;
+  font-size:14px;
+  border: 1px solid #B8C8BE;
+  border-radius:6px;
+  box-sizing: border-box;
+  resize:none;
 }
 
 /* 유효성 문구 */
@@ -102,8 +98,6 @@
   }
 }
 
-
-
 .check_label {
   display: inline-block;
   input {
@@ -131,74 +125,6 @@
       border-radius:4px;
       border: 2px solid var(--primary);
       background:#fff;
-    }
-  }
-}
-
-/* 다크모드 */
-.dark_mode_box {
-  position:absolute;
-  top:16px;
-  right:20px;
-  .dark_mode_switch {
-    position: relative;
-    display: block;
-    width: 50px;
-    height: 22px;
-    border-radius: 35px;
-    background:#f09f2c;
-    cursor: pointer;
-    .circle {
-      position: relative;
-      width: 16px;
-      height: 16px;
-      top:3px;
-      left: 4px;
-      border-radius: 50%;
-      transition: 0.4s ease left, 0.4s ease background-position;
-      background:#fff;
-      z-index: 2;
-    }
-  }
-  input {
-    display: none;
-    &:checked {
-      +.dark_mode_switch {
-        background:black;
-        .circle {
-          left: 30px;
-        }
-      }
-    }
-  }
-}
-
-.dark {
-  .dark_mode_box {
-    .dark_mode_switch {
-      .circle {
-        background:var(--dark--primary);
-      }
-    }
-    input {
-      &:checked {
-        +.dark_mode_switch {
-          background:#fff;
-          .circle {
-            left: 30px;
-          }
-        }
-      }
-    }
-  }
-  footer {
-    background:var(--dark-primary-sub);
-    .footer_list {
-      .list {
-        .link {
-          color:#fff;
-        }
-      }
     }
   }
 }

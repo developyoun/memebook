@@ -40,7 +40,7 @@
 
 /* 메인 - 검색 */
 .search_box {
-  margin: 30px 0 60px;
+  margin: 30px 0 45px;
 }
 
 /* 메인 - 인기순위 */
@@ -198,37 +198,6 @@
       &.visit {
         &:after {
           content:none;
-        }
-      }
-    }
-  }
-}
-
-.dark {
-  .text_input {
-    color:#fff;
-    background:var(--dark--primary);
-  }
-  .main_top {
-    color:#fff;
-  }
-  .main {
-    .tit {
-      color:#fff;
-    }
-    .check_list {
-      .list {
-        .link {
-          color:#fff;
-        }
-      }
-    }
-  }
-  .popular_box {
-    .popular_list {
-      li {
-        .keyword {
-          color:#fff;
         }
       }
     }
