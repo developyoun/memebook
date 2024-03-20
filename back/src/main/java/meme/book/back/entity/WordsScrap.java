@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @Table(name = "words_scrap")
-public class WordsScrapEntity {
+public class WordsScrap {
 
     // 스크랩 고유 번호
     @Id

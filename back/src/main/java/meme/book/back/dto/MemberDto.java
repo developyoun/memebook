@@ -3,7 +3,7 @@ package meme.book.back.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import meme.book.back.entity.MembersEntity;
+import meme.book.back.entity.Member;
 import meme.book.back.utils.NationCode;
 
 import java.time.LocalDateTime;
@@ -37,7 +37,7 @@ public class MemberDto {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime memberRegDtm;
 
-    public static MemberDto toDto(MembersEntity membersEntity) {
+    public static MemberDto toDto(Member membersEntity) {
         return new MemberDto()
                 .setMemberIdx(membersEntity.getMemberIdx())
                 .setMemberId(membersEntity.getMemberId())

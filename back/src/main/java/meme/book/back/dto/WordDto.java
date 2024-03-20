@@ -3,7 +3,7 @@ package meme.book.back.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import meme.book.back.entity.WordsEntity;
+import meme.book.back.entity.Word;
 import meme.book.back.utils.NationCode;
 
 import java.time.LocalDateTime;
@@ -39,7 +39,7 @@ public class WordDto {
     private LocalDateTime modDtm;
 
     // entity -> DTO
-    public static WordDto toDto(WordsEntity wordsEntity) {
+    public static WordDto toDto(Word wordsEntity) {
         return new WordDto()
                 .setWordIdx(wordsEntity.getWordIdx())
                 .setWordTitle(wordsEntity.getWordTitle())

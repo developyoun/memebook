@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 public enum ActionType {
 
     LIKE("좋아요"),
-    UNLIKE("싫어요");
+    DISLIKE("싫어요");
 
     private final String kor;
 }

@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "members")
-public class MembersEntity {
+public class Member {
 
     // 회원 고유 번호
     @Id

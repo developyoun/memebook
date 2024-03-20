@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.MemberDto;
 import meme.book.back.dto.ResponseDto;
-import meme.book.back.entity.MembersEntity;
+import meme.book.back.entity.Member;
 import meme.book.back.repository.MemberRepository;
 import meme.book.back.utils.ErrorCode;
 import meme.book.back.utils.NationCode;
@@ -21,7 +21,7 @@ public class MemberService {
     // 신규 회원 생성
     @Transactional
     public MemberDto createMemberService(MemberDto memberDto) {
-        MembersEntity membersEntity = memberRepository.save(new MembersEntity());
+        Member membersEntity = memberRepository.save(new Member());
         log.info("### Create New Member: {}", membersEntity);
 
         return MemberDto.toDto(membersEntity);
@@ -45,7 +45,7 @@ public class MemberService {
             return ResponseDto.error(ErrorCode.ALREADY_EXIST_NICKNAME);
         }
 
-        MembersEntity member = new MembersEntity().setNickname(nickname);
+        Member member = new Member().setNickname(nickname);
         memberRepository.save(member);
 
         log.info("### Complete Save Nickname: {}", nickname);
@@ -55,7 +55,7 @@ public class MemberService {
     // 저장된 국가 코드 조회
     @Transactional(readOnly = true)
     public ResponseDto getNationCodeByMemberIdx(String memberIdx) {
-        MembersEntity member = memberRepository.findByMemberIdx(Long.parseLong(memberIdx));
+        Member member = memberRepository.findByMemberIdx(Long.parseLong(memberIdx));
         log.info("### member: {}", member);
 
         return ResponseDto.of(new MemberDto()
@@ -68,7 +68,7 @@ public class MemberService {
     // 회원 국가 변경
     @Transactional
     public ResponseDto updateNationByMemberIdx(Long memberIdx, NationCode originNation, NationCode targetNation) {
-        MembersEntity member = memberRepository.findByMemberIdx(memberIdx);
+        Member member = memberRepository.findByMemberIdx(memberIdx);
 
         member.setOriginNation(originNation);
         member.setTargetNation(targetNation);

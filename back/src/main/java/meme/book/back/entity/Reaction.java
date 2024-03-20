@@ -1,9 +1,8 @@
 package meme.book.back.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.Accessors;
 import meme.book.back.utils.ActionType;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -12,11 +11,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 @EntityListeners(AuditingEntityListener.class)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
+@Accessors(chain = true)
+@Getter @Setter @ToString
 @Entity
 @Table(name = "reactions")
-public class ReactionsEntity {
+public class Reaction {
 
     // 반응 고유 번호
     @Id

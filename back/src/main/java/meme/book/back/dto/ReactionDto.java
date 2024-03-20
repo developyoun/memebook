@@ -2,7 +2,7 @@ package meme.book.back.dto;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import meme.book.back.entity.ReactionsEntity;
+import meme.book.back.entity.Reaction;
 import meme.book.back.utils.ActionType;
 
 import java.time.LocalDateTime;
@@ -30,7 +30,7 @@ public class ReactionDto {
     private LocalDateTime reactionModDtm;
 
     // Entity -> DTO 변환
-    public static ReactionDto toDto(ReactionsEntity entity) {
+    public static ReactionDto toDto(Reaction entity) {
         return new ReactionDto()
                 .setReactionIdx(entity.getReactionIdx())
                 .setReactionType(entity.getReactionType())

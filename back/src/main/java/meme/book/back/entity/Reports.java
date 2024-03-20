@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @Table(name = "reports")
-public class ReportsEntity {
+public class Reports {
 
     // 신고 고유 번호
     @Id

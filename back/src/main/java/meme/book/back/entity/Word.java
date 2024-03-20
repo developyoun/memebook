@@ -5,7 +5,6 @@ import lombok.*;
 import lombok.experimental.Accessors;
 import meme.book.back.dto.WordDto;
 import meme.book.back.utils.NationCode;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -20,7 +19,7 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "words")
-public class WordsEntity {
+public class Word {
 
     // 단어 고유 번호
     @Id
@@ -59,7 +58,7 @@ public class WordsEntity {
     @Column(name = "MOD_DTM")
     private LocalDateTime modDtm;
 
-    public WordsEntity(WordDto wordDto) {
+    public Word(WordDto wordDto) {
         this.wordIdx = wordDto.getWordIdx();
         this.wordTitle = wordDto.getWordTitle();
         this.wordContent = wordDto.getWordContent();

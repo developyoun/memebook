@@ -1,8 +1,14 @@
 package meme.book.back.repository;
 
-import meme.book.back.entity.ReactionsEntity;
+import meme.book.back.entity.Reaction;
+import meme.book.back.utils.ActionType;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-public interface ReactionRepository extends JpaRepository<ReactionsEntity, Long> {
+import java.util.Optional;
+
+public interface ReactionRepository extends JpaRepository<Reaction, Long> {
+
+    Optional<Reaction> findReactionByMemIdxAndWordIdx(Long memIdx, Long wordIdx);
+
+    long countByWordIdxAndReactionType(Long memIdx, ActionType wordIdx);
 }
