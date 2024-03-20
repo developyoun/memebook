@@ -23,3 +23,14 @@
   margin-left:auto;
   font-size:12px;
 }
+
+.word_add_tip {
+  display:flex;
+  align-items:center;
+  margin-bottom:20px;
+  padding:6px 12px;
+  color:#fff;
+  font-size:12px;
+  border-radius:6px;
+  background:var(--dark-primary-sub)
+}
