@@ -64,11 +64,11 @@ export default function CountryChoice({ countryChoiceClose, selectType }) {
             </ul>
           </div>
           <div className="state_box">
-            <h5 className="country_txt">배울 언어</h5>
+            <h5 className="country_txt">학습할 언어</h5>
 
             {/* 선택된 언어 */}
             <div className={`state ${studyCountryType}`}>
-              <span className="blind">배울 언어/study language</span>
+              <span className="blind">학습할 언어/study language</span>
             </div>
 
             {/* 언어 이름 */}
@@ -94,6 +94,7 @@ export default function CountryChoice({ countryChoiceClose, selectType }) {
             </ul>
           </div>
         </div>
+        <p className="country_notice">학습할 언어를 기반으로<br/>단어 등록 및 사전 세팅이 되어요</p>
         <div className="btn_btm">
           <button type="button" className="country_save" onClick={countrySave}>저장</button>
         </div>
