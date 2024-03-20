@@ -1,14 +1,15 @@
 ## ✅ API 문서
 
-| 분류 | URL                        | 메소드 | 설명             | 비고                                               |
-| ---- | -------------------------- | ------ | ---------------- | -------------------------------------------------- |
-| 회원 | api/member/create/nickname | POST   | 닉네임 생성      | - nickname                                         |
-| 회원 | api/member/exist/nickname  | GET    | 닉네임 중복 조회 | - nickname                                         |
-| 회원 | api/member/nation          | GET    | 회원 국가 조회   | - memberIdx                                        |
-| 회원 | *api/member/update/nation* | PUT    | 회원 국가 변경   | - memberIdx<br />- originNation<br />- tagetNation |
-| 단어 | *api/word/list*            | GET    | 단어 리스트 조회 |                                                    |
-| 단어 | *api/word/create*          | POST   | 단어 생성        |                                                    |
-| 단어 | *api/word/update*          | PUT    | 단어 수정        |                                                    |
+| 분류   | URL                        | 메소드 | 설명               | 비고                                               |
+| ------ | -------------------------- | ------ | ------------------ | -------------------------------------------------- |
+| 회원   | api/member/create/nickname | POST   | 닉네임 생성        | - nickname                                         |
+| 회원   | api/member/exist/nickname  | GET    | 닉네임 중복 조회   | - nickname                                         |
+| 회원   | api/member/nation          | GET    | 회원 국가 조회     | - memberIdx                                        |
+| 회원   | *api/member/update/nation* | PUT    | 회원 국가 변경     | - memberIdx<br />- originNation<br />- tagetNation |
+| 단어   | *api/word/list*            | GET    | 단어 리스트 조회   |                                                    |
+| 단어   | *api/word/create*          | POST   | 단어 생성          |                                                    |
+| 단어   | *api/word/update*          | PUT    | 단어 수정          |                                                    |
+| 좋아요 | *api/reaction/update*      | POST   | 좋아요/싫어요 추가 |                                                    |
 
 ### ✨회원
 
@@ -260,8 +261,66 @@ URL: ***api/word/update***
     "regMem": 123123,
     "modMem": 321321,
     "RegDtm": "2024-02-18 12:02:44",
-		"modDtm": "2024-02-20 09:56:53"
+    "modDtm": "2024-02-20 09:56:53"
   }
 }
 ``````
+
+
+
+### 8. 좋아요/싫어요
+
+URL: ***api/reaction/update***
+
+Method: **POST**
+
+Request Body:
+
+```json
+{
+  "reactionType": "LIKE", // 또는 "DISLIKE"
+  "memIdx": 13222,		// 회원 번호
+  "wordIdx": 7887,		// 단어 번호
+}
+```
+
+Response Body:
+
+```json
+{
+  "status": "OK",
+  "message": "Success",
+  "data": {
+    "reactionIdx": 323,
+    "reactionType": "LIKE",
+    "memIdx": "13222",
+    "memIdx": "7887",
+    "reactionRegDtm": "2024-02-18 12:02:44",
+    "reactionModDtm": "2024-02-20 09:56:53"
+  }
+}
+```
+
+
+
+### 9. 단일 단어 좋아요/싫어요 카운트
+
+URL: ***api/reaction/count?wordIdx={wordIdx}***
+
+Method: **GET**
+
+Request Body: X
+
+Response Body:
+
+```json
+{
+  "status": "OK",
+  "message": "Success",
+  "data": {
+    "likeCount": 22,
+    "dislikeCount": 6
+  }
+}
+```
 
