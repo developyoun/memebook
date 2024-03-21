@@ -28,8 +28,8 @@ dependencies {
     implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'  // 암호화 라이브러리
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'     // thymeleaf 적용
     implementation 'org.hibernate.validator:hibernate-validator'                // entity validator
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
+//    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
     compileOnly 'org.projectlombok:lombok'
