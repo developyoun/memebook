@@ -2,9 +2,20 @@ import './../scss/profile.scss'
 import HomeFooter from "../components/HomeFooter";
 import Title from "../components/Title";
 import {Link} from "react-router-dom";
-import React from "react";
+import React, {useState} from "react";
 
 export default function Profile() {
+  const [copyState , setCopyState] = useState(false);
+
+  const inviteLink = () => {
+    window.navigator.clipboard.writeText('http://www.naver.com').then(() => {
+      alert('복사되었어요');
+      setCopyState(true);
+    }) .catch(() => {
+      alert('복사에 실패했어요, 다시 시도해주세요')
+    })
+  }
+
   return (
     <div className="wrap">
 
@@ -70,7 +81,10 @@ export default function Profile() {
         </div>
 
         <div className="invite_box">
-          친구들을
+          <p className="invite_txt">&#127881; 친구 초대를 통해 밈북의 세계를 넓혀주세요 &#127881;</p>
+          <button type="button" onClick={inviteLink} className="invite_btn">
+            {copyState === true ? '복사 완료 ! 친구에게 공유해주세요!' : '링크 복사하기'}
+          </button>
         </div>
       </div>
 
