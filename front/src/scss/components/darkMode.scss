@@ -66,8 +66,8 @@
   }
   .text_input {
     color:#fff;
-    border-color:var(--dark-primary-sub);
-    background:var(--dark-primary-sub);
+    border-color:var(--dark-sub);
+    background:var(--dark-sub);
     &::placeholder {
       color:#fff;
     }
@@ -112,7 +112,7 @@
     .word_box {
       .word_tit {
         color:#fff;
-        background:var(--dark-primary-sub);
+        background:var(--dark-sub);
       }
       .word_list {
         .item {
@@ -133,7 +133,7 @@
     }
   }
   .user_box {
-    background:var(--dark-primary-sub);
+    background:var(--dark-sub);
     .user_tit {
       color:#fff;
       .count {
@@ -150,7 +150,7 @@
   }
   footer {
     .footer_list {
-      background:var(--dark-primary-sub);
+      background:var(--dark-sub);
       .list {
         .link {
           color:#fff;

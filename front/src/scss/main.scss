@@ -45,17 +45,17 @@
     align-items:center;
     justify-content:center;
     padding:0 16px;
-    color:#fff;
+    color:var(--primary);
     font-size:12px;
     line-height:26px;
     border-radius:36px;
-    background:var(--primary);
+    background:var(--primary-sub);
     &:after {
       content: '';
       position: absolute;
       top: 26px;
       left: 24px;
-      border-top: 8px solid var(--primary);
+      border-top: 8px solid var(--primary-sub);
       border-left: 8px solid transparent;
       border-right: 8px solid transparent;
       border-bottom: 0 solid transparent;
@@ -149,49 +149,6 @@
   }
 }
 
-
-/* 메인 - 출석체크 */
-.daily_box {
-  margin: 40px 0 45px;
-
-  .daily_list {
-    display: flex;
-    align-items: center;
-
-    li {
-      width: 100%;
-
-      .day {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto;
-        width: 32px;
-        height: 32px;
-        color: #808080;
-        border-radius: 50%;
-        background: #F5F9FC;
-
-        &.check {
-          background: var(--red);
-
-          span {
-            display: none;
-          }
-
-          &:after {
-            display: block;
-            width: 16px;
-            height: 16px;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17' height='16' viewBox='0 0 17 16' fill='none'%3E%3Cpath d='M8.26475 3.01932C9.83075 1.61332 12.2507 1.65999 13.7594 3.17132C15.2674 4.68332 15.3194 7.09132 13.9167 8.66199L8.26342 14.3233L2.61142 8.66199C1.20875 7.09132 1.26142 4.67932 2.76875 3.17132C4.27875 1.66199 6.69408 1.61132 8.26475 3.01932V3.01932Z' fill='white'/%3E%3C/svg%3E") no-repeat;
-            content: '';
-          }
-        }
-      }
-    }
-  }
-}
-
 /* 메인 - 출석횟수,단어등록횟수 */
 .main {
   .check_list {
@@ -206,7 +163,7 @@
       }
 
       strong {
-        color: var(--red);
+        color: var(--bg-brown);
       }
 
       & + .list {

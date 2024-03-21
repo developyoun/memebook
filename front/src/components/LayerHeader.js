@@ -1,4 +1,4 @@
-import './../scss/layerHeader.scss'
+import '../scss/components/layerHeader.scss'
 
 function LayerHeader() {
   return (

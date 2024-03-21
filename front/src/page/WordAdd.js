@@ -14,11 +14,11 @@ export default function WordAdd() {
     let e = event.target.value;
     if (type === 'title') {
       setTitleCount(e.length);
-      e.length >= 19 ? setTitleOver(true) : setTitleOver(false);
+      e.length >= 20 ? setTitleOver(true) : setTitleOver(false);
       setTitleNull(false);
     } else if (type === 'detail') {
       setExplainCount(e.length);
-      e.length > 99 ? setExplainOver(true) : setExplainOver(false);
+      e.length >= 99 ? setExplainOver(true) : setExplainOver(false);
       setExplainNull(false);
     }
   }
@@ -27,7 +27,6 @@ export default function WordAdd() {
     if (titleCount === 0) {
       setTitleNull(true);
     }
-
     if (explainCount === 0) {
       setExplainNull(true);
     }
@@ -40,30 +39,31 @@ export default function WordAdd() {
 
       <div className="container">
 
+        <div className="word_add_tip">
+          $일본$에 관한 밈을 등록해주세요.<br/>일본어를 배우고 싶은 밈밍이들이 좋아할 거에요&#128218;
+        </div>
+
         <div className="input_box">
           <div className="tit_box">
             <h4 className="tit">일본어</h4>
           </div>
           <input type="text" className="text_input" placeholder="단어를 입력해주세요" maxLength={19} onChange={event => CharacterCount(event, 'title')}/>
 
-
           <div className="input_sub">
             {
               titleNull && (
-                <p className="invalid_msg">한글자 이상 작성해주세요 &#x270F;</p>
+                <p className="invalid_msg">&#128397; 한글자 이상 작성해주세요</p>
               )
             }
             {
               titleOver && (
-                <p className="invalid_msg">100자 이하로 작성해주세요 !</p>
+                <p className="invalid_msg">&#128546; 20자 이하로 작성해주세요</p>
               )
             }
             <p className="character_count">
               {titleCount}/20
             </p>
           </div>
-
-
         </div>
 
 
@@ -76,13 +76,13 @@ export default function WordAdd() {
           <div className="input_sub">
             {
               explainNull && (
-                <p className="invalid_msg">한글자 이상 작성해주세요 &#x270F;</p>
+                <p className="invalid_msg">&#128397; 한글자 이상 작성해주세요</p>
               )
             }
 
             {
               explainOver && (
-                <p className="invalid_msg">100자 이하로 작성해주세요 !</p>
+                <p className="invalid_msg">&#128546; 100자 이하로 작성해주세요 !</p>
               )
             }
             <p className="character_count">

@@ -3,6 +3,7 @@ import HomeFooter from "../components/HomeFooter";
 import Title from "../components/Title";
 import {Link} from "react-router-dom";
 import React, {useState} from "react";
+import DailyCheck from "../components/DailyCheck";
 
 export default function Profile() {
   const [copyState , setCopyState] = useState(false);
@@ -42,6 +43,9 @@ export default function Profile() {
           </div>
           <p className="visit_count">🏡 연속 방문 최대 <strong>12</strong>번을 달성했어요!</p>
         </div>
+
+        <DailyCheck></DailyCheck>
+
         <div className="user_box">
           <div className="user_tit">
             <h4>

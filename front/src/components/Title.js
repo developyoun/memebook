@@ -1,4 +1,4 @@
-import '../scss/layerHeader.scss'
+import '../scss/components/layerHeader.scss'
 
 export default function Title(props) {
   const goBack = () => {
