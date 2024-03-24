@@ -1,6 +1,7 @@
 import './../scss/word.scss'
 import Title from '../components/Title'
 import {useState} from "react";
+import {memebookApi} from "../util/memebookApi";
 
 export default function WordAdd() {
   const [titleNull, setTitleNull] = useState(false);
@@ -9,7 +10,23 @@ export default function WordAdd() {
   const [titleOver, setTitleOver] = useState(false);
   const [explainCount, setExplainCount] = useState(0);
   const [explainOver, setExplainOver] = useState(false);
-  
+
+  async function wordAddPost() {
+    try {
+      const wordAddApi = await memebookApi.wordAdd( {
+        wordTitle : '테스트',
+        wordContent : '테스트중중중',
+        wordNation : "KOR",
+        RegMem : 123123,
+        ModMem : 123123
+      });
+      console.log('성공');
+    } catch (error) {
+      console.log(error)
+      console.log('에러')
+    }
+  }
+
   const CharacterCount = (event, type) => {
     let e = event.target.value;
     if (type === 'title') {
@@ -30,7 +47,9 @@ export default function WordAdd() {
     if (explainCount === 0) {
       setExplainNull(true);
     }
+    wordAddPost();
   }
+
 
   return (
     <div className="layer">
