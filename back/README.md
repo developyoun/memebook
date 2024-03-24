@@ -121,15 +121,17 @@
 
 #### 5. 단어 리스트 조회
 
-##### URL: ***api/word/list/{nation}***
+##### URL: ***api/word/list?nation={nationCode}&page={page}&pageSize={pageSize}***
 
 ##### Method: **GET**
 
 ##### Reqeust Parameter
 
-| 파리미터 | 타입   | 설명      | 비고              |
-| -------- | ------ | --------- | ----------------- |
-| nation   | String | 조회 국가 | 기본값: ***ALL*** |
+| 파리미터     | 타입     | 설명      | 비고             |
+|----------|--------|---------|----------------|
+| nation   | String | 조회 국가   | 기본값: ***ALL*** |
+| page     | int    | 페이지     | 기본값: 1         |
+| pageSize | int    | 페이지당 개수 | 기본값: 10        |
 
 ##### Response Body: 
 

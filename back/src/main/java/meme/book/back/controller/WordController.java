@@ -25,8 +25,8 @@ public class WordController {
     }
 
     // 단어 리스트 조회
-    @GetMapping("/list/{nation}")
-    public ResponseDto getWordListController(@PathVariable NationCode nation,
+    @GetMapping("/list")
+    public ResponseDto getWordListController(@RequestParam(defaultValue = "ALL") NationCode nation,
                                              @RequestParam(defaultValue = "1") int page,
                                              @RequestParam(defaultValue = "10") int pageSize) {
         Pageable pages = PageRequest.of(page-1, pageSize);
