@@ -6,19 +6,6 @@ import {memebookApi} from "../util/memebookApi";
 
 export default function Word() {
 
-  async function libraryList() {
-    try {
-      const libraryApi = await memebookApi.wordList('KOR');
-      console.log(libraryApi);
-      console.log('성공');
-    } catch (error) {
-      console.log(error)
-      console.log('에러')
-    }
-  }
-
-  libraryList();
-
 
   return (
     <div className="layer">
