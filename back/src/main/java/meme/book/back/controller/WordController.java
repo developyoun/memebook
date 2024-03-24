@@ -8,6 +8,7 @@ import meme.book.back.service.WordService;
 import meme.book.back.utils.NationCode;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -28,7 +29,9 @@ public class WordController {
     @GetMapping("/list")
     public ResponseDto getWordListController(@RequestParam(defaultValue = "ALL") NationCode nation,
                                              @RequestParam(defaultValue = "1") int page,
-                                             @RequestParam(defaultValue = "10") int pageSize) {
+                                             @RequestParam(defaultValue = "10") int pageSize
+    ) {
+        // 좋아요 싫어요 스크랩 최신순
         Pageable pages = PageRequest.of(page-1, pageSize);
 
         return ResponseDto.of(wordService.getWordListService(nation, pages));
