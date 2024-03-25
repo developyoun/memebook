@@ -11,6 +11,7 @@ public enum ErrorCode {
     SAME_NATION_CODE(HttpStatus.ALREADY_REPORTED, "기존 국가와 같은 국가 설정 입니다."),
 
     // 4xx
+    NOT_PERMIT_PARAMETER(HttpStatus.BAD_REQUEST, "허용되지 않은 파라미터입니다."),
     ALREADY_EXIST_NICKNAME(HttpStatus.CONFLICT, "이미 존재하는 닉네임입니다."),
     NOT_EXIST_WORD(HttpStatus.NOT_FOUND, "존재하지 않는 단어입니다."),
     NOT_EXIST_MEMBER(HttpStatus.NOT_FOUND, "존재하지 않는 회원입니다."),

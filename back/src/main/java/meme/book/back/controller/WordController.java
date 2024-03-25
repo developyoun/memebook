@@ -5,7 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.ResponseDto;
 import meme.book.back.dto.WordDto;
 import meme.book.back.service.WordService;
+import meme.book.back.utils.ErrorCode;
 import meme.book.back.utils.NationCode;
+import meme.book.back.utils.SortType;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -29,9 +31,16 @@ public class WordController {
     @GetMapping("/list")
     public ResponseDto getWordListController(@RequestParam(defaultValue = "ALL") NationCode nation,
                                              @RequestParam(defaultValue = "1") int page,
-                                             @RequestParam(defaultValue = "10") int pageSize
+                                             @RequestParam(defaultValue = "10") int pageSize,
+                                             @RequestParam(required = false) SortType sortType,
+                                             @RequestParam(required = false) String sortBy
     ) {
-        // 좋아요 싫어요 스크랩 최신순
+
+        // 정렬 값은 없지만, 정렬 방향은 넘어오는 경우 에러
+        if (sortType == null && sortBy != null) {
+            ResponseDto.error(ErrorCode.NOT_PERMIT_PARAMETER);
+        }
+
         Pageable pages = PageRequest.of(page-1, pageSize);
 
         return ResponseDto.of(wordService.getWordListService(nation, pages));
