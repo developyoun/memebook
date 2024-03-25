@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom';
 import React, {useEffect, useState} from "react";
 import {memebookApi} from "../util/memebookApi";
 import {debounce} from 'lodash';
+
 function WordList() {
   const [pageNumber, setPageNumber] = useState(1);
   const [libraryData, setLibraryData] = useState();
@@ -21,16 +22,16 @@ function WordList() {
 
   const pageMore = debounce(() => {
       const nextPage = pageNumber + 1;
-       setPageNumber(nextPage);
-       console.log(pageNumber)
        const PageData = async () => {
          try {
-           setLibraryData((prevLibraryData) => [...prevLibraryData, ...libraryData]);
+           const libraryApi = await memebookApi.wordList('KOR', nextPage);
+           setLibraryData((prevLibraryData) => [...prevLibraryData, ...libraryApi.data.data.content]);
          } catch (error) {
            console.log(error)
          }
        };
-       PageData();
+      setPageNumber(nextPage);
+      PageData();
   }, 500);
 
 
