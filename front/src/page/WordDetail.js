@@ -3,12 +3,17 @@ import Title from "../components/Title";
 import {Link} from 'react-router-dom';
 import {useState, useEffect} from "react";
 import CommentPort from "../components/modal/CommentPort";
+import { useParams } from "react-router-dom";
+import {memebookApi} from "../util/memebookApi";
 
 export default function WordDetail() {
+  let {id} = useParams();
   const [scrapeCheck, setScrapeCheck] = useState(false);
   const [reportOpen, setReportOpen] = useState(false);
-  const [likeCheck, setLikeCheck] = useState(true);
+  const [likeCheck, setLikeCheck] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
+  const [dislikeCheck, setDislikeCheck] = useState(false);
+  const [dislikeCount, setDislikeCount] = useState(0);
 
   const commentReportOpen = ({commentPortClose}) => {
     setReportOpen(!reportOpen);
@@ -17,14 +22,56 @@ export default function WordDetail() {
     setScrapeCheck(!scrapeCheck);
   }
 
-  const LikeCount = () => {
-    setLikeCheck(!likeCheck);
-    if (likeCheck === true) {
-      setLikeCount(likeCount + 1);
-    } else {
-      setLikeCount(likeCount - 1);
+  useEffect(() => {
+    async function WordDetailApi() {
+      const wordDetailData = await memebookApi.wordReaction(id);
+      setLikeCount(wordDetailData.data.data.data.likeCount);
+      setDislikeCount(wordDetailData.data.data.data.dislikeCount);
+    }
+    WordDetailApi();
+  }, []);
+
+  async function wordReactionLike() {
+    try {
+      if (likeCheck === false) {
+        const wordReactionApi = await memebookApi.wordReactionUpdate( {
+          reactionType: "LIKE",
+          memIdx: 13222,
+          wordIdx: id,
+        });
+        setLikeCount(likeCount + 1);
+      } else if (likeCheck === true) {
+        setLikeCount(likeCount - 1);
+      }
+      setLikeCheck(!likeCheck);
+      console.log('성공');
+    } catch (error) {
+      console.log(error)
+      console.log('에러')
     }
   }
+
+  async function wordReactionDislike() {
+    try {
+      if (likeCheck === false) {
+        const wordReactionApi = await memebookApi.wordReactionUpdate( {
+          reactionType: "DISLIKE",
+          memIdx: 13222,
+          wordIdx: id,
+        });
+        setDislikeCount(dislikeCount + 1);
+      } else if (likeCheck === true) {
+        setDislikeCount(dislikeCount - 1);
+      }
+      setDislikeCheck(!dislikeCheck);
+      console.log('성공');
+    } catch (error) {
+      console.log(error)
+      console.log('에러')
+    }
+  }
+
+
 
   useEffect(() => {
     window.scrollTo(0,0);
@@ -51,7 +98,7 @@ export default function WordDetail() {
                   </button>
                 </li>
                 <li>
-                  <button type="button" className="btn_like" onClick={LikeCount}>
+                  <button type="button" className="btn_like" onClick={wordReactionLike}>
                     <span className="blind">좋아요</span>
                   </button>
                   <span className="count">
@@ -59,10 +106,12 @@ export default function WordDetail() {
                   </span>
                 </li>
                 <li>
-                  <button type="button" className="btn_dislike">
+                  <button type="button" className="btn_dislike" onClick={wordReactionDislike}>
                     <span className="blind">싫어요</span>
                   </button>
-                  <span className="count">1</span>
+                  <span className="count">
+                    {dislikeCount}
+                  </span>
                 </li>
                 <li>
                   <button type="button" className="btn_report" onClick={commentReportOpen}>
@@ -74,42 +123,6 @@ export default function WordDetail() {
             <div className="mean_txt">
               <p>
                 무야호는 2021년 3~5월부터 대한민국에서 유행하기 시작한 인터넷 밈이다. MBC 무한도전의 2011년 방영분에서 연출된 미국 알래스카 교민 할아버지의 함성에서 유래하였다.
-              </p>
-            </div>
-          </li>
-          <li className="list">
-            <div className="mean_top">
-              <span className="name">김누징</span>
-              <ul className="util_list">
-                <li>
-                  <button type="button" className="btn_scrape">
-                    <span className="blind">스크랩</span>
-                  </button>
-                </li>
-                <li>
-                  <button type="button" className="btn_like">
-                    <span className="blind">좋아요</span>
-                  </button>
-                  <span className="count">1</span>
-                </li>
-                <li>
-                  <button type="button" className="btn_dislike">
-                    <span className="blind">싫어요</span>
-                  </button>
-                  <span className="count">1</span>
-                </li>
-                <li>
-                  <button type="button" className="btn_report">
-                    <span className="blind">신고하기</span>
-                  </button>
-                </li>
-              </ul>
-            </div>
-            <div className="mean_txt">
-              <p>
-                최규재 할아버지의 유쾌한 반응과 신나는 얼굴, 오프닝 멘트가 나와야 할 상황에서 뜬금없는 정체불명의 '무야호' 멘트, 말 자체의 쾌활한 어감, 수습을 위한 정형돈의 "그만큼 신나시는 거지~"라는 멘트가 오히려 궁색해 보이는 점 등 재치 있는 부분이 많다. 불과 30초도 되지 않는 장면임에도 웃음 포인트가 고루 갖추어진 부분.
-                <br/>
-                온갖 기상천외한 특집이 난무하는 무한도전 가운데서도 오마이텐트 특집은 상황이 독특한 편인데, '존재 여부조차 알 수 없는 교포 김상덕 씨를 찾으러 떠난다'는 특이한 콘셉트.[8] 그에 비해 무야호 장면은 방영 당시엔 지나가는 재미있는 파트로만 인식되었을 뿐 '무야호'라는 단어 자체가 폭발적인 인기를 끌지는 않았으나, 2018년 무한도전 인스타그램 팬페이지인 이토뭐에 업로드(보러가기)되며 본격적으로 회자되기 시작했다.
               </p>
             </div>
           </li>
