@@ -40,29 +40,24 @@ export default function Word() {
 
 
   return (
-    <div className="layer">
-
-      <Title title="사전"></Title>
-
-      <div className="container">
-
-        <ul className="word_wrap">
-          <li className="word_box">
-            <h3 className="word_tit">ㄴ</h3>
-            <ul className="word_list">
-              {
-                libraryData?.map((item, idx) => {
-                  return (
-                    <li>
-                      <Link to={`/word/${item.wordIdx}`} className="item" key={idx}>{item.wordContent}</Link>
-                    </li>
-                  )
-                })
-              }
-            </ul>
-            <button type="button" onClick={pageMore}>더보기</button>
-          </li>
+    <div className="library_wrap">
+      <div className="word_tab">
+        <div className="tab_item active">줄임말</div>
+        <div className="tab_item">자주쓰는</div>
+      </div>
+      <div className="word_wrap">
+        <ul className="word_list">
+          {
+            libraryData?.map((item, idx) => {
+              return (
+                <li>
+                  <Link to={`/word/${item.wordIdx}`} className="item" key={idx}>{item.wordContent}</Link>
+                </li>
+              )
+            })
+          }
         </ul>
+        <button type="button" onClick={pageMore}>더보기</button>
       </div>
 
       <HomeFooter></HomeFooter>
