@@ -1,44 +1,40 @@
-/* 자음 리스트 */
-.consonant_list {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 40px;
-  gap:12px 8px;
-  .list {
+.library_wrap {
+  padding-top:80px;
+  background:#5F6F52;
+}
 
-    .link {
-      padding: 5px 8px;
-
-      &.active {
-        color: #fff;
-        font-weight: bold;
-        border-radius: 48px;
-        background: var(--bg-brown);
-      }
+.word_tab {
+  display:flex;
+  align-items:center;
+  margin-bottom:12px;
+  padding:0 12px;
+  .tab_item {
+    color:#fff;
+    &+.tab_item {
+      margin-left:12px;
+    }
+    &.active {
+      color:#FEFAE0;
+      font-weight:bold;
     }
   }
 }
 
-
 /* 자음에 따른 단어 리스트 */
 .word_wrap {
-  .word_box {
-    & + .word_box {
-      margin-top: 24px;
-    }
-
-    .word_tit {
-      margin-bottom: 12px;
-      padding: 8px;
-      border-radius: 8px;
-      background: #F5F5F5;
-    }
-
-    .word_list {
+  padding:24px;
+  border-top-left-radius:12px;
+  border-top-right-radius:12px;
+  background:#fff;
+  .word_list {
+    li {
+      &+li {
+        margin-top:8px;
+        padding-top:8px;
+        border-top:1px solid #F7F7F7;
+      }
       .item {
-        display: flex;
-        padding: 4px 0;
-        width: 100%;
+        display:block
       }
     }
   }

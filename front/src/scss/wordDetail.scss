@@ -1,15 +1,29 @@
-.word_detail {
+.detail_wrap {
+  background:#F7F7F7;
+}
+.detail_box {
+  margin:50px 0;
+  .desc_add_box {
+    display:flex;
+    margin-bottom:12px;
+    .desc_add_btn {
+      margin-left:auto;
+    }
+  }
   .word_tit {
+    margin-bottom:24px;
     font-size:26px;
     text-align:center;
   }
-
   .word_mean_list {
-    margin-top:50px;
+    padding:36px 24px;
+    border-radius:16px;
+    box-shadow: 0 1px 12px -10px #000;
+    background:#fff;
     .list {
       &+.list {
-        margin-top:24px;
-        padding-top:24px;
+        margin-top:32px;
+        padding-top:32px;
         border-top:1px solid #ddd;
       }
     }
@@ -18,6 +32,7 @@
       justify-content: space-between;
       .name {
         font-size:16px;
+        font-weight:bold;
       }
     }
     .util_list {

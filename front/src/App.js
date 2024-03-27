@@ -1,4 +1,5 @@
 import './scss/common.scss';
+import './scss/components/darkMode.scss';
 import './scss/reset.scss';
 import React from "react";
 import {Route, Routes} from 'react-router-dom';
