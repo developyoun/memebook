@@ -12,7 +12,6 @@ public class ScrapController {
 
     @GetMapping("/word/list")
     public ResponseDto getWordScrap() {
-
         return ResponseDto.of();
     }
 
