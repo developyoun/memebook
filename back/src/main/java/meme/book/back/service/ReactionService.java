@@ -30,6 +30,8 @@ public class ReactionService {
         if (optionalReaction.isPresent()) {
             reaction = optionalReaction.get();
             if (!reaction.getReactionType().equals(reactionDto.getReactionType())) {
+                reactionRepository.delete(reaction);
+            } else {
                 reaction.setReactionType(reactionDto.getReactionType());
                 reactionRepository.save(reaction);
             }
