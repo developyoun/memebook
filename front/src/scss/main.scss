@@ -211,18 +211,19 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding:8px 0 0 48px;
+    padding-left:48px;
     .link {
       display: inline-block;
       width: 100%;
       font-size:14px;
+      line-height:40px;
     }
     strong {
       color: var(--bg-brown);
     }
 
     & + .list {
-      margin-top: 24px;
+      margin-top: 16px;
     }
 
     &:after {
