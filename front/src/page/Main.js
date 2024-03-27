@@ -7,7 +7,7 @@ import NickName from "../components/modal/NickName";
 import {memebookApi} from "../util/memebookApi";
 
 export default function Main() {
-  const [nicknameModalOpen, setNicknameModalOpen] = useState(true);
+  const [nicknameModalOpen, setNicknameModalOpen] = useState(false);
   const [countryModalOpen, setCountryModalOpen] = useState(false);
   const [studyCountryType, setStudyCountryType] = useState('');
   const [nickname, setNickname] = useState('');
@@ -67,55 +67,107 @@ export default function Main() {
       <div className="main">
 
         <div className="container">
-          <div className="main_top">
-            {
-              studyCountryType === '' && (
-                <span className="country_badge">언어 선택 하셨나요?</span>
-              )
-            }
-            <button type="button" className={`user_country ${studyCountryType}`} onClick={countryChoiceClose}>
-              <span className="blind">나라 선택</span>
-            </button>
-            {
-              nicknameSave && (
+         <div className="main_top">
+           <div className="user_country_box">
+             {
+               studyCountryType === '' && (
+                 <span className="country_badge">언어 선택 하셨나요?</span>
+               )
+             }
+             <button type="button" className={`user_country ${studyCountryType}`} onClick={countryChoiceClose}>
+               <span className="blind">나라 선택</span>
+             </button>
+           </div>
+           <p>Let's Find Your Words!</p>
+
+           {
+             nicknameSave && (
                <>{nicknameSave}님<br/></>
-              )
-            }
-            Let's Find Your<br/>Words!
-          </div>
+             )
+           }
+           <div className="search_box">
+             <input type="text" className="text_input" placeholder="단어를 검색해보세요"/>
+           </div>
+         </div>
 
-          <div className="search_box">
-            <input type="text" className="text_input" placeholder="단어를 검색해보세요"/>
-          </div>
+          <div className="main_con">
 
-          <div className="popular_box">
-            <h3 className="tit">💡 오늘 하루 인기 검색어 TOP </h3>
-            <ul className="popular_list">
-              <li>
-                <a href="" className="keyword">
-                  인싸
-                </a>
+            <div className="popular_box">
+              <h3 className="tit">💡 오늘 하루 인기 검색어 TOP </h3>
+              <ul className="popular_list">
+                <li>
+                  <a href="" className="keyword">
+                    인싸
+                  </a>
+                </li>
+                <li>
+                  <a href="" className="keyword">
+                    인싸
+                  </a>
+                </li>
+                <li>
+                  <a href="" className="keyword">
+                    인싸
+                  </a>
+                </li>
+                <li>
+                  <a href="" className="keyword">
+                    인싸
+                  </a>
+                </li>
+                <li>
+                  <a href="" className="keyword">
+                    인싸
+                  </a>
+                </li>
+
+                <li>
+                  <a href="" className="keyword">
+                    인싸
+                  </a>
+                </li>
+                <li>
+                  <a href="" className="keyword">
+                    인싸
+                  </a>
+                </li>
+                <li>
+                  <a href="" className="keyword">
+                    인싸
+                  </a>
+                </li>
+                <li>
+                  <a href="" className="keyword">
+                    인싸
+                  </a>
+                </li>
+                <li>
+                  <a href="" className="keyword">
+                    인싸
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <ul className="check_list">
+              <li className="list word">
+                <Link to="" className="link">
+                  지금까지 <strong>3</strong>개의 단어를 등록했어요
+                </Link>
+              </li>
+              <li className="list scrape">
+                <Link to="" className="link">
+                  아직 스크랩한 단어가 없어요
+                </Link>
+              </li>
+              <li className="list visit">
+                <p className="link">
+                  연속 방문 최대 <strong>12</strong>번을 달성했어요
+                </p>
               </li>
             </ul>
           </div>
 
-          <ul className="check_list">
-            <li className="list">
-              <Link to="" className="link">
-                &#128394; 지금까지 <strong>3</strong>개의 단어를 등록했어요
-              </Link>
-            </li>
-            <li className="list">
-              <Link to="" className="link">
-                &#127775; 아직 스크랩한 단어가 없어요
-              </Link>
-            </li>
-            <li className="list visit">
-              <p className="link">
-                &#127969; 연속 방문 최대 <strong>12</strong>번을 달성했어요
-              </p>
-            </li>
-          </ul>
         </div>
       </div>
 
