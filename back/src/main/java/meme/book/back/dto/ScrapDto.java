@@ -2,6 +2,7 @@ package meme.book.back.dto;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import meme.book.back.entity.Scrap;
 
 import java.time.LocalDateTime;
 
@@ -16,4 +17,14 @@ public class ScrapDto {
     private Long memberIdx;
 
     private LocalDateTime scrapRegDtm;
+
+    public static ScrapDto toDto(Scrap scrapEntity) {
+        return new ScrapDto()
+                .setScrapIdx(scrapEntity.getScrapIdx())
+                .setMemberIdx(scrapEntity.getMemberIdx())
+                .setWordIdx(scrapEntity.getWordIdx())
+                .setScrapRegDtm(scrapEntity.getRegDtm())
+                ;
+
+    }
 }
