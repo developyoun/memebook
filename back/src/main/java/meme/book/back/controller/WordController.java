@@ -32,15 +32,13 @@ public class WordController {
     public ResponseDto getWordListController(@RequestParam(defaultValue = "ALL") NationCode nation,
                                              @RequestParam(defaultValue = "1") int page,
                                              @RequestParam(defaultValue = "10") int pageSize,
-                                             @RequestParam(required = false) SortType sortType,
-                                             @RequestParam(required = false) String sortBy
+                                             @RequestParam(required = false) SortType sort,
+                                             @RequestParam(required = false) String sortBy,
+                                             @RequestParam(required = false) String search
     ) {
-
-        // 정렬 값은 없지만, 정렬 방향은 넘어오는 경우 에러
-        if (sortType == null && sortBy != null) {
-            ResponseDto.error(ErrorCode.NOT_PERMIT_PARAMETER);
+        if (sort == null && sortBy != null) {
+            return ResponseDto.error(ErrorCode.NOT_CORRECT_PARAMETER);
         }
-
         Pageable pages = PageRequest.of(page-1, pageSize);
 
         return ResponseDto.of(wordService.getWordListService(nation, pages));
