@@ -15,14 +15,13 @@ public class ScrapController {
 
     private final ScrapService scrapService;
 
-    @GetMapping("/word/list")
-    public ResponseDto getWordScrap() {
-
-        return ResponseDto.of();
+    @GetMapping("/word/list/{memberIdx}")
+    public ResponseDto getWordScrap(@PathVariable("memberIdx") Long memberIdx) {
+        return scrapService.getScrapList(memberIdx);
     }
 
     @PostMapping("/word")
     public ResponseDto saveWordScrap(@RequestBody ScrapDto scrapDto) {
-        return scrapService.saveWordScrap(scrapDto);
+        return scrapService.saveScrap(scrapDto);
     }
 }

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -27,13 +28,19 @@ public class ScrapTest {
 
     @BeforeEach
     void init() {
-        scrapDto.setMemberIdx(111L)
-                .setWordIdx(222L)
+        scrapDto.setMemberIdx(12L)
+                .setWordIdx(25L)
                 .setScrapRegDtm(LocalDateTime.now())
                 ;
     }
 
     @Test
+    void getScrapListByMemberIdx() {
+        scrapService.getScrapList(scrapDto.getMemberIdx());
+    }
+
+    @Test
+    @Rollback(value = false)
     void saveScrap() {
         scrapController.saveWordScrap(scrapDto);
     }

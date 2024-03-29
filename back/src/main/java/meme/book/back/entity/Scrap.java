@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
@@ -31,6 +32,7 @@ public class Scrap {
     private Long memberIdx;
 
     // 스크랩 등록 시간
+    @CreatedDate
     @Column(name = "REG_DTM")
     private LocalDateTime regDtm;
 

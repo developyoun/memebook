@@ -1,5 +1,6 @@
 package meme.book.back.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import meme.book.back.entity.Scrap;
@@ -16,6 +17,7 @@ public class ScrapDto {
 
     private Long memberIdx;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime scrapRegDtm;
 
     public static ScrapDto toDto(Scrap scrapEntity) {
