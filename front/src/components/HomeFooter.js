@@ -7,16 +7,16 @@ export default function HomeFooter() {
     <footer>
       <ul className="footer_list">
         <li className="list">
-          <Link to="/main" className="link home">Home</Link>
+          <Link to="/main" className="link home">홈</Link>
         </li>
         <li className="list">
-          <Link to="/wordAdd" className="link word">Add</Link>
+          <Link to="/library" className="link library">사전</Link>
         </li>
         <li className="list">
-          <Link to="/library" className="link library">Library</Link>
+          <Link to="/library" className="link community">커뮤니티</Link>
         </li>
         <li className="list">
-          <Link to="/profile" className="link profile">Profile</Link>
+          <Link to="/profile" className="link profile">프로필</Link>
         </li>
       </ul>
     </footer>
