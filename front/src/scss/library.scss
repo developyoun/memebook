@@ -1,6 +1,69 @@
 .library_wrap {
-  padding-top:80px;
-  background:#5F6F52;
+  height:calc(100vh - 40px);
+  padding:40px 20px 0;
+  background:#f7f7f7;
+
+  .library_top {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+    margin-bottom:26px;
+    .tit {
+      font-size:20px;
+    }
+    .box_btn {
+      display:flex;
+      align-items:center;
+      .txt {
+        margin-right:6px;
+        font-size:12px;
+      }
+      .word_add_btn {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        height:26px;
+        padding:0 8px;
+        color:#fff;
+        font-size:12px;
+        line-height:26px;
+        border-radius:8px;
+        background:var(--primary);
+      }
+    }
+  }
+  .library_box {
+    padding:12px;
+    border-radius:12px;
+    background:#fff;
+    .box_top {
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      margin-bottom:20px;
+      .word_more_btn {
+        display:flex;
+        align-items:center;
+        font-size:12px;
+        line-height:24px;
+        &:after {
+          display:inline-block;
+          width:24px;
+          height:24px;
+          margin-left:6px;
+          background:url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 17L15 12L10 7' stroke='%23496E2D' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A") center no-repeat;
+          content:'';
+        }
+      }
+    }
+    .box_item {
+      width:auto;
+      &+.box_item {
+        margin-left:16px;
+      }
+    }
+  }
 }
 
 .word_tab {

@@ -12,7 +12,7 @@ export default function Layout() {
   return (
     <>
       <div id="wrap" className={`wrap ${isDark ? 'dark' : ''}`}>
-        <DarkMode darkModeCheck={darkModeCheck}/>
+        {/*<DarkMode darkModeCheck={darkModeCheck}/>*/}
         <Outlet></Outlet>
         <HomeFooter></HomeFooter>
       </div>
