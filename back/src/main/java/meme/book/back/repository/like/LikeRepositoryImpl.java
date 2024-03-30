@@ -1,11 +1,12 @@
-package meme.book.back.repository.scrap;
+package meme.book.back.repository.like;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 
 @RequiredArgsConstructor
-public class ScrapRepositoryImpl implements ScrapCustomRepository{
+public class LikeRepositoryImpl implements LikeCustomRepository {
 
     private final JPAQueryFactory queryFactory;
+
+
 }

@@ -1,15 +1,15 @@
 package meme.book.back.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
 
 @Data
 @Accessors(chain = true)
-@AllArgsConstructor
+@NoArgsConstructor
 public class ScrapResponseDto {
 
     private Long scrapIdx;

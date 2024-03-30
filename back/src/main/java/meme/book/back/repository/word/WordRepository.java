@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface WordRepository extends JpaRepository<Word, Long> {
+public interface WordRepository extends JpaRepository<Word, Long>, WordCustomRepository {
 
     Page<Word> findAllByWordNationEquals(NationCode nationCode, Pageable pages);
 

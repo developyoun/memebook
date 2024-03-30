@@ -3,6 +3,7 @@ package meme.book.back.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.ReactionDto;
+import meme.book.back.dto.ReactionRequestDto;
 import meme.book.back.dto.ResponseDto;
 import meme.book.back.service.ReactionService;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ public class ReactionController {
     private final ReactionService reactionService;
 
     @PostMapping("/update")
-    public ResponseDto upsertReaction(@RequestBody ReactionDto reactionDto) {
+    public ResponseDto upsertReaction(@RequestBody ReactionRequestDto reactionDto) {
         log.info("Reaction Request: {}", reactionDto);
 
         return ResponseDto.of(reactionService.upsertReactionService(reactionDto));

@@ -6,6 +6,8 @@ import meme.book.back.dto.ReactionDto;
 import meme.book.back.dto.ResponseDto;
 import meme.book.back.dto.reaction.ReactionCountDto;
 import meme.book.back.entity.Reaction;
+import meme.book.back.repository.dislike.DislikeRepository;
+import meme.book.back.repository.like.LikeRepository;
 import meme.book.back.repository.reaction.ReactionRepository;
 import meme.book.back.utils.ActionType;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,8 @@ import java.util.Optional;
 public class ReactionService {
 
     private final ReactionRepository reactionRepository;
+    private final LikeRepository likeRepository;
+    private final DislikeRepository dislikeRepository;
 
     @Transactional
     public ResponseDto upsertReactionService(ReactionDto reactionDto) {
