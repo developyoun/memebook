@@ -10,6 +10,8 @@
 | 단어   | *api/word/create*          | POST   | 단어 생성          |                                                    |
 | 단어   | *api/word/update*          | PUT    | 단어 수정          |                                                    |
 | 좋아요 | *api/reaction/update*      | POST   | 좋아요/싫어요 추가 |                                                    |
+| 스크랩 | api/scrap/word/list        | GET    | 단어 스크랩 조회   |                                                    |
+| 스크랩 | api/scrap/word             | POST   | 스크랩 저장        |                                                    |
 
 ### ✨회원
 
@@ -323,6 +325,79 @@ Response Body:
     "likeCount": 22,
     "dislikeCount": 6
   }
+}
+```
+
+
+
+### 10. 단어 스크랩 조회
+
+URL: ***api/scrap/word/list/{memberIdx}***
+
+Method: **GET**
+
+Request Body: X
+
+Response Body:
+
+```json
+{
+  "status": "OK",
+  "message": "Success",
+  "data": [
+    {
+      "scrapIdx": 10,
+      "memberIdx": 12,
+      "wordIdx": 25,
+      "regDtm": "2024-03-29 20:19:41",
+      "wordContent": "한글",
+      "wordTitle": "타이트으으으을",
+      "nickname": "잠깐 닫는거 테스트좀하겠습니다"
+    }, 
+    {
+      "scrapIdx": 15,
+      "memberIdx": 12,
+      "wordIdx": 32,
+      "regDtm": "2024-03-29 20:19:41",
+      "wordContent": "한글",
+      "wordTitle": "타이트으으으을",
+      "nickname": "테슾테슬"
+    }
+  ]
+}
+```
+
+
+
+### 10. 단어 스크랩 저장
+
+URL: ***api/scrap/word***
+
+Method: **POST**
+
+Request Body: 
+
+```json
+{
+    "wordIdx": 123123,
+    "memberIdx": 89809
+}
+```
+
+
+
+Response Body:
+
+```json
+{
+  "status": "OK",
+  "message": "Success",
+  "data": {
+      "scrapIdx": 10,
+      "memberIdx": 12,
+      "wordIdx": 25,
+      "regDtm": "2024-03-29 20:19:41"
+    }
 }
 ```
 

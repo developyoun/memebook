@@ -1,14 +1,16 @@
-package meme.book.back.repository;
+package meme.book.back.repository.word;
 
 import meme.book.back.entity.Word;
 import meme.book.back.utils.NationCode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-public interface WordRepository extends JpaRepository<Word, Long> {
+@Repository
+public interface WordRepository extends JpaRepository<Word, Long>, WordCustomRepository {
 
     Page<Word> findAllByWordNationEquals(NationCode nationCode, Pageable pages);
 

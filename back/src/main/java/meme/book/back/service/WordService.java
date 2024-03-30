@@ -4,15 +4,18 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.ResponseDto;
 import meme.book.back.dto.WordDto;
+import meme.book.back.dto.WordResponseDto;
 import meme.book.back.entity.Word;
 import meme.book.back.exception.CustomException;
-import meme.book.back.repository.WordRepository;
+import meme.book.back.repository.word.WordRepository;
 import meme.book.back.utils.ErrorCode;
 import meme.book.back.utils.NationCode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Slf4j
 @Service
