@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.MemberDto;
 import meme.book.back.dto.ResponseDto;
 import meme.book.back.entity.Member;
-import meme.book.back.repository.MemberRepository;
+import meme.book.back.repository.member.MemberRepository;
 import meme.book.back.utils.ErrorCode;
 import meme.book.back.utils.NationCode;
 import org.springframework.stereotype.Service;

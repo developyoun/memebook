@@ -6,7 +6,7 @@ import meme.book.back.dto.ResponseDto;
 import meme.book.back.dto.ScrapDto;
 import meme.book.back.dto.ScrapResponseDto;
 import meme.book.back.entity.Scrap;
-import meme.book.back.repository.ScrapRepository;
+import meme.book.back.repository.scrap.ScrapRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

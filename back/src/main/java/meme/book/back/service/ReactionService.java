@@ -6,7 +6,7 @@ import meme.book.back.dto.ReactionDto;
 import meme.book.back.dto.ResponseDto;
 import meme.book.back.dto.reaction.ReactionCountDto;
 import meme.book.back.entity.Reaction;
-import meme.book.back.repository.ReactionRepository;
+import meme.book.back.repository.reaction.ReactionRepository;
 import meme.book.back.utils.ActionType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
