@@ -15,5 +15,5 @@ public interface WordRepository extends JpaRepository<Word, Long>, WordCustomRep
     Page<Word> findAllByWordNationEquals(NationCode nationCode, Pageable pages);
 
     // 단어 단일 조회
-    Optional<Word> findByWordIdx(Long wordIdx);
+    Word findByWordIdx(Long wordIdx);
 }

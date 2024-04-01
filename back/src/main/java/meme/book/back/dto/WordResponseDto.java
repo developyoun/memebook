@@ -37,7 +37,7 @@ public class WordResponseDto {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime modDtm;
 
-    private long like;
+    private long likeCount;
 
-    private long dislike;
+    private long dislikeCount;
 }

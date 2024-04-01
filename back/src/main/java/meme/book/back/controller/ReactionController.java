@@ -17,7 +17,7 @@ public class ReactionController {
     private final ReactionService reactionService;
 
     @PostMapping("/update")
-    public ResponseDto upsertReaction(@RequestBody ReactionRequestDto reactionDto) {
+    public ResponseDto upsertReaction(@RequestBody ReactionDto reactionDto) {
         log.info("Reaction Request: {}", reactionDto);
 
         return ResponseDto.of(reactionService.upsertReactionService(reactionDto));

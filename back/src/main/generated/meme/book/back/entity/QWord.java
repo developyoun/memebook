@@ -29,7 +29,11 @@ public class QWord extends EntityPathBase<Word> {
 
     public final StringPath wordContent = createString("wordContent");
 
+    public final NumberPath<Long> wordDislike = createNumber("wordDislike", Long.class);
+
     public final NumberPath<Long> wordIdx = createNumber("wordIdx", Long.class);
+
+    public final NumberPath<Long> wordLike = createNumber("wordLike", Long.class);
 
     public final EnumPath<meme.book.back.utils.NationCode> wordNation = createEnum("wordNation", meme.book.back.utils.NationCode.class);
 

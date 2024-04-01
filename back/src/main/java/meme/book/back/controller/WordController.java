@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.ResponseDto;
 import meme.book.back.dto.WordDto;
+import meme.book.back.dto.WordRequestDto;
 import meme.book.back.service.WordService;
 import meme.book.back.utils.ErrorCode;
 import meme.book.back.utils.NationCode;
@@ -29,9 +30,9 @@ public class WordController {
 
     // 단어 리스트 조회
     @GetMapping("/list")
-    public ResponseDto getWordListController(@RequestParam(defaultValue = "ALL") NationCode nation,
-                                             @RequestParam(defaultValue = "1") int page,
+    public ResponseDto getWordListController(@RequestParam(defaultValue = "1") int page,
                                              @RequestParam(defaultValue = "10") int pageSize,
+                                             @RequestParam(defaultValue = "ALL") NationCode nation,
                                              @RequestParam(required = false) SortType sort,
                                              @RequestParam(required = false) String sortBy,
                                              @RequestParam(required = false) String search
@@ -39,9 +40,15 @@ public class WordController {
         if (sort == null && sortBy != null) {
             return ResponseDto.error(ErrorCode.NOT_CORRECT_PARAMETER);
         }
-        Pageable pages = PageRequest.of(page-1, pageSize);
+        Pageable pageable = PageRequest.of(page-1, pageSize);
 
-        return ResponseDto.of(wordService.getWordListService(nation, pages));
+        WordRequestDto requestDto = new WordRequestDto()
+                .setNationCode(nation)
+                .setSearch(search)
+                .setSort(sort)
+                .setSortBy(sortBy);
+
+        return ResponseDto.of(wordService.getWordListService(pageable, requestDto));
     }
 
     // 단어 등록 Controller

@@ -1,10 +1,11 @@
 package meme.book.back.repository.word;
 
-import com.querydsl.core.Tuple;
-
-import java.util.List;
+import meme.book.back.dto.WordRequestDto;
+import meme.book.back.dto.WordResponseDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface WordCustomRepository {
 
-    List<Tuple> getAllWordList(long page, long pageSize);
+    Page<WordResponseDto> getAllWordList(Pageable pageable, WordRequestDto requestDto);
 }

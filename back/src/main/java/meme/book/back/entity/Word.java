@@ -44,6 +44,14 @@ public class Word {
     @Column(name = "REG_MEM")
     private Long regMem;
 
+    // 단어 좋아요 수
+    @Column(name = "WORD_LIKE")
+    private Long wordLike;
+
+    // 단어 싫어요 수
+    @Column(name = "WORD_DISLIKE")
+    private Long wordDislike;
+
     // 단어 등록일
     @CreatedDate
     @Column(name = "REG_DTM")

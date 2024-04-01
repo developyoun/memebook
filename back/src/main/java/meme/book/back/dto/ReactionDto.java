@@ -1,5 +1,8 @@
 package meme.book.back.dto;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import meme.book.back.entity.Reaction;
@@ -9,6 +12,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Accessors(chain = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReactionDto {
 
     /* 리액션 idx */
