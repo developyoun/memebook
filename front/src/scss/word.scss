@@ -1,7 +1,26 @@
+.word_add_container {
+  margin-top:20px;
+  padding:0 20px;
+  .input_box {
+    .text_input {
+      max-height:160px;
+      margin-top:16px;
+      background:#f7f7f7;
+    }
+    .input_sub {
+      margin-top:8px;
+      font-size:12px;
+      text-align:right;
+    }
+   &+.input_box {
+     margin-top:24px;
+   }
+  }
+}
+
 /* 하단 플로팅 버튼 */
 .floating_box {
-  margin-top:20px;
-  padding: 20px 0;
+  margin-top:16px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -17,11 +36,6 @@
   font-weight: bold;
   border-radius: 32px;
   background: #406A52;
-}
-
-.character_count {
-  margin-left:auto;
-  font-size:12px;
 }
 
 .word_add_tip {

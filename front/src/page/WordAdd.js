@@ -4,6 +4,7 @@ import {useState} from "react";
 import {memebookApi} from "../util/memebookApi";
 
 export default function WordAdd() {
+  const [addState, setAddState] = useState(false);
   const [titleNull, setTitleNull] = useState(false);
   const [explainNull, setExplainNull] = useState(false);
   const [titleCount, setTitleCount] = useState(0);
@@ -20,6 +21,9 @@ export default function WordAdd() {
         RegMem : 123123,
         ModMem : 123123
       });
+      setAddState(addState);
+      alert('등록 완료');
+      window.location.reload();
       console.log('성공');
     } catch (error) {
       console.log(error)
@@ -54,9 +58,9 @@ export default function WordAdd() {
   return (
     <div className="layer">
 
-      <Title title="단어 등록"></Title>
+      <Title title="단어 등록" type="back"></Title>
 
-      <div className="container">
+      <div className="word_add_container">
 
         <div className="word_add_tip">
           $일본$에 관한 밈을 등록해주세요.<br/>일본어를 배우고 싶은 밈밍이들이 좋아할 거에요&#128218;

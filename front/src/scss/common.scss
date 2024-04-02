@@ -134,3 +134,15 @@
   }
 }
 
+
+.btn_top {
+  position:fixed;
+  right:20px;
+  bottom:110px;
+  display:inline-block;
+  width:36px;
+  height:36px;
+  border:1px solid var(--primary);
+  border-radius:50%;
+  background:#fff;
+}

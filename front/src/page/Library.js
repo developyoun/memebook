@@ -3,7 +3,7 @@ import HomeFooter from "../components/HomeFooter";
 import Title from "../components/Title";
 import {memebookApi} from "../util/memebookApi";
 import {Link} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {debounce} from 'lodash';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -11,6 +11,14 @@ import 'swiper/css';
 export default function Word() {
   const [pageNumber, setPageNumber] = useState(1);
   const [libraryData, setLibraryData] = useState();
+  const isBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
+
+  const pageUp = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
 
   useEffect(() => {
     async function libraryList() {
@@ -18,6 +26,7 @@ export default function Word() {
         const libraryApi = await memebookApi.wordList('ALL', pageNumber);
         setLibraryData(libraryApi.data.data.content);
         console.log(libraryData);
+
       } catch (error) {
         console.log(error)
       }
@@ -25,21 +34,30 @@ export default function Word() {
     libraryList();
   }, []);
 
+  const pageMore = useCallback(debounce(async () => {
+    try {
 
-  const pageMore = debounce(() => {
-    const nextPage = pageNumber + 1;
-    const PageData = async () => {
-      try {
+      const nextPage = pageNumber + 1;
+      setPageNumber(nextPage);
+
+      if (isBottom) {
         const libraryApi = await memebookApi.wordList('KOR', nextPage);
         setLibraryData((prevLibraryData) => [...prevLibraryData, ...libraryApi.data.data.content]);
-      } catch (error) {
-        console.log(error)
+        console.log('닿음');
       }
-    };
-    setPageNumber(nextPage);
-    PageData();
-  }, 500);
+    } catch (error) {
+      console.log(error);
+    }
+  }, 1000), [pageNumber]); // pageNumber을 의존성 배열에 추가하여 새로운 debounce 함수가 필요한 경우에만 새로 생성
 
+  useEffect(() => {
+    window.addEventListener('scroll', pageMore);
+
+    return () => {
+      window.removeEventListener('scroll', pageMore);
+      pageMore.cancel(); // 컴포넌트가 언마운트될 때 debounce 함수를 취소하여 메모리 누수 방지
+    };
+  }, [pageMore]);
 
   return (
     <div className="library_wrap">
@@ -83,8 +101,14 @@ export default function Word() {
         </ul>
       </div>
 
-      {/*<button type="button" onClick={pageMore}>더보기</button>*/}
-      <HomeFooter></HomeFooter>
+      {
+        window.scrollY > 20 && (
+          <button type="button" className="btn_top" onClick={pageUp}>
+            <span className="blind">올리기</span>
+          </button>
+        )
+      }
+
     </div>
   );
 }
