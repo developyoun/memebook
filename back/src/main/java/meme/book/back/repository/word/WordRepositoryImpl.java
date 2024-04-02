@@ -18,6 +18,7 @@ import org.springframework.data.support.PageableExecutionUtils;
 import java.util.List;
 
 import static meme.book.back.entity.QWord.word;
+import static meme.book.back.entity.QWordContent.wordContent;
 
 @RequiredArgsConstructor
 public class WordRepositoryImpl implements WordCustomRepository {
@@ -30,18 +31,18 @@ public class WordRepositoryImpl implements WordCustomRepository {
         List<WordResponseDto> fetch = queryFactory.select(
                         Projections.fields(WordResponseDto.class,
                                 word.wordIdx.as("wordIdx"),
-                                word.wordContent.as("wordContent"),
+                                wordContent.content.as("wordContent"),
                                 word.wordNation.as("wordNation"),
-                                word.wordTitle.as("wordTitle"),
+                                word.wordName.as("wordName"),
                                 word.wordLike.as("likeCount"),
                                 word.wordDislike.as("dislikeCount"),
-                                word.regDtm.as("regDtm"),
-                                word.regMem.as("regMem"),
-                                word.modDtm.as("modDtm"),
-                                word.modMem.as("modMem")
+                                wordContent.memberIdx.as("memberIdx"),
+                                wordContent.regDtm.as("regMem"),
+                                wordContent.modDtm.as("modDtm")
                         )
                 )
                 .from(word)
+                .leftJoin(wordContent).on(word.wordIdx.eq(wordContent.wordIdx))
                 .where(
                         nationEq(dto.getNationCode()),
                         titleEq(dto.getSearch())
@@ -63,7 +64,7 @@ public class WordRepositoryImpl implements WordCustomRepository {
     }
 
     private BooleanExpression titleEq(String search) {
-        return search != null ? word.wordTitle.contains(search) : null;
+        return search != null ? word.wordName.contains(search) : null;
     }
 
     private OrderSpecifier<?> dynamicSort(SortType sort, String sortBy) {

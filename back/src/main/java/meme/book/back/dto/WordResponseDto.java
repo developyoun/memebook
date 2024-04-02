@@ -15,7 +15,7 @@ public class WordResponseDto {
     private Long wordIdx;
 
     // 단어명
-    private String wordTitle;
+    private String wordName;
 
     // 단어 설명
     private String wordContent;

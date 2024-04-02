@@ -11,13 +11,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 @Accessors(chain = true)
-//@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Setter // 삭제 예정
-@Getter
-@ToString
+@Setter @Getter @ToString
 @EntityListeners(AuditingEntityListener.class)
 @Entity
-@Table(name = "members")
+@Table(name = "MEMBER")
 public class Member {
 
     // 회원 고유 번호

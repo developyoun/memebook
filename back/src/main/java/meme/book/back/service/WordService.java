@@ -49,7 +49,7 @@ public class WordService {
     public ResponseDto updateWordService(WordDto wordDto) {
         Word word = wordRepository.findByWordIdx(wordDto.getWordIdx());
 
-        word.setWordTitle(wordDto.getWordTitle())
+        word.set(wordDto.getWordTitle())
                 .setWordContent(wordDto.getWordContent());
         wordRepository.save(word);
 

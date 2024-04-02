@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Entity
-@Table(name = "reports")
+@Table(name = "REPORT")
 public class Reports {
 
     // 신고 고유 번호
@@ -21,6 +21,7 @@ public class Reports {
     private Long reportMem;
 
     // 신고 시간
+
     @Column(name = "REPORT_REG_DTM")
     private LocalDateTime reportRegDtm;
 

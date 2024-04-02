@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @Getter @Setter @ToString
 @Entity
-@Table(name = "reactions")
+@Table(name = "REACTION")
 public class Reaction {
 
     // 반응 고유 번호

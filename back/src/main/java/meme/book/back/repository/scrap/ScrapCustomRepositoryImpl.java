@@ -4,11 +4,13 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import meme.book.back.dto.ScrapResponseDto;
-import meme.book.back.entity.QMember;
-import meme.book.back.entity.QScrap;
-import meme.book.back.entity.QWord;
 
 import java.util.List;
+
+import static meme.book.back.entity.QMember.member;
+import static meme.book.back.entity.QScrap.scrap;
+import static meme.book.back.entity.QWord.word;
+import static meme.book.back.entity.QWordContent.wordContent;
 
 @RequiredArgsConstructor
 public class ScrapCustomRepositoryImpl implements ScrapCustomRepository{
@@ -17,9 +19,6 @@ public class ScrapCustomRepositoryImpl implements ScrapCustomRepository{
 
     @Override
     public List<ScrapResponseDto> getScrapListByMemberIdx(Long memberIdx) {
-        QScrap scrap = QScrap.scrap;
-        QWord word = QWord.word;
-        QMember member = QMember.member;
 
         return queryFactory.select(
                         Projections.fields(ScrapResponseDto.class,
@@ -27,13 +26,14 @@ public class ScrapCustomRepositoryImpl implements ScrapCustomRepository{
                                 scrap.memberIdx.as("memberIdx"),
                                 scrap.wordIdx.as("wordIdx"),
                                 scrap.regDtm.as("regDtm"),
-                                word.wordTitle.as("wordTitle"),
-                                word.wordContent.as("wordContent"),
+                                word.wordName.as("wordTitle"),
+                                wordContent.content.as("wordContent"),
                                 member.nickname.as("nickname")
                         )
                 )
                 .from(scrap)
                 .innerJoin(word).on(scrap.wordIdx.eq(word.wordIdx))
+                .innerJoin(wordContent).on(scrap.wordIdx.eq(wordContent.wordIdx))
                 .innerJoin(member).on(scrap.memberIdx.eq(member.memberIdx))
                 .where(scrap.memberIdx.eq(memberIdx))
                 .fetch();
