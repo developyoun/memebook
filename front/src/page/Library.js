@@ -25,7 +25,7 @@ export default function Word() {
       try {
         const libraryApi = await memebookApi.wordList('ALL', pageNumber);
         setLibraryData(libraryApi.data.data.content);
-        console.log(libraryData);
+        console.log(libraryApi.data.data.content);
 
       } catch (error) {
         console.log(error)
