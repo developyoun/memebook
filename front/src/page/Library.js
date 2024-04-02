@@ -45,35 +45,42 @@ export default function Word() {
     <div className="library_wrap">
 
       <div className="library_top">
-        <h2 className="tit">사전</h2>
+        <h2 className="tit">&#128214; 사전</h2>
         <div className="box_btn">
-          <span className="txt">단어를 등록해보세요</span>
-          <button type="button" className="word_add_btn">단어 등록하기</button>
+          <span className="txt">사전에 없는 단어가 있나요?<br/>지금 등록해보세요 &#128073;</span>
+          <Link to="/wordAdd" className="word_add_btn">단어 등록하기 </Link>
         </div>
       </div>
       
       <div className="library_box">
-        <div className="box_top">
-          <h3 className="tit">💡 좋아요 많은 단어</h3>
-          <Link to="/wordAdd" className="word_more_btn">더보기</Link>
-        </div>
         <Swiper
           slidesPerView='auto'
           onSlideChange={() => console.log('slide change')}
           onSwiper={(swiper) => console.log(swiper)}
-          className="word_list"
+          className="library_tab"
         >
+          <SwiperSlide className="tab_item active">
+            <Link to={`/`} className="item">최신순</Link>
+          </SwiperSlide>
+          <SwiperSlide className="tab_item">
+            <Link to={`/`} className="item">좋아요순</Link>
+          </SwiperSlide>
+          <SwiperSlide className="tab_item">
+            <Link to={`/`} className="item">인기순</Link>
+          </SwiperSlide>
+        </Swiper>
 
+        <ul className="word_list">
           {
             libraryData?.map((item, idx) => {
               return (
-                <SwiperSlide className="box_item">
+                <li className="box_item">
                   <Link to={`/word/${item.wordIdx}`} className="item" key={idx}>{item.wordContent}</Link>
-                </SwiperSlide>
+                </li>
               )
             })
           }
-        </Swiper>
+        </ul>
       </div>
 
       {/*<button type="button" onClick={pageMore}>더보기</button>*/}

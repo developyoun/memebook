@@ -1,20 +1,19 @@
 .library_wrap {
   height:calc(100vh - 40px);
-  padding:40px 20px 0;
+  padding:40px 20px 60px;
   background:#f7f7f7;
 
   .library_top {
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
     width:100%;
-    margin-bottom:26px;
     .tit {
-      font-size:20px;
+      width:100%;
+      font-size:24px;
     }
     .box_btn {
       display:flex;
       align-items:center;
+      justify-content:space-between;
+      margin-top:16px;
       .txt {
         margin-right:6px;
         font-size:12px;
@@ -23,82 +22,64 @@
         display:flex;
         align-items:center;
         justify-content:center;
-        height:26px;
-        padding:0 8px;
-        color:#fff;
+        flex-shrink:0;
+        height:32px;
+        padding:0 16px;
+        color:var(--primary);
         font-size:12px;
+        font-weight:bold;
         line-height:26px;
+        border:1px solid var(--primary);
         border-radius:8px;
-        background:var(--primary);
+        background:#fff;
       }
     }
   }
   .library_box {
-    padding:12px;
-    border-radius:12px;
-    background:#fff;
-    .box_top {
+    margin-top:24px;
+    .library_tab {
       display:flex;
       align-items:center;
-      justify-content: space-between;
-      margin-bottom:20px;
-      .word_more_btn {
+      margin-bottom:16px;
+      .tab_item {
         display:flex;
         align-items:center;
+        justify-content:center;
+        width:auto;
+        height:24px;
+        padding:0 12px;
+        color:var(--bg-brown);
         font-size:12px;
-        line-height:24px;
-        &:after {
-          display:inline-block;
-          width:24px;
-          height:24px;
-          margin-left:6px;
-          background:url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 17L15 12L10 7' stroke='%23496E2D' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A") center no-repeat;
-          content:'';
+        border:1px solid var(--bg-brown);
+        border-radius:12px;
+        background:#fff;
+        &+.tab_item {
+          margin-left:12px;
+        }
+        &.active {
+          color:#fff;
+          font-weight:bold;
+          background:var(--bg-brown);
         }
       }
     }
-    .box_item {
-      width:auto;
-      &+.box_item {
-        margin-left:16px;
+    .word_list {
+      padding:12px;
+      border-radius:12px;
+      background:#fff;
+      li {
+        &+li {
+          margin-top:8px;
+          padding-top:8px;
+          border-top:1px solid #F7F7F7;
+        }
+        .item {
+          display:block
+        }
       }
     }
   }
 }
 
-.word_tab {
-  display:flex;
-  align-items:center;
-  margin-bottom:12px;
-  padding:0 12px;
-  .tab_item {
-    color:#fff;
-    &+.tab_item {
-      margin-left:12px;
-    }
-    &.active {
-      color:#FEFAE0;
-      font-weight:bold;
-    }
-  }
-}
 
-/* 자음에 따른 단어 리스트 */
-.word_wrap {
-  padding:24px;
-  border-top-left-radius:12px;
-  border-top-right-radius:12px;
-  background:#fff;
-  .word_list {
-    li {
-      &+li {
-        margin-top:8px;
-        padding-top:8px;
-        border-top:1px solid #F7F7F7;
-      }
-      .item {
-        display:block
-      }
-    }
-  }
-}
+
