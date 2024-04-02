@@ -7,8 +7,8 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import meme.book.back.dto.WordRequestDto;
-import meme.book.back.dto.WordResponseDto;
+import meme.book.back.dto.WordListRequestDto;
+import meme.book.back.dto.WordListResponseDto;
 import meme.book.back.utils.NationCode;
 import meme.book.back.utils.SortType;
 import org.springframework.data.domain.Page;
@@ -26,10 +26,10 @@ public class WordRepositoryImpl implements WordCustomRepository {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<WordResponseDto> getAllWordList(Pageable pageable, WordRequestDto dto) {
+    public Page<WordListResponseDto> getAllWordList(Pageable pageable, WordListRequestDto dto) {
 
-        List<WordResponseDto> fetch = queryFactory.select(
-                        Projections.fields(WordResponseDto.class,
+        List<WordListResponseDto> fetch = queryFactory.select(
+                        Projections.fields(WordListResponseDto.class,
                                 word.wordIdx.as("wordIdx"),
                                 wordContent.content.as("wordContent"),
                                 word.wordNation.as("wordNation"),

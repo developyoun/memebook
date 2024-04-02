@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
@@ -38,19 +38,19 @@ public class WordContent {
 
     // 내용 좋아요 수
     @Column(name = "CONTENT_LIKE")
-    private Long contentLike;
+    private Long contentLike = 0L;
 
     // 내용 싫어요 수
     @Column(name = "CONTENT_DISLIKE")
-    private Long contentDislike;
+    private Long contentDislike = 0L;
 
     // 생성 일자
-    @CreatedDate
+    @CreationTimestamp
     @Column(name = "REG_DTM")
     private LocalDateTime regDtm;
 
     // 수정 일자
-    @LastModifiedDate
+    @UpdateTimestamp
     @Column(name = "MOD_DTM")
     private LocalDateTime modDtm;
 

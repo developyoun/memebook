@@ -15,6 +15,7 @@ public enum ErrorCode {
     ALREADY_EXIST_NICKNAME(HttpStatus.CONFLICT, "이미 존재하는 닉네임입니다."),
     NOT_EXIST_WORD(HttpStatus.NOT_FOUND, "존재하지 않는 단어입니다."),
     NOT_EXIST_MEMBER(HttpStatus.NOT_FOUND, "존재하지 않는 회원입니다."),
+    NOT_EXIST_CONTENT_USER(HttpStatus.BAD_REQUEST, "회원이 작성한 컨텐츠가 아닙니다")
     ;
 
     private final HttpStatus status;

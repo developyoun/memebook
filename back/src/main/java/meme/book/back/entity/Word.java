@@ -1,15 +1,12 @@
 package meme.book.back.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
-import meme.book.back.dto.WordDto;
 import meme.book.back.utils.NationCode;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.time.LocalDateTime;
 
 @Accessors(chain = true)
 @Setter @Getter @ToString
@@ -35,10 +32,10 @@ public class Word {
 
     // 단어 좋아요 수
     @Column(name = "WORD_LIKE")
-    private Long wordLike;
+    private Long wordLike = 0L;
 
     // 단어 싫어요 수
     @Column(name = "WORD_DISLIKE")
-    private Long wordDislike;
+    private Long wordDislike = 0L;
 
 }

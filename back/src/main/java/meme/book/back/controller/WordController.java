@@ -4,14 +4,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.ResponseDto;
 import meme.book.back.dto.WordDto;
-import meme.book.back.dto.WordRequestDto;
+import meme.book.back.dto.WordListRequestDto;
+import meme.book.back.dto.WordUpsertRequestDto;
 import meme.book.back.service.WordService;
 import meme.book.back.utils.ErrorCode;
 import meme.book.back.utils.NationCode;
 import meme.book.back.utils.SortType;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -21,6 +21,12 @@ import org.springframework.web.bind.annotation.*;
 public class WordController {
 
     private final WordService wordService;
+
+    // 단어 등록 Controller
+    @PostMapping("/create")
+    public ResponseDto createWord(@RequestBody WordUpsertRequestDto requestDto) {
+        return ResponseDto.of(wordService.createWord(requestDto));
+    }
 
     // 단일 단어 조회
     @GetMapping("/{wordIdx}")
@@ -42,7 +48,7 @@ public class WordController {
         }
         Pageable pageable = PageRequest.of(page-1, pageSize);
 
-        WordRequestDto requestDto = new WordRequestDto()
+        WordListRequestDto requestDto = new WordListRequestDto()
                 .setNationCode(nation)
                 .setSearch(search)
                 .setSort(sort)
@@ -51,16 +57,10 @@ public class WordController {
         return ResponseDto.of(wordService.getWordListService(pageable, requestDto));
     }
 
-    // 단어 등록 Controller
-    @PostMapping("/create")
-    public ResponseDto createWordController(@RequestBody WordDto requestWordDto) {
-        return wordService.createWordService(requestWordDto);
-    }
-
     // 단어 수정 Controller
     @PutMapping("/update")
-    public ResponseDto updateWordController(@RequestBody WordDto requestWordDto) {
-        return wordService.updateWordService(requestWordDto);
+    public ResponseDto updateWord(@RequestBody WordUpsertRequestDto requestDto) {
+        return ResponseDto.of(wordService.updateWord(requestDto));
     }
 
 }

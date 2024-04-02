@@ -16,7 +16,7 @@ public class WordDto {
     private Long wordIdx;
 
     // 단어명
-    private String wordTitle;
+    private String wordName;
 
     // 단어 설명
     private String wordContent;
@@ -37,18 +37,4 @@ public class WordDto {
     // 단어 수정일
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime modDtm;
-
-    // entity -> DTO
-    public static WordDto toDto(Word wordsEntity) {
-        return new WordDto()
-                .setWordIdx(wordsEntity.getWordIdx())
-                .setWordTitle(wordsEntity.getWordTitle())
-                .setWordContent(wordsEntity.getWordContent())
-                .setWordNation(wordsEntity.getWordNation())
-                .setRegMem(wordsEntity.getRegMem())
-                .setRegDtm(wordsEntity.getRegDtm())
-                .setModMem(wordsEntity.getModMem())
-                .setModDtm(wordsEntity.getModDtm())
-                ;
-    }
 }

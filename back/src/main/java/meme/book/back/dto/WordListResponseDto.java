@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Accessors(chain = true)
-public class WordResponseDto {
+public class WordListResponseDto {
 
     // 단어 고유 번호
     private Long wordIdx;
