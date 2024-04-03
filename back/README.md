@@ -215,11 +215,10 @@ URL: ***api/word/create***
 
 ``````json
 {
-  "wordTitle": "웃찾사",		// 단어명
+  "wordName": "웃찾사",		// 단어명
   "wordContent": "웃음을 찾는 사람들의 줄임말로 대한민국의...",		// 단어 설명
   "wordNation": "KOR",		// 단어 국가 분류
-  "RegMem": 123123,		// 등록 회원 번호
-  "ModMem": 123123,		// 수정 회원 번호 (초기 등록시, 등록 회원 번호와 동일)
+  "memberIdx": 123123		// 등록 회원 번호
 }
 ``````
 
@@ -237,7 +236,7 @@ URL: ***api/word/create***
     "regMem": 123123,
     "modMem": 123123,
     "RegDtm": "2024-02-18 12:02:44",
-		"modDtm": "2024-02-18 12:02:44"
+	"modDtm": "2024-02-18 12:02:44"
   }
 }
 ``````
@@ -255,10 +254,9 @@ URL: ***api/word/update***
 ``````json
 {
   "wordIdx": 119
-  "wordTitle": "우찻아",		// 단어명
+  "wordName": "우찻아",		// 단어명
   "wordContent": "웃찾사의 후속작...",		// 단어 설명
   "wordNation": "KOR",		// 단어 국가 분류
-  "ModMem": 321321,		// 수정 회원 번호 (초기 등록시, 등록 회원 번호와 동일)
 }
 ``````
 
@@ -294,7 +292,7 @@ Request Body:
 ```json
 {
   "reactionType": "LIKE", // 또는 "DISLIKE"
-  "memIdx": 13222,		// 회원 번호
+  "memberIdx": 13222,		// 회원 번호
   "wordIdx": 7887,		// 단어 번호
 }
 ```
@@ -395,8 +393,6 @@ Request Body:
 }
 ```
 
-
-
 Response Body:
 
 ```json
@@ -409,6 +405,33 @@ Response Body:
       "wordIdx": 25,
       "regDtm": "2024-03-29 20:19:41"
     }
+}
+```
+
+
+
+### 11. 단어 스크랩 삭제
+
+URL: ***api/scrap/word***
+
+Method: **DELETE**
+
+Request Body: 
+
+```json
+{
+    "wordIdx": 123123,
+    "memberIdx": 89809,
+    "scrapIdx": 4545
+}
+```
+
+Response Body:
+
+```json
+{
+  "status": "OK",
+  "message": "Success",
 }
 ```
 
