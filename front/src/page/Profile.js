@@ -1,9 +1,7 @@
 import './../scss/profile.scss'
 import HomeFooter from "../components/HomeFooter";
-import Title from "../components/Title";
 import {Link} from "react-router-dom";
 import React, {useState} from "react";
-import DailyCheck from "../components/DailyCheck";
 
 export default function Profile() {
   const [copyState , setCopyState] = useState(false);
@@ -20,13 +18,11 @@ export default function Profile() {
   return (
     <div className="wrap">
 
-      <Title title="마이페이지"></Title>
-
-      <div className="container">
+      <div className="profile_container">
         <div className="user_info">
           <div className="user_name">
             <h3 className="name">누징</h3>
-            <button type="button">팔로워</button>
+            {/*<button type="button">팔로워</button>*/}
           </div>
 
           <div className="user_info_desc">
@@ -44,7 +40,46 @@ export default function Profile() {
           <p className="visit_count">🏡 연속 방문 최대 <strong>12</strong>번을 달성했어요!</p>
         </div>
 
-        <DailyCheck></DailyCheck>
+        <div className="daily_box">
+          <h3 className="tit">🌻 출석체크</h3>
+          <ul className="daily_list">
+            <li>
+              <div className="day check">
+                <span>월</span>
+              </div>
+            </li>
+            <li>
+              <div className="day">
+                <span>화</span>
+              </div>
+            </li>
+            <li>
+              <div className="day">
+                <span>수</span>
+              </div>
+            </li>
+            <li>
+              <div className="day">
+                <span>목</span>
+              </div>
+            </li>
+            <li>
+              <div className="day">
+                <span>금</span>
+              </div>
+            </li>
+            <li>
+              <div className="day">
+                <span>토</span>
+              </div>
+            </li>
+            <li>
+              <div className="day">
+                <span>일</span>
+              </div>
+            </li>
+          </ul>
+        </div>
 
         <div className="user_box">
           <div className="user_tit">

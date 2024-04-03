@@ -1,15 +1,20 @@
+.profile_container {
+  min-height:calc(100vh - 40px);
+  padding:40px 20px 120px;
+  background:#F7F7F7;
+}
+
 .user_info {
-  margin-bottom:24px;
   .user_name {
     display:flex;
     align-items:center;
-    justify-content:space-between;
+    justify-content:center;
     .name {
       font-size:24px;
     }
   }
   .visit_count {
-    margin-top:16px;
+    margin-top:24px;
     font-size:14px;
     strong {
       color:var(--bg-brown);
@@ -20,7 +25,7 @@
 .user_box {
   padding:16px;
   border-radius:12px;
-  background:var(--dark-sub);
+  background:#fff;
   .user_tit {
     display:flex;
     align-items:center;
@@ -52,17 +57,59 @@
   }
 }
 
+
+.daily_box {
+  margin: 40px 0 45px;
+
+  .daily_list {
+    display: flex;
+    align-items: center;
+    margin-top:16px;
+    li {
+      width: 100%;
+
+      .day {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        width: 32px;
+        height: 32px;
+        color: #808080;
+        border-radius: 50%;
+        background: #F5F9FC;
+
+        &.check {
+          background: var(--bg-red);
+
+          span {
+            display: none;
+          }
+
+          &:after {
+            display: block;
+            width: 16px;
+            height: 16px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17' height='16' viewBox='0 0 17 16' fill='none'%3E%3Cpath d='M8.26475 3.01932C9.83075 1.61332 12.2507 1.65999 13.7594 3.17132C15.2674 4.68332 15.3194 7.09132 13.9167 8.66199L8.26342 14.3233L2.61142 8.66199C1.20875 7.09132 1.26142 4.67932 2.76875 3.17132C4.27875 1.66199 6.69408 1.61132 8.26475 3.01932V3.01932Z' fill='white'/%3E%3C/svg%3E") no-repeat;
+            content: '';
+          }
+        }
+      }
+    }
+  }
+}
+
 .user_info_desc {
   margin-top:24px;
   padding:12px 20px;
   border-radius:12px;
-  background:var(--primary);
+  background:#dce3e0;
   ul {
     display:flex;
     align-items:center;
     justify-content:space-around;
     li {
-      color:#fff;
+      color:var(--primary);
       span {
         display:block;
         text-align:center;
