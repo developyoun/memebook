@@ -34,7 +34,6 @@ public class WordService {
 
     @Transactional(readOnly = true)
     public Page<WordListResponseDto> getWordListService(Pageable pageable, WordListRequestDto requestDto) {
-
         return wordRepository.getAllWordList(pageable, requestDto);
     }
 
@@ -42,6 +41,7 @@ public class WordService {
     @Transactional
     public WordUpsertResponseDto createWord(WordUpsertRequestDto requestDto) {
         WordUpsertResponseDto responseDto = new WordUpsertResponseDto();
+        Long wordIdx;
 
         // 1. 기존 단어 존재 여부 확인
         Optional<Word> optionalWord = wordRepository.findByWordName(requestDto.getWordName());
@@ -77,7 +77,7 @@ public class WordService {
                 }
         );
         return responseDto.setWordName(requestDto.getWordName())
-                          .setMemberIdx(requestDto.getMemberIdx());
+                .setMemberIdx(requestDto.getMemberIdx());
     }
 
     // 단어 수정
@@ -92,8 +92,6 @@ public class WordService {
 
         wordContent.setContent(requestDto.getWordContent());
         wordContentRepository.save(wordContent);
-
-
 
         log.info("### update Word Content: {}", wordContent);
         return new WordUpsertResponseDto().setWordIdx(requestDto.getWordIdx())

@@ -12,4 +12,5 @@ import java.util.List;
 @Repository
 public interface ScrapRepository extends JpaRepository<Scrap, Long>, ScrapCustomRepository {
 
+    Scrap findByScrapIdx(Long scrapIdx);
 }

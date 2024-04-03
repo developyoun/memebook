@@ -39,7 +39,7 @@ public class WordTest {
         ;
 
         wordCreateRequestDto.setWordName("하이f후우우우")
-                .setMemberIdx(123123L)
+                .setMemberIdx(12L)
                 .setWordNation(NationCode.KOR)
                 .setWordContent("내용이요~");
     }

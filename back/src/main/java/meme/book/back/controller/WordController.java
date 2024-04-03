@@ -28,6 +28,12 @@ public class WordController {
         return ResponseDto.of(wordService.createWord(requestDto));
     }
 
+    // 단어 수정 Controller
+    @PutMapping("/update")
+    public ResponseDto updateWord(@RequestBody WordUpsertRequestDto requestDto) {
+        return ResponseDto.of(wordService.updateWord(requestDto));
+    }
+
     // 단일 단어 조회
     @GetMapping("/{wordIdx}")
     public ResponseDto getWordController(@PathVariable Long wordIdx) {
@@ -55,12 +61,6 @@ public class WordController {
                 .setSortBy(sortBy);
 
         return ResponseDto.of(wordService.getWordListService(pageable, requestDto));
-    }
-
-    // 단어 수정 Controller
-    @PutMapping("/update")
-    public ResponseDto updateWord(@RequestBody WordUpsertRequestDto requestDto) {
-        return ResponseDto.of(wordService.updateWord(requestDto));
     }
 
 }

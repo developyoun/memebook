@@ -5,8 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.ResponseDto;
 import meme.book.back.dto.ScrapDto;
 import meme.book.back.dto.ScrapResponseDto;
+import meme.book.back.dto.WordListResponseDto;
 import meme.book.back.entity.Scrap;
 import meme.book.back.repository.scrap.ScrapRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,12 +24,12 @@ public class ScrapService {
     private final ScrapRepository scrapRepository;
 
     @Transactional(readOnly = true)
-    public ResponseDto getScrapList(Long memberIdx) {
+    public Page<ScrapResponseDto> getScrapList(Pageable pageable, Long memberIdx) {
 
-        List<ScrapResponseDto> scrapResponseDtoList = scrapRepository.getScrapListByMemberIdx(memberIdx);
+        Page<ScrapResponseDto> scrapResponseDtoList = scrapRepository.getScrapListByMemberIdx(pageable, memberIdx);
         log.info("### Get Scrap List: {}", scrapResponseDtoList);
 
-        return ResponseDto.of(scrapResponseDtoList);
+        return scrapResponseDtoList;
     }
 
     @Transactional
@@ -41,6 +44,14 @@ public class ScrapService {
         log.info("### Save Scrap: {}, ", scrapEntity);
 
         return ResponseDto.of(ScrapDto.toDto(scrapEntity));
+    }
 
+    @Transactional
+    public void deleteWordScrap(ScrapDto scrapDto) {
+        Scrap scrap = scrapRepository.findByScrapIdx(scrapDto.getScrapIdx());
+        scrapRepository.delete(scrap);
+        log.info("Delete ScrapIdx: {}, WordIdx: {}, MemberIdx: {}",
+                scrapDto.getScrapIdx(), scrapDto.getWordIdx(), scrapDto.getMemberIdx())
+        ;
     }
 }

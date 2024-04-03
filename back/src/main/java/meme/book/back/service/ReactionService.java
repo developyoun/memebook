@@ -30,7 +30,7 @@ public class ReactionService {
         Word word = wordRepository.findByWordIdx(reactionDto.getWordIdx());
 
         Optional<Reaction> optionalReaction = reactionRepository
-                .findReactionByMemIdxAndWordIdx(reactionDto.getMemIdx(), reactionDto.getWordIdx());
+                .findReactionByMemIdxAndWordIdx(reactionDto.getMemberIdx(), reactionDto.getWordIdx());
 
         if (optionalReaction.isPresent()) {
             // 기존 단어 존재
@@ -60,7 +60,7 @@ public class ReactionService {
             reaction = new Reaction()
                     .setReactionType(reactionDto.getReactionType())
                     .setWordIdx(reactionDto.getWordIdx())
-                    .setMemIdx(reactionDto.getMemIdx());
+                    .setMemIdx(reactionDto.getMemberIdx());
 
             if (reactionDto.getReactionType().equals(ActionType.LIKE)) {
                 word.setWordLike(word.getWordLike() + 1);

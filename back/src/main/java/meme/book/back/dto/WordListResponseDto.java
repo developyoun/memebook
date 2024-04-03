@@ -23,21 +23,9 @@ public class WordListResponseDto {
     // 단어 국가
     private NationCode wordNation;
 
-    // 단어 등록자
-    private Long regMem;
-
-    // 단어 등록일
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-    private LocalDateTime regDtm;
-
-    // 단어 수정자
-    private Long modMem;
-
-    // 단어 수정일
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-    private LocalDateTime modDtm;
-
+    // 좋아요 수
     private long likeCount;
 
+    // 싫어요 수
     private long dislikeCount;
 }

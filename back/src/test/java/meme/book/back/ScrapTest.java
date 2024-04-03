@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,18 +27,19 @@ public class ScrapTest {
     private ScrapController scrapController;
 
     ScrapDto scrapDto = new ScrapDto();
+    Pageable pageable = PageRequest.of(0, 10);
 
     @BeforeEach
     void init() {
         scrapDto.setMemberIdx(12L)
-                .setWordIdx(25L)
+                .setWordIdx(108L)
                 .setScrapRegDtm(LocalDateTime.now())
                 ;
     }
 
     @Test
     void getScrapListByMemberIdx() {
-        scrapService.getScrapList(scrapDto.getMemberIdx());
+        scrapService.getScrapList(pageable, scrapDto.getMemberIdx());
     }
 
     @Test

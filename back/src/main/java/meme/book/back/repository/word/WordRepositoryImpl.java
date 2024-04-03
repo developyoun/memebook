@@ -31,18 +31,13 @@ public class WordRepositoryImpl implements WordCustomRepository {
         List<WordListResponseDto> fetch = queryFactory.select(
                         Projections.fields(WordListResponseDto.class,
                                 word.wordIdx.as("wordIdx"),
-                                wordContent.content.as("wordContent"),
                                 word.wordNation.as("wordNation"),
                                 word.wordName.as("wordName"),
                                 word.wordLike.as("likeCount"),
-                                word.wordDislike.as("dislikeCount"),
-                                wordContent.memberIdx.as("memberIdx"),
-                                wordContent.regDtm.as("regMem"),
-                                wordContent.modDtm.as("modDtm")
+                                word.wordDislike.as("dislikeCount")
                         )
                 )
                 .from(word)
-                .leftJoin(wordContent).on(word.wordIdx.eq(wordContent.wordIdx))
                 .where(
                         nationEq(dto.getNationCode()),
                         titleEq(dto.getSearch())

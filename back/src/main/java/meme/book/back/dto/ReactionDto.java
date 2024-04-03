@@ -22,7 +22,7 @@ public class ReactionDto {
     private ActionType reactionType;
 
     /* 리액션 등록자 */
-    private Long memIdx;
+    private Long memberIdx;
 
     /* 리액션 단어 */
     private Long wordIdx;
@@ -38,7 +38,7 @@ public class ReactionDto {
         return new ReactionDto()
                 .setReactionIdx(entity.getReactionIdx())
                 .setReactionType(entity.getReactionType())
-                .setMemIdx(entity.getMemIdx())
+                .setMemberIdx(entity.getMemIdx())
                 .setWordIdx(entity.getWordIdx())
                 .setReactionRegDtm(entity.getReactionRegDtm())
                 .setReactionModDtm(entity.getReactionModDtm());

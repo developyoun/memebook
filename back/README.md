@@ -13,9 +13,11 @@
 | 스크랩 | api/scrap/word/list        | GET    | 단어 스크랩 조회   |                                                    |
 | 스크랩 | api/scrap/word             | POST   | 스크랩 저장        |                                                    |
 
+
+
 ### ✨회원
 
-#### 1. 회원 닉네임 생성
+### 1. 회원 닉네임 생성
 
 ##### URL: ***api/member/create/nickname?nickname={nickname}***
 
@@ -41,7 +43,7 @@
 
 
 
-#### 2. 닉네임 중복 조회
+### 2. 닉네임 중복 조회
 
 ##### URL: ***api/member/exist/nickname?nickname={nickname}***
 
@@ -65,7 +67,7 @@
 
 
 
-#### 3. 회원 국가 조회
+### 3. 회원 국가 조회
 
 ##### URL: ***api/member/nation?memberIdx={memberIdx}***
 
@@ -91,7 +93,9 @@
 }
 ``````
 
-#### 4. 회원 국가 변경
+
+
+### 4. 회원 국가 변경
 
 ##### URL: ***api/member/update/nation?memberIdx={memberIdx}&originNation={originNation}&targetNation={targetNation}***
 
@@ -119,21 +123,26 @@
 }
 ``````
 
+
+
 ### ✨ 단어
 
-#### 5. 단어 리스트 조회
+### 5. 단어 리스트 조회
 
-##### URL: ***api/word/list?nation={nationCode}&page={page}&pageSize={pageSize}***
+##### URL: ***api/word/list?nation={nationCode}&page={page}&pageSize={pageSize}&sort={sort}&sortBy={sortBy}&search={search}***
 
 ##### Method: **GET**
 
 ##### Reqeust Parameter
 
-| 파리미터     | 타입     | 설명      | 비고             |
-|----------|--------|---------|----------------|
-| nation   | String | 조회 국가   | 기본값: ***ALL*** |
-| page     | int    | 페이지     | 기본값: 1         |
-| pageSize | int    | 페이지당 개수 | 기본값: 10        |
+| 파리미터 | 타입   | 설명          | 필수 | 비고                                                         |
+| -------- | ------ | ------------- | ---- | ------------------------------------------------------------ |
+| nation   | String | 조회 국가     | O    | 기본값: ***ALL***<br /> - KOR<br /> - JPN<br />- ENG         |
+| page     | int    | 페이지        | X    | 기본값: 1                                                    |
+| pageSize | int    | 페이지당 개수 | X    | 기본값: 10                                                   |
+| sort     | String | 정렬 대상     | X    | - LIKE: 좋아요 순<br />- DISLIKE: 싫어요 순<br />- LATEST: 최신순<br /> - CONTENT: 댓글순 |
+| sortBy   | String | 정렬 방향     | X    | - ASC: 오름차순<br />- DESC: 내림차순                        |
+| search   | String | 검색 단어     | X    | 단어명 검색                                                  |
 
 ##### Response Body: 
 
@@ -196,7 +205,7 @@
 
 
 
-#### 6. 단어 등록
+### 6. 단어 등록
 
 URL: ***api/word/create***
 
@@ -233,7 +242,9 @@ URL: ***api/word/create***
 }
 ``````
 
-#### 7. 단어 수정
+
+
+### 7. 단어 수정
 
 URL: ***api/word/update***
 
