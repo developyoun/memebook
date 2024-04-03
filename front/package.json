@@ -20,6 +20,7 @@
     "redux": "^5.0.1",
     "redux-thunk": "^3.0.1",
     "sass": "^1.69.5",
+    "swiper": "^11.1.0",
     "typescript": "^5.3.3",
     "web-vitals": "^2.1.4"
   },
