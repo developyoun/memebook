@@ -77,16 +77,16 @@ public class ReactionService {
 
     @Transactional(readOnly = true)
     public ResponseDto countReactionService(Long wordIdx) {
-        Word word = wordRepository.findByWordIdx(wordIdx);
-
-        long likeCount = word.getWordLike();
-        long dislikeCount = word.getWordDislike();
-
-        log.info("Reaction Count By wordIdx: {}, Like Count: {}, Dislike Count: {}", wordIdx, likeCount, dislikeCount);
-
-        return ResponseDto.of(new ReactionCountDto()
-                .setLikeCount(likeCount)
-                .setDislikeCount(dislikeCount)
-        );
+        return null;
+//
+//        long likeCount = word.getWordLike();
+//        long dislikeCount = word.getWordDislike();
+//
+//        log.info("Reaction Count By wordIdx: {}, Like Count: {}, Dislike Count: {}", wordIdx, likeCount, dislikeCount);
+//
+//        return ResponseDto.of(new ReactionCountDto()
+//                .setLikeCount(likeCount)
+//                .setDislikeCount(dislikeCount)
+//        );
     }
 }

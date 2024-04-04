@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -24,12 +25,13 @@ public class WordService {
     private final WordRepository wordRepository;
     private final WordContentRepository wordContentRepository;
 
+    // 단일 단어의 컨텐츠 조회
     @Transactional(readOnly = true)
-    public ResponseDto getWordService(Long wordIdx) {
-        Word word = wordRepository.findByWordIdx(wordIdx);
-        log.info("### Get Word: {}", word);
+    public Page<WordContentDto> getWordContent(Pageable pageable, Long wordIdx) {
+        Page<WordContent> wordContentList = wordContentRepository.findByWordIdx(wordIdx, pageable);
+        log.info("### Get Word: {}", wordContentList.getContent());
 
-        return ResponseDto.of();
+        return WordContentDto.toPageDto(wordContentList);
     }
 
     @Transactional(readOnly = true)
@@ -41,7 +43,6 @@ public class WordService {
     @Transactional
     public WordUpsertResponseDto createWord(WordUpsertRequestDto requestDto) {
         WordUpsertResponseDto responseDto = new WordUpsertResponseDto();
-        Long wordIdx;
 
         // 1. 기존 단어 존재 여부 확인
         Optional<Word> optionalWord = wordRepository.findByWordName(requestDto.getWordName());

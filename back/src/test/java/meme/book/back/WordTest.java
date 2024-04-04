@@ -50,4 +50,10 @@ public class WordTest {
     void createWordTest() {
         wordService.createWord(wordCreateRequestDto);
     }
+
+    @Test
+    @DisplayName("단일 단어 조회")
+    void getOneWordTest() {
+        wordService.getWordContent(pageable, 110L);
+    }
 }

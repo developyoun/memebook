@@ -7,6 +7,7 @@
 | 회원   | api/member/nation          | GET    | 회원 국가 조회     | - memberIdx                                        |
 | 회원   | *api/member/update/nation* | PUT    | 회원 국가 변경     | - memberIdx<br />- originNation<br />- tagetNation |
 | 단어   | *api/word/list*            | GET    | 단어 리스트 조회   |                                                    |
+| 단어   | api/word                   | GET    | 단일 단어 조회     |                                                    |
 | 단어   | *api/word/create*          | POST   | 단어 생성          |                                                    |
 | 단어   | *api/word/update*          | PUT    | 단어 수정          |                                                    |
 | 좋아요 | *api/reaction/update*      | POST   | 좋아요/싫어요 추가 |                                                    |
@@ -171,6 +172,71 @@
         "regDtm": "2023-10-09 22:02:25",
         "modMem": null,
         "modDtm": null
+      },
+      //...
+    ],
+    "pageable": {
+      "pageNumber": 0,
+      "pageSize": 10,
+      "sort": {
+        "empty": true,
+        "unsorted": true,
+        "sorted": false
+      },
+      "offset": 0,
+      "paged": true,
+      "unpaged": false
+    },
+    "last": false,
+    "totalPages": 4,
+    "totalElements": 33,
+    "sort": {
+      "empty": true,
+      "unsorted": true,
+      "sorted": false
+    },
+    "size": 10,
+    "number": 0,
+    "first": true,
+    "numberOfElements": 10,
+    "empty": false
+  }
+}
+``````
+
+
+
+### 6. 단일 단어 조회
+
+##### URL: ***api/word?wordIdx={wordIdx}&page={page}&pageSize={pageSize}***
+
+##### Method: **GET**
+
+##### Reqeust Parameter
+
+| 파리미터 | 타입 | 설명          | 필수 | 비고       |
+| -------- | ---- | ------------- | ---- | ---------- |
+| wordIdx  | int  | 단어 idx      | O    |            |
+| page     | int  | 페이지        | X    | 기본값: 1  |
+| pageSize | int  | 페이지당 개수 | X    | 기본값: 10 |
+
+##### Response Body: 
+
+``````json
+{
+  "status": "OK",
+  "message": "Success",
+  "data": {
+    "content": [
+      {
+		"wordContentIdx":22, 
+        "wordIdx":110, 
+        "memberIdx":123123, 
+        "content":334242, 
+        "contentLike":0, 
+        "contentDislike":0, 
+        "regDtm":"2024-04-04 21:18:42", 
+        "modDtm":"2024-04-04T21:18:42"
       },
       //...
     ],
