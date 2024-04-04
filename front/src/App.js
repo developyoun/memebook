@@ -9,6 +9,7 @@ import WordAdd from "./page/WordAdd";
 import Library from "./page/Library";
 import Profile from "./page/Profile";
 import WordDetail from "./page/WordDetail";
+import ScrapeList from "./page/ScrapeList";
 import Layout from "./page/Layout";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/word/:id" element={<WordDetail/>}/>
         <Route path="/library" element={<Library/>}/>
         <Route path="/profile" element={<Profile/>}/>
+        <Route path="/profile/scrape" element={<ScrapeList/>}/>
       </Route>
     </Routes>
   );

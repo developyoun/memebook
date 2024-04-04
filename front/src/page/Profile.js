@@ -87,7 +87,7 @@ export default function Profile() {
               등록한 단어
               <span className="count">3</span>
             </h4>
-            <Link to="/word" className="item">더보기</Link>
+            <Link to="/" className="item">더보기</Link>
           </div>
 
           <ul className="word_list">
@@ -106,7 +106,7 @@ export default function Profile() {
               스크랩한 단어
               <span className="count">12</span>
             </h4>
-            <Link to="/word" className="item">더보기</Link>
+            <Link to="/profile/scrape" className="item">더보기</Link>
           </div>
 
           <ul className="word_list">

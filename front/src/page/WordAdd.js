@@ -15,11 +15,10 @@ export default function WordAdd() {
   async function wordAddPost() {
     try {
       const wordAddApi = await memebookApi.wordAdd( {
-        wordTitle : '테스트',
+        wordName : '테스트',
         wordContent : '테스트중중중',
         wordNation : "KOR",
-        RegMem : 123123,
-        ModMem : 123123
+        memberIdx : 123123,
       });
       setAddState(addState);
       alert('등록 완료');

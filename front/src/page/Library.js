@@ -25,8 +25,6 @@ export default function Word() {
       try {
         const libraryApi = await memebookApi.wordList('ALL', pageNumber);
         setLibraryData(libraryApi.data.data.content);
-        console.log(libraryApi.data.data.content);
-
       } catch (error) {
         console.log(error)
       }
@@ -41,7 +39,7 @@ export default function Word() {
       setPageNumber(nextPage);
 
       if (isBottom) {
-        const libraryApi = await memebookApi.wordList('KOR', nextPage);
+        const libraryApi = await memebookApi.wordList('ALL', nextPage);
         setLibraryData((prevLibraryData) => [...prevLibraryData, ...libraryApi.data.data.content]);
         console.log('닿음');
       }
@@ -59,6 +57,15 @@ export default function Word() {
     };
   }, [pageMore]);
 
+  async function wordSort() {
+    try {
+      const wordSortData = await memebookApi.wordSort('ALL', 'LIKE', 'ASC');
+      console.log(wordSortData)
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className="library_wrap">
 
@@ -73,12 +80,10 @@ export default function Word() {
       <div className="library_box">
         <Swiper
           slidesPerView='auto'
-          onSlideChange={() => console.log('slide change')}
-          onSwiper={(swiper) => console.log(swiper)}
           className="library_tab"
         >
           <SwiperSlide className="tab_item active">
-            <Link to={`/`} className="item">최신순</Link>
+            <button type="button" className="item" onClick={wordSort}>좋아요순</button>
           </SwiperSlide>
           <SwiperSlide className="tab_item">
             <Link to={`/`} className="item">좋아요순</Link>
@@ -93,7 +98,7 @@ export default function Word() {
             libraryData?.map((item, idx) => {
               return (
                 <li className="box_item">
-                  <Link to={`/word/${item.wordIdx}`} className="item" key={idx}>{item.wordContent}</Link>
+                  <Link to={`/word/${item.wordIdx}`} className="item" key={idx}>{item.wordName}</Link>
                 </li>
               )
             })
