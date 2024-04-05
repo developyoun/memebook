@@ -37,8 +37,8 @@ public class WordController {
     // 단일 단어 조회
     @GetMapping("/{wordIdx}")
     public ResponseDto getWord(@PathVariable Long wordIdx,
-                               @RequestParam int page,
-                               @RequestParam int pageSize) {
+                               @RequestParam(defaultValue = "1") int page,
+                               @RequestParam(defaultValue = "10") int pageSize) {
 
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         Page<WordContentDto> wordList = wordService.getWordContent(pageable, wordIdx);
