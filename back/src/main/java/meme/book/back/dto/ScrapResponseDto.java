@@ -21,7 +21,7 @@ public class ScrapResponseDto {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime regDtm;
 
-    private String wordTitle;
+    private String wordName;
 
     private String nickname;
 

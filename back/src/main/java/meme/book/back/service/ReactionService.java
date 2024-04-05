@@ -2,9 +2,9 @@ package meme.book.back.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import meme.book.back.dto.ReactionDto;
+import meme.book.back.dto.reaction.ReactionCountResponseDto;
+import meme.book.back.dto.reaction.ReactionDto;
 import meme.book.back.dto.ResponseDto;
-import meme.book.back.dto.reaction.ReactionCountDto;
 import meme.book.back.entity.Reaction;
 import meme.book.back.entity.Word;
 import meme.book.back.repository.reaction.ReactionRepository;
@@ -24,7 +24,7 @@ public class ReactionService {
     private final WordRepository wordRepository;
 
     @Transactional
-    public ResponseDto upsertReactionService(ReactionDto reactionDto) {
+    public ResponseDto upsertWordReaction(ReactionDto reactionDto) {
         Reaction reaction;
 
         Word word = wordRepository.findByWordIdx(reactionDto.getWordIdx());
@@ -77,16 +77,17 @@ public class ReactionService {
 
     @Transactional(readOnly = true)
     public ResponseDto countReactionService(Long wordIdx) {
-        return null;
-//
-//        long likeCount = word.getWordLike();
-//        long dislikeCount = word.getWordDislike();
-//
-//        log.info("Reaction Count By wordIdx: {}, Like Count: {}, Dislike Count: {}", wordIdx, likeCount, dislikeCount);
-//
-//        return ResponseDto.of(new ReactionCountDto()
-//                .setLikeCount(likeCount)
-//                .setDislikeCount(dislikeCount)
-//        );
+
+        Word word = wordRepository.findByWordIdx(wordIdx);
+
+        long likeCount = word.getWordLike();
+        long dislikeCount = word.getWordDislike();
+
+        log.info("Reaction Count By wordIdx: {}, Like Count: {}, Dislike Count: {}", wordIdx, likeCount, dislikeCount);
+
+        return ResponseDto.of(new ReactionCountResponseDto()
+                .setLikeCount(likeCount)
+                .setDislikeCount(dislikeCount)
+        );
     }
 }

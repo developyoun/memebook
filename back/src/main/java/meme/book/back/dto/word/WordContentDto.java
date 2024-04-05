@@ -34,7 +34,7 @@ public class WordContentDto {
         return wordContentList.map(w -> new WordContentDto()
                 .setWordContentIdx(w.getWordContentIdx())
                 .setWordIdx(w.getWordIdx())
-                .setMemberIdx(w.getWordIdx())
+                .setMemberIdx(w.getMemberIdx())
                 .setContent(w.getContent())
                 .setContentLike(w.getContentLike())
                 .setContentDislike(w.getContentDislike())

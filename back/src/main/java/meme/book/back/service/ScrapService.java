@@ -25,7 +25,7 @@ public class ScrapService {
     public Page<ScrapResponseDto> getScrapList(Pageable pageable, Long memberIdx) {
 
         Page<ScrapResponseDto> scrapResponseDtoList = scrapRepository.getScrapListByMemberIdx(pageable, memberIdx);
-        log.info("### Get Scrap List: {}", scrapResponseDtoList);
+        log.info("### Get Scrap List: {}", scrapResponseDtoList.getContent());
 
         return scrapResponseDtoList;
     }

@@ -27,6 +27,8 @@ public class ScrapController {
         return ResponseDto.of(scrapService.getScrapList(pageable, memberIdx));
     }
 
+
+
     @PostMapping("/word")
     public ResponseDto saveWordScrap(@RequestBody ScrapDto scrapDto) {
         return scrapService.saveScrap(scrapDto);

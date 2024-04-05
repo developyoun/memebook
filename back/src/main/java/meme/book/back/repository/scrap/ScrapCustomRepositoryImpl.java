@@ -29,7 +29,7 @@ public class ScrapCustomRepositoryImpl implements ScrapCustomRepository{
                                 scrap.memberIdx.as("memberIdx"),
                                 scrap.wordIdx.as("wordIdx"),
                                 scrap.regDtm.as("regDtm"),
-                                word.wordName.as("wordTitle"),
+                                word.wordName.as("wordName"),
                                 member.nickname.as("nickname")
                         )
                 )

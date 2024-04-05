@@ -5,9 +5,10 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-public class ReactionCountDto {
+public class ReactionCountResponseDto {
 
     Long likeCount;
 
     Long dislikeCount;
+
 }

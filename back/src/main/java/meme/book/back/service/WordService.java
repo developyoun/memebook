@@ -30,20 +30,20 @@ public class WordService {
 
         Word word = wordRepository.findByWordIdx(wordIdx);
         Page<WordContent> wordContentList = wordContentRepository.findByWordIdx(wordIdx, pageable);
-        log.info("### Get Word: {}, Word Content: {}", word, wordContentList.getContent());
 
-        Page<WordContentDto> wordContentListDto = WordContentDto.toPageDto(wordContentList);
+        Page<WordContentDto> wordContentDtoList = WordContentDto.toPageDto(wordContentList);
+        log.info("### Get Word: {}, Word Content: {}", word, wordContentDtoList.getContent());
 
         return new WordContentListResponseDto()
-                .setWordContentList(wordContentListDto.getContent())
+                .setWordContentList(wordContentDtoList.getContent())
                 .setWordIdx(word.getWordIdx())
                 .setWordName(word.getWordName())
                 .setWordLike(word.getWordLike())
                 .setWordDislike(word.getWordDislike())
-                .setNowPage(wordContentListDto.getNumber()+1)
-                .setNowCount(wordContentListDto.getNumberOfElements())
-                .setTotalPage(wordContentListDto.getTotalPages())
-                .setTotalCount(wordContentListDto.getTotalElements());
+                .setNowPage(wordContentDtoList.getNumber()+1)
+                .setNowCount(wordContentDtoList.getNumberOfElements())
+                .setTotalPage(wordContentDtoList.getTotalPages())
+                .setTotalCount(wordContentDtoList.getTotalElements());
     }
 
     @Transactional(readOnly = true)
