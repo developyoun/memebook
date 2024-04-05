@@ -140,6 +140,11 @@ export default function WordDetail() {
                         <span className="blind">신고하기</span>
                       </button>
                     </li>
+                    <li>
+                      <button type="button" className="btn_delete">
+                        삭제
+                      </button>
+                    </li>
                   </ul>
                 </div>
                 <div className="mean_txt">

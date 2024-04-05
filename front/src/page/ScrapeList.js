@@ -8,7 +8,7 @@ export default function ScrapeList() {
   useEffect(() => {
     async function scrapeApi() {
       try {
-        const wordDetailData = await memebookApi.wordScrapeUpdate('123');
+        const wordDetailData = await memebookApi.wordScrapeUpdate(123);
         console.log(wordDetailData)
       } catch (error) {
         console.log(error)
