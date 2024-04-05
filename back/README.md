@@ -208,7 +208,7 @@
 
 ### 6. 단일 단어 조회
 
-##### URL: ***api/word?wordIdx={wordIdx}&page={page}&pageSize={pageSize}***
+##### URL: ***api/word/{wordIdx?&page={page}&pageSize={pageSize}***
 
 ##### Method: **GET**
 

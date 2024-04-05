@@ -1,15 +1,9 @@
-package meme.book.back.dto;
+package meme.book.back.dto.word;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import meme.book.back.entity.WordContent;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;

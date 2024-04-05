@@ -17,8 +17,8 @@ public class ScrapController {
 
     private final ScrapService scrapService;
 
-    @GetMapping("/word/list")
-    public ResponseDto getWordScrap(@RequestParam Long memberIdx,
+    @GetMapping("/word/list/{memberIdx}")
+    public ResponseDto getWordScrap(@PathVariable Long memberIdx,
                                     @RequestParam(defaultValue = "1") int page,
                                     @RequestParam(defaultValue = "10") int pageSize
     ) {

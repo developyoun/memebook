@@ -5,7 +5,6 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import meme.book.back.dto.ScrapResponseDto;
-import meme.book.back.dto.WordListResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
@@ -15,7 +14,6 @@ import java.util.List;
 import static meme.book.back.entity.QMember.member;
 import static meme.book.back.entity.QScrap.scrap;
 import static meme.book.back.entity.QWord.word;
-import static meme.book.back.entity.QWordContent.wordContent;
 
 @RequiredArgsConstructor
 public class ScrapCustomRepositoryImpl implements ScrapCustomRepository{

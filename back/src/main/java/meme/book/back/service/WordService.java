@@ -2,7 +2,7 @@ package meme.book.back.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import meme.book.back.dto.*;
+import meme.book.back.dto.word.*;
 import meme.book.back.entity.Word;
 import meme.book.back.entity.WordContent;
 import meme.book.back.exception.CustomException;
@@ -14,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -27,11 +26,24 @@ public class WordService {
 
     // 단일 단어의 컨텐츠 조회
     @Transactional(readOnly = true)
-    public Page<WordContentDto> getWordContent(Pageable pageable, Long wordIdx) {
-        Page<WordContent> wordContentList = wordContentRepository.findByWordIdx(wordIdx, pageable);
-        log.info("### Get Word: {}", wordContentList.getContent());
+    public WordContentListResponseDto getWordContent(Pageable pageable, Long wordIdx) {
 
-        return WordContentDto.toPageDto(wordContentList);
+        Word word = wordRepository.findByWordIdx(wordIdx);
+        Page<WordContent> wordContentList = wordContentRepository.findByWordIdx(wordIdx, pageable);
+        log.info("### Get Word: {}, Word Content: {}", word, wordContentList.getContent());
+
+        Page<WordContentDto> wordContentListDto = WordContentDto.toPageDto(wordContentList);
+
+        return new WordContentListResponseDto()
+                .setWordContentList(wordContentListDto.getContent())
+                .setWordIdx(word.getWordIdx())
+                .setWordName(word.getWordName())
+                .setWordLike(word.getWordLike())
+                .setWordDislike(word.getWordDislike())
+                .setNowPage(wordContentListDto.getNumber()+1)
+                .setNowCount(wordContentListDto.getNumberOfElements())
+                .setTotalPage(wordContentListDto.getTotalPages())
+                .setTotalCount(wordContentListDto.getTotalElements());
     }
 
     @Transactional(readOnly = true)

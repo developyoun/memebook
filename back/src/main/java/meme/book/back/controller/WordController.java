@@ -3,8 +3,9 @@ package meme.book.back.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.*;
-import meme.book.back.entity.Word;
-import meme.book.back.entity.WordContent;
+import meme.book.back.dto.word.WordContentDto;
+import meme.book.back.dto.word.WordListRequestDto;
+import meme.book.back.dto.word.WordUpsertRequestDto;
 import meme.book.back.service.WordService;
 import meme.book.back.utils.ErrorCode;
 import meme.book.back.utils.NationCode;
@@ -39,11 +40,9 @@ public class WordController {
     public ResponseDto getWord(@PathVariable Long wordIdx,
                                @RequestParam(defaultValue = "1") int page,
                                @RequestParam(defaultValue = "10") int pageSize) {
-
         Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<WordContentDto> wordList = wordService.getWordContent(pageable, wordIdx);
 
-        return ResponseDto.of(wordList);
+        return ResponseDto.of(wordService.getWordContent(pageable, wordIdx));
     }
 
     // 단어 리스트 조회

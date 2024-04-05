@@ -7,8 +7,8 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import meme.book.back.dto.WordListRequestDto;
-import meme.book.back.dto.WordListResponseDto;
+import meme.book.back.dto.word.WordListRequestDto;
+import meme.book.back.dto.word.WordListResponseDto;
 import meme.book.back.utils.NationCode;
 import meme.book.back.utils.SortType;
 import org.springframework.data.domain.Page;
@@ -18,7 +18,6 @@ import org.springframework.data.support.PageableExecutionUtils;
 import java.util.List;
 
 import static meme.book.back.entity.QWord.word;
-import static meme.book.back.entity.QWordContent.wordContent;
 
 @RequiredArgsConstructor
 public class WordRepositoryImpl implements WordCustomRepository {
