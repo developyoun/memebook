@@ -1,9 +1,13 @@
 import './../scss/word.scss'
 import Title from '../components/Title'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {memebookApi} from "../util/memebookApi";
+import {useNavigate, useParams} from "react-router-dom";
+
 
 export default function WordAdd() {
+  let {id, word} = useParams();
+  const navigate = useNavigate();
   const [addState, setAddState] = useState(false);
   const [titleNull, setTitleNull] = useState(false);
   const [explainNull, setExplainNull] = useState(false);
@@ -14,6 +18,10 @@ export default function WordAdd() {
   const [explainCount, setExplainCount] = useState(0);
   const [explainOver, setExplainOver] = useState(false);
 
+  useEffect(() => {
+    setTitleValue(word);
+    console.log(word);
+  }, []);
   async function wordAddPost() {
     try {
       const wordAddApi = await memebookApi.wordAdd( {
@@ -22,6 +30,12 @@ export default function WordAdd() {
         wordNation : "KOR",
         memberIdx : 123,
       });
+      if (word !== undefined) {
+        navigate(`/word/${id}`);
+      } else {
+        navigate(`/library`);
+      }
+
       setAddState(addState);
       alert('등록 완료');
       window.location.reload();
@@ -34,7 +48,9 @@ export default function WordAdd() {
 
   const titleValueCount = (event) => {
     setTitleValue(event.target.value);
+
     setTitleCount(event.target.value.length);
+
     event.target.value.length >= 20 ? setTitleOver(true) : setTitleOver(false);
     setTitleNull(false);
   }
@@ -72,7 +88,8 @@ export default function WordAdd() {
           <div className="tit_box">
             <h4 className="tit">일본어</h4>
           </div>
-          <input type="text" className="text_input" placeholder="단어를 입력해주세요" maxLength={19} onChange={titleValueCount}/>
+
+          <input type="text" className="text_input" placeholder="단어를 입력해주세요" value={word ? word : null} readOnly={word !== undefined}  maxLength={19} onChange={titleValueCount}/>
 
           <div className="input_sub">
             {
