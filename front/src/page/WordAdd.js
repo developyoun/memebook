@@ -7,6 +7,8 @@ export default function WordAdd() {
   const [addState, setAddState] = useState(false);
   const [titleNull, setTitleNull] = useState(false);
   const [explainNull, setExplainNull] = useState(false);
+  const [titleValue, setTitleValue] = useState(false);
+  const [contentValue, setContentValue] = useState(false);
   const [titleCount, setTitleCount] = useState(0);
   const [titleOver, setTitleOver] = useState(false);
   const [explainCount, setExplainCount] = useState(0);
@@ -15,10 +17,10 @@ export default function WordAdd() {
   async function wordAddPost() {
     try {
       const wordAddApi = await memebookApi.wordAdd( {
-        wordName : '테스트',
-        wordContent : '테스트중중중',
+        wordName : titleValue,
+        wordContent : contentValue,
         wordNation : "KOR",
-        memberIdx : 123123,
+        memberIdx : 123,
       });
       setAddState(addState);
       alert('등록 완료');
@@ -30,17 +32,18 @@ export default function WordAdd() {
     }
   }
 
-  const CharacterCount = (event, type) => {
-    let e = event.target.value;
-    if (type === 'title') {
-      setTitleCount(e.length);
-      e.length >= 20 ? setTitleOver(true) : setTitleOver(false);
-      setTitleNull(false);
-    } else if (type === 'detail') {
-      setExplainCount(e.length);
-      e.length >= 99 ? setExplainOver(true) : setExplainOver(false);
-      setExplainNull(false);
-    }
+  const titleValueCount = (event) => {
+    setTitleValue(event.target.value);
+    setTitleCount(event.target.value.length);
+    event.target.value.length >= 20 ? setTitleOver(true) : setTitleOver(false);
+    setTitleNull(false);
+  }
+
+  const contentValueCount = (event) => {
+    setContentValue(event.target.value);
+    setExplainCount(event.target.value.length);
+    event.target.value.length.length >= 99 ? setExplainOver(true) : setExplainOver(false);
+    setExplainNull(false);
   }
 
   const textCheck = () => {
@@ -69,7 +72,7 @@ export default function WordAdd() {
           <div className="tit_box">
             <h4 className="tit">일본어</h4>
           </div>
-          <input type="text" className="text_input" placeholder="단어를 입력해주세요" maxLength={19} onChange={event => CharacterCount(event, 'title')}/>
+          <input type="text" className="text_input" placeholder="단어를 입력해주세요" maxLength={19} onChange={titleValueCount}/>
 
           <div className="input_sub">
             {
@@ -93,7 +96,7 @@ export default function WordAdd() {
           <h4 className="tit">
             설명
           </h4>
-          <textarea className="text_input" name="" id="" cols="30" rows="10" maxLength={99} onChange={event => CharacterCount(event, 'detail')}></textarea>
+          <textarea className="text_input" name="" id="" cols="30" rows="10" maxLength={99} onChange={contentValueCount}></textarea>
 
           <div className="input_sub">
             {

@@ -15,27 +15,31 @@ export default function WordDetail() {
   const [dislikeCheck, setDislikeCheck] = useState(false);
   const [dislikeCount, setDislikeCount] = useState(0);
 
+  const [wordListData, setWordListData] = useState([]);
+
   const commentReportOpen = ({commentPortClose}) => {
     setReportOpen(!reportOpen);
   }
 
-  useEffect(() => {
-    async function WordDetailApi() {
-      const wordDetailData = await memebookApi.wordReaction(id);
-      setLikeCount(wordDetailData.data.data.data.likeCount);
-      setDislikeCount(wordDetailData.data.data.data.dislikeCount);
-      const wordScrapeState = await memebookApi.wordScrapeUpdate(id);
-      console.log(wordScrapeState)
-    }
-    WordDetailApi();
-  }, []);
 
+  useEffect(() => {
+    async function wordDetailApi() {
+      try {
+        const wordDetailData = await memebookApi.wordDetail(id);
+        setWordListData(wordDetailData.data.data.content);
+        console.log(wordListData)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    wordDetailApi();
+  }, []);
 
   async function ScrapeBtn() {
     try {
       const scrapeState = await memebookApi.wordScrape( {
         "wordIdx": id,
-        "memberIdx": 89809
+        "memberIdx": 123
       });
       setScrapeCheck(!scrapeCheck);
       console.log('성공');
@@ -102,82 +106,52 @@ export default function WordDetail() {
       </div>
 
       <ul className="word_mean_list">
-        <li className="list">
-          <div className="mean_top">
-            <Link to="" className="name">김누징</Link>
-            <ul className="util_list">
-              <li>
-                <button type="button" className={`btn_scrape ${scrapeCheck ? 'active' : ''}`} onClick={ScrapeBtn}>
-                  <span className="blind">스크랩</span>
-                </button>
-              </li>
-              <li>
-                <button type="button" className="btn_like" onClick={wordReactionLike}>
-                  <span className="blind">좋아요</span>
-                </button>
-                <span className="count">
+        {
+          wordListData?.map((item, idx) => {
+            return (
+              <li className="list">
+                <div className="mean_top">
+                  <Link to="" className="name">김누징</Link>
+                  <ul className="util_list">
+                    <li>
+                      <button type="button" className={`btn_scrape ${scrapeCheck ? 'active' : ''}`} onClick={ScrapeBtn}>
+                        <span className="blind">스크랩</span>
+                      </button>
+                    </li>
+                    <li>
+                      <button type="button" className="btn_like" onClick={wordReactionLike}>
+                        <span className="blind">좋아요</span>
+                      </button>
+                      <span className="count">
                     {likeCount}
                   </span>
-              </li>
-              <li>
-                <button type="button" className="btn_dislike" onClick={wordReactionDislike}>
-                  <span className="blind">싫어요</span>
-                </button>
-                <span className="count">
+                    </li>
+                    <li>
+                      <button type="button" className="btn_dislike" onClick={wordReactionDislike}>
+                        <span className="blind">싫어요</span>
+                      </button>
+                      <span className="count">
                     {dislikeCount}
                   </span>
+                    </li>
+                    <li>
+                      <button type="button" className="btn_report" onClick={commentReportOpen}>
+                        <span className="blind">신고하기</span>
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+                <div className="mean_txt">
+                  <p>
+                    {wordListData[idx].content}
+                  </p>
+                </div>
               </li>
-              <li>
-                <button type="button" className="btn_report" onClick={commentReportOpen}>
-                  <span className="blind">신고하기</span>
-                </button>
-              </li>
-            </ul>
-          </div>
-          <div className="mean_txt">
-            <p>
-              무야호는 2021년 3~5월부터 대한민국에서 유행하기 시작한 인터넷 밈이다. MBC 무한도전의 2011년 방영분에서 연출된 미국 알래스카 교민 할아버지의 함성에서 유래하였다.
-            </p>
-          </div>
-        </li>
-        <li className="list">
-          <div className="mean_top">
-            <Link to="" className="name">김누징</Link>
-            <ul className="util_list">
-              <li>
-                <button type="button" className={`btn_scrape ${scrapeCheck ? 'active' : ''}`} onClick={ScrapeBtn}>
-                  <span className="blind">스크랩</span>
-                </button>
-              </li>
-              <li>
-                <button type="button" className="btn_like" onClick={wordReactionLike}>
-                  <span className="blind">좋아요</span>
-                </button>
-                <span className="count">
-                    {likeCount}
-                  </span>
-              </li>
-              <li>
-                <button type="button" className="btn_dislike" onClick={wordReactionDislike}>
-                  <span className="blind">싫어요</span>
-                </button>
-                <span className="count">
-                    {dislikeCount}
-                  </span>
-              </li>
-              <li>
-                <button type="button" className="btn_report" onClick={commentReportOpen}>
-                  <span className="blind">신고하기</span>
-                </button>
-              </li>
-            </ul>
-          </div>
-          <div className="mean_txt">
-            <p>
-              무야호는 2021년 3~5월부터 대한민국에서 유행하기 시작한 인터넷 밈이다. MBC 무한도전의 2011년 방영분에서 연출된 미국 알래스카 교민 할아버지의 함성에서 유래하였다.
-            </p>
-          </div>
-        </li>
+
+            )
+          })
+        }
+
       </ul>
     </div>
   );
