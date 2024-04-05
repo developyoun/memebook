@@ -18,7 +18,7 @@ function App() {
       <Route element={<Layout/>}>
         <Route path="/" element={<Login/>}/>
         <Route path="/main" element={<Main/>}/>
-        <Route path="/wordAdd" element={<WordAdd/>}/>
+        <Route path="/wordAdd/:id?/:word?" element={<WordAdd/>}/>
         <Route path="/word/:id" element={<WordDetail/>}/>
         <Route path="/library" element={<Library/>}/>
         <Route path="/profile" element={<Profile/>}/>

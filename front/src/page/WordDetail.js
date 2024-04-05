@@ -26,8 +26,8 @@ export default function WordDetail() {
     async function wordDetailApi() {
       try {
         const wordDetailData = await memebookApi.wordDetail(id);
-        setWordListData(wordDetailData.data.data.content);
-        console.log(wordListData)
+        setWordListData(wordDetailData.data.data);
+        console.log(wordDetailData.data.data)
       } catch (error) {
         console.log(error)
       }
@@ -41,6 +41,7 @@ export default function WordDetail() {
         "wordIdx": id,
         "memberIdx": 123
       });
+      alert('등록');
       setScrapeCheck(!scrapeCheck);
       console.log('성공');
     } catch (error) {
@@ -100,24 +101,24 @@ export default function WordDetail() {
           <CommentPort commentPortClose={commentReportOpen}></CommentPort>
         )
       }
-      <h1 className="word_tit">무야호</h1>
+      <h1 className="word_tit">
+        {wordListData.wordName}
+      </h1>
+      <button type="button" className={`btn_scrape ${scrapeCheck ? 'active' : ''}`} onClick={ScrapeBtn}>
+        <span className="blind">스크랩</span>
+      </button>
       <div className="desc_add_box">
-        <button type="button" className="desc_add_btn">설명 추가하기</button>
+        <Link to={`/wordAdd/${id}/${wordListData.wordName}`} className="desc_add_btn">설명 추가하기</Link>
       </div>
 
       <ul className="word_mean_list">
         {
-          wordListData?.map((item, idx) => {
+          wordListData.wordContentList?.map((item, idx) => {
             return (
               <li className="list">
                 <div className="mean_top">
                   <Link to="" className="name">김누징</Link>
                   <ul className="util_list">
-                    <li>
-                      <button type="button" className={`btn_scrape ${scrapeCheck ? 'active' : ''}`} onClick={ScrapeBtn}>
-                        <span className="blind">스크랩</span>
-                      </button>
-                    </li>
                     <li>
                       <button type="button" className="btn_like" onClick={wordReactionLike}>
                         <span className="blind">좋아요</span>
@@ -143,7 +144,7 @@ export default function WordDetail() {
                 </div>
                 <div className="mean_txt">
                   <p>
-                    {wordListData[idx].content}
+                    {item.content}
                   </p>
                 </div>
               </li>
