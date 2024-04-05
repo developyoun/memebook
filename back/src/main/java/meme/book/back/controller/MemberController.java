@@ -1,5 +1,7 @@
 package meme.book.back.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.MemberDto;
@@ -8,6 +10,7 @@ import meme.book.back.service.MemberService;
 import meme.book.back.utils.NationCode;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "회원 API", description = "회원 관련 API")
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -16,30 +19,31 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    @Operation(summary = "닉네임 생성 API", description = "닉네임을 생성하기 위한 API")
     @PostMapping("/create/nickname")
     public ResponseDto createNicknameController(@RequestParam String nickname) {
         return memberService.saveNickname(nickname);
     }
 
-    // 신규 회원 생성 (회원가입)
+    @Operation(summary = "회원 생성 API", description = "회원을 생성하기 위한 API")
     @PostMapping("/create")
     public ResponseDto createMemberController(@RequestBody MemberDto memberDto) {
         return ResponseDto.of(memberService.createMemberService(memberDto));
     }
 
-    // 닉네임 존재 유무 조회
+    @Operation(summary = "닉네임 중복 API", description = "닉네임 중복 여부를 체크한다.")
     @GetMapping("/exist/nickname")
     public ResponseDto existNicknameController(@RequestParam String nickname) {
         return ResponseDto.of(memberService.isExistNickname(nickname));
     }
 
-    // 국가 조회
+    @Operation(summary = "국가 조회 API", description = "해당 회원의 국가를 조회한다.")
     @GetMapping("/nation")
     public ResponseDto getNationCodeController(@RequestParam String memberIdx) {
         return ResponseDto.of(memberService.getNationCodeByMemberIdx(memberIdx));
     }
 
-    // 회원 국가 변경
+    @Operation(summary = "회원 국가 수정 API", description = "회원의 국가 코드를 수정한다.")
     @PutMapping("/update/nation")
     public ResponseDto updateMember(@RequestParam Long memberIdx,
                                     @RequestParam NationCode originNation,
