@@ -7,8 +7,8 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import meme.book.back.dto.word.WordListRequestDto;
-import meme.book.back.dto.word.WordListResponseDto;
+import meme.book.back.dto.word.WordRequestDto;
+import meme.book.back.dto.word.WordDto;
 import meme.book.back.utils.NationCode;
 import meme.book.back.utils.SortType;
 import org.springframework.data.domain.Page;
@@ -18,6 +18,7 @@ import org.springframework.data.support.PageableExecutionUtils;
 import java.util.List;
 
 import static meme.book.back.entity.QWord.word;
+import static meme.book.back.entity.QScrap.scrap;
 
 @RequiredArgsConstructor
 public class WordRepositoryImpl implements WordCustomRepository {
@@ -25,22 +26,21 @@ public class WordRepositoryImpl implements WordCustomRepository {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<WordListResponseDto> getAllWordList(Pageable pageable, WordListRequestDto dto) {
+    public Page<WordDto> getAllWordList(Pageable pageable, WordRequestDto dto) {
 
-        List<WordListResponseDto> fetch = queryFactory.select(
-                        Projections.fields(WordListResponseDto.class,
+        List<WordDto> fetch = queryFactory.select(
+                        Projections.fields(WordDto.class,
                                 word.wordIdx.as("wordIdx"),
                                 word.wordNation.as("wordNation"),
                                 word.wordName.as("wordName"),
                                 word.wordLike.as("likeCount"),
-                                word.wordDislike.as("dislikeCount")
+                                word.wordDislike.as("dislikeCount"),
+                                scrap.scrapIdx.isNotNull().as("isScrap")
                         )
                 )
                 .from(word)
-                .where(
-                        nationEq(dto.getNationCode()),
-                        titleEq(dto.getSearch())
-                )
+                .where(nationEq(dto.getNationCode()), titleEq(dto.getSearch()))
+                .leftJoin(scrap).on(word.wordIdx.eq(scrap.wordIdx))
                 .orderBy(dynamicSort(dto.getSort(), dto.getSortBy()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())

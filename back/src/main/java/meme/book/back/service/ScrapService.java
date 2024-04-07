@@ -2,17 +2,19 @@ package meme.book.back.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import meme.book.back.dto.ResponseDto;
 import meme.book.back.dto.ScrapDto;
 import meme.book.back.dto.ScrapResponseDto;
 import meme.book.back.entity.Scrap;
+import meme.book.back.exception.CustomException;
 import meme.book.back.repository.scrap.ScrapRepository;
+import meme.book.back.utils.ErrorCode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -31,7 +33,12 @@ public class ScrapService {
     }
 
     @Transactional
-    public ResponseDto saveScrap(ScrapDto scrapDto) {
+    public ScrapDto saveScrap(ScrapDto scrapDto) {
+
+        scrapRepository.findByWordIdxAndMemberIdx(scrapDto.getWordIdx(), scrapDto.getMemberIdx())
+                .ifPresent(scrap -> {
+                    throw new CustomException(ErrorCode.ALREADY_EXIST_MEMBER_SCRAP);
+                });
 
         Scrap scrapEntity = new Scrap()
                 .setWordIdx(scrapDto.getWordIdx())
@@ -41,15 +48,21 @@ public class ScrapService {
         scrapRepository.save(scrapEntity);
         log.info("### Save Scrap: {}, ", scrapEntity);
 
-        return ResponseDto.of(ScrapDto.toDto(scrapEntity));
+        return ScrapDto.toDto(scrapEntity);
     }
 
     @Transactional
-    public void deleteWordScrap(ScrapDto scrapDto) {
-        Scrap scrap = scrapRepository.findByScrapIdx(scrapDto.getScrapIdx());
-        scrapRepository.delete(scrap);
-        log.info("Delete ScrapIdx: {}, WordIdx: {}, MemberIdx: {}",
-                scrapDto.getScrapIdx(), scrapDto.getWordIdx(), scrapDto.getMemberIdx())
-        ;
+    public void deleteWordScrap(Long scrapIdx) {
+        Optional<Scrap> optionalScrap = scrapRepository.findByScrapIdx(scrapIdx);
+
+        optionalScrap.ifPresentOrElse(scrap -> {
+                    scrapRepository.delete(scrap);
+                    log.info("Delete ScrapIdx: {}, WordIdx: {}, MemberIdx: {}",
+                            scrap.getScrapIdx(), scrap.getWordIdx(), scrap.getMemberIdx());
+                },
+                () -> {
+                    throw new CustomException(ErrorCode.NOT_EXIST_SCRAP);
+                }
+        );
     }
 }

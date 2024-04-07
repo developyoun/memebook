@@ -7,7 +7,9 @@ import meme.book.back.utils.SortType;
 
 @Data
 @Accessors(chain = true)
-public class WordListRequestDto {
+public class WordRequestDto {
+
+    private Long memberIdx;
 
     private NationCode nationCode;
 

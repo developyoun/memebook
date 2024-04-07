@@ -8,9 +8,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ScrapRepository extends JpaRepository<Scrap, Long>, ScrapCustomRepository {
 
-    Scrap findByScrapIdx(Long scrapIdx);
+    Optional<Scrap> findByScrapIdx(Long scrapIdx);
+
+    Optional<Scrap> findByWordIdxAndMemberIdx(Long wordIdx, Long memberIdx);
+
 }

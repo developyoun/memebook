@@ -1,5 +1,6 @@
 package meme.book.back.dto.reaction;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -26,9 +27,11 @@ public class ReactionDto {
     private Long wordIdx;
 
     /* 리액션 생성시간 */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime reactionRegDtm;
 
     /* 리액션 수정시간 */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime reactionModDtm;
 
     // Entity -> DTO 변환

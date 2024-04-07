@@ -1,6 +1,7 @@
 package meme.book.back.dto.word;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import meme.book.back.entity.WordContent;
@@ -10,11 +11,14 @@ import java.time.LocalDateTime;
 
 @Data
 @Accessors(chain = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class WordContentDto {
 
     private Long wordContentIdx;
 
     private Long wordIdx;
+
+    private String wordName;
 
     private Long memberIdx;
 

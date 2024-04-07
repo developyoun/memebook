@@ -14,7 +14,7 @@ public interface WordRepository extends JpaRepository<Word, Long>, WordCustomRep
 
     Word findByWordIdx(Long wordIdx);
 
-    Page<Word> findAllByWordIdx(Long wordIdx, Pageable pageable);
-
     Optional<Word> findByWordName(String wordName);
+
+    void deleteByWordIdx(Long wordIdx);
 }

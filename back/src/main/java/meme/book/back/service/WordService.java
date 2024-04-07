@@ -47,50 +47,67 @@ public class WordService {
     }
 
     @Transactional(readOnly = true)
-    public Page<WordListResponseDto> getWordListService(Pageable pageable, WordListRequestDto requestDto) {
-        return wordRepository.getAllWordList(pageable, requestDto);
+    public WordListResponseDto getWordListService(Pageable pageable, WordRequestDto requestDto) {
+        Page<WordDto> wordDtoList = wordRepository.getAllWordList(pageable, requestDto);
+        log.info("### Get Word: {}", wordDtoList.getContent());
+
+        return new WordListResponseDto()
+                .setWordList(wordDtoList.getContent())
+                .setNowPage(wordDtoList.getNumber()+1)
+                .setNowCount(wordDtoList.getNumberOfElements())
+                .setTotalPage(wordDtoList.getTotalPages())
+                .setTotalCount(wordDtoList.getTotalElements());
     }
 
     // 단어 생성
     @Transactional
-    public WordUpsertResponseDto createWord(WordUpsertRequestDto requestDto) {
+    public WordUpsertResponseDto createWord(WordInsertRequestDto requestDto) {
         WordUpsertResponseDto responseDto = new WordUpsertResponseDto();
 
         // 1. 기존 단어 존재 여부 확인
         Optional<Word> optionalWord = wordRepository.findByWordName(requestDto.getWordName());
 
-        optionalWord.ifPresentOrElse(
-                // 2-1. 기존 단어 존재 (단어 컨텐츠만 추가)
-                word -> {
-                    WordContent wordContent = new WordContent()
-                            .setWordIdx(word.getWordIdx())
-                            .setMemberIdx(requestDto.getMemberIdx())
-                            .setContent(requestDto.getWordContent());
-                    wordContentRepository.save(wordContent);
+        if (optionalWord.isPresent()) {
+            // 기존 단어 존재 (단어 컨텐츠만 추가)
+            Word word = optionalWord.get();
 
-                    responseDto.setWordIdx(word.getWordIdx());
-                    log.info("### Exist Word: {}, New Word Content: {}", word, wordContent);
-                },
+            Optional<WordContent> optionalWordContent = wordContentRepository
+                    .findByWordIdxAndMemberIdx(word.getWordIdx(), requestDto.getMemberIdx());
 
-                // 2-2. 기존 단어 없음 (단어 및 컨텐츠 추가)
-                () -> {
-                    Word word = new Word()
-                            .setWordName(requestDto.getWordName())
-                            .setWordNation(requestDto.getWordNation());
-                    wordRepository.save(word);
+            if (optionalWordContent.isPresent()) {
+                // 이미 회원이 등록한 단어 있으면 에러 처리
+                throw new CustomException(ErrorCode.ALREADY_EXIST_MEMBER_WORD);
+            }
 
-                    WordContent wordContent = new WordContent()
-                            .setWordIdx(word.getWordIdx())
-                            .setMemberIdx(requestDto.getMemberIdx())
-                            .setContent(requestDto.getWordContent());
-                    wordContentRepository.save(wordContent);
+            WordContent wordContent = new WordContent()
+                    .setWordIdx(word.getWordIdx())
+                    .setMemberIdx(requestDto.getMemberIdx())
+                    .setContent(requestDto.getWordContent());
+            wordContentRepository.save(wordContent);
 
-                    responseDto.setWordIdx(word.getWordIdx());
-                    log.info("### New Word: {}, New Word Content: {}", word, wordContent);
-                }
-        );
-        return responseDto.setWordName(requestDto.getWordName())
+            responseDto.setWordIdx(word.getWordIdx());
+            log.info("### Exist Word: {}, New Word Content: {}", word, wordContent);
+        } else {
+            // 2. 기존 단어 없음 (단어 및 컨텐츠 추가)
+            Word word = new Word()
+                    .setWordName(requestDto.getWordName())
+                    .setWordNation(requestDto.getWordNation());
+            wordRepository.save(word);
+
+            WordContent wordContent = new WordContent()
+                    .setWordIdx(word.getWordIdx())
+                    .setMemberIdx(requestDto.getMemberIdx())
+                    .setContent(requestDto.getWordContent());
+            wordContentRepository.save(wordContent);
+
+            responseDto.setWordIdx(word.getWordIdx());
+            log.info("### New Word: {}, New Word Content: {}", word, wordContent);
+        }
+
+        responseDto.setWordName(requestDto.getWordName())
                 .setMemberIdx(requestDto.getMemberIdx());
+
+        return responseDto;
     }
 
     // 단어 수정
@@ -112,4 +129,37 @@ public class WordService {
                 .setMemberIdx(requestDto.getMemberIdx());
     }
 
+    @Transactional
+    public void deleteWordContent(Long wordContentIdx) {
+        Optional<WordContent> optionalWordContent = wordContentRepository.findByWordContentIdx(wordContentIdx);
+
+        if (optionalWordContent.isEmpty()) {
+            throw new CustomException(ErrorCode.NOT_EXIST_WORD);
+        }
+
+        WordContent wordContent = optionalWordContent.get();
+        Long wordIdx = wordContent.getWordIdx();
+
+        wordContentRepository.delete(wordContent);
+        long wordContentCount = wordContentRepository.countByWordIdx(wordIdx);
+
+        log.info("wordIdx: {}, Word Count: {}", wordIdx, wordContentCount);
+
+        if (wordContentCount == 0) {
+            log.info("Word Content is Zero, Delete Word: {}", wordIdx);
+            wordRepository.deleteByWordIdx(wordIdx);
+        }
+    }
+
+    public WordContentListResponseDto getWordListByMember(Pageable pageable, Long memberIdx) {
+
+        Page<WordContentDto> wordContentDtoList = wordContentRepository.getWordContentListByMemberIdx(pageable, memberIdx);
+
+        return new WordContentListResponseDto()
+                .setWordContentList(wordContentDtoList.getContent())
+                .setNowPage(wordContentDtoList.getNumber()+1)
+                .setNowCount(wordContentDtoList.getNumberOfElements())
+                .setTotalPage(wordContentDtoList.getTotalPages())
+                .setTotalCount(wordContentDtoList.getTotalElements());
+    }
 }

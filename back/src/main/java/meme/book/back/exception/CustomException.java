@@ -1,16 +1,25 @@
 package meme.book.back.exception;
 
+import lombok.Getter;
+import lombok.ToString;
 import meme.book.back.utils.ErrorCode;
 import org.springframework.http.HttpStatus;
 
-public class CustomException extends RuntimeException{
+@Getter
+@ToString
+public class CustomException extends RuntimeException {
 
-    private HttpStatus statusCode;
-    private String message;
+    private final HttpStatus status;
+    private final String message;
+
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+        return this;
+    }
 
     public CustomException(ErrorCode errorCode) {
         super(errorCode.getMessage());
-        this.statusCode = errorCode.getStatus();
+        this.status = errorCode.getStatus();
         this.message = errorCode.getMessage();
     }
 

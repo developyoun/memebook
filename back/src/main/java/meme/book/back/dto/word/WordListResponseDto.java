@@ -1,31 +1,24 @@
 package meme.book.back.dto.word;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import meme.book.back.utils.NationCode;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Accessors(chain = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class WordListResponseDto {
 
-    // 단어 고유 번호
-    private Long wordIdx;
+    List<WordDto> wordList;
 
-    // 단어명
-    private String wordName;
+    private int nowPage;
 
-    // 단어 설명
-    private String wordContent;
+    private int totalPage;
 
-    // 단어 국가
-    private NationCode wordNation;
+    private long nowCount;
 
-    // 좋아요 수
-    private long likeCount;
+    private long totalCount;
 
-    // 싫어요 수
-    private long dislikeCount;
 }

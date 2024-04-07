@@ -8,10 +8,7 @@ import meme.book.back.utils.NationCode;
 @Data
 @Accessors(chain = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class WordDto {
-
-    // 단어 고유 번호
-    private Long wordIdx;
+public class WordInsertRequestDto {
 
     // 단어명
     private String wordName;
@@ -22,12 +19,6 @@ public class WordDto {
     // 단어 국가
     private NationCode wordNation;
 
-    // 좋아요 수
-    private long likeCount;
-
-    // 싫어요 수
-    private long dislikeCount;
-
-    // 스크랩 여부
-    private boolean isScrap;
+    // 단어 등록자
+    private Long memberIdx;
 }

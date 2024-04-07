@@ -1,8 +1,8 @@
 package meme.book.back;
 
 import lombok.extern.slf4j.Slf4j;
-import meme.book.back.dto.word.WordListRequestDto;
-import meme.book.back.dto.word.WordUpsertRequestDto;
+import meme.book.back.dto.word.WordInsertRequestDto;
+import meme.book.back.dto.word.WordRequestDto;
 import meme.book.back.repository.word.WordRepository;
 import meme.book.back.service.WordService;
 import meme.book.back.utils.NationCode;
@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
@@ -29,8 +28,8 @@ public class WordTest {
     private WordService wordService;
 
     Pageable pageable = PageRequest.of(0, 20);
-    WordListRequestDto requestDto = new WordListRequestDto();
-    WordUpsertRequestDto wordCreateRequestDto = new WordUpsertRequestDto();
+    WordRequestDto requestDto = new WordRequestDto();
+    WordInsertRequestDto wordCreateRequestDto = new WordInsertRequestDto();
 
     @BeforeEach
     void init() {
@@ -44,7 +43,6 @@ public class WordTest {
                 .setWordContent("내용이요~");
     }
 
-    @Rollback(value = false)
     @Test
     @DisplayName("단어 생성 테스트")
     void createWordTest() {

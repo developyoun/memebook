@@ -5,8 +5,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.reaction.ReactionDto;
-import meme.book.back.dto.ResponseDto;
 import meme.book.back.service.ReactionService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "반응 API", description = "좋아요/싫어요 등의 API")
@@ -19,24 +19,24 @@ public class ReactionController {
     private final ReactionService reactionService;
 
     @PostMapping("/word/content/update")
-    public ResponseDto upsertWordContentReaction(@RequestBody ReactionDto reactionDto) {
+    public ResponseEntity<?> upsertWordContentReaction(@RequestBody ReactionDto reactionDto) {
 
-        return ResponseDto.of();
+        return ResponseEntity.ok(null);
     }
 
     @Operation(summary = "단어의 반응 수정 API", description = "단어의 좋아요/싫어요를 수정한다.")
     @PostMapping("/word/update")
-    public ResponseDto upsertReaction(@RequestBody ReactionDto reactionDto) {
+    public ResponseEntity<?> upsertReaction(@RequestBody ReactionDto reactionDto) {
         log.info("Reaction Request: {}", reactionDto);
 
-        return ResponseDto.of(reactionService.upsertWordReaction(reactionDto));
+        return ResponseEntity.ok(reactionService.upsertWordReaction(reactionDto));
     }
 
     @Operation(summary = "단어의 반응 카운트 API", description = "해당 단어에 대한 좋아요/싫어요 카운트를 조회한다.")
     @GetMapping("/count")
-    public ResponseDto countReactionByWordIdx(@RequestParam Long wordIdx) {
+    public ResponseEntity<?> countReactionByWordIdx(@RequestParam Long wordIdx) {
         log.info("Reaction Count By WordIdx: {}", wordIdx);
 
-        return ResponseDto.of(reactionService.countReactionService(wordIdx));
+        return ResponseEntity.ok(reactionService.countReactionService(wordIdx));
     }
 }
