@@ -16,118 +16,113 @@ export default function Profile() {
   }
 
   return (
-    <div className="wrap">
-
-      <div className="profile_container">
-        <div className="user_info">
-          <div className="user_name">
-            <h3 className="name">누징</h3>
-            {/*<button type="button">팔로워</button>*/}
-          </div>
-
-          <div className="user_info_desc">
-            <ul>
-              <li>
-                <span className="count">6</span>
-                <span className="txt">팔로잉</span>
-              </li>
-              <li>
-                <span className="count">1</span>
-                <span className="txt">팔로워</span>
-              </li>
-            </ul>
-          </div>
-          <p className="visit_count">🏡 연속 방문 최대 <strong>12</strong>번을 달성했어요!</p>
+    <div className="profile_container">
+      <div className="user_info">
+        <div className="user_name">
+          <h3 className="name">누징</h3>
+          {/*<button type="button">팔로워</button>*/}
         </div>
 
-        <div className="daily_box">
-          <h3 className="tit">🌻 출석체크</h3>
-          <ul className="daily_list">
+        <div className="user_info_desc">
+          <ul>
             <li>
-              <div className="day check">
-                <span>월</span>
-              </div>
+              <span className="count">6</span>
+              <span className="txt">팔로잉</span>
             </li>
             <li>
-              <div className="day">
-                <span>화</span>
-              </div>
-            </li>
-            <li>
-              <div className="day">
-                <span>수</span>
-              </div>
-            </li>
-            <li>
-              <div className="day">
-                <span>목</span>
-              </div>
-            </li>
-            <li>
-              <div className="day">
-                <span>금</span>
-              </div>
-            </li>
-            <li>
-              <div className="day">
-                <span>토</span>
-              </div>
-            </li>
-            <li>
-              <div className="day">
-                <span>일</span>
-              </div>
+              <span className="count">1</span>
+              <span className="txt">팔로워</span>
             </li>
           </ul>
         </div>
-
-        <div className="user_box">
-          <div className="user_tit">
-            <h4>
-              등록한 단어
-              <span className="count">3</span>
-            </h4>
-            <Link to="/" className="item">더보기</Link>
-          </div>
-
-          <ul className="word_list">
-            <li>
-              <Link to="/word/1" className="item">개개개</Link>
-            </li>
-            <li>
-              <Link to="" className="item">거거거</Link>
-            </li>
-          </ul>
-        </div>
-
-        <div className="user_box">
-          <div className="user_tit">
-            <h4>
-              스크랩한 단어
-              <span className="count">12</span>
-            </h4>
-            <Link to="/profile/scrape" className="item">더보기</Link>
-          </div>
-
-          <ul className="word_list">
-            <li>
-              <Link to="/word/1" className="item">개개개</Link>
-            </li>
-            <li>
-              <Link to="" className="item">거거거</Link>
-            </li>
-          </ul>
-        </div>
-
-        <div className="invite_box">
-          <p className="invite_txt">&#127881; 친구 초대를 통해 밈북의 세계를 넓혀주세요 &#127881;</p>
-          <button type="button" onClick={inviteLink} className="invite_btn">
-            {copyState === true ? '복사 완료 ! 친구에게 공유해주세요!' : '링크 복사하기'}
-          </button>
-        </div>
+        <p className="visit_count">🏡 연속 방문 최대 <strong>12</strong>번을 달성했어요!</p>
       </div>
 
-      <HomeFooter></HomeFooter>
+      <div className="daily_box">
+        <h3 className="tit">🌻 출석체크</h3>
+        <ul className="daily_list">
+          <li>
+            <div className="day check">
+              <span>월</span>
+            </div>
+          </li>
+          <li>
+            <div className="day">
+              <span>화</span>
+            </div>
+          </li>
+          <li>
+            <div className="day">
+              <span>수</span>
+            </div>
+          </li>
+          <li>
+            <div className="day">
+              <span>목</span>
+            </div>
+          </li>
+          <li>
+            <div className="day">
+              <span>금</span>
+            </div>
+          </li>
+          <li>
+            <div className="day">
+              <span>토</span>
+            </div>
+          </li>
+          <li>
+            <div className="day">
+              <span>일</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div className="user_box">
+        <div className="user_tit">
+          <h4>
+            등록한 단어
+            <span className="count">3</span>
+          </h4>
+          <Link to="/" className="item">더보기</Link>
+        </div>
+
+        <ul className="word_list">
+          <li>
+            <Link to="/word/1" className="item">개개개</Link>
+          </li>
+          <li>
+            <Link to="" className="item">거거거</Link>
+          </li>
+        </ul>
+      </div>
+
+      <div className="user_box">
+        <div className="user_tit">
+          <h4>
+            스크랩한 단어
+            <span className="count">12</span>
+          </h4>
+          <Link to="/profile/scrape" className="item">더보기</Link>
+        </div>
+
+        <ul className="word_list">
+          <li>
+            <Link to="/word/1" className="item">개개개</Link>
+          </li>
+          <li>
+            <Link to="" className="item">거거거</Link>
+          </li>
+        </ul>
+      </div>
+
+      <div className="invite_box">
+        <p className="invite_txt">&#127881; 친구 초대를 통해 밈북의 세계를 넓혀주세요 &#127881;</p>
+        <button type="button" onClick={inviteLink} className="invite_btn">
+          {copyState === true ? '복사 완료 ! 친구에게 공유해주세요!' : '링크 복사하기'}
+        </button>
+      </div>
     </div>
   );
 }

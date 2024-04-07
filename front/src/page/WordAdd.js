@@ -74,12 +74,11 @@ export default function WordAdd() {
 
 
   return (
-    <div className="layer">
+    <div className="word_add_container">
 
       <Title title="단어 등록" type="back"></Title>
 
-      <div className="word_add_container">
-
+      <div className="container">
         <div className="word_add_tip">
           $일본$에 관한 밈을 등록해주세요.<br/>일본어를 배우고 싶은 밈밍이들이 좋아할 거에요&#128218;
         </div>
@@ -137,8 +136,7 @@ export default function WordAdd() {
           <button type="button" className="btn_submit" onClick={textCheck}>등록하기</button>
         </div>
       </div>
-
-
     </div>
+
   );
 }

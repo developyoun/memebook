@@ -17,9 +17,12 @@ export default function WordDetail() {
 
   const [wordListData, setWordListData] = useState([]);
 
+  const [memberIdx, setMemberIdx] = useState(123);
+
   const commentReportOpen = ({commentPortClose}) => {
     setReportOpen(!reportOpen);
   }
+
 
 
   useEffect(() => {
@@ -140,11 +143,15 @@ export default function WordDetail() {
                         <span className="blind">신고하기</span>
                       </button>
                     </li>
-                    <li>
-                      <button type="button" className="btn_delete">
-                        삭제
-                      </button>
-                    </li>
+                    {
+                      item.memberIdx === memberIdx && (
+                        <li>
+                          <button type="button" className="btn_delete">
+                            <span className="blind">삭제</span>
+                          </button>
+                        </li>
+                      )
+                    }
                   </ul>
                 </div>
                 <div className="mean_txt">

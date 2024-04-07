@@ -68,52 +68,53 @@ export default function Word() {
 
   return (
     <div className="library_wrap">
+      <div className="container">
 
-      <div className="library_top">
-        <h2 className="tit">&#128214; 사전</h2>
-        <div className="box_btn">
-          <span className="txt">사전에 없는 단어가 있나요?<br/>지금 등록해보세요 &#128073;</span>
-          <Link to="/wordAdd" className="word_add_btn">단어 등록하기 </Link>
+        <div className="library_top">
+          <h2 className="tit">&#128214; 사전</h2>
+          <div className="box_btn">
+            <span className="txt">사전에 없는 단어가 있나요?<br/>지금 등록해보세요 &#128073;</span>
+            <Link to="/wordAdd" className="word_add_btn">단어 등록하기 </Link>
+          </div>
         </div>
+
+        <div className="library_box">
+          <Swiper
+            slidesPerView='auto'
+            className="library_tab"
+          >
+            <SwiperSlide className="tab_item active">
+              <button type="button" className="item" onClick={wordSort}>좋아요순</button>
+            </SwiperSlide>
+            <SwiperSlide className="tab_item">
+              <Link to={`/`} className="item">좋아요순</Link>
+            </SwiperSlide>
+            <SwiperSlide className="tab_item">
+              <Link to={`/`} className="item">인기순</Link>
+            </SwiperSlide>
+          </Swiper>
+
+          <ul className="word_list">
+            {
+              libraryData?.map((item, idx) => {
+                return (
+                  <li className="box_item">
+                    <Link to={`/word/${item.wordIdx}`} className="item" key={idx}>{item.wordName}</Link>
+                  </li>
+                )
+              })
+            }
+          </ul>
+        </div>
+
+        {
+          window.scrollY > 20 && (
+            <button type="button" className="btn_top" onClick={pageUp}>
+              <span className="blind">올리기</span>
+            </button>
+          )
+        }
       </div>
-      
-      <div className="library_box">
-        <Swiper
-          slidesPerView='auto'
-          className="library_tab"
-        >
-          <SwiperSlide className="tab_item active">
-            <button type="button" className="item" onClick={wordSort}>좋아요순</button>
-          </SwiperSlide>
-          <SwiperSlide className="tab_item">
-            <Link to={`/`} className="item">좋아요순</Link>
-          </SwiperSlide>
-          <SwiperSlide className="tab_item">
-            <Link to={`/`} className="item">인기순</Link>
-          </SwiperSlide>
-        </Swiper>
-
-        <ul className="word_list">
-          {
-            libraryData?.map((item, idx) => {
-              return (
-                <li className="box_item">
-                  <Link to={`/word/${item.wordIdx}`} className="item" key={idx}>{item.wordName}</Link>
-                </li>
-              )
-            })
-          }
-        </ul>
-      </div>
-
-      {
-        window.scrollY > 20 && (
-          <button type="button" className="btn_top" onClick={pageUp}>
-            <span className="blind">올리기</span>
-          </button>
-        )
-      }
-
     </div>
   );
 }
