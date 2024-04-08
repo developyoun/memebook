@@ -32,10 +32,11 @@ public class WordService {
     @Transactional(readOnly = true)
     public WordContentListResponseDto getWordContent(Pageable pageable, Long wordIdx, Long memberIdx) {
 
-        Word word = wordRepository.findByWordIdx(wordIdx);
-        boolean isScrap = scrapRepository.existsByWordIdxAndMemberIdx(wordIdx, memberIdx);
-        Page<WordContent> wordContentList = wordContentRepository.findByWordIdx(wordIdx, pageable);
+        boolean isScrap = (memberIdx != null && scrapRepository.existsByWordIdxAndMemberIdx(wordIdx, memberIdx));
 
+        Word word = wordRepository.findByWordIdx(wordIdx);
+
+        Page<WordContent> wordContentList = wordContentRepository.findByWordIdx(wordIdx, pageable);
         Page<WordContentDto> wordContentDtoList = WordContentDto.toPageDto(wordContentList);
         log.info("### Get Word: {}, Word Content: {}", word, wordContentDtoList.getContent());
 
