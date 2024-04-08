@@ -10,7 +10,6 @@ export default function ScrapeList() {
 
 
   const dispatch = useDispatch();
-  const scrapeData = useSelector((state) => state.movies.seasonData);
 
   const [scrapListData, setScrapListData] = useState([]);
 
@@ -36,7 +35,7 @@ export default function ScrapeList() {
 
   async function wordDeleteApi() {
     try {
-      const wordDeleteData = await memebookApi.wordScrapeDelete(112);
+      const wordDeleteData = await memebookApi.wordScrapeDelete(112, 123);
       alert('등록 완료');
       console.log('성공');
     } catch (error) {

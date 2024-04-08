@@ -23,8 +23,9 @@ export default function Word() {
   useEffect(() => {
     async function libraryList() {
       try {
-        const libraryApi = await memebookApi.wordList('ALL', pageNumber);
-        setLibraryData(libraryApi.data.data.content);
+        const libraryApi = await memebookApi.wordList('KOR', pageNumber, 123);
+        setLibraryData(libraryApi.data.wordList);
+        console.log(libraryApi)
       } catch (error) {
         console.log(error)
       }
@@ -57,10 +58,30 @@ export default function Word() {
     };
   }, [pageMore]);
 
-  async function wordSort() {
+  async function wordSort(word) {
     try {
-      const wordSortData = await memebookApi.wordSort('ALL', 'LIKE', 'ASC');
+      let wordSortData;
+      setLibraryData();
+      switch (word) {
+        case 'LIKE' :
+          wordSortData = await memebookApi.wordSort('ALL', word, 'ASC', '123');
+          setLibraryData(wordSortData.data.wordList);
+           break;
+        case 'DISLIKE' :
+          wordSortData = await memebookApi.wordSort('ALL', word, 'ASC', '123');
+          setLibraryData(wordSortData.data.wordList);
+           break;
+        case 'LATEST' :
+          wordSortData = await memebookApi.wordSort('ALL', word, 'ASC', '123');
+          setLibraryData(wordSortData.data.wordList);
+           break;
+        case 'CONTENT' :
+          wordSortData = await memebookApi.wordSort('ALL', word, 'ASC', '123');
+          setLibraryData(wordSortData.data.wordList);
+           break;
+      }
       console.log(wordSortData)
+      console.log('성공')
     } catch(error) {
       console.log(error)
     }
@@ -84,13 +105,16 @@ export default function Word() {
             className="library_tab"
           >
             <SwiperSlide className="tab_item active">
-              <button type="button" className="item" onClick={wordSort}>좋아요순</button>
+              <button type="button" className="item" onClick={() => wordSort('LIKE')}>좋아요순</button>
             </SwiperSlide>
             <SwiperSlide className="tab_item">
-              <Link to={`/`} className="item">좋아요순</Link>
+              <button type="button" className="item" onClick={() => wordSort('DISLIKE')}>싫어요순</button>
             </SwiperSlide>
             <SwiperSlide className="tab_item">
-              <Link to={`/`} className="item">인기순</Link>
+              <button type="button" className="item" onClick={() => wordSort('LATEST')}>최신순</button>
+            </SwiperSlide>
+            <SwiperSlide className="tab_item">
+              <button type="button" className="item" onClick={() => wordSort('CONTENT')}>댓글순</button>
             </SwiperSlide>
           </Swiper>
 
