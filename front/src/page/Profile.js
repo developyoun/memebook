@@ -85,7 +85,7 @@ export default function Profile() {
             등록한 단어
             <span className="count">3</span>
           </h4>
-          <Link to="/" className="item">더보기</Link>
+          <Link to="/profile/my_list" className="item">더보기</Link>
         </div>
 
         <ul className="word_list">
@@ -93,7 +93,7 @@ export default function Profile() {
             <Link to="/word/1" className="item">개개개</Link>
           </li>
           <li>
-            <Link to="" className="item">거거거</Link>
+            <Link to="/word/2" className="item">거거거</Link>
           </li>
         </ul>
       </div>

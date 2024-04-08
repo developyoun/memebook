@@ -11,6 +11,7 @@ import Profile from "./page/Profile";
 import WordDetail from "./page/WordDetail";
 import ScrapeList from "./page/ScrapeList";
 import Layout from "./page/Layout";
+import AddList from "./page/AddList";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/library" element={<Library/>}/>
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/profile/scrape" element={<ScrapeList/>}/>
+        <Route path="/profile/my_list" element={<AddList/>}/>
       </Route>
     </Routes>
   );

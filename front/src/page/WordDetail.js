@@ -29,8 +29,8 @@ export default function WordDetail() {
     async function wordDetailApi() {
       try {
         const wordDetailData = await memebookApi.wordDetail(id);
-        setWordListData(wordDetailData.data.data);
-        console.log(wordDetailData.data.data)
+        setWordListData(wordDetailData.data);
+        console.log(wordDetailData)
       } catch (error) {
         console.log(error)
       }

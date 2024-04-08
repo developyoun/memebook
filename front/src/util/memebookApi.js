@@ -1,13 +1,15 @@
 import axios from 'axios';
 
 const request = axios.create({
-  baseURL: `https://api.memebook.co.kr/api/api/`,
+  baseURL: `https://api.memebook.co.kr/api/`,
 })
 
 export const memebookApi = {
   wordAdd : (addList) => request.post(`word/create`, addList),
   wordList : (country, pageNumber) => request.get(`word/list?nation=${country}&page=${pageNumber}`),
   wordDetail : (wordIdx) => request.get(`word/${wordIdx}`),
+  wordAddList : (memberIdx) => request.get(`word/list/${memberIdx}`),
+
   /* 정렬 */
   wordSort : (country, sort, sortBy) => request.get(`word/list?nation=${country}&sort=${sort}&sortBy=${sortBy}`),
   /* 스크랩 */

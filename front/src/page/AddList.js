@@ -1,35 +1,34 @@
-import './../scss/scrapeList.scss'
+import '../scss/addList.scss'
 import React, {useEffect, useState} from "react";
 import {memebookApi} from "../util/memebookApi";
 import {Link} from "react-router-dom";
 
-export default function ScrapeList() {
-  const [scrapListData, setScrapListData] = useState([]);
+export default function AddList() {
+  const [addListData, setAddListData] = useState([]);
 
   useEffect(() => {
-    async function scrapeApi() {
+    async function MyAddApi() {
       try {
-        const wordDetailData = await memebookApi.wordScrapeUpdate(123);
-        setScrapListData(wordDetailData.data.content);
-        console.log(scrapListData);
+        const wordDetailData = await memebookApi.wordAddList(123);
+        setAddListData(wordDetailData.data.wordContentList);
       } catch (error) {
         console.log(error)
       }
     }
-    scrapeApi();
+    MyAddApi();
   }, []);
 
   return (
-    <div className="scrape_container">
-      <div className="scrape_top">
-        <h2 className="tit">&#128214; 스크랩</h2>
+    <div className="add_container">
+      <div className="add_top">
+        <h2 className="tit">&#128214; 등록한 단어</h2>
         <div className="box_btn">
           <span className="txt"></span>
         </div>
 
         <ul className="scrape_list">
           {
-            scrapListData?.map((item, idx) => {
+            addListData?.map((item, idx) => {
               return (
                 <li className="box_item">
                   <Link to={`/word/${item.wordIdx}`} className="item" key={idx}>{item.wordName}</Link>

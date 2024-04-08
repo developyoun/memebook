@@ -1,0 +1,14 @@
+.add_container {
+  min-height: calc(100vh - 40px);
+  padding: 40px 20px 120px;
+  background: #f7f7f7;
+
+  .add_top {
+    width: 100%;
+
+    .tit {
+      width: 100%;
+      font-size: 24px;
+    }
+  }
+}
