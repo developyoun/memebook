@@ -2,10 +2,13 @@ package meme.book.back.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import meme.book.back.dto.ScrapResponseDto;
 import meme.book.back.dto.word.*;
 import meme.book.back.entity.Word;
 import meme.book.back.entity.WordContent;
 import meme.book.back.exception.CustomException;
+import meme.book.back.repository.reaction.ReactionRepository;
+import meme.book.back.repository.scrap.ScrapRepository;
 import meme.book.back.repository.word.WordRepository;
 import meme.book.back.repository.wordContent.WordContentRepository;
 import meme.book.back.utils.ErrorCode;
@@ -23,12 +26,14 @@ public class WordService {
 
     private final WordRepository wordRepository;
     private final WordContentRepository wordContentRepository;
+    private final ScrapRepository scrapRepository;
 
     // 단일 단어의 컨텐츠 조회
     @Transactional(readOnly = true)
-    public WordContentListResponseDto getWordContent(Pageable pageable, Long wordIdx) {
+    public WordContentListResponseDto getWordContent(Pageable pageable, Long wordIdx, Long memberIdx) {
 
         Word word = wordRepository.findByWordIdx(wordIdx);
+        boolean isScrap = scrapRepository.existsByWordIdxAndMemberIdx(wordIdx, memberIdx);
         Page<WordContent> wordContentList = wordContentRepository.findByWordIdx(wordIdx, pageable);
 
         Page<WordContentDto> wordContentDtoList = WordContentDto.toPageDto(wordContentList);
@@ -40,7 +45,8 @@ public class WordService {
                 .setWordName(word.getWordName())
                 .setWordLike(word.getWordLike())
                 .setWordDislike(word.getWordDislike())
-                .setNowPage(wordContentDtoList.getNumber()+1)
+                .setScrap(isScrap)
+                .setNowPage(wordContentDtoList.getNumber() + 1)
                 .setNowCount(wordContentDtoList.getNumberOfElements())
                 .setTotalPage(wordContentDtoList.getTotalPages())
                 .setTotalCount(wordContentDtoList.getTotalElements());

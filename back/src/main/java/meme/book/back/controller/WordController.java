@@ -41,11 +41,12 @@ public class WordController {
     @Operation(summary = "단일 단어 조회 API", description = "단일 단어를 조회한다.")
     @GetMapping("/{wordIdx}")
     public ResponseEntity<?> getWord(@PathVariable Long wordIdx,
-                               @RequestParam(defaultValue = "1") int page,
-                               @RequestParam(defaultValue = "10") int pageSize) {
+                                     @RequestParam Long memberIdx,
+                                     @RequestParam(defaultValue = "1") int page,
+                                     @RequestParam(defaultValue = "10") int pageSize) {
         Pageable pageable = PageRequest.of(page - 1, pageSize);
 
-        return ResponseEntity.ok(wordService.getWordContent(pageable, wordIdx));
+        return ResponseEntity.ok(wordService.getWordContent(pageable, wordIdx, memberIdx));
     }
 
     @Operation(summary = "단어 리스트 조회 API", description = "단어를 리스트를 조회한다.")
@@ -53,7 +54,6 @@ public class WordController {
     public ResponseEntity<?> getWordListController(@RequestParam(defaultValue = "1") int page,
                                                    @RequestParam(defaultValue = "10") int pageSize,
                                                    @RequestParam(defaultValue = "ALL") NationCode nation,
-                                                   @RequestParam Long memberIdx,
                                                    @RequestParam(required = false) SortType sort,
                                                    @RequestParam(required = false) String sortBy,
                                                    @RequestParam(required = false) String search
@@ -64,7 +64,6 @@ public class WordController {
         Pageable pageable = PageRequest.of(page - 1, pageSize);
 
         WordRequestDto requestDto = new WordRequestDto()
-                .setMemberIdx(memberIdx)
                 .setNationCode(nation)
                 .setSearch(search)
                 .setSort(sort)

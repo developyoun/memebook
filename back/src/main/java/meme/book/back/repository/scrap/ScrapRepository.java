@@ -17,4 +17,6 @@ public interface ScrapRepository extends JpaRepository<Scrap, Long>, ScrapCustom
 
     Optional<Scrap> findByWordIdxAndMemberIdx(Long wordIdx, Long memberIdx);
 
+    boolean existsByWordIdxAndMemberIdx(Long wordIdx, Long memberIdx);
+
 }

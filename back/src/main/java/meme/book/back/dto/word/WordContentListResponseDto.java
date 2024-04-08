@@ -21,6 +21,8 @@ public class WordContentListResponseDto {
 
     private Long wordDislike;
 
+    private boolean scrap;
+
     private int nowPage;
 
     private int totalPage;

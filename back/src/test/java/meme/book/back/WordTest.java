@@ -52,6 +52,6 @@ public class WordTest {
     @Test
     @DisplayName("단일 단어 조회")
     void getOneWordTest() {
-        wordService.getWordContent(pageable, 109L);
+        wordService.getWordContent(pageable, 109L, 123L);
     }
 }

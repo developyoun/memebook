@@ -9,8 +9,6 @@ import meme.book.back.utils.SortType;
 @Accessors(chain = true)
 public class WordRequestDto {
 
-    private Long memberIdx;
-
     private NationCode nationCode;
 
     private String search;

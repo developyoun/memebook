@@ -40,7 +40,6 @@ public class WordRepositoryImpl implements WordCustomRepository {
                 )
                 .from(word)
                 .where(nationEq(dto.getNationCode()), titleEq(dto.getSearch()))
-                .leftJoin(scrap).on(word.wordIdx.eq(scrap.wordIdx))
                 .orderBy(dynamicSort(dto.getSort(), dto.getSortBy()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
