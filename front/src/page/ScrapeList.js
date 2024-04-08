@@ -2,9 +2,24 @@ import './../scss/scrapeList.scss'
 import React, {useEffect, useState} from "react";
 import {memebookApi} from "../util/memebookApi";
 import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from 'react-redux';
+import {myScrapeList} from "../util/action";
+
 
 export default function ScrapeList() {
+
+
+  const dispatch = useDispatch();
+  const scrapeData = useSelector((state) => state.movies.seasonData);
+
   const [scrapListData, setScrapListData] = useState([]);
+
+
+  const handleClick = () => {
+    const txt = "Some text"; // 전달할 텍스트
+    dispatch(myScrapeList(txt)); // 액션 디스패치
+  };
+
 
   useEffect(() => {
     async function scrapeApi() {
@@ -18,6 +33,18 @@ export default function ScrapeList() {
     }
     scrapeApi();
   }, []);
+
+  async function wordDeleteApi() {
+    try {
+      const wordDeleteData = await memebookApi.wordScrapeDelete(112);
+      alert('등록 완료');
+      console.log('성공');
+    } catch (error) {
+      console.log(error)
+      console.log('에러')
+    }
+  }
+
 
   return (
     <div className="scrape_container">
@@ -33,6 +60,7 @@ export default function ScrapeList() {
               return (
                 <li className="box_item">
                   <Link to={`/word/${item.wordIdx}`} className="item" key={idx}>{item.wordName}</Link>
+                  <button type="button" onClick={wordDeleteApi}>스크랩 삭제</button>
                 </li>
               )
             })

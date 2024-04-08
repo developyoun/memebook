@@ -17,3 +17,8 @@ export const setStudyCountryTxt = (txt) => ({
   type: 'SET_STUDY_COUNTRY_TXT',
   payload: txt,
 });
+
+export const myScrapeList = (txt) => ({
+  type: 'SEND_SCRAPE',
+  payload: txt,
+});

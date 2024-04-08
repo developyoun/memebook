@@ -27,7 +27,7 @@ export default function WordAdd() {
       const wordAddApi = await memebookApi.wordAdd( {
         wordName : titleValue,
         wordContent : contentValue,
-        wordNation : "KOR",
+        wordNation : "ALL",
         memberIdx : 123,
       });
       if (word !== undefined) {
