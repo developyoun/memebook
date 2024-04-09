@@ -19,6 +19,8 @@ export default function WordDetail() {
 
   const [memberIdx, setMemberIdx] = useState(123);
 
+  const [modifyState, SetModifyState] = useState(false);
+
   const commentReportOpen = ({commentPortClose}) => {
     setReportOpen(!reportOpen);
   }
@@ -57,6 +59,7 @@ export default function WordDetail() {
 
   async function wordReactionLike() {
     try {
+
       if (likeCheck === false) {
         const wordReactionApi = await memebookApi.wordReactionUpdate( {
           reactionType: "LIKE",
@@ -95,9 +98,30 @@ export default function WordDetail() {
     }
   }
 
+  const modifyAction = () => {
+    SetModifyState(true);
+  }
+
   useEffect(() => {
     window.scrollTo(0,0);
   }, []);
+
+  async function wordModify() {
+    try {
+      const wordModifyData = await memebookApi.wordModifyApi( {
+        "wordIdx": 0,
+        "wordName": "string",
+        "wordContent": "string",
+        "wordNation": "ALL",
+        "memberIdx": 123
+      });
+      SetModifyState(false);
+      console.log('성공');
+    } catch (error) {
+      console.log(error)
+      console.log('에러')
+    }
+  }
 
   return (
     <div className="detail_container">
@@ -154,19 +178,44 @@ export default function WordDetail() {
 
                     {
                       item.memberIdx === memberIdx && (
-                        <li>
-                          <button type="button" className="btn_delete">
-                            <span className="blind">삭제</span>
-                          </button>
-                        </li>
+                        <>
+                          <li>
+                            <button type="button" className="btn_modify" onClick={modifyAction}>
+                              <span className="blind">수정</span>
+                            </button>
+                          </li>
+                          <li>
+                            <button type="button" className="btn_delete">
+                              <span className="blind">삭제</span>
+                            </button>
+                          </li>
+                        </>
                       )
                     }
                   </ul>
                 </div>
                 <div className="mean_txt">
-                  <p>
-                    {item.content}
-                  </p>
+                  {
+                    !modifyState && (
+                      <p>
+                        {item.content}
+                      </p>
+                    )
+                  }
+
+                  {
+                    modifyState && (
+                      <>
+                      <textarea className="text_input" name="" id="" cols="30" rows="10" maxLength={99}>
+                     {item.content}
+                  </textarea>
+                        <button type="button" onClick={wordModify}>
+                          수정
+                        </button>
+                      </>
+                    )
+                  }
+
                 </div>
               </li>
 

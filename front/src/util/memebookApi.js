@@ -9,6 +9,7 @@ export const memebookApi = {
   wordList : (country, pageNumber, memberIdx) => request.get(`word/list?nation=${country}&page=${pageNumber}&memberIdx=${memberIdx}`),
   wordDetail : (wordIdx) => request.get(`word/${wordIdx}`),
 
+  wordModifyApi : (wordInfo) => request.get(`word/update`, wordInfo),
 
   wordAddList : (memberIdx) => request.get(`word/list/${memberIdx}`),
 
