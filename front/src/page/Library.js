@@ -40,7 +40,7 @@ export default function Word() {
       setPageNumber(nextPage);
 
       if (isBottom) {
-        const libraryApi = await memebookApi.wordList('ALL', nextPage);
+        const libraryApi = await memebookApi.wordList('ALL', nextPage, '123');
         setLibraryData((prevLibraryData) => [...prevLibraryData, ...libraryApi.data.data.content]);
         console.log('닿음');
       }

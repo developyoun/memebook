@@ -30,6 +30,7 @@ export default function WordDetail() {
       try {
         const wordDetailData = await memebookApi.wordDetail(id);
         setWordListData(wordDetailData.data);
+        setScrapeCheck(wordDetailData.data.scrap);
         console.log(wordDetailData)
       } catch (error) {
         console.log(error)
@@ -46,6 +47,7 @@ export default function WordDetail() {
       });
       alert('등록');
       setScrapeCheck(!scrapeCheck);
+
       console.log('성공');
     } catch (error) {
       console.log(error)
