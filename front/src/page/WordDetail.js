@@ -124,27 +124,34 @@ export default function WordDetail() {
                 <div className="mean_top">
                   <Link to="" className="name">김누징</Link>
                   <ul className="util_list">
-                    <li>
-                      <button type="button" className="btn_like" onClick={wordReactionLike}>
-                        <span className="blind">좋아요</span>
-                      </button>
-                      <span className="count">
-                    {likeCount}
-                  </span>
-                    </li>
-                    <li>
-                      <button type="button" className="btn_dislike" onClick={wordReactionDislike}>
-                        <span className="blind">싫어요</span>
-                      </button>
-                      <span className="count">
-                    {dislikeCount}
-                  </span>
-                    </li>
-                    <li>
-                      <button type="button" className="btn_report" onClick={commentReportOpen}>
-                        <span className="blind">신고하기</span>
-                      </button>
-                    </li>
+                    {
+                      item.memberIdx !== memberIdx && (
+                        <>
+                          <li>
+                            <button type="button" className="btn_like" onClick={wordReactionLike}>
+                              <span className="blind">좋아요</span>
+                            </button>
+                            <span className="count">
+                              {likeCount}
+                            </span>
+                          </li>
+                                    <li>
+                                      <button type="button" className="btn_dislike" onClick={wordReactionDislike}>
+                                        <span className="blind">싫어요</span>
+                                      </button>
+                                      <span className="count">
+                              {dislikeCount}
+                            </span>
+                          </li>
+                          <li>
+                            <button type="button" className="btn_report" onClick={commentReportOpen}>
+                              <span className="blind">신고하기</span>
+                            </button>
+                          </li>
+                        </>
+                      )
+                    }
+
                     {
                       item.memberIdx === memberIdx && (
                         <li>
