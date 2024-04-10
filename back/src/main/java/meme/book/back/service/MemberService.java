@@ -11,6 +11,9 @@ import meme.book.back.utils.NationCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -21,7 +24,15 @@ public class MemberService {
     // 신규 회원 생성
     @Transactional
     public MemberDto createMemberService(MemberDto memberDto) {
-        Member membersEntity = memberRepository.save(new Member());
+        LocalDateTime now = LocalDateTime.now();
+
+        Member member = new Member()
+                .setMemberId(memberDto.getMemberId())
+                .setMemberPw(memberDto.getMemberPw())
+                .setNickname(memberDto.getNickname())
+                .setMemberRegDtm(now);
+
+        Member membersEntity = memberRepository.save(member);
         log.info("### Create New Member: {}", membersEntity);
 
         return MemberDto.toDto(membersEntity);

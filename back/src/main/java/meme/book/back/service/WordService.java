@@ -38,7 +38,7 @@ public class WordService {
 
         Page<WordContent> wordContentList = wordContentRepository.findByWordIdx(wordIdx, pageable);
         Page<WordContentDto> wordContentDtoList = WordContentDto.toPageDto(wordContentList);
-        log.info("### Get Word: {}, Word Content: {}", word, wordContentDtoList.getContent());
+        log.debug("### Get Word Content: {}", word.getWordIdx());
 
         return new WordContentListResponseDto()
                 .setWordContentList(wordContentDtoList.getContent())

@@ -34,8 +34,7 @@ public class WordRepositoryImpl implements WordCustomRepository {
                                 word.wordNation.as("wordNation"),
                                 word.wordName.as("wordName"),
                                 word.wordLike.as("likeCount"),
-                                word.wordDislike.as("dislikeCount"),
-                                scrap.scrapIdx.isNotNull().as("isScrap")
+                                word.wordDislike.as("dislikeCount")
                         )
                 )
                 .from(word)

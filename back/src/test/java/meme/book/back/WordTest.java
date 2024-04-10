@@ -1,6 +1,7 @@
 package meme.book.back;
 
 import lombok.extern.slf4j.Slf4j;
+import meme.book.back.dto.word.WordContentListResponseDto;
 import meme.book.back.dto.word.WordInsertRequestDto;
 import meme.book.back.dto.word.WordRequestDto;
 import meme.book.back.repository.word.WordRepository;
@@ -52,6 +53,8 @@ public class WordTest {
     @Test
     @DisplayName("단일 단어 조회")
     void getOneWordTest() {
-        wordService.getWordContent(pageable, 109L, 123L);
+
+        WordContentListResponseDto response = wordService.getWordContent(pageable, 114L, 123L);
+        log.info("Response: {}", response);
     }
 }

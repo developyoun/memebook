@@ -26,19 +26,19 @@ public class WordController {
 
     private final WordService wordService;
 
-    @Operation(summary = "단어 등록 API", description = "단어를 등록한다.")
+    @Operation(summary = "단어 및 컨텐츠 등록 API", description = "단어(컨텐츠)를 등록한다.")
     @PostMapping("/create")
     public ResponseEntity<?> createWord(@RequestBody WordInsertRequestDto requestDto) {
         return ResponseEntity.ok(wordService.createWord(requestDto));
     }
 
-    @Operation(summary = "단어 수정 API", description = "단어를 수정한다.")
+    @Operation(summary = "단어 컨텐츠 수정 API", description = "단어를 수정한다.")
     @PutMapping("/update")
     public ResponseEntity<?> updateWord(@RequestBody WordUpsertRequestDto requestDto) {
         return ResponseEntity.ok(wordService.updateWord(requestDto));
     }
 
-    @Operation(summary = "단일 단어 조회 API", description = "단일 단어를 조회한다.")
+    @Operation(summary = "단어 컨텐츠 조회 API", description = "단어 컨텐츠를 조회한다.")
     @GetMapping("/{wordIdx}")
     public ResponseEntity<?> getWord(@PathVariable Long wordIdx,
                                      @RequestParam(required = false) Long memberIdx,
@@ -72,7 +72,7 @@ public class WordController {
         return ResponseEntity.ok(wordService.getWordListService(pageable, requestDto));
     }
 
-    @Operation(summary = "단어 내용 삭제 API", description = "단어의 콘텐츠를 삭제한다.")
+    @Operation(summary = "단어 컨텐츠 삭제 API", description = "단어의 컨텐츠를 삭제한다.")
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteWordContent(@RequestParam Long wordContentIdx) {
         wordService.deleteWordContent(wordContentIdx);
