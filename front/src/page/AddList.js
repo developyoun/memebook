@@ -6,10 +6,12 @@ import {Link} from "react-router-dom";
 export default function AddList() {
   const [addListData, setAddListData] = useState([]);
 
+  const [memberIdx, setMemberIdx] = useState('123');
+
   useEffect(() => {
     async function MyAddApi() {
       try {
-        const wordDetailData = await memebookApi.wordAddList(123);
+        const wordDetailData = await memebookApi.wordAddList(memberIdx);
         setAddListData(wordDetailData.data.wordContentList);
       } catch (error) {
         console.log(error)

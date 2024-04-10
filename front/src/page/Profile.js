@@ -87,15 +87,6 @@ export default function Profile() {
           </h4>
           <Link to="/profile/my_list" className="item">더보기</Link>
         </div>
-
-        <ul className="word_list">
-          <li>
-            <Link to="/word/1" className="item">개개개</Link>
-          </li>
-          <li>
-            <Link to="/word/2" className="item">거거거</Link>
-          </li>
-        </ul>
       </div>
 
       <div className="user_box">
@@ -107,14 +98,6 @@ export default function Profile() {
           <Link to="/profile/scrape" className="item">더보기</Link>
         </div>
 
-        <ul className="word_list">
-          <li>
-            <Link to="/word/1" className="item">개개개</Link>
-          </li>
-          <li>
-            <Link to="" className="item">거거거</Link>
-          </li>
-        </ul>
       </div>
 
       <div className="invite_box">

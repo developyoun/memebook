@@ -6,7 +6,9 @@ const request = axios.create({
 
 export const memebookApi = {
   wordAdd : (addList) => request.post(`word/create`, addList),
-  wordList : (country, pageNumber, memberIdx) => request.get(`word/list?nation=${country}&page=${pageNumber}&memberIdx=${memberIdx}`),
+
+  wordList : (country, pageNumber) => request.get(`word/list?nation=${country}&page=${pageNumber}`),
+
   wordDetail : (wordIdx) => request.get(`word/${wordIdx}`),
 
   wordModifyApi : (wordInfo) => request.get(`word/update`, wordInfo),

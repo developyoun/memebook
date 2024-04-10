@@ -25,8 +25,6 @@ export default function WordDetail() {
     setReportOpen(!reportOpen);
   }
 
-
-
   useEffect(() => {
     async function wordDetailApi() {
       try {
@@ -45,52 +43,11 @@ export default function WordDetail() {
     try {
       const scrapeState = await memebookApi.wordScrape( {
         "wordIdx": id,
-        "memberIdx": 123
+        "memberIdx": memberIdx
       });
       alert('등록');
       setScrapeCheck(!scrapeCheck);
 
-      console.log('성공');
-    } catch (error) {
-      console.log(error)
-      console.log('에러')
-    }
-  }
-
-  async function wordReactionLike() {
-    try {
-
-      if (likeCheck === false) {
-        const wordReactionApi = await memebookApi.wordReactionUpdate( {
-          reactionType: "LIKE",
-          memIdx: 13222,
-          wordIdx: id,
-        });
-        setLikeCount(likeCount + 1);
-      } else if (likeCheck === true) {
-        setLikeCount(likeCount - 1);
-      }
-      setLikeCheck(!likeCheck);
-      console.log('성공');
-    } catch (error) {
-      console.log(error)
-      console.log('에러')
-    }
-  }
-
-  async function wordReactionDislike() {
-    try {
-      if (likeCheck === false) {
-        const wordReactionApi = await memebookApi.wordReactionUpdate( {
-          reactionType: "DISLIKE",
-          memIdx: 13222,
-          wordIdx: id,
-        });
-        setDislikeCount(dislikeCount + 1);
-      } else if (likeCheck === true) {
-        setDislikeCount(dislikeCount - 1);
-      }
-      setDislikeCheck(!dislikeCheck);
       console.log('성공');
     } catch (error) {
       console.log(error)
@@ -113,7 +70,7 @@ export default function WordDetail() {
         "wordName": "string",
         "wordContent": "string",
         "wordNation": "ALL",
-        "memberIdx": 123
+        "memberIdx": memberIdx
       });
       SetModifyState(false);
       console.log('성공');
@@ -152,7 +109,7 @@ export default function WordDetail() {
                       item.memberIdx !== memberIdx && (
                         <>
                           <li>
-                            <button type="button" className="btn_like" onClick={wordReactionLike}>
+                            <button type="button" className="btn_like">
                               <span className="blind">좋아요</span>
                             </button>
                             <span className="count">
@@ -160,7 +117,7 @@ export default function WordDetail() {
                             </span>
                           </li>
                                     <li>
-                                      <button type="button" className="btn_dislike" onClick={wordReactionDislike}>
+                                      <button type="button" className="btn_dislike">
                                         <span className="blind">싫어요</span>
                                       </button>
                                       <span className="count">

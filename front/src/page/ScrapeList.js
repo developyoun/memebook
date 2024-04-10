@@ -7,23 +7,15 @@ import {myScrapeList} from "../util/action";
 
 
 export default function ScrapeList() {
-
-
   const dispatch = useDispatch();
 
+  const [memberIdx, setMemberIdx] = useState(321);
   const [scrapListData, setScrapListData] = useState([]);
-
-
-  const handleClick = () => {
-    const txt = "Some text"; // 전달할 텍스트
-    dispatch(myScrapeList(txt)); // 액션 디스패치
-  };
-
 
   useEffect(() => {
     async function scrapeApi() {
       try {
-        const wordDetailData = await memebookApi.wordScrapeUpdate(123);
+        const wordDetailData = await memebookApi.wordScrapeUpdate(memberIdx);
         setScrapListData(wordDetailData.data.content);
         console.log(scrapListData);
       } catch (error) {
@@ -35,7 +27,7 @@ export default function ScrapeList() {
 
   async function wordDeleteApi() {
     try {
-      const wordDeleteData = await memebookApi.wordScrapeDelete(112, 123);
+      const wordDeleteData = await memebookApi.wordScrapeDelete(112, memberIdx);
       alert('등록 완료');
       console.log('성공');
     } catch (error) {

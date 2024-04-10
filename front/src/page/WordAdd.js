@@ -18,6 +18,8 @@ export default function WordAdd() {
   const [explainCount, setExplainCount] = useState(0);
   const [explainOver, setExplainOver] = useState(false);
 
+  const [memberIdx, setMemberIdx] = useState('321');
+
   useEffect(() => {
     setTitleValue(word);
     console.log(word);
@@ -27,8 +29,8 @@ export default function WordAdd() {
       const wordAddApi = await memebookApi.wordAdd( {
         wordName : titleValue,
         wordContent : contentValue,
-        wordNation : "ALL",
-        memberIdx : 123,
+        wordNation : "KOR",
+        memberIdx : memberIdx,
       });
       if (word !== undefined) {
         navigate(`/word/${id}`);

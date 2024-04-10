@@ -23,7 +23,7 @@ export default function Word() {
   useEffect(() => {
     async function libraryList() {
       try {
-        const libraryApi = await memebookApi.wordList('KOR', pageNumber, 123);
+        const libraryApi = await memebookApi.wordList('ALL', pageNumber);
         setLibraryData(libraryApi.data.wordList);
         console.log(libraryApi)
       } catch (error) {
