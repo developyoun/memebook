@@ -11,7 +11,7 @@ export const memebookApi = {
 
   wordDetail : (wordIdx) => request.get(`word/${wordIdx}`),
 
-  wordModifyApi : (wordInfo) => request.get(`word/update`, wordInfo),
+  wordModifyApi : (wordInfo) => request.put(`word/update`, wordInfo),
 
   wordAddList : (memberIdx) => request.get(`word/list/${memberIdx}`),
 

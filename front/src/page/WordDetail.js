@@ -17,9 +17,11 @@ export default function WordDetail() {
 
   const [wordListData, setWordListData] = useState([]);
 
-  const [memberIdx, setMemberIdx] = useState(123);
+  const [memberIdx, setMemberIdx] = useState(321);
 
-  const [modifyState, SetModifyState] = useState(false);
+  const [modifyState, setModifyState] = useState(false);
+  const [modifyContent, setModifyContent] = useState('');
+
 
   const commentReportOpen = ({commentPortClose}) => {
     setReportOpen(!reportOpen);
@@ -37,7 +39,7 @@ export default function WordDetail() {
       }
     }
     wordDetailApi();
-  }, []);
+  }, [modifyState]);
 
   async function ScrapeBtn() {
     try {
@@ -56,7 +58,7 @@ export default function WordDetail() {
   }
 
   const modifyAction = () => {
-    SetModifyState(true);
+    setModifyState(true);
   }
 
   useEffect(() => {
@@ -66,18 +68,21 @@ export default function WordDetail() {
   async function wordModify() {
     try {
       const wordModifyData = await memebookApi.wordModifyApi( {
-        "wordIdx": 0,
-        "wordName": "string",
-        "wordContent": "string",
+        "wordIdx": wordListData.wordIdx,
+        "wordName": wordListData.wordName,
+        "wordContent": modifyContent,
         "wordNation": "ALL",
         "memberIdx": memberIdx
       });
-      SetModifyState(false);
+      setModifyState(false);
       console.log('성공');
     } catch (error) {
       console.log(error)
       console.log('에러')
     }
+  }
+  const contentChange = (event) => {
+    setModifyContent(event.target.value);
   }
 
   return (
@@ -163,9 +168,9 @@ export default function WordDetail() {
                   {
                     modifyState && (
                       <>
-                      <textarea className="text_input" name="" id="" cols="30" rows="10" maxLength={99}>
-                     {item.content}
-                  </textarea>
+                      <textarea className="text_input" name="" id="" cols="30" rows="10" maxLength={99} onChange={contentChange}>
+                         {item.content}
+                      </textarea>
                         <button type="button" onClick={wordModify}>
                           수정
                         </button>
