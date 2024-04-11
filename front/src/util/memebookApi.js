@@ -15,6 +15,8 @@ export const memebookApi = {
 
   wordAddList : (memberIdx) => request.get(`word/list/${memberIdx}`),
 
+  wordDelete : (wordContentIdx) => request.delete(`word/delete?wordContentIdx=${wordContentIdx}`),
+
   /* 정렬 */
   wordSort : (country, sort, sortBy, memberIdx) => request.get(`word/list?nation=${country}&sort=${sort}&sortBy=${sortBy}&memberIdx=${memberIdx}`),
   /* 스크랩 */

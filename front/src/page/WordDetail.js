@@ -31,9 +31,11 @@ export default function WordDetail() {
     async function wordDetailApi() {
       try {
         const wordDetailData = await memebookApi.wordDetail(id);
-        setWordListData(wordDetailData.data);
+        setWordListData(wordDetailData.data.wordContentList);
         setScrapeCheck(wordDetailData.data.scrap);
-        console.log(wordDetailData)
+        console.log(wordDetailData);
+
+
       } catch (error) {
         console.log(error)
       }
@@ -81,6 +83,16 @@ export default function WordDetail() {
       console.log('에러')
     }
   }
+
+  async function wordDelete(wordContentIdx) {
+    try {
+      const wordDeleteData = await memebookApi.wordDelete(wordContentIdx);
+      console.log('성공');
+    } catch (error) {
+      console.log(error)
+      console.log('에러')
+    }
+  }
   const contentChange = (event) => {
     setModifyContent(event.target.value);
   }
@@ -104,7 +116,7 @@ export default function WordDetail() {
 
       <ul className="word_mean_list">
         {
-          wordListData.wordContentList?.map((item, idx) => {
+          wordListData?.map((item, idx) => {
             return (
               <li className="list">
                 <div className="mean_top">
@@ -147,7 +159,7 @@ export default function WordDetail() {
                             </button>
                           </li>
                           <li>
-                            <button type="button" className="btn_delete">
+                            <button type="button" className="btn_delete" onClick={()=>wordDelete(item.wordContentIdx)}>
                               <span className="blind">삭제</span>
                             </button>
                           </li>
@@ -156,10 +168,10 @@ export default function WordDetail() {
                     }
                   </ul>
                 </div>
-                <div className="mean_txt">
+                <div className="content_box">
                   {
                     !modifyState && (
-                      <p>
+                      <p className="word_modify_text">
                         {item.content}
                       </p>
                     )
@@ -168,10 +180,10 @@ export default function WordDetail() {
                   {
                     modifyState && (
                       <>
-                      <textarea className="text_input" name="" id="" cols="30" rows="10" maxLength={99} onChange={contentChange}>
+                      <textarea className="text_input word_modify_area" name="" id="" maxLength={99} onChange={contentChange}>
                          {item.content}
                       </textarea>
-                        <button type="button" onClick={wordModify}>
+                        <button type="button" className="word_modify_btn" onClick={()=>wordModify(item.wordContentIdx)}>
                           수정
                         </button>
                       </>
