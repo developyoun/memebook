@@ -8,17 +8,10 @@ import BtnBack from "../components/BtnBack";
 
 
 export default function ScrapeList() {
-
-
   const dispatch = useDispatch();
 
   const [scrapListData, setScrapListData] = useState([]);
-
-
-  const handleClick = () => {
-    const txt = "Some text"; // 전달할 텍스트
-    dispatch(myScrapeList(txt)); // 액션 디스패치
-  };
+  const [scrapState, setScrapState] = useState(false);
 
 
   useEffect(() => {
@@ -26,25 +19,25 @@ export default function ScrapeList() {
       try {
         const wordDetailData = await memebookApi.wordScrapeUpdate(123);
         setScrapListData(wordDetailData.data.content);
-        console.log(scrapListData);
+        console.log(wordDetailData.data.content);
       } catch (error) {
         console.log(error)
       }
     }
     scrapeApi();
-  }, []);
+  }, [scrapState]);
 
-  async function wordDeleteApi() {
+  async function wordDeleteApi(scrapIdx) {
     try {
-      const wordDeleteData = await memebookApi.wordScrapeDelete(112, 123);
-      alert('등록 완료');
+      const wordDeleteData = await memebookApi.wordScrapeDelete(scrapIdx);
+      setScrapState(!scrapState);
+      alert('삭제');
       console.log('성공');
     } catch (error) {
       console.log(error)
       console.log('에러')
     }
   }
-
 
   return (
     <div className="scrape_container">
@@ -56,24 +49,18 @@ export default function ScrapeList() {
         </div>
       </div>
 
-      <div className="scrap_none">
-
+        <ul className="scrape_list">
+          {
+            scrapListData?.map((item, idx) => {
+              return (
+                <li className="box_item">
+                  <Link to={`/word/${item.wordIdx}`} className="item" key={idx}>{item.wordName}</Link>
+                  <button type="button" onClick={() => wordDeleteApi(item.scrapIdx)}>스크랩 삭제</button>
+                </li>
+              )
+            })
+          }
+        </ul>
       </div>
-
-      <ul className="list_box">
-        {
-          scrapListData?.map((item, idx) => {
-            return (
-              <li className="list_item">
-                <Link to={`/word/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
-                <button type="button" className="btn_delete" onClick={wordDeleteApi}>
-                  <span className="blind">스크랩 삭제</span>
-                </button>
-              </li>
-            )
-          })
-        }
-      </ul>
-    </div>
   );
 }

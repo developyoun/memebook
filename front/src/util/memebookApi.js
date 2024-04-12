@@ -9,13 +9,14 @@ export const memebookApi = {
 
   wordList : (country, pageNumber) => request.get(`word/list?nation=${country}&page=${pageNumber}`),
 
+  // 단어 디테일
   wordDetail : (wordIdx) => request.get(`word/${wordIdx}`),
-
   wordModifyApi : (wordInfo) => request.put(`word/update`, wordInfo),
+  wordDelete : (wordContentIdx) => request.delete(`word/delete?wordContentIdx=${wordContentIdx}`),
 
   wordAddList : (memberIdx) => request.get(`word/list/${memberIdx}`),
 
-  wordDelete : (wordContentIdx) => request.delete(`word/delete?wordContentIdx=${wordContentIdx}`),
+
 
   /* 정렬 */
   wordSort : (country, sort, sortBy, memberIdx) => request.get(`word/list?nation=${country}&sort=${sort}&sortBy=${sortBy}&memberIdx=${memberIdx}`),
@@ -25,7 +26,7 @@ export const memebookApi = {
 
   wordReactionUpdate : (update) => request.post(`reaction/word/update`, update),
 
-  wordScrapeDelete : (wordIdx, memberIdx) => request.delete(`scrap/delete?scrapIdx=${wordIdx}&memberIdx=${memberIdx}`),
+  wordScrapeDelete : (wordIdx) => request.delete(`scrap/word?scrapIdx=${wordIdx}`),
 
   wordReaction : (wordIdx) => request.get(`reaction/count?wordIdx=${wordIdx}`),
   ninkName : (nickname) => request.post(`member/create/nickname?nickname=${nickname}`)

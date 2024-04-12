@@ -8,25 +8,34 @@ import {memebookApi} from "../util/memebookApi";
 
 export default function WordDetail() {
   let {id} = useParams();
+  const [memberIdx, setMemberIdx] = useState(123);
+  // 단어 데이터
+  const [wordListData, setWordListData] = useState([]);
+  // 스크랩
   const [scrapeCheck, setScrapeCheck] = useState(false);
-  const [reportOpen, setReportOpen] = useState(false);
+  // 좋아요
   const [likeCheck, setLikeCheck] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
+  // 싫어요
   const [dislikeCheck, setDislikeCheck] = useState(false);
   const [dislikeCount, setDislikeCount] = useState(0);
-
-  const [wordListData, setWordListData] = useState([]);
-
-  const [memberIdx, setMemberIdx] = useState(321);
-
+  // 수정하기
   const [modifyState, setModifyState] = useState(false);
   const [modifyContent, setModifyContent] = useState('');
+  // 신고하기
+  const [reportOpen, setReportOpen] = useState(false)
 
+  // 공통
+  useEffect(() => {
+    window.scrollTo(0,0);
+  }, []);
 
+  // 신고하기 팝업
   const commentReportOpen = ({commentPortClose}) => {
     setReportOpen(!reportOpen);
   }
 
+  // 단어 Api
   async function wordLike () {
     try {
       const wordLikeData = await memebookApi.wordReactionUpdate( {
@@ -49,27 +58,25 @@ export default function WordDetail() {
     async function wordDetailApi() {
       try {
         const wordDetailData = await memebookApi.wordDetail(id);
-        setWordListData(wordDetailData.data.wordContentList);
+        setWordListData(wordDetailData.data);
         setScrapeCheck(wordDetailData.data.scrap);
         console.log(wordDetailData);
-
-
       } catch (error) {
         console.log(error)
       }
     }
     wordDetailApi();
-  }, [modifyState]);
+  }, [modifyState, scrapeCheck]);
 
+  // 스크랩 버튼
   async function ScrapeBtn() {
     try {
       const scrapeState = await memebookApi.wordScrape( {
         "wordIdx": id,
-        "memberIdx": memberIdx
+        "memberIdx": memberIdx,
       });
       alert('등록');
       setScrapeCheck(!scrapeCheck);
-
       console.log('성공');
     } catch (error) {
       console.log(error)
@@ -77,14 +84,15 @@ export default function WordDetail() {
     }
   }
 
+  // 수정하기
   const modifyAction = () => {
     setModifyState(true);
   }
-
-  useEffect(() => {
-    window.scrollTo(0,0);
-  }, []);
-
+  // 수정된 단어
+  const contentChange = (event) => {
+    setModifyContent(event.target.value);
+  }
+  // 수정된 내용 put Api
   async function wordModify() {
     try {
       const wordModifyData = await memebookApi.wordModifyApi( {
@@ -95,13 +103,13 @@ export default function WordDetail() {
         "memberIdx": memberIdx
       });
       setModifyState(false);
-      console.log('성공');
     } catch (error) {
       console.log(error)
       console.log('에러')
     }
   }
 
+  // 설명 삭제
   async function wordDelete(wordContentIdx) {
     try {
       const wordDeleteData = await memebookApi.wordDelete(wordContentIdx);
@@ -134,9 +142,9 @@ export default function WordDetail() {
 
       <ul className="word_mean_list">
         {
-          wordListData?.map((item, idx) => {
+          wordListData.wordContentList?.map((item, idx) => {
             return (
-              <li className="list">
+              <li className="list" key={idx}>
                 <div className="mean_top">
                   <Link to="" className="name">김누징</Link>
                   <ul className="util_list">
@@ -177,7 +185,7 @@ export default function WordDetail() {
                             </button>
                           </li>
                           <li>
-                            <button type="button" className="btn_delete" onClick={()=>wordDelete(item.wordContentIdx)}>
+                            <button type="button" className="btn_delete" onClick={()=> wordDelete(item.wordContentIdx)}>
                               <span className="blind">삭제</span>
                             </button>
                           </li>
@@ -201,7 +209,7 @@ export default function WordDetail() {
                       <textarea className="text_input word_modify_area" name="" id="" maxLength={99} onChange={contentChange}>
                          {item.content}
                       </textarea>
-                        <button type="button" className="word_modify_btn" onClick={()=>wordModify(item.wordContentIdx)}>
+                        <button type="button" className="word_modify_btn" onClick={()=> wordModify(item.wordContentIdx)}>
                           수정
                         </button>
                       </>
