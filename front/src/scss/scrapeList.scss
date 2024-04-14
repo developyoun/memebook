@@ -4,11 +4,18 @@
   background: #f7f7f7;
 
   .scrape_top {
-    width: 100%;
-
+    display:flex;
+    align-items:center;
+    margin-bottom:32px;
     .tit {
       width: 100%;
       font-size: 24px;
     }
   }
+}
+
+.scrap_none {
+  display:flex;
+  align-items: center;
+  justify-content:center;
 }

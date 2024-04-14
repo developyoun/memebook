@@ -4,6 +4,7 @@ import {memebookApi} from "../util/memebookApi";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
 import {myScrapeList} from "../util/action";
+import BtnBack from "../components/BtnBack";
 
 
 export default function ScrapeList() {
@@ -48,24 +49,31 @@ export default function ScrapeList() {
   return (
     <div className="scrape_container">
       <div className="scrape_top">
+        <BtnBack></BtnBack>
         <h2 className="tit">&#128214; 스크랩</h2>
         <div className="box_btn">
           <span className="txt"></span>
         </div>
-
-        <ul className="scrape_list">
-          {
-            scrapListData?.map((item, idx) => {
-              return (
-                <li className="box_item">
-                  <Link to={`/word/${item.wordIdx}`} className="item" key={idx}>{item.wordName}</Link>
-                  <button type="button" onClick={wordDeleteApi}>스크랩 삭제</button>
-                </li>
-              )
-            })
-          }
-        </ul>
       </div>
+
+      <div className="scrap_none">
+
+      </div>
+
+      <ul className="list_box">
+        {
+          scrapListData?.map((item, idx) => {
+            return (
+              <li className="list_item">
+                <Link to={`/word/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
+                <button type="button" className="btn_delete" onClick={wordDeleteApi}>
+                  <span className="blind">스크랩 삭제</span>
+                </button>
+              </li>
+            )
+          })
+        }
+      </ul>
     </div>
   );
 }

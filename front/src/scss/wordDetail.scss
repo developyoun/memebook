@@ -6,7 +6,16 @@
     display:flex;
     margin-bottom:12px;
     .desc_add_btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      height:32px;
       margin-left:auto;
+      padding:0 12px;
+      color:#fff;
+      font-size:14px;
+      border-radius:8px;
+      background:var(--primary)
     }
   }
   .word_tit {

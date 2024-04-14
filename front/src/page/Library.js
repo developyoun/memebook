@@ -118,12 +118,12 @@ export default function Word() {
             </SwiperSlide>
           </Swiper>
 
-          <ul className="word_list">
+          <ul className="list_box">
             {
               libraryData?.map((item, idx) => {
                 return (
-                  <li className="box_item">
-                    <Link to={`/word/${item.wordIdx}`} className="item" key={idx}>{item.wordName}</Link>
+                  <li className="list_item">
+                    <Link to={`/word/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
                   </li>
                 )
               })

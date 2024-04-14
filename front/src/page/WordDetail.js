@@ -27,6 +27,24 @@ export default function WordDetail() {
     setReportOpen(!reportOpen);
   }
 
+  async function wordLike () {
+    try {
+      const wordLikeData = await memebookApi.wordReactionUpdate( {
+        "reactionIdx": 0,
+        "reactionType": "LIKE",
+        "memberIdx": 0,
+        "wordIdx": 0,
+      });
+      alert('등록');
+      setLikeCheck(!likeCheck);
+
+      console.log('성공');
+    } catch (error) {
+      console.log(error)
+      console.log('에러')
+    }
+  }
+
   useEffect(() => {
     async function wordDetailApi() {
       try {
@@ -126,7 +144,7 @@ export default function WordDetail() {
                       item.memberIdx !== memberIdx && (
                         <>
                           <li>
-                            <button type="button" className="btn_like">
+                            <button type="button" className="btn_like" onClick={wordLike}>
                               <span className="blind">좋아요</span>
                             </button>
                             <span className="count">

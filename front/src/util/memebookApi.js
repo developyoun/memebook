@@ -23,7 +23,7 @@ export const memebookApi = {
   wordScrape : (wordInfo) => request.post(`scrap/word`, wordInfo),
   wordScrapeUpdate : (memberIdx) => request.get(`scrap/word/list/${memberIdx}`),
 
-  wordReactionUpdate : (update) => request.post(`reaction/update`, update),
+  wordReactionUpdate : (update) => request.post(`reaction/word/update`, update),
 
   wordScrapeDelete : (wordIdx, memberIdx) => request.delete(`scrap/delete?scrapIdx=${wordIdx}&memberIdx=${memberIdx}`),
 
