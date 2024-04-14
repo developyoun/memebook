@@ -8,6 +8,8 @@ import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Accessors(chain = true)
@@ -15,7 +17,10 @@ import java.time.LocalDateTime;
 @Getter @Setter @ToString
 @Entity
 @Table(name = "SCRAP")
-public class Scrap {
+public class Scrap implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -8048192602692422689L;
 
     // 스크랩 고유 번호
     @Id

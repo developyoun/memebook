@@ -3,12 +3,17 @@ package meme.book.back.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
 @Entity
 @Table(name = "REPORT")
-public class Reports {
+public class Reports implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1784549320328336338L;
 
     // 신고 고유 번호
     @Id

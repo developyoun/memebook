@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import meme.book.back.dto.scrap.ScrapDto;
 import meme.book.back.dto.scrap.ScrapRequestDto;
 import meme.book.back.service.ScrapService;
 import org.springframework.data.domain.PageRequest;

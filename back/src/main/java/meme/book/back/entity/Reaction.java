@@ -8,6 +8,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @EntityListeners(AuditingEntityListener.class)
@@ -15,7 +17,10 @@ import java.time.LocalDateTime;
 @Getter @Setter @ToString
 @Entity
 @Table(name = "REACTION")
-public class Reaction {
+public class Reaction implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -6197315457446223641L;
 
     // 반응 고유 번호
     @Id
