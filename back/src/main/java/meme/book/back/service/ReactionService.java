@@ -6,9 +6,11 @@ import meme.book.back.dto.reaction.ReactionCountResponseDto;
 import meme.book.back.dto.reaction.ReactionDto;
 import meme.book.back.entity.Reaction;
 import meme.book.back.entity.Word;
+import meme.book.back.exception.CustomException;
 import meme.book.back.repository.reaction.ReactionRepository;
 import meme.book.back.repository.word.WordRepository;
 import meme.book.back.utils.ActionType;
+import meme.book.back.utils.ErrorCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +28,9 @@ public class ReactionService {
     public ReactionDto upsertWordReaction(ReactionDto reactionDto) {
         Reaction reaction;
 
-        Word word = wordRepository.findByWordIdx(reactionDto.getWordIdx());
+        Word word = wordRepository.findByWordIdx(reactionDto.getWordIdx()).orElseThrow(() -> {
+            throw new CustomException(ErrorCode.NOT_EXIST_WORD);
+        });
 
         Optional<Reaction> optionalReaction = reactionRepository
                 .findReactionByMemIdxAndWordIdx(reactionDto.getMemberIdx(), reactionDto.getWordIdx());
@@ -77,7 +81,9 @@ public class ReactionService {
     @Transactional(readOnly = true)
     public ReactionCountResponseDto countReactionService(Long wordIdx) {
 
-        Word word = wordRepository.findByWordIdx(wordIdx);
+        Word word = wordRepository.findByWordIdx(wordIdx).orElseThrow(() ->{
+            throw new CustomException(ErrorCode.NOT_EXIST_WORD);
+        });
 
         long likeCount = word.getWordLike();
         long dislikeCount = word.getWordDislike();

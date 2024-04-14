@@ -2,7 +2,8 @@ package meme.book.back;
 
 import lombok.extern.slf4j.Slf4j;
 import meme.book.back.controller.ScrapController;
-import meme.book.back.dto.ScrapDto;
+import meme.book.back.dto.scrap.ScrapDto;
+import meme.book.back.dto.scrap.ScrapRequestDto;
 import meme.book.back.service.ScrapService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,15 +27,13 @@ public class ScrapTest {
     @Autowired
     private ScrapController scrapController;
 
-    ScrapDto scrapDto = new ScrapDto();
+    ScrapRequestDto scrapDto = new ScrapRequestDto();
     Pageable pageable = PageRequest.of(0, 10);
 
     @BeforeEach
     void init() {
         scrapDto.setMemberIdx(12L)
-                .setWordIdx(108L)
-                .setScrapRegDtm(LocalDateTime.now())
-                ;
+                .setWordIdx(108L);
     }
 
     @Test

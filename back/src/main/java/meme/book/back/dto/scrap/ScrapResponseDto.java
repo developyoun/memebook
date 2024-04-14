@@ -1,4 +1,4 @@
-package meme.book.back.dto;
+package meme.book.back.dto.scrap;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

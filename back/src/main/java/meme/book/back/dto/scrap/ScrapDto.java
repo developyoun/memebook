@@ -1,4 +1,4 @@
-package meme.book.back.dto;
+package meme.book.back.dto.scrap;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -25,8 +25,6 @@ public class ScrapDto {
                 .setScrapIdx(scrapEntity.getScrapIdx())
                 .setMemberIdx(scrapEntity.getMemberIdx())
                 .setWordIdx(scrapEntity.getWordIdx())
-                .setScrapRegDtm(scrapEntity.getRegDtm())
-                ;
-
+                .setScrapRegDtm(scrapEntity.getRegDtm());
     }
 }

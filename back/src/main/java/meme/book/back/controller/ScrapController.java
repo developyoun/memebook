@@ -4,7 +4,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import meme.book.back.dto.ScrapDto;
+import meme.book.back.dto.scrap.ScrapDto;
+import meme.book.back.dto.scrap.ScrapRequestDto;
 import meme.book.back.service.ScrapService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -33,7 +34,7 @@ public class ScrapController {
 
     @Operation(summary = "단어 스크랩 등록 API", description = "단어를 스크랩을 등록한다.")
     @PostMapping("/word")
-    public ResponseEntity<?> saveWordScrap(@RequestBody ScrapDto scrapDto) {
+    public ResponseEntity<?> saveWordScrap(@RequestBody ScrapRequestDto scrapDto) {
 
         return ResponseEntity.ok(scrapService.saveScrap(scrapDto));
     }

@@ -2,12 +2,10 @@ package meme.book.back.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import meme.book.back.dto.ScrapResponseDto;
 import meme.book.back.dto.word.*;
 import meme.book.back.entity.Word;
 import meme.book.back.entity.WordContent;
 import meme.book.back.exception.CustomException;
-import meme.book.back.repository.reaction.ReactionRepository;
 import meme.book.back.repository.scrap.ScrapRepository;
 import meme.book.back.repository.word.WordRepository;
 import meme.book.back.repository.wordContent.WordContentRepository;
@@ -31,14 +29,15 @@ public class WordService {
     // 단일 단어의 컨텐츠 조회
     @Transactional(readOnly = true)
     public WordContentListResponseDto getWordContent(Pageable pageable, Long wordIdx, Long memberIdx) {
-
-        boolean isScrap = (memberIdx != null && scrapRepository.existsByWordIdxAndMemberIdx(wordIdx, memberIdx));
-
-        Word word = wordRepository.findByWordIdx(wordIdx);
+        Word word = wordRepository.findByWordIdx(wordIdx).orElseThrow(() -> {
+            throw new CustomException(ErrorCode.NOT_EXIST_WORD);
+        });
 
         Page<WordContent> wordContentList = wordContentRepository.findByWordIdx(wordIdx, pageable);
         Page<WordContentDto> wordContentDtoList = WordContentDto.toPageDto(wordContentList);
         log.debug("### Get Word Content: {}", word.getWordIdx());
+
+        boolean isScrap = (memberIdx != null && scrapRepository.existsByWordIdxAndMemberIdx(wordIdx, memberIdx));
 
         return new WordContentListResponseDto()
                 .setWordContentList(wordContentDtoList.getContent())

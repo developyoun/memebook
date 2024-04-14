@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface WordRepository extends JpaRepository<Word, Long>, WordCustomRepository {
 
-    Word findByWordIdx(Long wordIdx);
+    Optional<Word> findByWordIdx(Long wordIdx);
 
     Optional<Word> findByWordName(String wordName);
 

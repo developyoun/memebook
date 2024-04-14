@@ -2,8 +2,9 @@ package meme.book.back.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import meme.book.back.dto.ScrapDto;
-import meme.book.back.dto.ScrapResponseDto;
+import meme.book.back.dto.scrap.ScrapDto;
+import meme.book.back.dto.scrap.ScrapRequestDto;
+import meme.book.back.dto.scrap.ScrapResponseDto;
 import meme.book.back.entity.Scrap;
 import meme.book.back.exception.CustomException;
 import meme.book.back.repository.scrap.ScrapRepository;
@@ -33,7 +34,7 @@ public class ScrapService {
     }
 
     @Transactional
-    public ScrapDto saveScrap(ScrapDto scrapDto) {
+    public ScrapDto saveScrap(ScrapRequestDto scrapDto) {
 
         scrapRepository.findByWordIdxAndMemberIdx(scrapDto.getWordIdx(), scrapDto.getMemberIdx())
                 .ifPresent(scrap -> {
