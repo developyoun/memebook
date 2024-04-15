@@ -3,6 +3,7 @@ import Title from "../components/Title";
 import {Link} from 'react-router-dom';
 import {useState, useEffect} from "react";
 import CommentPort from "../components/modal/CommentPort";
+import ContentDelete from "../components/modal/ContentDelete";
 import { useParams } from "react-router-dom";
 import {memebookApi} from "../util/memebookApi";
 
@@ -23,8 +24,11 @@ export default function WordDetail() {
   // 수정하기
   const [modifyState, setModifyState] = useState(false);
   const [modifyContent, setModifyContent] = useState('');
+  // 단어 삭제
+  const [deleteOpen, setDeleteOpen] = useState(false);
   // 신고하기
-  const [reportOpen, setReportOpen] = useState(false)
+  const [reportOpen, setReportOpen] = useState(false);
+
 
   // 공통
   useEffect(() => {
@@ -123,6 +127,7 @@ export default function WordDetail() {
   async function wordDelete(wordContentIdx) {
     try {
       const wordDeleteData = await memebookApi.wordDelete(wordContentIdx);
+      window.history.back();
       console.log('성공');
     } catch (error) {
       console.log(error)
@@ -130,11 +135,24 @@ export default function WordDetail() {
     }
   }
 
+  const contentDeleteOpen = ({contentDeleteClose, contentDeleteSubmit}) => {
+    setDeleteOpen(!deleteOpen);
+  }
+
+  const handleClose = () => {
+
+  }
+
   return (
     <div className="detail_container">
       {
         reportOpen && (
           <CommentPort commentPortClose={commentReportOpen}></CommentPort>
+        )
+      }
+      {
+        deleteOpen && (
+          <ContentDelete contentDeleteClose={contentDeleteOpen} contentDeleteSubmit={contentDeleteOpen}></ContentDelete>
         )
       }
       <h1 className="word_tit">
@@ -192,9 +210,10 @@ export default function WordDetail() {
                             </button>
                           </li>
                           <li>
-                            <button type="button" className="btn_delete" onClick={()=> wordDelete(item.wordContentIdx)}>
+                            <button type="button" className="btn_delete" onClick={() => { contentDeleteOpen({ contentDeleteClose: handleClose, contentDeleteSubmit: wordDelete(item.wordContentIdx) }) }}>
                               <span className="blind">삭제</span>
                             </button>
+
                           </li>
                         </>
                       )

@@ -68,16 +68,19 @@
     background: #fff;
     overflow: hidden;
     transform: translate(-50%, -50%);
-    .btn_close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      display: block;
-      width: 24px;
-      height: 24px;
-      background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M18.4559 4.87939C19.3931 3.94214 19.3931 2.42253 18.4559 1.48528C17.5186 0.548031 15.999 0.548031 15.0617 1.48528L9.97058 6.57645L4.87941 1.48528C3.94216 0.548031 2.42255 0.548031 1.4853 1.48528C0.548049 2.42253 0.548049 3.94214 1.4853 4.87939L6.57647 9.97056L1.4853 15.0617C0.548072 15.999 0.548049 17.5186 1.4853 18.4558C2.42255 19.3931 3.94218 19.3931 4.87941 18.4558L9.97058 13.3647L15.0617 18.4558C15.999 19.3931 17.5186 19.3931 18.4559 18.4558C19.3931 17.5186 19.3931 15.999 18.4559 15.0617L13.3647 9.97056L18.4559 4.87939Z' fill='%23436759'/%3E%3C/svg%3E") center no-repeat;
-    }
+    //.btn_close {
+    //  position: absolute;
+    //  top: 20px;
+    //  right: 20px;
+    //  display: block;
+    //  width: 24px;
+    //  height: 24px;
+    //  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M18.4559 4.87939C19.3931 3.94214 19.3931 2.42253 18.4559 1.48528C17.5186 0.548031 15.999 0.548031 15.0617 1.48528L9.97058 6.57645L4.87941 1.48528C3.94216 0.548031 2.42255 0.548031 1.4853 1.48528C0.548049 2.42253 0.548049 3.94214 1.4853 4.87939L6.57647 9.97056L1.4853 15.0617C0.548072 15.999 0.548049 17.5186 1.4853 18.4558C2.42255 19.3931 3.94218 19.3931 4.87941 18.4558L9.97058 13.3647L15.0617 18.4558C15.999 19.3931 17.5186 19.3931 18.4559 18.4558C19.3931 17.5186 19.3931 15.999 18.4559 15.0617L13.3647 9.97056L18.4559 4.87939Z' fill='%23436759'/%3E%3C/svg%3E") center no-repeat;
+    //}
     .btn_btm {
+      display:flex;
+      align-items:center;
+
       button {
         display: flex;
         align-items: center;
