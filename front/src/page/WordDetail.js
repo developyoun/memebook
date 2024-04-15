@@ -12,7 +12,8 @@ export default function WordDetail() {
   // 단어 데이터
   const [wordListData, setWordListData] = useState([]);
   // 스크랩
-  const [scrapeCheck, setScrapeCheck] = useState(false);
+  const [scrapData, setScrapData] = useState('');
+  const [scrapState, setScrapState] = useState(false);
   // 좋아요
   const [likeCheck, setLikeCheck] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
@@ -36,16 +37,39 @@ export default function WordDetail() {
   }
 
   // 단어 Api
+  useEffect(() => {
+    async function wordDetailApi() {
+      try {
+        const wordDetailData = await memebookApi.wordDetail(id, memberIdx);
+        setWordListData(wordDetailData.data);
+        console.log(wordDetailData);
+        setScrapData(wordDetailData.data.scrap)
+        if (scrapData === true) {
+          setScrapState(true)
+        } else {
+          setScrapState(false)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    wordDetailApi();
+  }, [modifyState, scrapState]);
+
+  // 좋아요 버튼
   async function wordLike () {
     try {
-      const wordLikeData = await memebookApi.wordReactionUpdate( {
-        "reactionIdx": 0,
-        "reactionType": "LIKE",
-        "memberIdx": 0,
-        "wordIdx": 0,
-      });
+      if (scrapState === false) {
+        const wordLikeData = await memebookApi.wordReactionUpdate( {
+          "reactionIdx": 0,
+          "reactionType": "LIKE",
+          "memberIdx": memberIdx,
+          "wordIdx": id,
+        });
+      } else {
+        // const wordDeleteData = await memebookApi.wordScrapeDelete(wordIdx);
+      }
       alert('등록');
-      setLikeCheck(!likeCheck);
 
       console.log('성공');
     } catch (error) {
@@ -53,20 +77,6 @@ export default function WordDetail() {
       console.log('에러')
     }
   }
-
-  useEffect(() => {
-    async function wordDetailApi() {
-      try {
-        const wordDetailData = await memebookApi.wordDetail(id);
-        setWordListData(wordDetailData.data);
-        setScrapeCheck(wordDetailData.data.scrap);
-        console.log(wordDetailData);
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    wordDetailApi();
-  }, [modifyState, scrapeCheck]);
 
   // 스크랩 버튼
   async function ScrapeBtn() {
@@ -76,7 +86,7 @@ export default function WordDetail() {
         "memberIdx": memberIdx,
       });
       alert('등록');
-      setScrapeCheck(!scrapeCheck);
+      setScrapState(!scrapState);
       console.log('성공');
     } catch (error) {
       console.log(error)
@@ -119,9 +129,6 @@ export default function WordDetail() {
       console.log('에러')
     }
   }
-  const contentChange = (event) => {
-    setModifyContent(event.target.value);
-  }
 
   return (
     <div className="detail_container">
@@ -133,7 +140,7 @@ export default function WordDetail() {
       <h1 className="word_tit">
         {wordListData.wordName}
       </h1>
-      <button type="button" className={`btn_scrape ${scrapeCheck ? 'active' : ''}`} onClick={ScrapeBtn}>
+      <button type="button" className={`btn_scrape ${scrapData ? 'active' : ''}`} onClick={ScrapeBtn}>
         <span className="blind">스크랩</span>
       </button>
       <div className="desc_add_box">

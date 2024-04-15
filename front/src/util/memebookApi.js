@@ -10,7 +10,7 @@ export const memebookApi = {
   wordList : (country, pageNumber) => request.get(`word/list?nation=${country}&page=${pageNumber}`),
 
   // 단어 디테일
-  wordDetail : (wordIdx) => request.get(`word/${wordIdx}`),
+  wordDetail : (wordIdx, memberIdx) => request.get(`word/${wordIdx}?memberIdx=${memberIdx}`),
   wordModifyApi : (wordInfo) => request.put(`word/update`, wordInfo),
   wordDelete : (wordContentIdx) => request.delete(`word/delete?wordContentIdx=${wordContentIdx}`),
 
