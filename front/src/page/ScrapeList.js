@@ -49,18 +49,31 @@ export default function ScrapeList() {
         </div>
       </div>
 
-        <ul className="scrape_list">
-          {
-            scrapListData?.map((item, idx) => {
-              return (
-                <li className="box_item">
-                  <Link to={`/word/${item.wordIdx}`} className="item" key={idx}>{item.wordName}</Link>
-                  <button type="button" onClick={() => wordDeleteApi(item.scrapIdx)}>스크랩 삭제</button>
-                </li>
-              )
-            })
-          }
-        </ul>
+        {
+          scrapListData?.length === 0 && (
+            <div>없어용</div>
+          )
+        }
+
+        {
+          scrapListData?.length > 0 && (
+            <ul className="scrap_list">
+              {
+                scrapListData?.map((item, idx) => {
+                  return (
+                    <li className="box_item">
+                      <Link to={`/word/${item.wordIdx}`} className="item" key={idx}>{item.wordName}</Link>
+                      <button type="button" className="scrap_delete_btn" onClick={() => wordDeleteApi(item.scrapIdx)}>
+                        <span className="blind">스크랩 삭제</span>
+                      </button>
+                    </li>
+                  )
+                })
+              }
+            </ul>
+          )
+        }
+
       </div>
   );
 }

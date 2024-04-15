@@ -8,7 +8,7 @@ import {memebookApi} from "../util/memebookApi";
 
 export default function WordDetail() {
   let {id} = useParams();
-  const [memberIdx, setMemberIdx] = useState(123);
+  const [memberIdx, setMemberIdx] = useState(321);
   // 단어 데이터
   const [wordListData, setWordListData] = useState([]);
   // 스크랩

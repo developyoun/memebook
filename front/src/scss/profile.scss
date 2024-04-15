@@ -43,18 +43,18 @@
   &+.user_box {
     margin-top:12px;
   }
-  .word_list {
+  .scrap_list {
+    padding:12px;
+    border-radius:12px;
+    background:#fff;
     li {
-      .item {
-        display:-webkit-box;
-        font-size:14px;
-        overflow:hidden;
-        text-overflow:ellipsis;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-      }
       &+li {
-        margin-top:12px;
+        margin-top:8px;
+        padding-top:8px;
+        border-top:1px solid #F7F7F7;
+      }
+      .item {
+        display:block
       }
     }
   }
