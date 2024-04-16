@@ -9,8 +9,9 @@ import {memebookApi} from "../util/memebookApi";
 
 export default function WordDetail() {
   let {id} = useParams();
-  const [memberIdx, setMemberIdx] = useState(321);
+  const [memberIdx, setMemberIdx] = useState(123);
   // 단어 데이터
+  const [wordData, setWordData] = useState([]);
   const [wordListData, setWordListData] = useState([]);
   // 스크랩
   const [scrapData, setScrapData] = useState('');
@@ -25,7 +26,7 @@ export default function WordDetail() {
   const [modifyState, setModifyState] = useState(false);
   const [modifyContent, setModifyContent] = useState('');
   // 단어 삭제
-  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deleteState, setDeleteState] = useState(false);
   // 신고하기
   const [reportOpen, setReportOpen] = useState(false);
 
@@ -45,20 +46,24 @@ export default function WordDetail() {
     async function wordDetailApi() {
       try {
         const wordDetailData = await memebookApi.wordDetail(id, memberIdx);
-        setWordListData(wordDetailData.data);
+        setWordData(wordDetailData.data);
+        setScrapData(wordDetailData.data.scrap);
+        setWordListData(wordDetailData.data.wordContentList);
         console.log(wordDetailData);
-        setScrapData(wordDetailData.data.scrap)
         if (scrapData === true) {
           setScrapState(true)
         } else {
           setScrapState(false)
         }
+        if (wordDetailData.data.code === 404) {
+          window.history.back();
+        }
       } catch (error) {
-        console.log(error)
+          window.history.back();
       }
     }
     wordDetailApi();
-  }, [modifyState, scrapState]);
+  }, [modifyState, scrapState, deleteState]);
 
   // 좋아요 버튼
   async function wordLike () {
@@ -126,21 +131,15 @@ export default function WordDetail() {
   // 설명 삭제
   async function wordDelete(wordContentIdx) {
     try {
-      const wordDeleteData = await memebookApi.wordDelete(wordContentIdx);
-      window.history.back();
+      if (window.confirm("정말 삭제하시겠습니까?")) {
+        const wordDeleteData = await memebookApi.wordDelete(wordContentIdx);
+        setDeleteState(true);
+      }
       console.log('성공');
     } catch (error) {
       console.log(error)
       console.log('에러')
     }
-  }
-
-  const contentDeleteOpen = ({contentDeleteClose, contentDeleteSubmit}) => {
-    setDeleteOpen(!deleteOpen);
-  }
-
-  const handleClose = () => {
-
   }
 
   return (
@@ -150,24 +149,19 @@ export default function WordDetail() {
           <CommentPort commentPortClose={commentReportOpen}></CommentPort>
         )
       }
-      {
-        deleteOpen && (
-          <ContentDelete contentDeleteClose={contentDeleteOpen} contentDeleteSubmit={contentDeleteOpen}></ContentDelete>
-        )
-      }
       <h1 className="word_tit">
-        {wordListData.wordName}
+        {wordData.wordName}
       </h1>
       <button type="button" className={`btn_scrape ${scrapData ? 'active' : ''}`} onClick={ScrapeBtn}>
         <span className="blind">스크랩</span>
       </button>
       <div className="desc_add_box">
-        <Link to={`/wordAdd/${id}/${wordListData.wordName}`} className="desc_add_btn">설명 추가하기</Link>
+        <Link to={`/wordAdd/${id}/${wordData.wordName}`} className="desc_add_btn">설명 추가하기</Link>
       </div>
 
       <ul className="word_mean_list">
         {
-          wordListData.wordContentList?.map((item, idx) => {
+          wordListData?.map((item, idx) => {
             return (
               <li className="list" key={idx}>
                 <div className="mean_top">
@@ -210,7 +204,7 @@ export default function WordDetail() {
                             </button>
                           </li>
                           <li>
-                            <button type="button" className="btn_delete" onClick={() => { contentDeleteOpen({ contentDeleteClose: handleClose, contentDeleteSubmit: wordDelete(item.wordContentIdx) }) }}>
+                            <button type="button" className="btn_delete" onClick={() => {wordDelete(item.wordContentIdx)}}>
                               <span className="blind">삭제</span>
                             </button>
 
