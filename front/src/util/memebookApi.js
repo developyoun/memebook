@@ -23,10 +23,13 @@ export const memebookApi = {
   /* 스크랩 */
   wordScrape : (wordInfo) => request.post(`scrap/word`, wordInfo),
   wordScrapeUpdate : (memberIdx) => request.get(`scrap/word/list/${memberIdx}`),
+  wordScrapeDelete : (wordIdx) => request.delete(`scrap/word?scrapIdx=${wordIdx}`),
 
   wordReactionUpdate : (update) => request.post(`reaction/word/update`, update),
 
-  wordScrapeDelete : (wordIdx) => request.delete(`scrap/word?scrapIdx=${wordIdx}`),
+
+  /* 좋아요 */
+  wordReactionCount : (wordIdx) => request.get(`reaction/count?wordIdx=${wordIdx}`),
 
   wordReaction : (wordIdx) => request.get(`reaction/count?wordIdx=${wordIdx}`),
   ninkName : (nickname) => request.post(`member/create/nickname?nickname=${nickname}`)

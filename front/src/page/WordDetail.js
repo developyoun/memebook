@@ -16,11 +16,9 @@ export default function WordDetail() {
   // 스크랩
   const [scrapData, setScrapData] = useState('');
   const [scrapState, setScrapState] = useState(false);
-  // 좋아요
-  const [likeCheck, setLikeCheck] = useState(false);
+  // 좋아요, 싫어요
+  const [reactionState, setReactionState] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
-  // 싫어요
-  const [dislikeCheck, setDislikeCheck] = useState(false);
   const [dislikeCount, setDislikeCount] = useState(0);
   // 수정하기
   const [modifyState, setModifyState] = useState(false);
@@ -56,30 +54,50 @@ export default function WordDetail() {
           setScrapState(false)
         }
         if (wordDetailData.data.code === 404) {
-          window.history.back();
+          // window.history.back();
         }
       } catch (error) {
-          window.history.back();
+          // window.history.back();
       }
     }
     wordDetailApi();
   }, [modifyState, scrapState, deleteState]);
 
+  // 단어 Api
+  useEffect(() => {
+    async function wordReactionApi() {
+      try {
+        const wordReactionCountData = await memebookApi.wordReactionCount(id);
+        setLikeCount(wordReactionCountData.data.likeCount);
+        setDislikeCount(wordReactionCountData.data.dislikeCount);
+      } catch (error) {
+        // window.history.back();
+      }
+    }
+    wordReactionApi();
+  }, [reactionState]);
+
   // 좋아요 버튼
-  async function wordLike () {
+  async function wordReaction (type) {
     try {
-      if (scrapState === false) {
+      setReactionState(false);
+      if (type === 'like') {
         const wordLikeData = await memebookApi.wordReactionUpdate( {
           "reactionIdx": 0,
           "reactionType": "LIKE",
           "memberIdx": memberIdx,
           "wordIdx": id,
         });
-      } else {
-        // const wordDeleteData = await memebookApi.wordScrapeDelete(wordIdx);
+      } else if (type === 'dislike') {
+        const wordLikeData = await memebookApi.wordReactionUpdate( {
+          "reactionIdx": 0,
+          "reactionType": "DISLIKE",
+          "memberIdx": memberIdx,
+          "wordIdx": id,
+        });
       }
       alert('등록');
-
+      setReactionState(true);
       console.log('성공');
     } catch (error) {
       console.log(error)
@@ -171,7 +189,7 @@ export default function WordDetail() {
                       item.memberIdx !== memberIdx && (
                         <>
                           <li>
-                            <button type="button" className="btn_like" onClick={wordLike}>
+                            <button type="button" className="btn_like" onClick={() => {wordReaction('like')}}>
                               <span className="blind">좋아요</span>
                             </button>
                             <span className="count">
@@ -179,7 +197,7 @@ export default function WordDetail() {
                             </span>
                           </li>
                                     <li>
-                                      <button type="button" className="btn_dislike">
+                                      <button type="button" className="btn_dislike" onClick={() => {wordReaction('dislike')}}>
                                         <span className="blind">싫어요</span>
                                       </button>
                                       <span className="count">
