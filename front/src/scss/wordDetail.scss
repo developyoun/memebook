@@ -124,27 +124,10 @@
   }
 }
 
-.scrap_list {
-  padding:12px;
-  border-radius:12px;
-  background:#fff;
-  .box_item {
-    display:flex;
-    align-items:center;
-    justify-content: space-between;
-    &+box_item {
-      margin-top:8px;
-      padding-top:8px;
-      border-top:1px solid #F7F7F7;
-    }
-    .item {
-      font-size:14px;
-    }
-    .scrap_delete_btn {
-      display:block;
-      width:18px;
-      height:19px;
-      background:url("data:image/svg+xml,%3Csvg width='18' height='19' viewBox='0 0 18 19' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15 16V4H3V16C3 17.1046 3.89543 18 5 18H13C14.1046 18 15 17.1046 15 16Z' fill='%23A4A4A4'/%3E%3Cpath d='M15 4V16C15 17.1046 14.1046 18 13 18H5C3.89543 18 3 17.1046 3 16V4H6V3C6 1.89543 6.89543 1 8 1H10C11.1046 1 12 1.89543 12 3V4H15Z' fill='%23A4A4A4'/%3E%3Cpath d='M15 4V16C15 17.1046 14.1046 18 13 18H5C3.89543 18 3 17.1046 3 16V4M1 4H17M12 4V3C12 1.89543 11.1046 1 10 1H8C6.89543 1 6 1.89543 6 3V4' stroke='%23A4A4A4' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M7 8C7 10.3431 7 11.6569 7 14M11 8C11 10.3431 11 11.6569 11 14' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A") center no-repeat;
-    }
-  }
+.scrap_delete_btn {
+  flex-shrink:0;
+  display:block;
+  width:18px;
+  height:19px;
+  background:url("data:image/svg+xml,%3Csvg width='18' height='19' viewBox='0 0 18 19' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15 16V4H3V16C3 17.1046 3.89543 18 5 18H13C14.1046 18 15 17.1046 15 16Z' fill='%23A4A4A4'/%3E%3Cpath d='M15 4V16C15 17.1046 14.1046 18 13 18H5C3.89543 18 3 17.1046 3 16V4H6V3C6 1.89543 6.89543 1 8 1H10C11.1046 1 12 1.89543 12 3V4H15Z' fill='%23A4A4A4'/%3E%3Cpath d='M15 4V16C15 17.1046 14.1046 18 13 18H5C3.89543 18 3 17.1046 3 16V4M1 4H17M12 4V3C12 1.89543 11.1046 1 10 1H8C6.89543 1 6 1.89543 6 3V4' stroke='%23A4A4A4' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M7 8C7 10.3431 7 11.6569 7 14M11 8C11 10.3431 11 11.6569 11 14' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A") center no-repeat;
 }

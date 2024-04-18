@@ -27,17 +27,22 @@ export default function ScrapeList() {
     scrapeApi();
   }, [scrapState]);
 
-  async function wordDeleteApi(scrapIdx) {
+
+  // 설명 삭제
+  async function scrapDeleteApi(scrapIdx) {
     try {
-      const wordDeleteData = await memebookApi.wordScrapeDelete(scrapIdx);
-      setScrapState(!scrapState);
-      alert('삭제');
+      if (window.confirm("정말 삭제하시겠습니까?")) {
+        const scrapDeleteData = await memebookApi.wordScrapeDelete(scrapIdx);
+        setScrapState(!scrapState);
+        alert('삭제');
+      }
       console.log('성공');
     } catch (error) {
       console.log(error)
       console.log('에러')
     }
   }
+
 
   return (
     <div className="scrape_container">
@@ -57,13 +62,13 @@ export default function ScrapeList() {
 
         {
           scrapListData?.length > 0 && (
-            <ul className="scrap_list">
+            <ul className="list_box">
               {
                 scrapListData?.map((item, idx) => {
                   return (
-                    <li className="box_item">
-                      <Link to={`/word/${item.wordIdx}`} className="item" key={idx}>{item.wordName}</Link>
-                      <button type="button" className="scrap_delete_btn" onClick={() => wordDeleteApi(item.scrapIdx)}>
+                    <li className="list_item">
+                      <Link to={`/word/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
+                      <button type="button" className="scrap_delete_btn" onClick={() => scrapDeleteApi(item.scrapIdx)}>
                         <span className="blind">스크랩 삭제</span>
                       </button>
                     </li>
