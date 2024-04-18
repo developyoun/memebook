@@ -21,9 +21,9 @@ export const memebookApi = {
   /* 정렬 */
   wordSort : (country, sort, sortBy) => request.get(`word/list?nation=${country}&sort=${sort}&sortBy=${sortBy}`),
   /* 스크랩 */
-  wordScrape : (wordInfo) => request.post(`scrap/word`, wordInfo),
+  wordScrap : (wordInfo) => request.post(`scrap/word`, wordInfo),
   wordScrapeUpdate : (memberIdx) => request.get(`scrap/word/list/${memberIdx}`),
-  wordScrapeDelete : (wordIdx) => request.delete(`scrap/word?scrapIdx=${wordIdx}`),
+  wordScrapDelete : (wordIdx) => request.delete(`scrap/word?scrapIdx=${wordIdx}`),
 
   wordReactionUpdate : (update) => request.post(`reaction/word/update`, update),
 

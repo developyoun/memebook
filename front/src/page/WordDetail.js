@@ -2,7 +2,7 @@ import './../scss/wordDetail.scss'
 import {Link} from 'react-router-dom';
 import {useState, useEffect} from "react";
 import CommentPort from "../components/modal/CommentPort";
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {memebookApi} from "../util/memebookApi";
 
 export default function WordDetail() {
@@ -29,7 +29,7 @@ export default function WordDetail() {
 
   // 공통
   useEffect(() => {
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
   }, []);
 
   // 신고하기 팝업
@@ -55,9 +55,10 @@ export default function WordDetail() {
           // window.history.back();
         }
       } catch (error) {
-          // window.history.back();
+        // window.history.back();
       }
     }
+
     wordDetailApi();
   }, [modifyState, scrapState, deleteState]);
 
@@ -72,22 +73,23 @@ export default function WordDetail() {
         // window.history.back();
       }
     }
+
     wordReactionApi();
   }, [reactionState]);
 
   // 좋아요/싫어요 button Api
-  async function wordReaction (type) {
+  async function wordReaction(type) {
     try {
       setReactionState(false);
       if (type === 'like') {
-        const wordLikeData = await memebookApi.wordReactionUpdate( {
+        const wordLikeData = await memebookApi.wordReactionUpdate({
           "reactionIdx": 0,
           "reactionType": "LIKE",
           "memberIdx": memberIdx,
           "wordIdx": id,
         });
       } else if (type === 'dislike') {
-        const wordLikeData = await memebookApi.wordReactionUpdate( {
+        const wordLikeData = await memebookApi.wordReactionUpdate({
           "reactionIdx": 0,
           "reactionType": "DISLIKE",
           "memberIdx": memberIdx,
@@ -106,11 +108,14 @@ export default function WordDetail() {
   // 스크랩 버튼
   async function ScrapeBtn() {
     try {
-      const scrapeState = await memebookApi.wordScrape( {
-        "wordIdx": id,
-        "memberIdx": memberIdx,
-      });
-      alert('등록');
+      if (scrapState === false) {
+        const scrapData = await memebookApi.wordScrap({
+          "wordIdx": id,
+          "memberIdx": memberIdx,
+        });
+      } else {
+        const scrapDeleteData = await memebookApi.wordScrapDelete();
+      }
       setScrapState(!scrapState);
       console.log('성공');
     } catch (error) {
@@ -127,10 +132,11 @@ export default function WordDetail() {
   const contentChange = (event) => {
     setModifyContent(event.target.value);
   }
+
   // 수정된 내용 put Api
   async function wordModify() {
     try {
-      const wordModifyData = await memebookApi.wordModifyApi( {
+      const wordModifyData = await memebookApi.wordModifyApi({
         "wordIdx": wordListData.wordIdx,
         "wordName": wordListData.wordName,
         "wordContent": modifyContent,
@@ -187,18 +193,22 @@ export default function WordDetail() {
                       item.memberIdx !== memberIdx && (
                         <>
                           <li>
-                            <button type="button" className="btn_like" onClick={() => {wordReaction('like')}}>
+                            <button type="button" className="btn_like" onClick={() => {
+                              wordReaction('like')
+                            }}>
                               <span className="blind">좋아요</span>
                             </button>
                             <span className="count">
                               {likeCount}
                             </span>
                           </li>
-                                    <li>
-                                      <button type="button" className="btn_dislike" onClick={() => {wordReaction('dislike')}}>
-                                        <span className="blind">싫어요</span>
-                                      </button>
-                                      <span className="count">
+                          <li>
+                            <button type="button" className="btn_dislike" onClick={() => {
+                              wordReaction('dislike')
+                            }}>
+                              <span className="blind">싫어요</span>
+                            </button>
+                            <span className="count">
                               {dislikeCount}
                             </span>
                           </li>
@@ -220,7 +230,9 @@ export default function WordDetail() {
                             </button>
                           </li>
                           <li>
-                            <button type="button" className="btn_delete" onClick={() => {wordDelete(item.wordContentIdx)}}>
+                            <button type="button" className="btn_delete" onClick={() => {
+                              wordDelete(item.wordContentIdx)
+                            }}>
                               <span className="blind">삭제</span>
                             </button>
 
@@ -242,10 +254,11 @@ export default function WordDetail() {
                   {
                     modifyState && (
                       <>
-                      <textarea className="text_input word_modify_area" name="" id="" maxLength={99} onChange={contentChange}>
-                         {item.content}
-                      </textarea>
-                        <button type="button" className="word_modify_btn" onClick={()=> wordModify(item.wordContentIdx)}>
+                        <textarea className="text_input word_modify_area" name="" id="" maxLength={99}
+                                  onChange={contentChange}>
+                           {item.content}
+                        </textarea>
+                        <button type="button" className="word_modify_btn" onClick={() => wordModify(item.wordContentIdx)}>
                           수정
                         </button>
                       </>

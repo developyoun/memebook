@@ -32,7 +32,7 @@ export default function ScrapeList() {
   async function scrapDeleteApi(scrapIdx) {
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
-        const scrapDeleteData = await memebookApi.wordScrapeDelete(scrapIdx);
+        const scrapDeleteData = await memebookApi.wordScrapDelete(scrapIdx);
         setScrapState(!scrapState);
         alert('삭제');
       }
