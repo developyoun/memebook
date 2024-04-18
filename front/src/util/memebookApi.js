@@ -19,7 +19,7 @@ export const memebookApi = {
 
 
   /* 정렬 */
-  wordSort : (country, sort, sortBy, memberIdx) => request.get(`word/list?nation=${country}&sort=${sort}&sortBy=${sortBy}&memberIdx=${memberIdx}`),
+  wordSort : (country, sort, sortBy) => request.get(`word/list?nation=${country}&sort=${sort}&sortBy=${sortBy}`),
   /* 스크랩 */
   wordScrape : (wordInfo) => request.post(`scrap/word`, wordInfo),
   wordScrapeUpdate : (memberIdx) => request.get(`scrap/word/list/${memberIdx}`),

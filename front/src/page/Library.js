@@ -61,22 +61,17 @@ export default function Word() {
   async function wordSort(word) {
     try {
       let wordSortData;
-      setLibraryData();
       switch (word) {
         case 'LIKE' :
-          wordSortData = await memebookApi.wordSort('ALL', word, 'ASC', '123');
+          wordSortData = await memebookApi.wordSort('ALL', word, 'ASC');
           setLibraryData(wordSortData.data.wordList);
            break;
         case 'DISLIKE' :
-          wordSortData = await memebookApi.wordSort('ALL', word, 'ASC', '123');
+          wordSortData = await memebookApi.wordSort('ALL', word, 'ASC');
           setLibraryData(wordSortData.data.wordList);
            break;
         case 'LATEST' :
-          wordSortData = await memebookApi.wordSort('ALL', word, 'ASC', '123');
-          setLibraryData(wordSortData.data.wordList);
-           break;
-        case 'CONTENT' :
-          wordSortData = await memebookApi.wordSort('ALL', word, 'ASC', '123');
+          wordSortData = await memebookApi.wordSort('ALL', word, 'ASC');
           setLibraryData(wordSortData.data.wordList);
            break;
       }
@@ -112,9 +107,6 @@ export default function Word() {
             </SwiperSlide>
             <SwiperSlide className="tab_item">
               <button type="button" className="item" onClick={() => wordSort('LATEST')}>최신순</button>
-            </SwiperSlide>
-            <SwiperSlide className="tab_item">
-              <button type="button" className="item" onClick={() => wordSort('CONTENT')}>댓글순</button>
             </SwiperSlide>
           </Swiper>
 

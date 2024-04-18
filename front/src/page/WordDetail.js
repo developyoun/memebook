@@ -1,9 +1,7 @@
 import './../scss/wordDetail.scss'
-import Title from "../components/Title";
 import {Link} from 'react-router-dom';
 import {useState, useEffect} from "react";
 import CommentPort from "../components/modal/CommentPort";
-import ContentDelete from "../components/modal/ContentDelete";
 import { useParams } from "react-router-dom";
 import {memebookApi} from "../util/memebookApi";
 
@@ -13,13 +11,13 @@ export default function WordDetail() {
   // 단어 데이터
   const [wordData, setWordData] = useState([]);
   const [wordListData, setWordListData] = useState([]);
-  // 스크랩
-  const [scrapData, setScrapData] = useState('');
-  const [scrapState, setScrapState] = useState(false);
   // 좋아요, 싫어요
   const [reactionState, setReactionState] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
+  // 스크랩
+  const [scrapData, setScrapData] = useState('');
+  const [scrapState, setScrapState] = useState(false);
   // 수정하기
   const [modifyState, setModifyState] = useState(false);
   const [modifyContent, setModifyContent] = useState('');
@@ -63,7 +61,7 @@ export default function WordDetail() {
     wordDetailApi();
   }, [modifyState, scrapState, deleteState]);
 
-  // 단어 Api
+  // 좋아요/싫어요 update Api
   useEffect(() => {
     async function wordReactionApi() {
       try {
@@ -77,7 +75,7 @@ export default function WordDetail() {
     wordReactionApi();
   }, [reactionState]);
 
-  // 좋아요 버튼
+  // 좋아요/싫어요 button Api
   async function wordReaction (type) {
     try {
       setReactionState(false);
