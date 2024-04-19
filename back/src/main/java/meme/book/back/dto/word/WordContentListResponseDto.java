@@ -1,6 +1,5 @@
 package meme.book.back.dto.word;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -8,7 +7,6 @@ import java.util.List;
 
 @Data
 @Accessors(chain = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class WordContentListResponseDto {
 
     List<WordContentDto> wordContentList;
@@ -21,7 +19,7 @@ public class WordContentListResponseDto {
 
     private Long wordDislike;
 
-    private boolean scrap;
+    private Long scrapIdx;
 
     private int nowPage;
 

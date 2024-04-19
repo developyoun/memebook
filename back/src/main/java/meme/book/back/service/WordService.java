@@ -3,6 +3,7 @@ package meme.book.back.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.word.*;
+import meme.book.back.entity.Scrap;
 import meme.book.back.entity.Word;
 import meme.book.back.entity.WordContent;
 import meme.book.back.exception.CustomException;
@@ -37,7 +38,7 @@ public class WordService {
         Page<WordContentDto> wordContentDtoList = WordContentDto.toPageDto(wordContentList);
         log.debug("### Get Word Content: {}", word.getWordIdx());
 
-        boolean isScrap = (memberIdx != null && scrapRepository.existsByWordIdxAndMemberIdx(wordIdx, memberIdx));
+        Scrap scrap = scrapRepository.findByWordIdxAndMemberIdx(wordIdx, memberIdx).orElseGet(Scrap::new);
 
         return new WordContentListResponseDto()
                 .setWordContentList(wordContentDtoList.getContent())
@@ -45,7 +46,7 @@ public class WordService {
                 .setWordName(word.getWordName())
                 .setWordLike(word.getWordLike())
                 .setWordDislike(word.getWordDislike())
-                .setScrap(isScrap)
+                .setScrapIdx(scrap.getScrapIdx())
                 .setNowPage(wordContentDtoList.getNumber() + 1)
                 .setNowCount(wordContentDtoList.getNumberOfElements())
                 .setTotalPage(wordContentDtoList.getTotalPages())

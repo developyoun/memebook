@@ -41,7 +41,7 @@ public class WordController {
     @Operation(summary = "단어 컨텐츠 조회 API", description = "단어 컨텐츠를 조회한다.")
     @GetMapping("/{wordIdx}")
     public ResponseEntity<?> getWord(@PathVariable Long wordIdx,
-                                     @RequestParam(required = false) Long memberIdx,
+                                     @RequestParam Long memberIdx,
                                      @RequestParam(defaultValue = "1") int page,
                                      @RequestParam(defaultValue = "10") int pageSize) {
         Pageable pageable = PageRequest.of(page - 1, pageSize);

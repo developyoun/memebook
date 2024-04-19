@@ -18,6 +18,8 @@ public class WordContentDto {
 
     private Long wordIdx;
 
+    private Long scrapIdx;
+
     private String wordName;
 
     private Long memberIdx;
