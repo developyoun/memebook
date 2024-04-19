@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.reaction.ReactionCountResponseDto;
 import meme.book.back.dto.reaction.ReactionDto;
+import meme.book.back.dto.reaction.ReactionRequestDto;
 import meme.book.back.entity.Reaction;
 import meme.book.back.entity.Word;
 import meme.book.back.exception.CustomException;
@@ -25,7 +26,7 @@ public class ReactionService {
     private final WordRepository wordRepository;
 
     @Transactional
-    public ReactionDto upsertWordReaction(ReactionDto reactionDto) {
+    public ReactionDto upsertWordReaction(ReactionRequestDto reactionDto) {
         Reaction reaction;
 
         Word word = wordRepository.findByWordIdx(reactionDto.getWordIdx()).orElseThrow(() -> {
@@ -40,6 +41,7 @@ public class ReactionService {
             reaction = optionalReaction.get();
             if (reaction.getReactionType().equals(reactionDto.getReactionType())) {
                 // 요청과 기존값 동일시 처리 (기존 저장값 delete)
+                log.info("Reaction: {}, Request: {}", reaction.getReactionType(), reactionDto.getReactionType());
                 reactionRepository.delete(reaction);
                 if (reactionDto.getReactionType().equals(ActionType.LIKE)) {
                     word.setWordLike(word.getWordLike() - 1);
@@ -70,9 +72,8 @@ public class ReactionService {
             } else {
                 word.setWordDislike(word.getWordDislike() + 1);
             }
+            reactionRepository.save(reaction);
         }
-
-        reactionRepository.save(reaction);
         wordRepository.save(word);
 
         return ReactionDto.toDto(reaction);

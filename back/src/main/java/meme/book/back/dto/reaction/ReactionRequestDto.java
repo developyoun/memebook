@@ -8,11 +8,9 @@ import meme.book.back.utils.ActionType;
 @Accessors(chain = true)
 public class ReactionRequestDto {
 
-    private Long reactionIdx;
-
     private ActionType reactionType;
 
-    private Long memIdx;
+    private Long memberIdx;
 
     private Long wordIdx;
 
