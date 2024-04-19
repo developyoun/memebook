@@ -1,14 +1,19 @@
 
+const initialState = {
+  scrapeList: []
+};
 
-const memeReducer = (state, action) => {
+const memeReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "SEND_SCRAPE":
+    case "SEND_SCRAP":
       return {
         ...state,
-        scrapeData: action.payload,
+        scrapeList: [action.payload],
       };
     default:
       return state;
   }
 };
+
+
 export default memeReducer;

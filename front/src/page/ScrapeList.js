@@ -3,23 +3,26 @@ import React, {useEffect, useState} from "react";
 import {memebookApi} from "../util/memebookApi";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
-import {myScrapeList} from "../util/action";
+import {setScrapList} from "../util/action";
+
 import BtnBack from "../components/BtnBack";
 
 
 export default function ScrapeList() {
-  const dispatch = useDispatch();
-
   const [scrapListData, setScrapListData] = useState([]);
   const [scrapState, setScrapState] = useState(false);
 
 
+  const dispatch = useDispatch();
+  const scrapeList = useSelector(state => state.scrapeList);
+  dispatch(setScrapList());
+  console.log(scrapeList)
   useEffect(() => {
     async function scrapeApi() {
       try {
         const wordDetailData = await memebookApi.wordScrapeUpdate(123);
         setScrapListData(wordDetailData.data.content);
-        console.log(wordDetailData.data.content);
+
       } catch (error) {
         console.log(error)
       }
