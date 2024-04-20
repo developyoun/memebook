@@ -3,32 +3,32 @@ import React, {useEffect, useState} from "react";
 import {memebookApi} from "../util/memebookApi";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
-import {setScrapList} from "../util/action";
-
 import BtnBack from "../components/BtnBack";
+import {setScrapList} from "../util/action";
+import {memeAction} from "../util/memeAction";
 
 
 export default function ScrapeList() {
   const [scrapListData, setScrapListData] = useState([]);
   const [scrapState, setScrapState] = useState(false);
-
+  const [memberIdx, setMemberIdx] = useState(3421422421);
 
   const dispatch = useDispatch();
-  const scrapeList = useSelector(state => state.scrapeList);
-  dispatch(setScrapList());
-  console.log(scrapeList)
+  const scrapList = useSelector(state => state.meme.scrapList);
+
+
   useEffect(() => {
     async function scrapeApi() {
       try {
+        dispatch(memeAction(memberIdx));
         const wordDetailData = await memebookApi.wordScrapeUpdate(123);
         setScrapListData(wordDetailData.data.content);
-
       } catch (error) {
         console.log(error)
       }
     }
     scrapeApi();
-  }, [scrapState]);
+  }, []);
 
 
   // 설명 삭제
@@ -51,7 +51,7 @@ export default function ScrapeList() {
     <div className="scrape_container">
       <div className="scrape_top">
         <BtnBack></BtnBack>
-        <h2 className="tit">&#128214; 스크랩</h2>
+        <h2 className="tit">&#128214; 스크랩 {}</h2>
         <div className="box_btn">
           <span className="txt"></span>
         </div>

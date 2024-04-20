@@ -1,8 +1,8 @@
 import {memebookApi} from "./memebookApi";
 import {setScrapList} from "./action";
-export const memeAction = () => async (dispatch) => {
+export const memeAction = (id) => async (dispatch) => {
   try {
-    const wordDetailData = await memebookApi.wordScrapeUpdate(123);
+    const wordDetailData = await memebookApi.wordScrapeUpdate(id);
     dispatch(setScrapList(wordDetailData))
   } catch (error) {
     console.error(error);

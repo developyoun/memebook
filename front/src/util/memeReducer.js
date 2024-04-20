@@ -1,6 +1,6 @@
 
 const initialState = {
-  scrapeList: []
+  scrapList: []
 };
 
 const memeReducer = (state = initialState, action) => {
@@ -8,7 +8,7 @@ const memeReducer = (state = initialState, action) => {
     case "SEND_SCRAP":
       return {
         ...state,
-        scrapeList: [action.payload],
+        scrapList: action.payload,
       };
     default:
       return state;
