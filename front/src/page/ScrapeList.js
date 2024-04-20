@@ -11,7 +11,7 @@ import {memeAction} from "../util/memeAction";
 export default function ScrapeList() {
   const [scrapListData, setScrapListData] = useState([]);
   const [scrapState, setScrapState] = useState(false);
-  const [memberIdx, setMemberIdx] = useState(3421422421);
+  const [memberIdx, setMemberIdx] = useState(123);
 
   const dispatch = useDispatch();
   const scrapList = useSelector(state => state.meme.scrapList);
@@ -23,12 +23,13 @@ export default function ScrapeList() {
         dispatch(memeAction(memberIdx));
         const wordDetailData = await memebookApi.wordScrapeUpdate(123);
         setScrapListData(wordDetailData.data.content);
+        console.log(scrapList)
       } catch (error) {
         console.log(error)
       }
     }
     scrapeApi();
-  }, []);
+  }, [scrapState]);
 
 
   // 설명 삭제

@@ -3,6 +3,6 @@
 export const setScrapList = (data) => {
   return {
     type: "SEND_SCRAP",
-    payload: data
+    payload: data.data
   };
 };
