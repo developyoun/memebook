@@ -13,7 +13,7 @@ export default function HomeFooter() {
           <Link to="/library" className="link library">사전</Link>
         </li>
         <li className="list">
-          <Link to="/library" className="link community">커뮤니티</Link>
+          <Link to="/community" className="link community">커뮤니티</Link>
         </li>
         <li className="list">
           <Link to="/profile" className="link profile">프로필</Link>

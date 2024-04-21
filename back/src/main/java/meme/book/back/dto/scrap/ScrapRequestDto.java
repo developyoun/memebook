@@ -10,4 +10,5 @@ public class ScrapRequestDto {
     private Long wordIdx;
 
     private Long memberIdx;
+
 }

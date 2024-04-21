@@ -8,6 +8,8 @@ import meme.book.back.utils.NationCode;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Accessors(chain = true)
@@ -15,7 +17,10 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "MEMBER")
-public class Member {
+public class Member implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -4629779128073180218L;
 
     // 회원 고유 번호
     @Id

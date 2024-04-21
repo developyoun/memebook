@@ -5,20 +5,19 @@ import {Link} from "react-router-dom";
 import BtnBack from "../components/BtnBack";
 
 export default function AddList() {
-  const [addListData, setAddListData] = useState([]);
-
-  const [memberIdx, setMemberIdx] = useState('123');
+  const [addListData, setAddListData] = useState([])
+  const [memberIdx, setMemberIdx] = useState('321');
 
   useEffect(() => {
-    async function MyAddApi() {
+    async function wordAddListApi() {
       try {
-        const wordDetailData = await memebookApi.wordAddList(memberIdx);
-        setAddListData(wordDetailData.data.wordContentList);
+        const wordAddListData = await memebookApi.wordAddList(memberIdx);
+        setAddListData(wordAddListData.data.wordContentList);
       } catch (error) {
         console.log(error)
       }
     }
-    MyAddApi();
+    wordAddListApi();
   }, []);
 
   return (

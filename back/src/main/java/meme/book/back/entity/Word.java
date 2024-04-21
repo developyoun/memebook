@@ -8,12 +8,18 @@ import lombok.experimental.Accessors;
 import meme.book.back.utils.NationCode;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @Accessors(chain = true)
 @Setter @Getter @ToString
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "WORD")
-public class Word {
+public class Word implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 4589479967127062067L;
 
     // 단어 고유 번호
     @Id

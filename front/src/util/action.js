@@ -1,24 +1,25 @@
-export const setNativeCountryType = (type) => ({
-  type: 'SET_NATIVE_COUNTRY_TYPE',
-  payload: type,
-});
 
-export const setNativeCountryTxt = (txt) => ({
-  type: 'SET_NATIVE_COUNTRY_TXT',
-  payload: txt,
-});
+// 스크랩 리스트
+export const scrapListAction = (data) => {
+  return {
+    type: "SEND_SCRAP_LIST",
+    payload: data.data
+  };
+};
 
-export const setStudyCountryType = (type) => ({
-  type: 'SET_STUDY_COUNTRY_TYPE',
-  payload: type,
-});
 
-export const setStudyCountryTxt = (txt) => ({
-  type: 'SET_STUDY_COUNTRY_TXT',
-  payload: txt,
-});
+// 스크랩 삭제
+export const scrapAddAction = (data) => {
+  return {
+    type: "SEND_SCRAP_ADD",
+    payload: data.data
+  };
+};
 
-export const myScrapeList = (txt) => ({
-  type: 'SEND_SCRAPE',
-  payload: txt,
-});
+// 스크랩 삭제
+export const scrapDeleteAction = (data) => {
+  return {
+    type: "SEND_SCRAP_DELETE",
+    payload: data.data
+  };
+};

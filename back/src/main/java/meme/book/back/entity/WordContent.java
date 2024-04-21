@@ -9,6 +9,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Accessors(chain = true)
@@ -16,7 +18,10 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "WORD_CONTENT")
-public class WordContent {
+public class WordContent implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -708423299329810329L;
 
     // 단어 내용 고유 번호
     @Id
