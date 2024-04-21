@@ -2,7 +2,16 @@
 // 스크랩 리스트
 export const scrapListAction = (data) => {
   return {
-    type: "SEND_SCRAP",
+    type: "SEND_SCRAP_LIST",
+    payload: data.data
+  };
+};
+
+
+// 스크랩 삭제
+export const scrapAddAction = (data) => {
+  return {
+    type: "SEND_SCRAP_ADD",
     payload: data.data
   };
 };

@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {memebookApi} from "../util/memebookApi";
 import {useDispatch, useSelector} from 'react-redux';
 import BtnBack from "../components/BtnBack";
-import {deleteScrap, scrapListData} from "../util/memeAction";
+import {scrapDeleteData, scrapListData} from "../util/memeAction";
 import './../scss/scrapeList.scss'
 
 
@@ -13,7 +13,6 @@ export default function ScrapeList() {
 
   const dispatch = useDispatch();
   const scrapList = useSelector(state => state.meme.scrapList);
-  const scrapDelete = useSelector(state => state.meme.scrapDelete);
 
 
   useEffect(() => {
@@ -32,7 +31,7 @@ export default function ScrapeList() {
   async function scrapDeleteApi(scrapIdx) {
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
-        dispatch(deleteScrap(scrapIdx));
+        dispatch(scrapDeleteData(scrapIdx));
         setScrapState(!scrapState);
         alert('삭제');
       }
