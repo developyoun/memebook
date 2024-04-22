@@ -4,7 +4,7 @@ import {memebookApi} from "../util/memebookApi";
 import {Link} from "react-router-dom";
 import BtnBack from "../components/BtnBack";
 import {useDispatch, useSelector} from "react-redux";
-import {myScrapListData} from "../util/action/wordAction";
+import {myWordListData} from "../util/action/wordAction";
 
 export default function AddList() {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ export default function AddList() {
   useEffect(() => {
     async function wordAddListApi() {
       try {
-        dispatch(myScrapListData(memberIdx));
+        dispatch(myWordListData(memberIdx));
       } catch (error) {
         console.log(error)
       }

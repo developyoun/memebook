@@ -7,10 +7,16 @@ import React, {useCallback, useEffect, useState} from "react";
 import {debounce} from 'lodash';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import {useDispatch, useSelector} from "react-redux";
+import {wordListData, wordSortData} from "../util/action/wordAction";
 
 export default function Word() {
+  const dispatch = useDispatch();
+  const wordList = useSelector(state => state.meme.wordList);
+  const wordSort = useSelector(state => state.meme.wordSort);
   const [pageNumber, setPageNumber] = useState(1);
-  const [libraryData, setLibraryData] = useState();
+  const [libraryData, setLibraryData] = useState([]);
+
   const isBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
 
   const pageUp = () => {
@@ -23,9 +29,8 @@ export default function Word() {
   useEffect(() => {
     async function libraryList() {
       try {
-        const libraryApi = await memebookApi.wordList('ALL', pageNumber);
-        setLibraryData(libraryApi.data.wordList);
-        console.log(libraryApi)
+        await dispatch(wordListData('ALL', pageNumber));
+        setLibraryData(wordList.wordList);
       } catch (error) {
         console.log(error)
       }
@@ -33,9 +38,10 @@ export default function Word() {
     libraryList();
   }, []);
 
+
+
   const pageMore = useCallback(debounce(async () => {
     try {
-
       const nextPage = pageNumber + 1;
       setPageNumber(nextPage);
 
@@ -58,25 +64,14 @@ export default function Word() {
     };
   }, [pageMore]);
 
-  async function wordSort(word) {
+  async function wordSortBtn(word) {
     try {
-      let wordSortData;
-      switch (word) {
-        case 'LIKE' :
-          wordSortData = await memebookApi.wordSort('ALL', word, 'ASC');
-          setLibraryData(wordSortData.data.wordList);
-           break;
-        case 'DISLIKE' :
-          wordSortData = await memebookApi.wordSort('ALL', word, 'ASC');
-          setLibraryData(wordSortData.data.wordList);
-           break;
-        case 'LATEST' :
-          wordSortData = await memebookApi.wordSort('ALL', word, 'ASC');
-          setLibraryData(wordSortData.data.wordList);
-           break;
+      dispatch(wordSortData(word));
+      setLibraryData(wordSort.wordList);
+      if (wordSort.wordList) {
+        setLibraryData(wordSort.wordList);
       }
-      console.log(wordSortData)
-      console.log('성공')
+      console.log('성공22')
     } catch(error) {
       console.log(error)
     }
@@ -100,27 +95,30 @@ export default function Word() {
             className="library_tab"
           >
             <SwiperSlide className="tab_item active">
-              <button type="button" className="item" onClick={() => wordSort('LIKE')}>좋아요순</button>
+              <button type="button" className="item" onClick={() => wordSortBtn('LIKE')}>좋아요순</button>
             </SwiperSlide>
             <SwiperSlide className="tab_item">
-              <button type="button" className="item" onClick={() => wordSort('DISLIKE')}>싫어요순</button>
+              <button type="button" className="item" onClick={() => wordSortBtn('DISLIKE')}>싫어요순</button>
             </SwiperSlide>
             <SwiperSlide className="tab_item">
-              <button type="button" className="item" onClick={() => wordSort('LATEST')}>최신순</button>
+              <button type="button" className="item" onClick={() => wordSortBtn('LATEST')}>최신순</button>
             </SwiperSlide>
           </Swiper>
-
-          <ul className="list_box">
-            {
-              libraryData?.map((item, idx) => {
-                return (
-                  <li className="list_item">
-                    <Link to={`/word/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
-                  </li>
-                )
-              })
-            }
-          </ul>
+          {
+            libraryData !== undefined && (
+              <ul className="list_box">
+                {
+                  libraryData?.map((item, idx) => {
+                    return (
+                      <li className="list_item">
+                        <Link to={`/word/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
+                      </li>
+                    )
+                  })
+                }
+              </ul>
+            )
+          }
         </div>
 
         {

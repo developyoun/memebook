@@ -1,13 +1,45 @@
 import {memebookApi} from "../memebookApi";
-import {myWordListAction} from "../action";
+import {wordListAction, myWordListAction, wordSortAction} from "../action";
 
-// 내가 등록한 단어 리스트
-export const myScrapListData = (memberIdx) => async (dispatch) => {
+// 단어 리스트
+export const wordListData = (id, memberIdx) => async (dispatch) => {
   try {
-    const myScrapListData = await memebookApi.myWordList(memberIdx);
-    dispatch(myWordListAction(myScrapListData));
-    console.log(myScrapListData);
+    const wordListData = await memebookApi.wordList(id, memberIdx);
+    dispatch(wordListAction(wordListData));
   } catch (error) {
     console.error(error);
   }
 };
+
+// 단어 정fuf
+export const wordSortData = (word) => async (dispatch) => {
+  try {
+    let wordSortData;
+    switch (word) {
+      case 'LIKE' :
+        wordSortData = await memebookApi.wordSort('ALL', word, 'ASC');
+        break;
+      case 'DISLIKE' :
+        wordSortData = await memebookApi.wordSort('ALL', word, 'ASC');
+        break;
+      case 'LATEST' :
+        wordSortData = await memebookApi.wordSort('ALL', word, 'ASC');
+        break;
+    }
+    dispatch(wordSortAction(wordSortData));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+// 내가 등록한 단어 리스트
+export const myWordListData = (memberIdx) => async (dispatch) => {
+  try {
+    const myWordListData = await memebookApi.myWordList(memberIdx);
+    dispatch(myWordListAction(myWordListData));
+  } catch (error) {
+    console.error(error);
+  }
+};
+

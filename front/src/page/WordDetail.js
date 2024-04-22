@@ -7,6 +7,7 @@ import {memebookApi} from "../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
 import {scrapAddData, scrapDeleteData} from "../util/action/scrapAction";
 
+
 export default function WordDetail() {
   let {id} = useParams();
   const dispatch = useDispatch();
@@ -22,10 +23,8 @@ export default function WordDetail() {
   // 스크랩
   const [scrapData, setScrapData] = useState('');
   const [scrapState, setScrapState] = useState(false);
-
   const scrapAdd = useSelector(state => state.meme.scrapAdd);
   const scrapDelete = useSelector(state => state.meme.scrapDelete);
-
   // 수정하기
   const [modifyState, setModifyState] = useState(false);
   const [modifyContent, setModifyContent] = useState('');
@@ -33,7 +32,6 @@ export default function WordDetail() {
   const [deleteState, setDeleteState] = useState(false);
   // 신고하기
   const [reportOpen, setReportOpen] = useState(false);
-
 
   // 공통
   useEffect(() => {
@@ -49,6 +47,7 @@ export default function WordDetail() {
   useEffect(() => {
     async function wordDetailApi() {
       try {
+
         const wordDetailData = await memebookApi.wordDetail(id, memberIdx);
         setWordData(wordDetailData.data);
         setScrapData(wordDetailData.data.scrap);
@@ -77,7 +76,6 @@ export default function WordDetail() {
         setLikeCount(wordReactionCountData.data.likeCount);
         setDislikeCount(wordReactionCountData.data.dislikeCount);
       } catch (error) {
-        // window.history.back();
       }
     }
 
@@ -103,7 +101,6 @@ export default function WordDetail() {
           "wordIdx": id,
         });
       }
-      alert('등록');
       setReactionState(true);
       console.log('성공');
     } catch (error) {
@@ -122,10 +119,8 @@ export default function WordDetail() {
         dispatch(scrapDeleteData());
       }
       setScrapState(!scrapState);
-      console.log('성공');
     } catch (error) {
       console.log(error)
-      console.log('에러')
     }
   }
 

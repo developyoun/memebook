@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {scrapListData} from "../util/action/scrapAction";
-import {myScrapListData} from "../util/action/wordAction";
+import {myWordListData} from "../util/action/wordAction";
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ export default function Profile() {
     async function scrapeApi() {
       try {
         dispatch(scrapListData(memberIdx));
-        dispatch(myScrapListData(memberIdx));
+        dispatch(myWordListData(memberIdx));
       } catch (error) {
         console.log(error)
       }
