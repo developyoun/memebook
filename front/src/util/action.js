@@ -1,4 +1,12 @@
 
+// 내가 쓴 단어 리스트
+export const myWordListAction = (data) => {
+  return {
+    type: "SEND_MY_WORD_LIST",
+    payload: data.data
+  };
+};
+
 // 스크랩 리스트
 export const scrapListAction = (data) => {
   return {
@@ -23,3 +31,4 @@ export const scrapDeleteAction = (data) => {
     payload: data.data
   };
 };
+

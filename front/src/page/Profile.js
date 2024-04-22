@@ -1,10 +1,29 @@
 import './../scss/profile.scss'
 import HomeFooter from "../components/HomeFooter";
 import {Link} from "react-router-dom";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {scrapListData} from "../util/action/scrapAction";
+import {myScrapListData} from "../util/action/wordAction";
 
 export default function Profile() {
+  const dispatch = useDispatch();
+  const scrapList = useSelector(state => state.meme.scrapList);
+  const myWordList = useSelector(state => state.meme.myWordList);
   const [copyState , setCopyState] = useState(false);
+  const [memberIdx, setMemberIdx] = useState('123');
+
+  useEffect(() => {
+    async function scrapeApi() {
+      try {
+        dispatch(scrapListData(memberIdx));
+        dispatch(myScrapListData(memberIdx));
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    scrapeApi();
+  }, []);
 
   const inviteLink = () => {
     window.navigator.clipboard.writeText('http://www.naver.com').then(() => {
@@ -83,20 +102,50 @@ export default function Profile() {
         <div className="user_tit">
           <h4>
             등록한 단어
-            <span className="count">3</span>
+            <span className="count">{myWordList.wordList?.length}</span>
           </h4>
           <Link to="/profile/my_list" className="item">더보기</Link>
         </div>
+        {
+          myWordList.wordList?.length > 0 && (
+            <ul className="list_box">
+              {
+                myWordList.wordList?.slice(0, 5).map((item, idx) => {
+                  return (
+                    <li className="list_item">
+                      <Link to={`/word/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
+                    </li>
+                  )
+                })
+              }
+            </ul>
+          )
+        }
       </div>
 
       <div className="user_box">
         <div className="user_tit">
           <h4>
             스크랩한 단어
-            <span className="count">12</span>
+            <span className="count">{scrapList.content?.length}</span>
           </h4>
           <Link to="/profile/scrape" className="item">더보기</Link>
         </div>
+        {
+          scrapList.content?.length > 0 && (
+            <ul className="list_box">
+              {
+                scrapList.content?.slice(0, 5).map((item, idx) => {
+                  return (
+                    <li className="list_item">
+                      <Link to={`/word/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
+                    </li>
+                  )
+                })
+              }
+            </ul>
+          )
+        }
 
       </div>
 

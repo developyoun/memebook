@@ -3,16 +3,19 @@ import React, {useEffect, useState} from "react";
 import {memebookApi} from "../util/memebookApi";
 import {Link} from "react-router-dom";
 import BtnBack from "../components/BtnBack";
+import {useDispatch, useSelector} from "react-redux";
+import {myScrapListData} from "../util/action/wordAction";
 
 export default function AddList() {
-  const [addListData, setAddListData] = useState([])
-  const [memberIdx, setMemberIdx] = useState('321');
+  const dispatch = useDispatch();
+  const myWordList = useSelector(state => state.meme.myWordList);
+
+  const [memberIdx, setMemberIdx] = useState('123');
 
   useEffect(() => {
     async function wordAddListApi() {
       try {
-        const wordAddListData = await memebookApi.wordAddList(memberIdx);
-        setAddListData(wordAddListData.data.wordContentList);
+        dispatch(myScrapListData(memberIdx));
       } catch (error) {
         console.log(error)
       }
@@ -29,17 +32,21 @@ export default function AddList() {
           <span className="txt"></span>
         </div>
       </div>
-      <ul className="list_box">
-        {
-          addListData?.map((item, idx) => {
-            return (
-              <li className="list_item">
-                <Link to={`/word/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
-              </li>
-            )
-          })
-        }
-      </ul>
+      {
+        myWordList.wordList?.length > 0 && (
+          <ul className="list_box">
+            {
+              myWordList.wordList?.slice(0, 5).map((item, idx) => {
+                return (
+                  <li className="list_item">
+                    <Link to={`/word/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
+                  </li>
+                )
+              })
+            }
+          </ul>
+        )
+      }
     </div>
   );
 }

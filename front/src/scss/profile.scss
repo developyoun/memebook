@@ -30,7 +30,7 @@
     display:flex;
     align-items:center;
     justify-content:space-between;
-    margin-bottom:12px;
+    margin-bottom:24px;
     .count {
       display:inline-block;
       margin-left:6px;
@@ -57,6 +57,9 @@
         display:block
       }
     }
+  }
+  .list_box {
+    padding:0
   }
 }
 

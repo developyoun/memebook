@@ -3,16 +3,16 @@ import {Link} from "react-router-dom";
 import {memebookApi} from "../util/memebookApi";
 import {useDispatch, useSelector} from 'react-redux';
 import BtnBack from "../components/BtnBack";
-import {scrapDeleteData, scrapListData} from "../util/memeAction";
+import {scrapDeleteData, scrapListData} from "../util/action/scrapAction";
 import './../scss/scrapeList.scss'
 
 
 export default function ScrapeList() {
-  const [scrapState, setScrapState] = useState(false);
-  const [memberIdx, setMemberIdx] = useState(123);
-
   const dispatch = useDispatch();
   const scrapList = useSelector(state => state.meme.scrapList);
+
+  const [scrapState, setScrapState] = useState(false);
+  const [memberIdx, setMemberIdx] = useState(123);
 
 
   useEffect(() => {
@@ -41,7 +41,6 @@ export default function ScrapeList() {
       console.log('에러')
     }
   }
-
 
   return (
     <div className="scrape_container">

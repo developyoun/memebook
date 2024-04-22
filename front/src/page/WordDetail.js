@@ -5,7 +5,7 @@ import CommentPort from "../components/modal/CommentPort";
 import {useParams} from "react-router-dom";
 import {memebookApi} from "../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
-import {scrapAddData, scrapDeleteData} from "../util/memeAction";
+import {scrapAddData, scrapDeleteData} from "../util/action/scrapAction";
 
 export default function WordDetail() {
   let {id} = useParams();
@@ -53,7 +53,6 @@ export default function WordDetail() {
         setWordData(wordDetailData.data);
         setScrapData(wordDetailData.data.scrap);
         setWordListData(wordDetailData.data.wordContentList);
-        console.log(wordDetailData);
         if (scrapData === true) {
           setScrapState(true)
         } else {
@@ -119,7 +118,8 @@ export default function WordDetail() {
       if (scrapState === false) {
         dispatch(scrapAddData(id, memberIdx));
       } else {
-        const scrapDeleteData = await memebookApi.wordScrapDelete();
+        // Api 수정되면 scrapIdx 넣기
+        dispatch(scrapDeleteData());
       }
       setScrapState(!scrapState);
       console.log('성공');
@@ -168,6 +168,7 @@ export default function WordDetail() {
       console.log('에러')
     }
   }
+
 
   return (
     <div className="detail_container">

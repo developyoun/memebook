@@ -6,9 +6,10 @@ const request = axios.create({
 
 export const memebookApi = {
 
-
   // 전체 단어 리스트 조회
   wordList : (country, pageNumber) => request.get(`word/list?nation=${country}&page=${pageNumber}`),
+  // 내가 쓴 단어 리스트 조회
+  myWordList : (memberIdx) => request.get(`word/list?${memberIdx}`),
   // 단어 디테일 조회
   wordDetail : (wordIdx, memberIdx) => request.get(`word/${wordIdx}?memberIdx=${memberIdx}`),
   // 단어 추가
@@ -20,19 +21,16 @@ export const memebookApi = {
   // 내가 쓴 단어 조회
   wordAddList : (memberIdx) => request.get(`word/list/${memberIdx}`),
 
-
-
   /* 정렬 */
   wordSort : (country, sort, sortBy) => request.get(`word/list?nation=${country}&sort=${sort}&sortBy=${sortBy}`),
+
   /* 스크랩 */
   wordScrap : (wordInfo) => request.post(`scrap/word`, wordInfo),
   wordScrapeUpdate : (memberIdx) => request.get(`scrap/word/list/${memberIdx}`),
   wordScrapDelete : (wordIdx) => request.delete(`scrap/word?scrapIdx=${wordIdx}`),
 
-  wordReactionUpdate : (update) => request.post(`reaction/word/update`, update),
-
-
   /* 좋아요 */
+  wordReactionUpdate : (update) => request.post(`reaction/word/update`, update),
   wordReactionCount : (wordIdx) => request.get(`reaction/count?wordIdx=${wordIdx}`),
 
   wordReaction : (wordIdx) => request.get(`reaction/count?wordIdx=${wordIdx}`),
