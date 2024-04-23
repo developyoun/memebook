@@ -11,7 +11,7 @@ export const wordListData = (id, memberIdx) => async (dispatch) => {
   }
 };
 
-// 단어 정fuf
+// 단어 정렬
 export const wordSortData = (word) => async (dispatch) => {
   try {
     let wordSortData;

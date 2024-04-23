@@ -29,15 +29,6 @@ export const scrapListAction = (data) => {
   };
 };
 
-
-// 스크랩 삭제
-export const scrapAddAction = (data) => {
-  return {
-    type: "SEND_SCRAP_ADD",
-    payload: data.data
-  };
-};
-
 // 스크랩 삭제
 export const scrapDeleteAction = (data) => {
   return {

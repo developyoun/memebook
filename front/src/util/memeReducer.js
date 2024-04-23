@@ -27,11 +27,6 @@ const memeReducer = (state = initialState, action) => {
         ...state,
         scrapList: action.payload,
       };
-    case "SEND_SCRAP_ADD":
-      return {
-        ...state,
-        scrapList: action.payload,
-      };
     case "SEND_SCRAP_DELETE":
       return {
         ...state,
