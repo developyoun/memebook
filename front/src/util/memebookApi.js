@@ -5,32 +5,34 @@ const request = axios.create({
 })
 
 export const memebookApi = {
-  wordAdd : (addList) => request.post(`word/create`, addList),
+  // 닉네임
+  ninkName : (nickname) => request.post(`member/create/nickname?nickname=${nickname}`),
 
+  // 전체 단어 리스트 조회
   wordList : (country, pageNumber) => request.get(`word/list?nation=${country}&page=${pageNumber}`),
-
-  // 단어 디테일
+  // 단어 정렬
+  wordSort : (country, sort, sortBy) => request.get(`word/list?nation=${country}&sort=${sort}&sortBy=${sortBy}`),
+  // 내가 쓴 단어 리스트 조회
+  myWordList : (memberIdx) => request.get(`word/list?${memberIdx}`),
+  // 단어 디테일 조회
   wordDetail : (wordIdx, memberIdx) => request.get(`word/${wordIdx}?memberIdx=${memberIdx}`),
+
+  // 단어 추가
+  wordAdd : (addList) => request.post(`word/create`, addList),
+  // 설명 수정
   wordModifyApi : (wordInfo) => request.put(`word/update`, wordInfo),
+  // 설명 삭제
   wordDelete : (wordContentIdx) => request.delete(`word/delete?wordContentIdx=${wordContentIdx}`),
 
-  wordAddList : (memberIdx) => request.get(`word/list/${memberIdx}`),
-
-
-
-  /* 정렬 */
-  wordSort : (country, sort, sortBy) => request.get(`word/list?nation=${country}&sort=${sort}&sortBy=${sortBy}`),
-  /* 스크랩 */
-  wordScrap : (wordInfo) => request.post(`scrap/word`, wordInfo),
+  // 스크랩 조회
   wordScrapeUpdate : (memberIdx) => request.get(`scrap/word/list/${memberIdx}`),
+  // 스크랩 등록
+  wordScrap : (wordInfo) => request.post(`scrap/word`, wordInfo),
+  // 스크랩 삭제
   wordScrapDelete : (wordIdx) => request.delete(`scrap/word?scrapIdx=${wordIdx}`),
 
+  // 좋아요, 싫어요 조회
   wordReactionUpdate : (update) => request.post(`reaction/word/update`, update),
-
-
-  /* 좋아요 */
-  wordReactionCount : (wordIdx) => request.get(`reaction/count?wordIdx=${wordIdx}`),
-
-  wordReaction : (wordIdx) => request.get(`reaction/count?wordIdx=${wordIdx}`),
-  ninkName : (nickname) => request.post(`member/create/nickname?nickname=${nickname}`)
+  // 좋아요, 싫어요 횟수
+  wordReactionCount : (wordIdx) => request.get(`reaction/count?wordIdx=${wordIdx}`)
 }

@@ -18,7 +18,7 @@ export default function WordAdd() {
   const [explainCount, setExplainCount] = useState(0);
   const [explainOver, setExplainOver] = useState(false);
 
-  const [memberIdx, setMemberIdx] = useState('123');
+  const [memberIdx, setMemberIdx] = useState('321');
 
   useEffect(() => {
     setTitleValue(word);

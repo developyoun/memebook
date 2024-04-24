@@ -1,27 +1,11 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import {thunk} from 'redux-thunk';
+import memeReducer from "./memeReducer";
 
-const initialState = {
-  nativeCountryType: '',
-  nativeCountryTxt: '',
-  studyCountryType: '',
-  studyCountryTxt: '',
-};
+const rootReducer = combineReducers({
+  meme: memeReducer
+});
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'SET_NATIVE_COUNTRY_TYPE':
-      return { ...state, nativeCountryType: action.payload };
-    case 'SET_NATIVE_COUNTRY_TXT':
-      return { ...state, nativeCountryTxt: action.payload };
-    case 'SET_STUDY_COUNTRY_TYPE':
-      return { ...state, studyCountryType: action.payload };
-    case 'SET_STUDY_COUNTRY_TXT':
-      return { ...state, studyCountryTxt: action.payload };
-    default:
-      return state;
-  }
-};
-
-const store = createStore(reducer);
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default store;

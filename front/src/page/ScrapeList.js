@@ -1,25 +1,24 @@
-import './../scss/scrapeList.scss'
 import React, {useEffect, useState} from "react";
-import {memebookApi} from "../util/memebookApi";
 import {Link} from "react-router-dom";
+import {memebookApi} from "../util/memebookApi";
 import {useDispatch, useSelector} from 'react-redux';
-import {myScrapeList} from "../util/action";
 import BtnBack from "../components/BtnBack";
+import {scrapDeleteData, scrapListData} from "../util/action/scrapAction";
+import './../scss/scrapeList.scss'
 
 
 export default function ScrapeList() {
   const dispatch = useDispatch();
+  const scrapList = useSelector(state => state.meme.scrapList);
 
-  const [scrapListData, setScrapListData] = useState([]);
   const [scrapState, setScrapState] = useState(false);
+  const [memberIdx, setMemberIdx] = useState(123);
 
 
   useEffect(() => {
     async function scrapeApi() {
       try {
-        const wordDetailData = await memebookApi.wordScrapeUpdate(123);
-        setScrapListData(wordDetailData.data.content);
-        console.log(wordDetailData.data.content);
+        dispatch(scrapListData(memberIdx));
       } catch (error) {
         console.log(error)
       }
@@ -32,7 +31,7 @@ export default function ScrapeList() {
   async function scrapDeleteApi(scrapIdx) {
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
-        const scrapDeleteData = await memebookApi.wordScrapDelete(scrapIdx);
+        dispatch(scrapDeleteData(scrapIdx));
         setScrapState(!scrapState);
         alert('삭제');
       }
@@ -43,28 +42,27 @@ export default function ScrapeList() {
     }
   }
 
-
   return (
     <div className="scrape_container">
       <div className="scrape_top">
         <BtnBack></BtnBack>
-        <h2 className="tit">&#128214; 스크랩</h2>
+        <h2 className="tit">&#128214; 스크랩 {}</h2>
         <div className="box_btn">
           <span className="txt"></span>
         </div>
       </div>
 
         {
-          scrapListData?.length === 0 && (
+          scrapList.content?.length === 0 && (
             <div>없어용</div>
           )
         }
 
         {
-          scrapListData?.length > 0 && (
+          scrapList.content?.length > 0 && (
             <ul className="list_box">
               {
-                scrapListData?.map((item, idx) => {
+                scrapList.content?.map((item, idx) => {
                   return (
                     <li className="list_item">
                       <Link to={`/word/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
