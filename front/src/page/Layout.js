@@ -1,9 +1,10 @@
 import {Outlet} from "react-router-dom";
-import DarkMode from "../components/DardMode";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import HomeFooter from "../components/HomeFooter";
+import {useTop} from "../js/commonEvent";
 
 export default function Layout() {
+  useTop();
   const [isDark, setIsDark] = useState(false);
 
   const darkModeCheck = () => {
