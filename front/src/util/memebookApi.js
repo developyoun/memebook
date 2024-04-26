@@ -34,5 +34,8 @@ export const memebookApi = {
   // 좋아요, 싫어요 조회
   wordReactionUpdate : (update) => request.post(`reaction/word/update`, update),
   // 좋아요, 싫어요 횟수
-  wordReactionCount : (wordIdx) => request.get(`reaction/count?wordIdx=${wordIdx}`)
+  wordReactionCount : (wordIdx) => request.get(`reaction/count?wordIdx=${wordIdx}`),
+
+  // 팔로워 추가
+  followerAdd : (memberIdx) => request.post(`follow/update`, memberIdx),
 }
