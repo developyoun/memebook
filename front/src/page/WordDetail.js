@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {scrapAddData, scrapDeleteData} from "../util/action/scrapAction";
 
 
+
 export default function WordDetail() {
   let {id} = useParams();
   const dispatch = useDispatch();
@@ -32,11 +33,6 @@ export default function WordDetail() {
   const [deleteState, setDeleteState] = useState(false);
   // 신고하기
   const [reportOpen, setReportOpen] = useState(false);
-
-  // 공통
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   // 신고하기 팝업
   const commentReportOpen = ({commentPortClose}) => {
@@ -172,13 +168,17 @@ export default function WordDetail() {
           <CommentPort commentPortClose={commentReportOpen}></CommentPort>
         )
       }
-      <h1 className="word_tit">
-        {wordData.wordName}
-      </h1>
-      <button type="button" className={`btn_scrape ${scrapData ? 'active' : ''}`} onClick={ScrapeBtn}>
-        <span className="blind">스크랩</span>
-      </button>
+      <div className="detail_top">
+        <h1 className="word_tit">
+          {wordData.wordName}
+        </h1>
+
+      </div>
+
       <div className="desc_add_box">
+        <button type="button" className={`btn_scrap ${scrapData ? 'active' : ''}`} onClick={ScrapeBtn}>
+          <span className="blind">스크랩</span>
+        </button>
         <Link to={`/wordAdd/${id}/${wordData.wordName}`} className="desc_add_btn">설명 추가하기</Link>
       </div>
 

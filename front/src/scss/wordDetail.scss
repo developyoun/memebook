@@ -1,19 +1,19 @@
 .detail_container {
   min-height:calc(100vh - 40px);
   padding:40px 20px 120px;
-  background:#F7F7F7;
   .desc_add_box {
     display:flex;
+    align-items:center;
     margin-bottom:12px;
     .desc_add_btn {
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      height:32px;
+      height:26px;
       margin-left:auto;
       padding:0 12px;
       color:#fff;
-      font-size:14px;
+      font-size:12px;
       border-radius:8px;
       background:var(--primary)
     }
@@ -22,6 +22,7 @@
     margin-bottom:24px;
     font-size:26px;
     text-align:center;
+    word-break:break-all;
   }
 
   .btn_scrape {

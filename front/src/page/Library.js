@@ -1,7 +1,4 @@
 import './../scss/library.scss'
-import HomeFooter from "../components/HomeFooter";
-import Title from "../components/Title";
-import {memebookApi} from "../util/memebookApi";
 import {Link} from "react-router-dom";
 import React, {useCallback, useEffect, useState} from "react";
 import {debounce} from 'lodash';
@@ -9,6 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import {useDispatch, useSelector} from "react-redux";
 import {wordListData, wordSortData} from "../util/action/wordAction";
+import {commonEvent} from "../js/commonEvent"
 
 export default function Word() {
   const dispatch = useDispatch();
@@ -20,12 +18,6 @@ export default function Word() {
 
   const isBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
 
-  const pageUp = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  }
 
   useEffect(() => {
     async function libraryList() {
@@ -44,30 +36,30 @@ export default function Word() {
     }
   }, [wordList]);
 
+  //
+  // const pageMore = useCallback(debounce(async () => {
+  //   try {
+  //     const nextPage = pageNumber + 1;
+  //     setPageNumber(nextPage);
+  //
+  //     if (isBottom) {
+  //       const libraryApi = await memebookApi.wordList('ALL', nextPage, '123');
+  //       setLibraryData((prevLibraryData) => [...prevLibraryData, ...libraryApi.data.data.content]);
+  //       console.log('닿음');
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, 1000), [pageNumber]);
 
-  const pageMore = useCallback(debounce(async () => {
-    try {
-      const nextPage = pageNumber + 1;
-      setPageNumber(nextPage);
-
-      if (isBottom) {
-        const libraryApi = await memebookApi.wordList('ALL', nextPage, '123');
-        setLibraryData((prevLibraryData) => [...prevLibraryData, ...libraryApi.data.data.content]);
-        console.log('닿음');
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }, 1000), [pageNumber]); // pageNumber을 의존성 배열에 추가하여 새로운 debounce 함수가 필요한 경우에만 새로 생성
-
-  useEffect(() => {
-    window.addEventListener('scroll', pageMore);
-
-    return () => {
-      window.removeEventListener('scroll', pageMore);
-      pageMore.cancel(); // 컴포넌트가 언마운트될 때 debounce 함수를 취소하여 메모리 누수 방지
-    };
-  }, [pageMore]);
+  // useEffect(() => {
+  //   window.addEventListener('scroll', pageMore);
+  //
+  //   return () => {
+  //     window.removeEventListener('scroll', pageMore);
+  //     pageMore.cancel(); // 컴포넌트가 언마운트될 때 debounce 함수를 취소하여 메모리 누수 방지
+  //   };
+  // }, [pageMore]);
 
   // 단어 정렬
   async function wordSortBtn(word) {
@@ -81,8 +73,11 @@ export default function Word() {
 
   return (
     <div className="library_wrap">
+      <header className="header">
+        <Link to="">memeBook</Link>
+        <input type="text" className="text_input" placeholder="단어를 검색해보세요"/>
+      </header>
       <div className="container">
-
         <div className="library_top">
           <h2 className="tit">&#128214; 사전</h2>
           <div className="box_btn">
@@ -136,7 +131,7 @@ export default function Word() {
 
         {
           window.scrollY > 20 && (
-            <button type="button" className="btn_top" onClick={pageUp}>
+            <button type="button" className="btn_top" onClick={commonEvent}>
               <span className="blind">올리기</span>
             </button>
           )

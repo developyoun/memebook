@@ -5,13 +5,18 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {scrapListData} from "../util/action/scrapAction";
 import {myWordListData} from "../util/action/wordAction";
+import {memebookApi} from "../util/memebookApi";
 
 export default function Profile() {
   const dispatch = useDispatch();
   const scrapList = useSelector(state => state.meme.scrapList);
   const myWordList = useSelector(state => state.meme.myWordList);
-  const [copyState , setCopyState] = useState(false);
   const [memberIdx, setMemberIdx] = useState('123');
+  // 팔로워
+  const [followerCount, setFollowerCount] = useState(0);
+  const [followerAddState, setFollowerAddState] = useState(false);
+  // 링크 복사 상태
+  const [copyState , setCopyState] = useState(false);
 
   useEffect(() => {
     async function scrapeApi() {
@@ -24,6 +29,26 @@ export default function Profile() {
     }
     scrapeApi();
   }, []);
+
+
+  async function followerAdd() {
+    try {
+      let count = 0;
+      const followerAddData = await memebookApi.followerAdd({
+        "follower": count,
+        "followee": 0,
+      });
+      if (followerAddState === true) {
+        setFollowerCount(count--);
+      } else {
+        setFollowerCount(count++);
+      }
+      setFollowerAddState(!followerAddState);
+      console.log('성공')
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const inviteLink = () => {
     window.navigator.clipboard.writeText('http://www.naver.com').then(() => {
@@ -39,10 +64,12 @@ export default function Profile() {
       <div className="user_info">
         <div className="user_name">
           <h3 className="name">누징</h3>
-          {/*<button type="button">팔로워</button>*/}
         </div>
 
         <div className="user_info_desc">
+
+          <button type="button" className={`btn_followers ${followerAddState ? 'active' : ''}`} onClick={followerAdd}>팔로워</button>
+
           <ul>
             <li>
               <span className="count">6</span>
@@ -53,8 +80,11 @@ export default function Profile() {
               <span className="txt">팔로워</span>
             </li>
           </ul>
+
         </div>
+
         <p className="visit_count">🏡 연속 방문 최대 <strong>12</strong>번을 달성했어요!</p>
+
       </div>
 
       <div className="daily_box">

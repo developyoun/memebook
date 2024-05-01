@@ -107,13 +107,29 @@
 
 .user_info_desc {
   margin-top:24px;
-  padding:12px 20px;
-  border-radius:12px;
-  background:#dce3e0;
+  text-align:right;
+  .btn_followers {
+    display:inline-flex;
+    align-items:center;
+    height:26px;
+    margin-bottom:8px;
+    padding:0 8px;
+    color:var(--bg-brown);
+    font-size:12px;
+    border:1px solid var(--bg-brown);
+    border-radius:8px;
+    &.active {
+      color:#fff;
+      background:var(--bg-brown);
+    }
+  }
   ul {
     display:flex;
     align-items:center;
     justify-content:space-around;
+    padding:12px 20px;
+    border-radius:12px;
+    background:#dce3e0;
     li {
       color:var(--primary);
       span {

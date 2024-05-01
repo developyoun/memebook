@@ -7,6 +7,7 @@ export default function Community() {
 
   return (
     <div className="community_container">
+
       <Swiper slidesPerView='auto' className="community_tab">
         <SwiperSlide className="tab_item active">
           <button type="button" className="item">최신</button>

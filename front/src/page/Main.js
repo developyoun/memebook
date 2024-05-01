@@ -46,9 +46,6 @@ export default function Main() {
     setCountryModalOpen(!countryModalOpen);
   }
 
-  useEffect(() => {
-    window.scrollTo(0,0);
-  }, []);
 
   return (
     <>
