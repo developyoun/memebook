@@ -15,6 +15,7 @@ export default function Word() {
   const [pageNumber, setPageNumber] = useState(1);
   const [libraryData, setLibraryData] = useState([]);
   const [loadingState, setLoadingState] = useState(true);
+  const [libraryTab, setLibraryTab] = useState('ALL');
 
   const isBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
 
@@ -35,6 +36,7 @@ export default function Word() {
       setLibraryData(wordList.wordList);
     }
   }, [wordList]);
+
 
   //
   // const pageMore = useCallback(debounce(async () => {
@@ -64,8 +66,14 @@ export default function Word() {
   // 단어 정렬
   async function wordSortBtn(word) {
     try {
-      dispatch(wordSortData(word));
-      setLibraryData(wordSort.wordList);
+      setLibraryTab(word);
+      if (word === 'ALL') {
+        dispatch(wordListData('ALL', pageNumber));
+        setLibraryData(wordList.wordList);
+      } else {
+        dispatch(wordSortData(word));
+        setLibraryData(wordSort.wordList);
+      }
     } catch(error) {
       console.log(error)
     }
@@ -74,8 +82,8 @@ export default function Word() {
   return (
     <div className="library_wrap">
       <header className="header">
-        <Link to="">memeBook</Link>
-        <input type="text" className="text_input" placeholder="단어를 검색해보세요"/>
+        <Link to="" className="logo">memeBook</Link>
+        <input type="text" className="search_input" placeholder="단어를 검색해보세요"/>
       </header>
       <div className="container">
         <div className="library_top">
@@ -103,13 +111,16 @@ export default function Word() {
                   slidesPerView='auto'
                   className="library_tab"
                 >
-                  <SwiperSlide className="tab_item active">
+                  <SwiperSlide className={`tab_item ${libraryTab === 'ALL' ? 'active' : ''}`}>
+                    <button type="button" className="item" onClick={() => wordSortBtn('ALL')}>전체</button>
+                  </SwiperSlide>
+                  <SwiperSlide className={`tab_item ${libraryTab === 'LIKE' ? 'active' : ''}`}>
                     <button type="button" className="item" onClick={() => wordSortBtn('LIKE')}>좋아요순</button>
                   </SwiperSlide>
-                  <SwiperSlide className="tab_item">
+                  <SwiperSlide className={`tab_item ${libraryTab === 'DISLIKE' ? 'active' : ''}`}>
                     <button type="button" className="item" onClick={() => wordSortBtn('DISLIKE')}>싫어요순</button>
                   </SwiperSlide>
-                  <SwiperSlide className="tab_item">
+                  <SwiperSlide className={`tab_item ${libraryTab === 'LATEST' ? 'active' : ''}`}>
                     <button type="button" className="item" onClick={() => wordSortBtn('LATEST')}>최신순</button>
                   </SwiperSlide>
                 </Swiper>
