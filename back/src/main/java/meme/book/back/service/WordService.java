@@ -47,8 +47,6 @@ public class WordService {
                 .setWordLike(word.getWordLike())
                 .setWordDislike(word.getWordDislike())
                 .setScrapIdx(scrap.getScrapIdx())
-                .setNowPage(wordContentDtoList.getNumber() + 1)
-                .setNowCount(wordContentDtoList.getNumberOfElements())
                 .setTotalPage(wordContentDtoList.getTotalPages())
                 .setTotalCount(wordContentDtoList.getTotalElements());
     }
@@ -164,8 +162,6 @@ public class WordService {
 
         return new WordContentListResponseDto()
                 .setWordContentList(wordContentDtoList.getContent())
-                .setNowPage(wordContentDtoList.getNumber()+1)
-                .setNowCount(wordContentDtoList.getNumberOfElements())
                 .setTotalPage(wordContentDtoList.getTotalPages())
                 .setTotalCount(wordContentDtoList.getTotalElements());
     }

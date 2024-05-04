@@ -41,7 +41,8 @@ public class ReactionService {
             reaction = optionalReaction.get();
             if (reaction.getReactionType().equals(reactionDto.getReactionType())) {
                 // 요청과 기존값 동일시 처리 (기존 저장값 delete)
-                log.info("Reaction: {}, Request: {}", reaction.getReactionType(), reactionDto.getReactionType());
+                log.info("Reaction Delete: {}", reaction.getReactionIdx());
+
                 reactionRepository.delete(reaction);
                 if (reactionDto.getReactionType().equals(ActionType.LIKE)) {
                     word.setWordLike(word.getWordLike() - 1);
@@ -58,6 +59,9 @@ public class ReactionService {
                     word.setWordDislike(word.getWordDislike() + 1);
                     word.setWordLike(word.getWordLike() - 1);
                 }
+
+                log.info("Reaction Update: reaction idx: {}, reaction type: {}",
+                        reaction.getReactionIdx(), reaction.getReactionType());
             }
 
         } else {
@@ -73,6 +77,7 @@ public class ReactionService {
                 word.setWordDislike(word.getWordDislike() + 1);
             }
             reactionRepository.save(reaction);
+            log.info("Create new Reaction: {}", reaction.getReactionIdx());
         }
         wordRepository.save(word);
 

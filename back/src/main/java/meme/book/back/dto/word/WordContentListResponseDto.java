@@ -21,11 +21,7 @@ public class WordContentListResponseDto {
 
     private Long scrapIdx;
 
-    private int nowPage;
-
     private int totalPage;
-
-    private long nowCount;
 
     private long totalCount;
 
