@@ -34,7 +34,7 @@ public class ReactionService {
         });
 
         Optional<Reaction> optionalReaction = reactionRepository
-                .findReactionByMemIdxAndWordIdx(reactionDto.getMemberIdx(), reactionDto.getWordIdx());
+                .findReactionByMemberIdxAndTargetIdx(reactionDto.getMemberIdx(), reactionDto.getWordIdx());
 
         if (optionalReaction.isPresent()) {
             // 기존 단어 존재
@@ -44,18 +44,18 @@ public class ReactionService {
                 log.info("Reaction Delete: {}", reaction.getReactionIdx());
 
                 reactionRepository.delete(reaction);
-                if (reactionDto.getReactionType().equals(ActionType.LIKE)) {
+                if (reactionDto.getReactionType().equals(ActionType.WORD_LIKE)) {
                     word.setWordLike(word.getWordLike() - 1);
-                } else {
+                } else if (reactionDto.getReactionType().equals(ActionType.WORD_DISLIKE)) {
                     word.setWordDislike(word.getWordDislike() - 1);
                 }
             } else {
                 // 요청과 기존값 다를시 처리 (기존 저장값 update)
                 reaction.setReactionType(reactionDto.getReactionType());
-                if (reactionDto.getReactionType().equals(ActionType.LIKE)) {
+                if (reactionDto.getReactionType().equals(ActionType.WORD_LIKE)) {
                     word.setWordLike(word.getWordLike() + 1);
                     word.setWordDislike(word.getWordDislike() - 1);
-                } else {
+                } else if (reactionDto.getReactionType().equals(ActionType.WORD_DISLIKE)) {
                     word.setWordDislike(word.getWordDislike() + 1);
                     word.setWordLike(word.getWordLike() - 1);
                 }
@@ -68,10 +68,10 @@ public class ReactionService {
             // 신규 단어 등록
             reaction = new Reaction()
                     .setReactionType(reactionDto.getReactionType())
-                    .setWordIdx(reactionDto.getWordIdx())
-                    .setMemIdx(reactionDto.getMemberIdx());
+                    .setTargetIdx(reactionDto.getWordIdx())
+                    .setMemberIdx(reactionDto.getMemberIdx());
 
-            if (reactionDto.getReactionType().equals(ActionType.LIKE)) {
+            if (reactionDto.getReactionType().equals(ActionType.WORD_LIKE)) {
                 word.setWordLike(word.getWordLike() + 1);
             } else {
                 word.setWordDislike(word.getWordDislike() + 1);

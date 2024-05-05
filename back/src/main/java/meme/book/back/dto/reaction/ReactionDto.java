@@ -24,7 +24,7 @@ public class ReactionDto {
     private Long memberIdx;
 
     /* 리액션 단어 */
-    private Long wordIdx;
+    private Long targetIdx;
 
     /* 리액션 생성시간 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -39,8 +39,8 @@ public class ReactionDto {
         return new ReactionDto()
                 .setReactionIdx(entity.getReactionIdx())
                 .setReactionType(entity.getReactionType())
-                .setMemberIdx(entity.getMemIdx())
-                .setWordIdx(entity.getWordIdx())
+                .setMemberIdx(entity.getMemberIdx())
+                .setTargetIdx(entity.getTargetIdx())
                 .setReactionRegDtm(entity.getReactionRegDtm())
                 .setReactionModDtm(entity.getReactionModDtm());
     }

@@ -26,14 +26,24 @@ public class FollowController {
         return ResponseEntity.ok(followService.saveFollow(requestDto));
     }
 
-    @Operation(summary = "팔로우 리스트 조회 API", description = "팔로우 리스트를 조회한다.")
-    @GetMapping("/list")
-    public ResponseEntity<?> getFollowList(@RequestParam Long memberIdx,
+    @Operation(summary = "나를 팔로우하는 사용자 리스트 조회 API", description = "Followee 리스트 조회.")
+    @GetMapping("/followee/list")
+    public ResponseEntity<?> getFolloweeList(@RequestParam Long memberIdx,
                                            @RequestParam(defaultValue = "1") int page,
                                            @RequestParam(defaultValue = "10") int pageSize) {
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         
-        return ResponseEntity.ok(followService.getFollowList(pageable, memberIdx));
+        return ResponseEntity.ok(followService.getFolloweeList(pageable, memberIdx));
+    }
+
+    @Operation(summary = "내가 팔로우한 사용자 리스트 조회 API", description = "Follower 리스트 조회.")
+    @GetMapping("/follower/list")
+    public ResponseEntity<?> getFollowerList(@RequestParam Long memberIdx,
+                                           @RequestParam(defaultValue = "1") int page,
+                                           @RequestParam(defaultValue = "10") int pageSize) {
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
+
+        return ResponseEntity.ok(followService.getFollowerList(pageable, memberIdx));
     }
 
 }

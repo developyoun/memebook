@@ -10,7 +10,5 @@ import java.util.Optional;
 @Repository
 public interface ReactionRepository extends JpaRepository<Reaction, Long>, ReactionCustomRepository {
 
-    Optional<Reaction> findReactionByMemIdxAndWordIdx(Long memIdx, Long wordIdx);
-
-    long countByWordIdxAndReactionType(Long memIdx, ActionType wordIdx);
+    Optional<Reaction> findReactionByMemberIdxAndTargetIdx(Long memIdx, Long wordIdx);
 }

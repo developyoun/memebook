@@ -19,12 +19,6 @@ public class ReactionController {
 
     private final ReactionService reactionService;
 
-    @PostMapping("/word/content/update")
-    public ResponseEntity<?> upsertWordContentReaction(@RequestBody ReactionDto reactionDto) {
-
-        return ResponseEntity.ok(null);
-    }
-
     @Operation(summary = "단어의 반응 수정 API", description = "단어의 좋아요/싫어요를 수정한다.")
     @PostMapping("/word/update")
     public ResponseEntity<?> upsertReaction(@RequestBody ReactionRequestDto reactionDto) {

@@ -1,6 +1,7 @@
 package meme.book.back.repository.follow;
 
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class FollowRepositoryImpl implements FollowCustomRepository {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<FollowResponseDto> getFollowList(Long memberIdx, Pageable pageable) {
+    public Page<FollowResponseDto> getFollowList(Long memberIdx, Pageable pageable, boolean isFollower) {
 
         List<FollowResponseDto> fetch = queryFactory.select(
                         Projections.fields(FollowResponseDto.class,
@@ -30,7 +31,7 @@ public class FollowRepositoryImpl implements FollowCustomRepository {
                         )
                 )
                 .from(follow)
-                .where(follow.followee.eq(memberIdx))
+                .where(followCondition(memberIdx, isFollower))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -40,6 +41,10 @@ public class FollowRepositoryImpl implements FollowCustomRepository {
                 .where(follow.followee.eq(memberIdx));
 
         return PageableExecutionUtils.getPage(fetch, pageable, count::fetchOne);
+    }
+
+    private BooleanExpression followCondition(Long memberIdx, boolean isFollower) {
+        return isFollower ? follow.follower.eq(memberIdx) : follow.followee.eq(memberIdx);
     }
 
 }

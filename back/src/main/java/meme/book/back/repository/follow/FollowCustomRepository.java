@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface FollowCustomRepository {
 
-    Page<FollowResponseDto> getFollowList(Long memberIdx, Pageable pageable);
+    Page<FollowResponseDto> getFollowList(Long memberIdx, Pageable pageable, boolean isFollower);
 }

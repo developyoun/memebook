@@ -51,8 +51,21 @@ public class FollowService {
                 .setFollowee(followee);
     }
 
-    public FollowListResponseDto getFollowList(Pageable pageable, Long memberIdx) {
-        Page<FollowResponseDto> followList = followRepository.getFollowList(memberIdx, pageable);
+    public FollowListResponseDto getFolloweeList(Pageable pageable, Long memberIdx) {
+        Page<FollowResponseDto> followList = followRepository.getFollowList(memberIdx, pageable, false);
+
+        log.info("Follow List Count: {}", followList.getTotalElements());
+
+        return new FollowListResponseDto()
+                .setFollowList(followList.getContent())
+                .setPage(followList.getNumber())
+                .setPageSize(followList.getSize())
+                .setTotalPage(followList.getTotalPages())
+                .setTotalCount(followList.getTotalElements());
+    }
+
+    public FollowListResponseDto getFollowerList(Pageable pageable, Long memberIdx) {
+        Page<FollowResponseDto> followList = followRepository.getFollowList(memberIdx, pageable, true);
 
         log.info("Follow List Count: {}", followList.getTotalElements());
 

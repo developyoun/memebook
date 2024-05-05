@@ -44,11 +44,11 @@ public class Reaction implements Serializable {
     private LocalDateTime reactionModDtm;
 
     // 리액션 등록자
-    @Column(name = "MEM_IDX")
-    private Long memIdx;
+    @Column(name = "MEMBER_IDX")
+    private Long memberIdx;
 
     // 리액션할 단어
-    @Column(name = "WORD_IDX")
-    private Long wordIdx;
+    @Column(name = "TARGET_IDX")
+    private Long targetIdx;
 
 }
