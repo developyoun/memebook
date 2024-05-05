@@ -1,5 +1,5 @@
 import {memebookApi} from "../memebookApi";
-import {wordListAction, myWordListAction, wordSortAction} from "../action";
+import {wordListAction, myWordListAction, wordSortAction, wordDeleteAction} from "../action";
 
 // 단어 리스트
 export const wordListData = (id, memberIdx) => async (dispatch) => {
@@ -38,6 +38,17 @@ export const myWordListData = (memberIdx) => async (dispatch) => {
   try {
     const myWordListData = await memebookApi.myWordList(memberIdx);
     dispatch(myWordListAction(myWordListData));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+// 설명 삭제
+export const wordDeleteData = (wordContentIdx) => async (dispatch) => {
+  try {
+    const wordDeleteData = await memebookApi.wordDelete(wordContentIdx);
+    dispatch(wordDeleteAction(wordDeleteData));
   } catch (error) {
     console.error(error);
   }

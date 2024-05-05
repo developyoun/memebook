@@ -11,7 +11,7 @@ import Profile from "./page/Profile";
 import WordDetail from "./page/WordDetail";
 import ScrapeList from "./page/ScrapeList";
 import Layout from "./page/Layout";
-import AddList from "./page/AddList";
+import MyAddList from "./page/MyAddList";
 import Community from "./page/Community";
 import PostDetail from "./page/PostDetail";
 
@@ -28,7 +28,7 @@ function App() {
         <Route path="/postDetail" element={<PostDetail/>}/>
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/profile/scrape" element={<ScrapeList/>}/>
-        <Route path="/profile/my_list" element={<AddList/>}/>
+        <Route path="/profile/my_list" element={<MyAddList/>}/>
       </Route>
     </Routes>
   );
