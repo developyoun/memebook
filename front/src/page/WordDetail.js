@@ -22,7 +22,6 @@ export default function WordDetail() {
   const [dislikeCount, setDislikeCount] = useState(0);
   // 스크랩
   const [scrapData, setScrapData] = useState('');
-  const [scrapState, setScrapState] = useState(false);
   const scrapAdd = useSelector(state => state.meme.scrapAdd);
   const scrapDelete = useSelector(state => state.meme.scrapDelete);
   // 수정하기
@@ -53,7 +52,7 @@ export default function WordDetail() {
     }
 
     wordDetailApi();
-  }, [modifyState, scrapState, deleteState]);
+  }, [modifyState, setScrapData, deleteState]);
 
   // 좋아요/싫어요 update Api
   useEffect(() => {
@@ -95,13 +94,13 @@ export default function WordDetail() {
   // 스크랩 버튼
   async function ScrapeBtn() {
     try {
-      if (scrapState === false) {
+      if (!scrapData) {
         dispatch(scrapAddData(id, memberIdx));
       }
       else {
         dispatch(scrapDeleteData(scrapData));
       }
-      setScrapState(!scrapState);
+      setScrapData(!scrapData);
     } catch (error) {
       console.log(error)
     }
@@ -165,7 +164,7 @@ export default function WordDetail() {
       <div className="desc_add_box">
         {
           wordListData[0]?.memberIdx !== memberIdx && (
-            <button type="button" className={`btn_scrap ${scrapState ? 'active' : ''}`} onClick={ScrapeBtn}>
+            <button type="button" className={`btn_scrap ${scrapData ? 'active' : ''}`} onClick={ScrapeBtn}>
               <span className="blind">스크랩</span>
             </button>
           )

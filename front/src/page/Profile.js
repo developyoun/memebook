@@ -11,7 +11,7 @@ export default function Profile() {
   const dispatch = useDispatch();
   const scrapList = useSelector(state => state.meme.scrapList);
   const myWordList = useSelector(state => state.meme.myWordList);
-  const [memberIdx, setMemberIdx] = useState('321');
+  const [memberIdx, setMemberIdx] = useState('123');
   // 팔로워
   const [followerCount, setFollowerCount] = useState(0);
   const [followerAddState, setFollowerAddState] = useState(false);

@@ -11,7 +11,7 @@ export default function MyAddList() {
   const dispatch = useDispatch();
   const myWordList = useSelector(state => state.meme.myWordList);
 
-  const [memberIdx, setMemberIdx] = useState('321');
+  const [memberIdx, setMemberIdx] = useState('123');
   const [deleteState, SetDeleteState] = useState(false);
 
   useEffect(() => {
