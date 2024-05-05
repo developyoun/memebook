@@ -12,7 +12,6 @@ import {scrapAddData, scrapDeleteData} from "../util/action/scrapAction";
 export default function WordDetail() {
   let {id} = useParams();
   const dispatch = useDispatch();
-
   const [memberIdx, setMemberIdx] = useState(123);
   // 단어 데이터
   const [wordData, setWordData] = useState([]);
@@ -43,19 +42,11 @@ export default function WordDetail() {
   useEffect(() => {
     async function wordDetailApi() {
       try {
-
         const wordDetailData = await memebookApi.wordDetail(id, memberIdx);
         setWordData(wordDetailData.data);
-        setScrapData(wordDetailData.data.scrap);
+        setScrapData(wordDetailData.data.scrapIdx);
         setWordListData(wordDetailData.data.wordContentList);
-        if (scrapData === true) {
-          setScrapState(true)
-        } else {
-          setScrapState(false)
-        }
-        if (wordDetailData.data.code === 404) {
-          // window.history.back();
-        }
+        console.log(wordListData[0].memberIdx);
       } catch (error) {
         // window.history.back();
       }
@@ -84,24 +75,20 @@ export default function WordDetail() {
       setReactionState(false);
       if (type === 'like') {
         const wordLikeData = await memebookApi.wordReactionUpdate({
-          "reactionIdx": 0,
           "reactionType": "LIKE",
           "memberIdx": memberIdx,
           "wordIdx": id,
         });
       } else if (type === 'dislike') {
         const wordLikeData = await memebookApi.wordReactionUpdate({
-          "reactionIdx": 0,
           "reactionType": "DISLIKE",
           "memberIdx": memberIdx,
           "wordIdx": id,
         });
       }
       setReactionState(true);
-      console.log('성공');
     } catch (error) {
       console.log(error)
-      console.log('에러')
     }
   }
 
@@ -110,9 +97,9 @@ export default function WordDetail() {
     try {
       if (scrapState === false) {
         dispatch(scrapAddData(id, memberIdx));
-      } else {
-        // Api 수정되면 scrapIdx 넣기
-        dispatch(scrapDeleteData());
+      }
+      else {
+        dispatch(scrapDeleteData(scrapData));
       }
       setScrapState(!scrapState);
     } catch (error) {
@@ -176,9 +163,14 @@ export default function WordDetail() {
       </div>
 
       <div className="desc_add_box">
-        <button type="button" className={`btn_scrap ${scrapData ? 'active' : ''}`} onClick={ScrapeBtn}>
-          <span className="blind">스크랩</span>
-        </button>
+        {
+          wordListData[0]?.memberIdx !== memberIdx && (
+            <button type="button" className={`btn_scrap ${scrapState ? 'active' : ''}`} onClick={ScrapeBtn}>
+              <span className="blind">스크랩</span>
+            </button>
+          )
+        }
+
         <Link to={`/wordAdd/${id}/${wordData.wordName}`} className="desc_add_btn">설명 추가하기</Link>
       </div>
 

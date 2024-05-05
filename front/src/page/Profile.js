@@ -132,15 +132,16 @@ export default function Profile() {
         <div className="user_tit">
           <h4>
             등록한 단어
-            <span className="count">{myWordList.wordList?.length}</span>
+            <span className="count">{myWordList.wordContentList?.length}</span>
           </h4>
           <Link to="/profile/my_list" className="item">더보기</Link>
         </div>
+
         {
-          myWordList.wordList?.length > 0 && (
+          myWordList.wordContentList?.length > 0 && (
             <ul className="list_box">
               {
-                myWordList.wordList?.slice(0, 5).map((item, idx) => {
+                myWordList.wordContentList?.slice(0, 5).map((item, idx) => {
                   return (
                     <li className="list_item">
                       <Link to={`/word/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
@@ -151,6 +152,7 @@ export default function Profile() {
             </ul>
           )
         }
+
       </div>
 
       <div className="user_box">
