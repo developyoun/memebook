@@ -13,7 +13,7 @@ export const memebookApi = {
   // 단어 정렬
   wordSort : (country, sort, sortBy) => request.get(`word/list?nation=${country}&sort=${sort}&sortBy=${sortBy}`),
   // 내가 쓴 단어 리스트 조회
-  myWordList : (memberIdx) => request.get(`word/list?${memberIdx}`),
+  myWordList : (memberIdx) => request.get(`word/list/${memberIdx}`),
   // 단어 디테일 조회
   wordDetail : (wordIdx, memberIdx) => request.get(`word/${wordIdx}?memberIdx=${memberIdx}`),
 
