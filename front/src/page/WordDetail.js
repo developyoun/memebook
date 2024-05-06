@@ -45,7 +45,6 @@ export default function WordDetail() {
         setWordData(wordDetailData.data);
         setScrapData(wordDetailData.data.scrapIdx);
         setWordListData(wordDetailData.data.wordContentList);
-        console.log(wordListData[0].memberIdx);
       } catch (error) {
         // window.history.back();
       }
@@ -118,12 +117,13 @@ export default function WordDetail() {
   // 수정된 내용 put Api
   async function wordModify() {
     try {
+
       const wordModifyData = await memebookApi.wordModifyApi({
-        "wordIdx": wordListData.wordIdx,
-        "wordName": wordListData.wordName,
+        "wordIdx": wordListData[0].wordIdx,
+        "wordName": wordListData[0].content,
         "wordContent": modifyContent,
-        "wordNation": "ALL",
-        "memberIdx": memberIdx
+        "wordNation": "KOR",
+        "memberIdx": memberIdx,
       });
       setModifyState(false);
     } catch (error) {
@@ -246,8 +246,7 @@ export default function WordDetail() {
                   {
                     modifyState && (
                       <>
-                        <textarea className="text_input word_modify_area" name="" id="" maxLength={99}
-                                  onChange={contentChange}>
+                        <textarea className="text_input word_modify_area" name="" id="" maxLength={99} onChange={contentChange}>
                            {item.content}
                         </textarea>
                         <button type="button" className="word_modify_btn" onClick={() => wordModify(item.wordContentIdx)}>
