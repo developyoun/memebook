@@ -1,16 +1,12 @@
 .word_add_container {
-  margin-top:20px;
   padding:0 20px 140px;
   .input_box {
     .text_input {
       max-height:160px;
-      margin-top:16px;
       background:#f7f7f7;
     }
     .input_sub {
-      margin-top:8px;
-      font-size:12px;
-      text-align:right;
+      justify-content:end;
     }
    &+.input_box {
      margin-top:24px;
@@ -30,21 +26,20 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 46px;
-  color: #fff;
-  font-size: 16px;
+  height: 40px;
+  color: var(--primary);
+  font-size: 14px;
   font-weight: bold;
+  border:1px solid var(--primary);
   border-radius: 32px;
-  background: #406A52;
+  background: #fff;
 }
 
+/* 팁 */
 .word_add_tip {
   display:flex;
   align-items:center;
   margin-bottom:20px;
-  padding:6px 12px;
   color:var(--primary);
   font-size:12px;
-  border-radius:6px;
-  background:var(--dark-sin)
 }

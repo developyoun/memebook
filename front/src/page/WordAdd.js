@@ -37,11 +37,9 @@ export default function WordAdd() {
       } else {
         navigate(`/library`);
       }
-
       setAddState(addState);
       alert('등록 완료');
       window.location.reload();
-      console.log('성공');
     } catch (error) {
       console.log(error)
       console.log('에러')
@@ -86,9 +84,7 @@ export default function WordAdd() {
         </div>
 
         <div className="input_box">
-          <div className="tit_box">
-            <h4 className="tit">일본어</h4>
-          </div>
+          <h4 className="tit">일본어</h4>
 
           <input type="text" className="text_input" placeholder="단어를 입력해주세요" value={word ? word : null} readOnly={word !== undefined}  maxLength={19} onChange={titleValueCount}/>
 
