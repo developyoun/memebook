@@ -179,7 +179,7 @@ export default function WordDetail() {
             return (
               <li className="list" key={idx}>
                 <div className="mean_top">
-                  <Link to="" className="name">김누징</Link>
+                  <Link to={`/profile/${memberIdx}`} className="name">김누징</Link>
                   <ul className="util_list">
                     {
                       item.memberIdx !== memberIdx && (

@@ -1,6 +1,6 @@
 import './../scss/profile.scss'
 import HomeFooter from "../components/HomeFooter";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {scrapListData} from "../util/action/scrapAction";
@@ -8,10 +8,11 @@ import {myWordListData} from "../util/action/wordAction";
 import {memebookApi} from "../util/memebookApi";
 
 export default function Profile() {
+  let {id} = useParams();
   const dispatch = useDispatch();
   const scrapList = useSelector(state => state.meme.scrapList);
   const myWordList = useSelector(state => state.meme.myWordList);
-  const [memberIdx, setMemberIdx] = useState('123');
+  const [memberIdx, setMemberIdx] = useState('321');
   // 팔로워
   const [followerCount, setFollowerCount] = useState(0);
   const [followerAddState, setFollowerAddState] = useState(false);
@@ -19,15 +20,17 @@ export default function Profile() {
   const [copyState , setCopyState] = useState(false);
 
   useEffect(() => {
-    async function scrapeApi() {
+    async function profileApi() {
       try {
         dispatch(scrapListData(memberIdx));
         dispatch(myWordListData(memberIdx));
+        const followerStateApi = await memebookApi.followerStateApi(memberIdx);
+        console.log(followerStateApi)
       } catch (error) {
         console.log(error)
       }
     }
-    scrapeApi();
+    profileApi();
   }, []);
 
 
@@ -35,14 +38,14 @@ export default function Profile() {
     try {
       let count = 0;
       const followerAddData = await memebookApi.followerAdd({
-        "follower": count,
-        "followee": 0,
+        "follower": id,
+        "followee": memberIdx,
       });
-      if (followerAddState === true) {
-        setFollowerCount(count--);
-      } else {
-        setFollowerCount(count++);
-      }
+      // if (followerAddState === true) {
+      //   setFollowerCount(count--);
+      // } else {
+      //   setFollowerCount(count++);
+      // }
       setFollowerAddState(!followerAddState);
       console.log('성공')
     } catch (error) {
@@ -67,8 +70,11 @@ export default function Profile() {
         </div>
 
         <div className="user_info_desc">
-
-          <button type="button" className={`btn_followers ${followerAddState ? 'active' : ''}`} onClick={followerAdd}>팔로워</button>
+          {
+            id !== memberIdx && (
+              <button type="button" className={`btn_followers ${followerAddState ? 'active' : ''}`} onClick={followerAdd}>팔로워</button>
+            )
+          }
 
           <ul>
             <li>

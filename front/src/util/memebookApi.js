@@ -38,4 +38,6 @@ export const memebookApi = {
 
   // 팔로워 추가
   followerAdd : (memberIdx) => request.post(`follow/update`, memberIdx),
+  // 팔로워 리스트
+  followerStateApi : (memberIdx) => request.get(`follow/list?memberIdx=${memberIdx}`),
 }

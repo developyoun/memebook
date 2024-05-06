@@ -26,7 +26,7 @@ function App() {
         <Route path="/library" element={<Library/>}/>
         <Route path="/community" element={<Community/>}/>
         <Route path="/postDetail" element={<PostDetail/>}/>
-        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/profile/:id" element={<Profile/>}/>
         <Route path="/profile/scrape" element={<ScrapeList/>}/>
         <Route path="/profile/my_list" element={<MyAddList/>}/>
       </Route>

@@ -46,7 +46,7 @@ export default function MyAddList() {
     <div className="add_container">
       <div className="add_top">
         <BtnBack></BtnBack>
-        <h2 className="tit">&#128214; 등록한 단어</h2>
+        <h2 className="tit">&#128214; 참여한 단어</h2>
         <div className="box_btn">
           <span className="txt"></span>
         </div>
