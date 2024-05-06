@@ -25,7 +25,7 @@ export default function Profile() {
         dispatch(scrapListData(memberIdx));
         dispatch(myWordListData(memberIdx));
         const followerStateApi = await memebookApi.followerStateApi(memberIdx);
-        console.log(followerStateApi)
+        setFollowerCount(followerStateApi.data.followList.length);
       } catch (error) {
         console.log(error)
       }
@@ -78,11 +78,11 @@ export default function Profile() {
 
           <ul>
             <li>
-              <span className="count">6</span>
+              <span className="count">{followerCount}</span>
               <span className="txt">팔로잉</span>
             </li>
             <li>
-              <span className="count">1</span>
+              <span className="count"></span>
               <span className="txt">팔로워</span>
             </li>
           </ul>
