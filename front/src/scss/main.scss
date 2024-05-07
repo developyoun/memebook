@@ -2,7 +2,7 @@
 .main {
   position:relative;
   padding-top:60px;
-  background:#dce3e0;
+  background:#f1f4f9;
   &:before {
     position:absolute;
     top:36px;
@@ -51,12 +51,12 @@
   padding:0 20px;
   p {
     margin:12px 0 16px;
-    color: #406A52;
+    color: #234c7d;
     font-size:18px;
     font-weight: bold;
     line-height: 20px;
     text-align:right;
-    text-shadow: -2px 0px #dce3e0, 0px 2px #dce3e0, 2px 0px #dce3e0, 0px -2px #dce3e0;
+    text-shadow: -2px 0px #f1f4f9, 0px 2px #f1f4f9, 2px 0px #f1f4f9, 0px -2px #f1f4f9;
   }
 }
 
@@ -74,13 +74,13 @@
     font-size:12px;
     line-height:26px;
     border-radius:36px;
-    background:var(--primary);
+    background:#5779a2;
     &:after {
       content: '';
       position: absolute;
       top: 26px;
       right:12px;
-      border-top: 8px solid var(--primary);
+      border-top: 8px solid #5779a2;
       border-left: 8px solid transparent;
       border-right: 8px solid transparent;
       border-bottom: 0 solid transparent;
@@ -139,7 +139,7 @@
       .keyword {
         overflow: hidden;
         width: 100%;
-        color: #373f57;
+        color: #333;
         font-size: 15px;
         letter-spacing: -0.5px;
         text-overflow: ellipsis;
@@ -150,7 +150,7 @@
           margin-right: 8px;
           width: 22px;
           height: 22px;
-          border: 1px solid #406A52;
+          border: 1px solid #234c7d;
           border-radius: 4px;
           color: #5c667b;
           font-size: 13px;
@@ -175,7 +175,7 @@
         .keyword {
           &:before {
             color: #fff;
-            background: #406A52;
+            background: #234c7d;
           }
         }
       }
@@ -219,7 +219,7 @@
       line-height:40px;
     }
     strong {
-      color: var(--bg-brown);
+      color: #f09f2c;
     }
 
     & + .list {
