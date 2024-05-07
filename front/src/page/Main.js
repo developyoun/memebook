@@ -61,7 +61,7 @@ export default function Main() {
         )
       }
 
-      <div className="main">
+      <div className="main_wrap">
 
         <div className="container">
          <div className="main_top">
