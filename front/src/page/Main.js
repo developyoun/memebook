@@ -5,25 +5,36 @@ import HomeFooter from "../components/HomeFooter";
 import CountryChoice from "../components/modal/CountryChoice";
 import NickName from "../components/modal/NickName";
 import {memebookApi} from "../util/memebookApi";
+import {useDispatch, useSelector} from "react-redux";
+import {scrapListData} from "../util/action/scrapAction";
+import {nationCheckData} from "../util/action/nationAction";
 
 export default function Main() {
+  const dispatch = useDispatch();
+  const nationCheck = useSelector(state => state.meme.nationCheck);
+  const [memberIdx, setMemberIdx] = useState('123');
   const [nicknameModalOpen, setNicknameModalOpen] = useState(false);
   const [countryModalOpen, setCountryModalOpen] = useState(false);
   const [studyCountryType, setStudyCountryType] = useState('');
   const [nickname, setNickname] = useState('');
   const [nicknameSave, setNicknameSave] = useState('');
 
+  useEffect(() => {
+    dispatch(nationCheckData(memberIdx));
+    console.log(nationCheck);
+  }, []);
+
   // 닉네임 설정 모달
   const nickNameClose = ({nickNameClose}) => {
     setNicknameModalOpen(!nicknameModalOpen);
     setNicknameSave(nickname);
-    console.log(nickname);
+
     nickNamePost();
   }
 
   async function nickNamePost() {
     try {
-      const nickNameApi = await memebookApi.ninkName(nickname);
+      const nickNameApi = await memebookApi.nickName(nickname);
       console.log('성공');
     } catch (error) {
       console.log(error)

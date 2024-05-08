@@ -1,3 +1,12 @@
+// 회원 국가 조회
+
+export const nationCheckAction = (data) => {
+  return {
+    type: "SEND_NATION_CHECK_ACTION",
+    payload: data.data
+  };
+};
+
 // 전체 단어 리스트
 export const wordListAction = (data) => {
   return {
