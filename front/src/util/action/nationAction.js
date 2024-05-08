@@ -6,7 +6,6 @@ export const nationCheckData = (memberIdx) => async (dispatch) => {
   try {
     const nationCheckData = await memebookApi.nationCheck(memberIdx);
     dispatch(nationCheckAction(nationCheckData));
-    console.log(nationCheckData);
   } catch (error) {
     console.error(error);
   }

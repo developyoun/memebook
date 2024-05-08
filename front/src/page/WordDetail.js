@@ -37,6 +37,7 @@ export default function WordDetail() {
   // 신고하기 팝업
   const commentReportOpen = ({commentPortClose}) => {
     setReportOpen(!reportOpen);
+    setWordSetState(false);
   }
 
   // 단어 Api
@@ -112,10 +113,10 @@ export default function WordDetail() {
     setWordSetState(!wordSetState);
   }
 
-
   // 수정하기
   const modifyAction = () => {
     setModifyState(true);
+    setWordSetState(false);
   }
   // 수정된 단어
   const contentChange = (event) => {
@@ -133,6 +134,7 @@ export default function WordDetail() {
         "wordNation": "KOR",
         "memberIdx": memberIdx,
       });
+
       setModifyState(false);
     } catch (error) {
       console.log(error)
@@ -147,6 +149,7 @@ export default function WordDetail() {
         const wordDeleteData = await memebookApi.wordDelete(wordContentIdx);
         setDeleteState(true);
       }
+      setWordSetState(false);
       console.log('성공');
     } catch (error) {
       console.log(error)
@@ -189,37 +192,27 @@ export default function WordDetail() {
                 <div className="mean_top">
                   <Link to={`/profile/${memberIdx}`} className="name">김누징</Link>
                   <ul className="util_list">
-                    {
-                      item.memberIdx === memberIdx || !wordSetState && (
-                        <>
-                          <li>
-                            <button type="button" className="btn_like" onClick={() => {
-                              wordReaction('like')
-                            }}>
-                              <span className="blind">좋아요</span>
-                            </button>
-                            <span className="count">
+                    <li>
+                      <button type="button" className="btn_like" onClick={() => {
+                        wordReaction('like')
+                      }}>
+                        <span className="blind">좋아요</span>
+                      </button>
+                      <span className="count">
                               {likeCount}
                             </span>
-                          </li>
-                          <li>
-                            <button type="button" className="btn_dislike" onClick={() => {
-                              wordReaction('dislike')
-                            }}>
-                              <span className="blind">싫어요</span>
-                            </button>
-                            <span className="count">
+                    </li>
+                    <li>
+                      <button type="button" className="btn_dislike" onClick={() => {
+                        wordReaction('dislike')
+                      }}>
+                        <span className="blind">싫어요</span>
+                      </button>
+                      <span className="count">
                               {dislikeCount}
                             </span>
-                          </li>
-                          <li>
-                            <button type="button" className="btn_report" onClick={commentReportOpen}>
-                              <span className="blind">신고하기</span>
-                            </button>
-                          </li>
-                        </>
-                      )
-                    }
+                    </li>
+
 
                     {
                       item.memberIdx === memberIdx && (
@@ -227,32 +220,43 @@ export default function WordDetail() {
                           <button type="button" className="btn_set" onClick={wordSet}>
                             <span className="blind">유저 셋</span>
                           </button>
+                          {
+                            wordSetState && (
+                              <>
+                                <ul className="set_box">
+                                  <li>
+                                    <button type="button" className="" onClick={commentReportOpen}>
+                                      <span>신고하기</span>
+                                    </button>
+                                  </li>
+                                  {
+                                    item.memberIdx === memberIdx && (
+                                      <>
+                                        <li>
+                                          <button type="button" className="" onClick={modifyAction}>
+                                            <span className="">수정</span>
+                                          </button>
+                                        </li>
+                                        <li>
+                                          <button type="button" className="" onClick={() => {
+                                            wordDelete(item.wordContentIdx)
+                                          }}>
+                                            <span className="">삭제</span>
+                                          </button>
+
+                                        </li>
+                                      </>
+                                    )
+                                  }
+                                </ul>
+                              </>
+                            )
+                          }
                         </li>
                       )
                     }
 
 
-
-                    {
-                      item.memberIdx === memberIdx && wordSetState && (
-                        <>
-
-                          <li>
-                            <button type="button" className="btn_modify" onClick={modifyAction}>
-                              <span className="blind">수정</span>
-                            </button>
-                          </li>
-                          <li>
-                            <button type="button" className="btn_delete" onClick={() => {
-                              wordDelete(item.wordContentIdx)
-                            }}>
-                              <span className="blind">삭제</span>
-                            </button>
-
-                          </li>
-                        </>
-                      )
-                    }
                   </ul>
                 </div>
                 <div className="content_box">

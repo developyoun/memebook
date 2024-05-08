@@ -6,12 +6,13 @@ import CountryChoice from "../components/modal/CountryChoice";
 import NickName from "../components/modal/NickName";
 import {memebookApi} from "../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
-import {scrapListData} from "../util/action/scrapAction";
 import {nationCheckData} from "../util/action/nationAction";
 import Header from "../components/Header";
+import {wordListData} from "../util/action/wordAction";
 
 export default function Main() {
   const dispatch = useDispatch();
+  const wordList = useSelector(state => state.meme.wordList);
   const nationCheck = useSelector(state => state.meme.nationCheck);
   const [memberIdx, setMemberIdx] = useState('123');
   const [nicknameModalOpen, setNicknameModalOpen] = useState(false);
@@ -19,11 +20,20 @@ export default function Main() {
   const [studyCountryType, setStudyCountryType] = useState('');
   const [nickname, setNickname] = useState('');
   const [nicknameSave, setNicknameSave] = useState('');
+  const [libraryData, setLibraryData] = useState([]);
+  useEffect(() => {
+    dispatch(wordListData('ALL', 1));
+    dispatch(nationCheckData(memberIdx));
+    console.log(wordList);
+
+  }, []);
 
   useEffect(() => {
-    dispatch(nationCheckData(memberIdx));
-    console.log(nationCheck);
-  }, []);
+    if (wordList && wordList.wordList) {
+      setLibraryData(wordList.wordList);
+      console.log()
+    }
+  }, [wordList]);
 
   // 닉네임 설정 모달
   const nickNameClose = ({nickNameClose}) => {
@@ -105,58 +115,19 @@ export default function Main() {
 
             <div className="popular_box">
               <h3 className="tit">💡 오늘 하루 인기 검색어 TOP </h3>
-              <ul className="popular_list">
-                <li>
-                  <a href="" className="keyword">
-                    인싸
-                  </a>
-                </li>
-                <li>
-                  <a href="" className="keyword">
-                    인싸
-                  </a>
-                </li>
-                <li>
-                  <a href="" className="keyword">
-                    인싸
-                  </a>
-                </li>
-                <li>
-                  <a href="" className="keyword">
-                    인싸
-                  </a>
-                </li>
-                <li>
-                  <a href="" className="keyword">
-                    인싸
-                  </a>
-                </li>
 
-                <li>
-                  <a href="" className="keyword">
-                    인싸
-                  </a>
-                </li>
-                <li>
-                  <a href="" className="keyword">
-                    인싸
-                  </a>
-                </li>
-                <li>
-                  <a href="" className="keyword">
-                    인싸
-                  </a>
-                </li>
-                <li>
-                  <a href="" className="keyword">
-                    인싸
-                  </a>
-                </li>
-                <li>
-                  <a href="" className="keyword">
-                    인싸
-                  </a>
-                </li>
+              <ul className="popular_list">
+                {
+                  libraryData?.map((item, idx) => {
+                    return (
+                      <li>
+                        <Link to="" className="keyword">
+                          {item.wordName}
+                        </Link>
+                      </li>
+                    )
+                  })
+                }
               </ul>
             </div>
 
