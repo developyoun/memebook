@@ -49,8 +49,9 @@
   z-index:1000;
   box-sizing:border-box;
   .logo {
+    flex-shrink:0;
     margin-right:32px;
-    width:100px;
+    width:72px;
     height:34px;
     background: url('./../img/logo.png') center / 100% no-repeat;
   }
@@ -98,15 +99,15 @@
     background: #fff;
     overflow: hidden;
     transform: translate(-50%, -50%);
-    //.btn_close {
-    //  position: absolute;
-    //  top: 20px;
-    //  right: 20px;
-    //  display: block;
-    //  width: 24px;
-    //  height: 24px;
-    //  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M18.4559 4.87939C19.3931 3.94214 19.3931 2.42253 18.4559 1.48528C17.5186 0.548031 15.999 0.548031 15.0617 1.48528L9.97058 6.57645L4.87941 1.48528C3.94216 0.548031 2.42255 0.548031 1.4853 1.48528C0.548049 2.42253 0.548049 3.94214 1.4853 4.87939L6.57647 9.97056L1.4853 15.0617C0.548072 15.999 0.548049 17.5186 1.4853 18.4558C2.42255 19.3931 3.94218 19.3931 4.87941 18.4558L9.97058 13.3647L15.0617 18.4558C15.999 19.3931 17.5186 19.3931 18.4559 18.4558C19.3931 17.5186 19.3931 15.999 18.4559 15.0617L13.3647 9.97056L18.4559 4.87939Z' fill='%23436759'/%3E%3C/svg%3E") center no-repeat;
-    //}
+    .btn_close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: block;
+      width: 24px;
+      height: 24px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M18.456 4.87939C19.3932 3.94214 19.3932 2.42253 18.456 1.48528C17.5187 0.548031 15.9991 0.548031 15.0619 1.48528L9.9707 6.57645L4.87953 1.48528C3.94228 0.548031 2.42267 0.548031 1.48542 1.48528C0.548172 2.42253 0.548171 3.94214 1.48542 4.87939L6.57659 9.97056L1.48542 15.0617C0.548194 15.999 0.548172 17.5186 1.48542 18.4558C2.42267 19.3931 3.94231 19.3931 4.87953 18.4558L9.9707 13.3647L15.0619 18.4558C15.9991 19.3931 17.5187 19.3931 18.456 18.4558C19.3932 17.5186 19.3932 15.999 18.456 15.0617L13.3648 9.97056L18.456 4.87939Z' fill='%23234C7D'/%3E%3C/svg%3E") center no-repeat
+    }
     .btn_btm {
       display:flex;
       align-items:center;
@@ -120,8 +121,8 @@
         color: #fff;
         font-size: 16px;
         font-weight: bold;
-        border-radius: 32px;
-        background: #406A52;
+        border-radius: 8px;
+        background: #FFC960;
       }
     }
   }

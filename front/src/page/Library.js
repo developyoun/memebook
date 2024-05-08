@@ -18,9 +18,6 @@ export default function Word() {
   const [loadingState, setLoadingState] = useState(true);
   const [libraryTab, setLibraryTab] = useState('ALL');
 
-  const isBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
-
-
   useEffect(() => {
     async function libraryList() {
       try {
@@ -84,6 +81,7 @@ export default function Word() {
   return (
     <>
       <Header></Header>
+
       <div className="library_wrap">
         <div className="container">
           <div className="library_top">

@@ -1,6 +1,6 @@
 import './../scss/main.scss';
 import {Link} from 'react-router-dom';
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import HomeFooter from "../components/HomeFooter";
 import CountryChoice from "../components/modal/CountryChoice";
 import NickName from "../components/modal/NickName";
@@ -8,6 +8,7 @@ import {memebookApi} from "../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
 import {scrapListData} from "../util/action/scrapAction";
 import {nationCheckData} from "../util/action/nationAction";
+import Header from "../components/Header";
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -60,6 +61,8 @@ export default function Main() {
 
   return (
     <>
+      <Header searchState="searchNone"></Header>
+
       {
         countryModalOpen && (
           <CountryChoice countryChoiceClose={countryChoiceClose} selectType={studyCountrySave}></CountryChoice>

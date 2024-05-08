@@ -45,6 +45,9 @@ export default function CountryChoice({ countryChoiceClose, selectType }) {
     <div className="modalBox">
       <div className="inner">
         <h2 className="title">언어를 선택해주세요</h2>
+        <button type="button" className="btn_close">
+          <span className="blind">닫기</span>
+        </button>
         <div className="country_state">
           <div className="state_box">
             <h5 className="country_txt">모국어</h5>
@@ -55,7 +58,7 @@ export default function CountryChoice({ countryChoiceClose, selectType }) {
             </div>
 
             {/* 언어 이름 */}
-            <span  className="txt">{originNationTxt}</span>
+            <span  className="txt">{originNationTxt ? originNationTxt : '없음'}</span>
 
             {/* 언어 리스트 */}
             <ul className="country_list">
@@ -86,7 +89,7 @@ export default function CountryChoice({ countryChoiceClose, selectType }) {
             </div>
 
             {/* 언어 이름 */}
-            <span  className="txt">{targetNationTxt}</span>
+            <span  className="txt">{targetNationTxt ? targetNationTxt : '없음'}</span>
 
             {/* 언어 리스트 */}
             <ul className="country_list">
