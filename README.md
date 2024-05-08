@@ -43,5 +43,7 @@ sass: 1.69.5
 - MySQL
 
 
-![image](https://github.com/developyoun/memebook/assets/78008757/cee20790-a564-4a5d-a8b1-042f7a81e19b)
+----
+### Preview
 
+![Group 416545](https://github.com/developyoun/memebook/assets/78008757/76fd7f5d-f2e1-412a-be6b-c9938fcfb785)
