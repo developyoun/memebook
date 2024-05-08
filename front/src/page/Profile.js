@@ -63,26 +63,31 @@ export default function Profile() {
   }
 
   return (
-    <div className="profile_container">
+    <div className="profile_wrap">
       <div className="user_info">
+        <div className="follower_box">
+          {
+            id !== memberIdx && (
+              <button type="button" className={`btn_followers ${followerAddState ? 'active' : ''}`} onClick={followerAdd}>
+                <span className="blind">팔로워</span>
+              </button>
+            )
+          }
+        </div>
         <div className="user_name">
           <h3 className="name">누징</h3>
         </div>
 
         <div className="user_info_desc">
-          {
-            id !== memberIdx && (
-              <button type="button" className={`btn_followers ${followerAddState ? 'active' : ''}`} onClick={followerAdd}>팔로워</button>
-            )
-          }
+
 
           <ul>
             <li>
-              <span className="count">{followerCount}</span>
+              <span className="count">{followerCount ? followerCount : 0}</span>
               <span className="txt">팔로잉</span>
             </li>
             <li>
-              <span className="count"></span>
+              <span className="count">0</span>
               <span className="txt">팔로워</span>
             </li>
           </ul>
