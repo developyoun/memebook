@@ -24,6 +24,8 @@ export default function WordDetail() {
   const [scrapData, setScrapData] = useState('');
   const scrapAdd = useSelector(state => state.meme.scrapAdd);
   const scrapDelete = useSelector(state => state.meme.scrapDelete);
+
+  const [wordSetState, setWordSetState] = useState(false);
   // 수정하기
   const [modifyState, setModifyState] = useState(false);
   const [modifyContent, setModifyContent] = useState('');
@@ -106,6 +108,12 @@ export default function WordDetail() {
   }
 
   // 수정하기
+  const wordSet = () => {
+    setWordSetState(!wordSetState);
+  }
+
+
+  // 수정하기
   const modifyAction = () => {
     setModifyState(true);
   }
@@ -182,7 +190,7 @@ export default function WordDetail() {
                   <Link to={`/profile/${memberIdx}`} className="name">김누징</Link>
                   <ul className="util_list">
                     {
-                      item.memberIdx !== memberIdx && (
+                      item.memberIdx === memberIdx || !wordSetState && (
                         <>
                           <li>
                             <button type="button" className="btn_like" onClick={() => {
@@ -215,7 +223,20 @@ export default function WordDetail() {
 
                     {
                       item.memberIdx === memberIdx && (
+                        <li>
+                          <button type="button" className="btn_set" onClick={wordSet}>
+                            <span className="blind">유저 셋</span>
+                          </button>
+                        </li>
+                      )
+                    }
+
+
+
+                    {
+                      item.memberIdx === memberIdx && wordSetState && (
                         <>
+
                           <li>
                             <button type="button" className="btn_modify" onClick={modifyAction}>
                               <span className="blind">수정</span>
