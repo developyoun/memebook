@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Main from "../page/Main";
 import WordAdd from "../page/WordAdd";
-import Library from "../page/Library";
+import Library from "../page/Vocabulary";
 import Profile from "../page/Profile";
 const AppRoutes = () => {
     return (

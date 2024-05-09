@@ -10,7 +10,7 @@ import BtnBack from "../components/BtnBack";
 
 
 
-export default function WordDetail() {
+export default function WordInfo() {
   let {id} = useParams();
   const dispatch = useDispatch();
   const [memberIdx, setMemberIdx] = useState(123);
@@ -296,7 +296,7 @@ export default function WordDetail() {
 
       </ul>
 
-      <Link to={`/wordAdd/${id}/${wordData.wordName}`} className="desc_add_btn">
+      <Link to={`/vocabulary/wordAdd/${id}/${wordData.wordName}`} className="desc_add_btn">
         <span className="blind">작성하기</span>
       </Link>
     </div>

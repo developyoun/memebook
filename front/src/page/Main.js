@@ -1,7 +1,6 @@
 import './../scss/main.scss';
 import {Link} from 'react-router-dom';
 import React, {useEffect, useState} from "react";
-import HomeFooter from "../components/HomeFooter";
 import CountryChoice from "../components/modal/CountryChoice";
 import NickName from "../components/modal/NickName";
 import {memebookApi} from "../util/memebookApi";
@@ -152,8 +151,6 @@ export default function Main() {
 
         </div>
       </div>
-
-      <HomeFooter></HomeFooter>
 
     </>
   );
