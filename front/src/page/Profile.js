@@ -1,4 +1,4 @@
-import './../scss/profile.scss'
+import '../scss/common/profile.scss'
 import HomeFooter from "../components/HomeFooter";
 import {Link, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";

@@ -1,7 +1,7 @@
-import './../scss/wordDetail.scss'
+import '../scss/page/wordInfo.scss'
 import {Link} from 'react-router-dom';
 import {useState, useEffect} from "react";
-import CommentPort from "../components/modal/CommentPort";
+import CommentPort from "../modal/CommentPort";
 import {useParams} from "react-router-dom";
 import {memebookApi} from "../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";

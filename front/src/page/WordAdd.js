@@ -1,4 +1,4 @@
-import './../scss/word.scss'
+import '../scss/page/wordAdd.scss'
 import Title from '../components/Title'
 import {useEffect, useState} from "react";
 import {memebookApi} from "../util/memebookApi";

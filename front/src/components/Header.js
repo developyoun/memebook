@@ -1,4 +1,4 @@
-import '../scss/common.scss'
+import '../scss/common/common.scss'
 import {Link} from "react-router-dom";
 import React from "react";
 

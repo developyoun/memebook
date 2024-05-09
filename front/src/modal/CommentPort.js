@@ -1,4 +1,4 @@
-import './../../scss/modal/commentPort.scss'
+import '../scss/modal/commentPort.scss'
 
 export default function CommentPort({commentPortClose}) {
 

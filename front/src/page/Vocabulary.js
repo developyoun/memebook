@@ -1,4 +1,4 @@
-import './../scss/library.scss'
+import '../scss/page/vocabulary.scss'
 import {Link} from "react-router-dom";
 import React, {useCallback, useEffect, useState} from "react";
 import {debounce} from 'lodash';

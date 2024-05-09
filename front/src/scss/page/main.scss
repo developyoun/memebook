@@ -1,4 +1,12 @@
-/* 메인 - 공통 */
+.wrap {
+  &:has(.main_wrap) {
+    .header {
+      background:#f1f4f9
+    }
+  }
+}
+
+  /* 메인 - 공통 */
 .main_wrap {
   position:relative;
   padding-top:100px;
@@ -9,7 +17,7 @@
     left:30px;
     width:200px;
     height:290px;
-    background: url('./../img/main_top_img.png') center / 100% no-repeat;
+    background: url('assets/img/main_top_img.png') center / 100% no-repeat;
     content:''
   }
   .container {
@@ -20,7 +28,7 @@
       width:80px;
       height:80px;
       transform: rotate(26deg);
-      background: url('./../img/main_item01_img.png') center / 100% no-repeat;
+      background: url('assets/img/main_item01_img.png') center / 100% no-repeat;
       content:''
     }
     &:after {
@@ -30,7 +38,7 @@
       width:100px;
       height:100px;
       transform: rotate(-26deg);
-      background: url('./../img/main_item02_img.png') center / 100% no-repeat;
+      background: url('assets/img/main_item02_img.png') center / 100% no-repeat;
       content:''
     }
   }
@@ -224,7 +232,7 @@
     }
 
     & + .list {
-      margin-top: 16px;
+      margin-top: 8px;
     }
 
     &:after {
@@ -238,8 +246,8 @@
       position:absolute;
       left:0;
       display:inline-block;
-      width:40px;
-      height:40px;
+      width:34px;
+      height:34px;
       border-radius:50%;
       background:#fff5dd;
       content:'';
@@ -248,23 +256,23 @@
       position:absolute;
       display:inline-block;
       left:4px;
-      width:32px;
-      height:32px;
+      width:24px;
+      height:24px;
       content:'';
     }
     &.word {
       &:after {
-        background:url('./../img/icon_bulb.png') center / 100% no-repeat;
+        background:url('./../assets/img/icon_bulb.png') center / 100% no-repeat;
       }
     }
     &.scrape {
       &:after {
-        background:url('./../img/icon_folder.png') center / 100% no-repeat;
+        background:url('./../assets/img/icon_folder.png') center / 100% no-repeat;
       }
     }
     &.visit {
       &:after {
-        background:url('./../img/icon_fire.png') center / 100% no-repeat;
+        background:url('./../../assets/img/icon_fire.png') center / 100% no-repeat;
       }
     }
   }

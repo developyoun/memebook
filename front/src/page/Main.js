@@ -1,8 +1,8 @@
-import './../scss/main.scss';
+import '../scss/page/main.scss';
 import {Link} from 'react-router-dom';
 import React, {useEffect, useState} from "react";
-import CountryChoice from "../components/modal/CountryChoice";
-import NickName from "../components/modal/NickName";
+import CountryChoice from "../modal/CountryChoice";
+import NickName from "../modal/NickName";
 import {memebookApi} from "../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
 import {nationCheckData} from "../util/action/nationAction";

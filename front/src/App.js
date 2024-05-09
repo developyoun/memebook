@@ -1,6 +1,6 @@
-import './scss/common.scss';
+import './scss/common/common.scss';
 import './scss/components/darkMode.scss';
-import './scss/reset.scss';
+import './scss/page/reset.scss';
 import React from "react";
 import {Route, Routes} from 'react-router-dom';
 import Login from "./page/Login";
@@ -13,7 +13,7 @@ import ScrapeList from "./page/ScrapeList";
 import Layout from "./page/Layout";
 import MyAddList from "./page/MyAddList";
 import Community from "./page/Community";
-import PostDetail from "./page/PostDetail";
+import Post from "./page/Post";
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
         <Route path="/vocabulary/wordInfo/:id" element={<WordInfo/>}/>
         <Route path="/vocabulary" element={<Vocabulary/>}/>
         <Route path="/community" element={<Community/>}/>
-        <Route path="/postDetail" element={<PostDetail/>}/>
+        <Route path="/postDetail" element={<Post/>}/>
         <Route path="/profile/:id" element={<Profile/>}/>
         <Route path="/profile/scrape" element={<ScrapeList/>}/>
         <Route path="/profile/my_list" element={<MyAddList/>}/>

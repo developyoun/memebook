@@ -1,4 +1,4 @@
-import './../scss/community.scss'
+import '../scss/page/community.scss'
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import {Swiper, SwiperSlide} from "swiper/react";

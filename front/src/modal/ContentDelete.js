@@ -1,4 +1,4 @@
-import './../../scss/modal/contentDelete.scss'
+import '../scss/modal/contentDelete.scss'
 
 export default function contentDelete({contentDeleteClose, contentDeleteSubmit}) {
 

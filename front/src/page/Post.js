@@ -1,9 +1,9 @@
-import './../scss/postDetail.scss'
+import '../scss/page/post.scss'
 import React from "react";
 import {Link} from "react-router-dom";
 import Header from "../components/Header";
 
-export default function PostDetail() {
+export default function Post() {
 
   return (
     <>

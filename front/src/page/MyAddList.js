@@ -1,4 +1,4 @@
-import '../scss/addList.scss'
+import '../scss/page/myAddList.scss'
 import React, {useEffect, useState} from "react";
 import {memebookApi} from "../util/memebookApi";
 import {Link} from "react-router-dom";

@@ -1,8 +1,8 @@
-import '../../scss/modal/countryChoice.scss'
+import '../scss/modal/countryChoice.scss'
 import { useDispatch, useSelector } from 'react-redux';
-import {nationCheckData} from "../../util/action/nationAction";
+import {nationCheckData} from "../util/action/nationAction";
 import {useState} from "react";
-import {memebookApi} from "../../util/memebookApi";
+import {memebookApi} from "../util/memebookApi";
 
 export default function CountryChoice({ countryChoiceClose, selectType }) {
   const dispatch = useDispatch();
