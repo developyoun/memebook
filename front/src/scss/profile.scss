@@ -58,26 +58,25 @@
       color:#f09f2c;
     }
     .item {
-      font-size:12px
+      display:inline-flex;
+      align-items:center;
+      padding:0 8px;
+      font-size:12px;
+      &:after {
+        content:'';
+        display:inline-block;
+        margin-left:4px;
+        width:14px;
+        height:14px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M5.83301 9.91659L8.74967 6.99992L5.83301 4.08325' stroke='%23234C7D' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
+      }
     }
   }
   &+.user_box {
     margin-top:12px;
   }
-  .scrap_list {
-    padding:12px;
-    border-radius:12px;
-    background:#fff;
-    li {
-      &+li {
-        margin-top:8px;
-        padding-top:8px;
-        border-top:1px solid #F7F7F7;
-      }
-      .item {
-        display:block
-      }
-    }
+  .content_none {
+    font-size:12px;
   }
   .list_box {
     padding:0

@@ -6,9 +6,16 @@
 .post_top {
   display:flex;
   justify-content:space-between;
+  margin-bottom:8px;
   .post_tit {
     color:#313F66;
     font-size:14px;
+  }
+  .nickname {
+    flex-shrink:0;
+    margin-left:32px;
+    font-size:12px;
+    line-height:20px;
   }
   .post_time {
     color:#313F66;
@@ -32,7 +39,9 @@
   button {
     display:flex;
     align-items:center;
-    font-size:12px;
+    span {
+      font-size:12px;
+    }
     &:before {
       content:'';
       display:block;

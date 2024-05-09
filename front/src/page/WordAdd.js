@@ -17,6 +17,7 @@ export default function WordAdd() {
   const [titleOver, setTitleOver] = useState(false);
   const [explainCount, setExplainCount] = useState(0);
   const [explainOver, setExplainOver] = useState(false);
+  const [tipBoxState, setTipBoxState] = useState(false);
 
   const [memberIdx, setMemberIdx] = useState('123');
 
@@ -62,6 +63,9 @@ export default function WordAdd() {
     setExplainNull(false);
   }
 
+  const tipEvent = () => {
+    setTipBoxState(!tipBoxState)
+  }
   const textCheck = () => {
     if (titleCount === 0) {
       setTitleNull(true);
@@ -79,12 +83,23 @@ export default function WordAdd() {
       <Title title="단어 등록" type="back"></Title>
 
       <div className="container">
-        <div className="word_add_tip">
-          $일본$에 관한 밈을 등록해주세요.<br/>일본어를 배우고 싶은 밈밍이들이 좋아할 거에요&#128218;
-        </div>
+
 
         <div className="input_box">
-          <h4 className="tit">단어</h4>
+          <div className="input_top">
+            <h4 className="tit">
+              단어
+            </h4>
+            <div  className={`word_add_tip ${tipBoxState ? 'active' : ''}`}>
+              <button type="button" onClick={tipEvent} >
+                <span className="blind">툴팁</span>
+              </button>
+              <div className="tip_box">
+                $일본$에 관한 밈을 등록해주세요.<br/>일본어를 배우고 싶은 밈밍이들이 좋아할 거에요&#128218;
+              </div>
+            </div>
+          </div>
+
 
           <input type="text" className="text_input" placeholder="단어를 입력해주세요" value={word ? word : null} readOnly={word !== undefined}  maxLength={19} onChange={titleValueCount}/>
 

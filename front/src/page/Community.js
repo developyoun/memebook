@@ -28,7 +28,11 @@ export default function Community() {
             <ul className="list">
               <li>
                 <Link to="/postDetail" className="post_link">
-                  <h3 className="tit">요즘 잠이 안와요</h3>
+                  <div className="post_top">
+                    <h3 className="tit">요즘 잠이 안와요</h3>
+                    <span className="nickname">김누징</span>
+                  </div>
+
                   <p className="txt">왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요</p>
                 </Link>
                 <button type="button" className="post_more_btn">더보기</button>

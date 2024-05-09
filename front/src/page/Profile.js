@@ -147,7 +147,11 @@ export default function Profile() {
           </h4>
           <Link to="/profile/my_list" className="item">더보기</Link>
         </div>
-
+        {
+          myWordList.wordContentList?.length === 0 && (
+            <div className="content_none">등록한 단어가 없어요 &#128172;</div>
+          )
+        }
         {
           myWordList.wordContentList?.length > 0 && (
             <ul className="list_box">
@@ -174,6 +178,11 @@ export default function Profile() {
           </h4>
           <Link to="/profile/scrape" className="item">더보기</Link>
         </div>
+        {
+          scrapList.content?.length === 0 && (
+            <div className="content_none">스크랩한 단어가 없어요 &#128172;</div>
+          )
+        }
         {
           scrapList.content?.length > 0 && (
             <ul className="list_box">

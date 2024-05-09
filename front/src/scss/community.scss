@@ -16,11 +16,21 @@
           padding:16px 0;
           .post_link {
             display:block;
-            .tit {
-              margin-bottom:4px;
-              font-size:14px;
-              font-weight:bold;
+            .post_top {
+              display:flex;
+              margin-bottom:8px;
+              .nickname {
+                flex-shrink:0;
+                margin-left:32px;
+                font-size:12px;
+                line-height:20px;
+              }
+              .tit {
+                font-size:14px;
+                font-weight:bold;
+              }
             }
+
             .txt {
               display: -webkit-box;
               font-size:12px;
@@ -45,7 +55,6 @@
             button {
               display:flex;
               align-items:center;
-              font-size:12px;
               &:before {
                 content:'';
                 display:block;
@@ -85,7 +94,7 @@
       display:flex;
       margin-top:16px;
       padding:12px;
-      border-radius:12px;
+      border-radius:8px;
       background:#f2f4fa;
       .nickname {
         flex-shrink:0;

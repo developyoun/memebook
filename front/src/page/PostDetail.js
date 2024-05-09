@@ -10,8 +10,10 @@ export default function PostDetail() {
       <Header></Header>
       <div className="post_wrap">
         <div className="post_top">
+
           <h2 className="post_tit">요즘 잠이 안와요</h2>
-          <span className="post_time">10분전</span>
+          <span className="nickname">김누징</span>
+          {/*<span className="post_time">10분전</span>*/}
         </div>
         <div className="post_con">
           <p className="post_txt">
