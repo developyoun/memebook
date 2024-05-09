@@ -38,8 +38,8 @@
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-    color: #333;
-    font-size: 16px;
+    color: #313F66;
+    font-size: 14px;
     font-weight: bold;
   }
 }
@@ -126,7 +126,7 @@
   .popular_list {
     display: flex;
     flex-direction: column;
-    max-height: 184px;
+    max-height: 180px;
     flex-wrap: wrap;
 
     li {
@@ -139,8 +139,8 @@
       .keyword {
         overflow: hidden;
         width: 100%;
-        color: #333;
-        font-size: 15px;
+        color: #313F66;
+        font-size: 12px;
         letter-spacing: -0.5px;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -148,12 +148,12 @@
         &:before {
           display: inline-flex;
           margin-right: 8px;
-          width: 22px;
-          height: 22px;
+          width: 18px;
+          height: 18px;
           border: 1px solid #234c7d;
           border-radius: 4px;
           color: #5c667b;
-          font-size: 13px;
+          font-size: 12px;
           line-height: 18px;
           content: counter(list-number);
           align-items: center;
@@ -215,7 +215,8 @@
     .link {
       display: inline-block;
       width: 100%;
-      font-size:14px;
+      color:#313F66;
+      font-size:12px;
       line-height:40px;
     }
     strong {

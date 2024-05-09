@@ -1,7 +1,7 @@
 .community_wrap {
   min-height: calc(100vh - 40px);
   padding: 80px 0 0;
-  background: #f2f4fa;
+
 
   .tab_box {
     padding:0 16px;
@@ -35,7 +35,7 @@
             font-size:12px;
           }
           &+li {
-            border-top:1px solid #ddd;
+            border-top:1px solid #f1f4f9;
           }
           .post_reaction {
             display:flex;

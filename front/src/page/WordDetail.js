@@ -6,6 +6,7 @@ import {useParams} from "react-router-dom";
 import {memebookApi} from "../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
 import {scrapAddData, scrapDeleteData} from "../util/action/scrapAction";
+import BtnBack from "../components/BtnBack";
 
 
 
@@ -160,6 +161,8 @@ export default function WordDetail() {
 
   return (
     <div className="detail_container">
+
+      <BtnBack></BtnBack>
       {
         reportOpen && (
           <CommentPort commentPortClose={commentReportOpen}></CommentPort>
@@ -173,6 +176,9 @@ export default function WordDetail() {
       </div>
 
       <div className="desc_add_box">
+        <span className="list_count">
+          총 {wordListData.length}개
+        </span>
         {
           wordListData[0]?.memberIdx !== memberIdx && (
             <button type="button" className={`btn_scrap ${scrapData ? 'active' : ''}`} onClick={ScrapeBtn}>
@@ -181,7 +187,7 @@ export default function WordDetail() {
           )
         }
 
-        <Link to={`/wordAdd/${id}/${wordData.wordName}`} className="desc_add_btn">설명 추가하기</Link>
+
       </div>
 
       <ul className="word_mean_list">
@@ -289,6 +295,10 @@ export default function WordDetail() {
         }
 
       </ul>
+
+      <Link to={`/wordAdd/${id}/${wordData.wordName}`} className="desc_add_btn">
+        <span className="blind">작성하기</span>
+      </Link>
     </div>
   );
 }

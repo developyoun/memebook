@@ -74,7 +74,7 @@ export default function WordAdd() {
 
 
   return (
-    <div className="word_add_container">
+    <div className="word_add_wrap">
 
       <Title title="단어 등록" type="back"></Title>
 
@@ -84,7 +84,7 @@ export default function WordAdd() {
         </div>
 
         <div className="input_box">
-          <h4 className="tit">일본어</h4>
+          <h4 className="tit">단어</h4>
 
           <input type="text" className="text_input" placeholder="단어를 입력해주세요" value={word ? word : null} readOnly={word !== undefined}  maxLength={19} onChange={titleValueCount}/>
 

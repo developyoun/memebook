@@ -84,11 +84,11 @@ export default function Profile() {
           <ul>
             <li>
               <span className="count">{followerCount ? followerCount : 0}</span>
-              <span className="txt">팔로잉</span>
+              <span className="txt">follower</span>
             </li>
             <li>
               <span className="count">0</span>
-              <span className="txt">팔로워</span>
+              <span className="txt">following</span>
             </li>
           </ul>
 

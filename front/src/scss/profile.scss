@@ -1,7 +1,6 @@
 .profile_wrap {
   min-height:calc(100vh - 40px);
   padding:20px 20px 120px;
-  background:#f2f4fa;
 }
 
 .follower_box {
@@ -32,9 +31,9 @@
   }
   .visit_count {
     margin-top:24px;
-    font-size:14px;
+    font-size:12px;
     strong {
-      color:var(--bg-brown);
+      color:#f09f2c;
     }
   }
 }
@@ -42,16 +41,21 @@
 .user_box {
   padding:16px;
   border-radius:12px;
+  box-shadow:0 1px 12px -10px #000;
   background:#fff;
   .user_tit {
     display:flex;
     align-items:center;
     justify-content:space-between;
     margin-bottom:24px;
+    h4 {
+      color:#313F66;
+      font-size:14px;
+    }
     .count {
       display:inline-block;
       margin-left:6px;
-      color:var(--primary);
+      color:#f09f2c;
     }
     .item {
       font-size:12px
@@ -83,7 +87,10 @@
 
 .daily_box {
   margin: 40px 0 45px;
-
+  .tit {
+    color:#313F66;
+    font-size:14px;
+  }
   .daily_list {
     display: flex;
     align-items: center;
@@ -98,10 +105,10 @@
         margin: 0 auto;
         width: 32px;
         height: 32px;
-        color: #808080;
+        color: #7D8CB5;
         font-size:12px;
         border-radius: 50%;
-        background: #c0cfdf;
+        background: #f1f4f9;
 
         &.check {
           background: #f05161;
@@ -131,17 +138,18 @@
     align-items:center;
     justify-content:space-around;
     padding:12px 20px;
+    border:1px solid #f2f4fa;
     border-radius:12px;
-    background:#5779a2;
     li {
       color:var(--primary);
       span {
         display:block;
         text-align:center;
-        color:#fff;
-        font-size:14px;
+        color:#7D8CB5;
+        font-size:12px;
         &.count {
-          font-size:16px;
+          color:#313F66;
+          font-size:14px;
           font-weight:bold;
         }
       }
@@ -152,19 +160,22 @@
 .invite_box {
   margin-top:24px;
   .invite_txt {
-    font-size:14px;
+    color:#313F66;
+    font-size:12px;
     text-align:center;
   }
   .invite_btn {
     display:flex;
     align-items:center;
     justify-content:center;
+    height:38px;
     margin:16px auto 0;
-    padding:12px 32px;
-    color:var(--primary);
-    font-size:14px;
+    padding:0 32px;
+    color:#fff;
+    font-size:12px;
     font-weight:bold;
+    line-height:26px;
     border-radius:8px;
-    background:var(--primary-sub);
+    background:#5779a2;
   }
 }
