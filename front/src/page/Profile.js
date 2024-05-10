@@ -12,7 +12,7 @@ export default function Profile() {
   const dispatch = useDispatch();
   const scrapList = useSelector(state => state.meme.scrapList);
   const myWordList = useSelector(state => state.meme.myWordList);
-  const [memberIdx, setMemberIdx] = useState(123);
+  const [memberIdx, setMemberIdx] = useState(321);
   // 팔로워
   const [followerCount, setFollowerCount] = useState(0);
   const [followerAddState, setFollowerAddState] = useState(false);
@@ -142,7 +142,7 @@ export default function Profile() {
       <div className="user_box">
         <div className="user_tit">
           <h4>
-            등록한 단어
+            참여한 단어
             <span className="count">{myWordList.wordContentList?.length}</span>
           </h4>
           <Link to="/profile/my_list" className="item">더보기</Link>

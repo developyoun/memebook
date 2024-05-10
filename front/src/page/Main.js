@@ -7,13 +7,16 @@ import {memebookApi} from "../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
 import {nationCheckData} from "../util/action/nationAction";
 import Header from "../components/Header";
-import {wordListData} from "../util/action/wordAction";
+import {myWordListData, wordListData} from "../util/action/wordAction";
+import {scrapListData} from "../util/action/scrapAction";
 
 export default function Main() {
   const dispatch = useDispatch();
   const wordList = useSelector(state => state.meme.wordList);
   const nationCheck = useSelector(state => state.meme.nationCheck);
-  const [memberIdx, setMemberIdx] = useState('123');
+  const scrapList = useSelector(state => state.meme.scrapList);
+  const myWordList = useSelector(state => state.meme.myWordList);
+  const [memberIdx, setMemberIdx] = useState(321);
   const [nicknameModalOpen, setNicknameModalOpen] = useState(false);
   const [countryModalOpen, setCountryModalOpen] = useState(false);
   const [studyCountryType, setStudyCountryType] = useState('');
@@ -23,6 +26,8 @@ export default function Main() {
   useEffect(() => {
     dispatch(wordListData('ALL', 1));
     dispatch(nationCheckData(memberIdx));
+    dispatch(scrapListData(memberIdx));
+    dispatch(myWordListData(memberIdx));
     console.log(wordList);
 
   }, []);
@@ -132,14 +137,41 @@ export default function Main() {
 
             <ul className="check_list">
               <li className="list word">
-                <Link to="" className="link">
-                  지금까지 <strong>3</strong>개의 단어를 등록했어요
-                </Link>
+
+                  {
+                    myWordList.wordContentList?.length === 0 && (
+                      <Link to="/profile/my_list" className="link">
+                        아직 등록한 단어가 없어요
+                      </Link>
+                    )
+                  }
+                  {
+                    myWordList.wordContentList?.length > 0 && (
+                      <Link to="/profile/my_list" className="link">
+                        지금까지 <strong>{myWordList.wordContentList?.length}</strong>개의 단어에 참여했어요
+                      </Link>
+                    )
+                  }
+
+
               </li>
+
+
               <li className="list scrape">
-                <Link to="" className="link">
-                  아직 스크랩한 단어가 없어요
-                </Link>
+                {
+                  scrapList.content?.length === 0 && (
+                    <Link to="/profile/scrape" className="link">
+                      아직 스크랩한 단어가 없어요 &#128172;
+                    </Link>
+                  )
+                }
+                {
+                  scrapList.content?.length > 0 && (
+                    <Link to="/profile/scrape" className="link">
+                      지금까지 <strong>{scrapList.content?.length}</strong>개의 단어를 등록했어요
+                    </Link>
+                  )
+                }
               </li>
               <li className="list visit">
                 <p className="link">

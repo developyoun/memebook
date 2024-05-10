@@ -12,7 +12,7 @@ export default function ScrapeList() {
   const scrapList = useSelector(state => state.meme.scrapList);
 
   const [scrapState, setScrapState] = useState(false);
-  const [memberIdx, setMemberIdx] = useState(123);
+  const [memberIdx, setMemberIdx] = useState(321);
 
 
   useEffect(() => {
