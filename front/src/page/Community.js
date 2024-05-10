@@ -41,10 +41,10 @@ export default function Community() {
                     <span className="blind">좋아요</span>
                   </button>
                   <button type="button" className="comments_btn">
-                    <span>댓글</span>
+                    <span className="blind">댓글</span>
                   </button>
                   <button type="button" className="view_btn">
-                    <span>조회수</span>
+                    <span className="blind">조회수</span>
                   </button>
                 </div>
               </li>
@@ -60,10 +60,10 @@ export default function Community() {
                     <span className="blind">좋아요</span>
                   </button>
                   <button type="button" className="comments_btn">
-                    <span>댓글</span>
+                    <span className="blind">댓글</span>
                   </button>
                   <button type="button" className="view_btn">
-                    <span>조회수</span>
+                    <span className="blind">조회수</span>
                   </button>
                 </div>
                 <Link to="/postDetail" className="post_contents">

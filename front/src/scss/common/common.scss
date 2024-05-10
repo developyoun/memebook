@@ -1,12 +1,11 @@
 :root {
-  --primary:#436759;
-  --primary-sub:#e4ebdd;
-  --bg-ivory: #FEFAE0;
-  --bg-brown:#B99470;
-  --bg-red: #dd3434;
-  --dark-primary:#131615;
-  --dark-sub:#474747;
-  --dark-sin:#f7f7f7;
+  --primary-10:#313F66;
+  --primary-20:#234C7D;
+  --primary-30:#5779A2;
+  --primary-40:#7D8CB5;
+  --primary-50:#F1F4F9;
+  --bg-red: #F05161;
+  --bg-yellow: #FFC960;
 }
 
 .wrap {
@@ -27,7 +26,7 @@
     }
     .tit {
 
-      color:#313F66;
+      color:var(--primary-10);
       font-size:14px;
     }
     & + .input_box {
@@ -65,7 +64,7 @@
     padding: 8px 16px;
     width: 100%;
     font-size: 12px;
-    border: 1px solid #f1f4f9;
+    border: 1px solid var(--primary-50);
     border-radius: 32px;
     box-sizing: border-box;
     resize: none;
@@ -75,14 +74,14 @@
 .text_input {
   width: 100%;
   padding: 12px;
-  color:#313F66;
+  color:var(--primary-10);
   font-size:12px;
   border:none;
   border-radius:6px;
   box-sizing: border-box;
   resize:none;
   &::placeholder {
-    color:#313F66;
+    color:var(--primary-10);
     font-size:12px;
   }
 }
@@ -209,7 +208,7 @@
     &+.list_item {
       margin-top:8px;
       padding-top:8px;
-      border-top:1px solid #f1f4f9;
+      border-top:1px solid var(--primary-50);
     }
     .link {
       width:100%;
@@ -223,7 +222,7 @@
       padding:0 8px;
       font-size:12px;
       border-radius:4px;
-      background:#f1f4f9;
+      background:var(--primary-50);
     }
     .btn_delete {
       flex-shrink:0;
@@ -282,7 +281,7 @@
     color:var(--bg-brown);
     font-size:12px;
     border-radius:8px;
-    background:#f1f4f9;
+    background:var(--primary-50);
     button {
       color:#747474;
     }
