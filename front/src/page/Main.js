@@ -35,7 +35,7 @@ export default function Main() {
   useEffect(() => {
     if (wordList && wordList.wordList) {
       setLibraryData(wordList.wordList);
-      console.log()
+      console.log(wordList.wordList)
     }
   }, [wordList]);
 
@@ -125,7 +125,7 @@ export default function Main() {
                   libraryData?.map((item, idx) => {
                     return (
                       <li>
-                        <Link to="" className="keyword">
+                        <Link to={`/vocabulary/wordInfo/${item.wordIdx}`} className="keyword">
                           {item.wordName}
                         </Link>
                       </li>

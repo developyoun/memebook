@@ -36,7 +36,7 @@ export default function WordAdd() {
       if (word !== undefined) {
         navigate(`/word/${id}`);
       } else {
-        navigate(`/library`);
+        navigate(`/vocabulary`);
       }
       setAddState(addState);
       alert('등록 완료');
