@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import {useDispatch, useSelector} from "react-redux";
 import {wordListData, wordSortData} from "../util/action/wordAction";
-import {commonEvent} from "../js/commonEvent"
+import {commonEvent} from "../util/commonEvent"
 import Header from "../components/Header";
 
 export default function Word() {
