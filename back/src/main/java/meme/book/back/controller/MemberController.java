@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.MemberDto;
+import meme.book.back.dto.member.NationRequestDto;
 import meme.book.back.service.MemberService;
 import meme.book.back.utils.NationCode;
 import org.springframework.http.ResponseEntity;
@@ -49,10 +50,7 @@ public class MemberController {
 
     @Operation(summary = "회원 국가 수정 API", description = "회원의 국가 코드를 수정한다.")
     @PutMapping("/update/nation")
-    public ResponseEntity<?> updateMember(@RequestParam Long memberIdx,
-                                    @RequestParam NationCode originNation,
-                                    @RequestParam NationCode targetNation) {
-
-        return ResponseEntity.ok(memberService.updateNationByMemberIdx(memberIdx, originNation, targetNation));
+    public ResponseEntity<?> updateMember(@RequestBody NationRequestDto requestDto) {
+        return ResponseEntity.ok(memberService.updateNationByMemberIdx(requestDto));
     }
 }

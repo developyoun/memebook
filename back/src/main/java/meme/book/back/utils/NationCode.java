@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum NationCode {
 
-    ALL("ALL", "전체"),
     KOR("KOREA", "대한민국"),
     ENG("USA", "미국"),
     JPN("JAPAN", "일본"),

@@ -52,7 +52,7 @@ public class Member implements Serializable {
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "TARGET_NATION")
-    private NationCode targetNation = NationCode.ALL;
+    private NationCode targetNation = NationCode.KOR;
 
     // 회원 가입일
     @CreatedDate

@@ -53,7 +53,7 @@ public class WordController {
     @GetMapping("/list")
     public ResponseEntity<?> getWordListController(@RequestParam(defaultValue = "1") int page,
                                                    @RequestParam(defaultValue = "10") int pageSize,
-                                                   @RequestParam(defaultValue = "ALL") NationCode nation,
+                                                   @RequestParam(required = false) NationCode nation,
                                                    @RequestParam(required = false) SortType sort,
                                                    @RequestParam(required = false) String sortBy,
                                                    @RequestParam(required = false) String search

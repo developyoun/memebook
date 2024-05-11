@@ -3,6 +3,7 @@ package meme.book.back.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.MemberDto;
+import meme.book.back.dto.member.NationRequestDto;
 import meme.book.back.entity.Member;
 import meme.book.back.exception.CustomException;
 import meme.book.back.repository.member.MemberRepository;
@@ -77,11 +78,15 @@ public class MemberService {
 
     // 회원 국가 변경
     @Transactional
-    public MemberDto updateNationByMemberIdx(Long memberIdx, NationCode originNation, NationCode targetNation) {
+    public MemberDto updateNationByMemberIdx(NationRequestDto requestDto) {
+        Long memberIdx = requestDto.getMemberIdx();
+        NationCode originNation = requestDto.getOriginNation();
+        NationCode targetNation = requestDto.getTargetNation();
+
         Member member = memberRepository.findByMemberIdx(memberIdx);
 
-        member.setOriginNation(originNation);
-        member.setTargetNation(targetNation);
+        member.setOriginNation(originNation)
+                .setTargetNation(targetNation);
         memberRepository.save(member);
         log.info("### Complete update Nation: memberIdx: {}, host nation: {}, target nation: {}", memberIdx, originNation, targetNation);
 
