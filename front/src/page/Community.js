@@ -5,6 +5,11 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import Header from "../components/Header";
 
 export default function Community() {
+  const [postReactionState, setPostReactionState] = useState(false);
+
+  const postReaction = () => {
+    setPostReactionState(!postReactionState)
+  }
 
   return (
     <>
@@ -36,16 +41,17 @@ export default function Community() {
                   <p className="txt">왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요</p>
                 </Link>
                 <button type="button" className="post_more_btn">더보기</button>
+
                 <div className="post_reaction">
-                  <button type="button" className="post_like_btn">
+                  <button type="button" className={`btn_post_like ${postReactionState ? 'active' : ''}`} onClick={postReaction}>
                     <span className="blind">좋아요</span>
                   </button>
-                  <button type="button" className="comments_btn">
+                  <Link to="/postDetail" className="comments_count">
                     <span className="blind">댓글</span>
-                  </button>
-                  <button type="button" className="view_btn">
+                  </Link>
+                  <Link to="/postDetail" className="view_count">
                     <span className="blind">조회수</span>
-                  </button>
+                  </Link>
                 </div>
               </li>
 
