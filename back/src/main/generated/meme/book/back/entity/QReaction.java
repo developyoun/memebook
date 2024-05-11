@@ -19,7 +19,7 @@ public class QReaction extends EntityPathBase<Reaction> {
 
     public static final QReaction reaction = new QReaction("reaction");
 
-    public final NumberPath<Long> memIdx = createNumber("memIdx", Long.class);
+    public final NumberPath<Long> memberIdx = createNumber("memberIdx", Long.class);
 
     public final NumberPath<Long> reactionIdx = createNumber("reactionIdx", Long.class);
 
@@ -29,7 +29,7 @@ public class QReaction extends EntityPathBase<Reaction> {
 
     public final EnumPath<meme.book.back.utils.ActionType> reactionType = createEnum("reactionType", meme.book.back.utils.ActionType.class);
 
-    public final NumberPath<Long> wordIdx = createNumber("wordIdx", Long.class);
+    public final NumberPath<Long> targetIdx = createNumber("targetIdx", Long.class);
 
     public QReaction(String variable) {
         super(Reaction.class, forVariable(variable));
