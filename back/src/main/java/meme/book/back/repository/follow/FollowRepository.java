@@ -13,5 +13,7 @@ public interface FollowRepository extends JpaRepository<Follow, Long>, FollowCus
 
     Optional<Follow> findByFollowerAndFollowee(Long follower, Long followee);
 
+    boolean existsByFollowerAndFollowee(Long me, Long other);
+
     void deleteByFollowIdx(Long followIdx);
 }

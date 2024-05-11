@@ -1,6 +1,7 @@
 package meme.book.back.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,15 @@ public class FollowController {
     @PostMapping("/update")
     public ResponseEntity<?> saveFollow(@RequestBody FollowRequestDto requestDto) {
         return ResponseEntity.ok(followService.saveFollow(requestDto));
+    }
+
+    @Operation(summary = "팔로우 여부 API", description = "내가 상대를 팔로우하는지에 대한 여부")
+    @GetMapping("follow")
+    public ResponseEntity<?> isFollow(
+            @Parameter(name = "me", description = "나의 회원번호") @RequestParam Long me,
+            @Parameter(name = "other", description = "상대방 회원호") @RequestParam Long other) {
+
+        return ResponseEntity.ok(followService.isFollow(me, other));
     }
 
     @Operation(summary = "나를 팔로우하는 사용자 리스트 조회 API", description = "Followee 리스트 조회.")

@@ -51,6 +51,11 @@ public class FollowService {
                 .setFollowee(followee);
     }
 
+    public boolean isFollow(Long me, Long other) {
+        log.info("Follow Check, me: {}, other: {}", me, other);
+        return followRepository.existsByFollowerAndFollowee(me, other);
+    }
+
     public FollowListResponseDto getFolloweeList(Pageable pageable, Long memberIdx) {
         Page<FollowResponseDto> followList = followRepository.getFollowList(memberIdx, pageable, false);
 
