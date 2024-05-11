@@ -5,15 +5,22 @@ const request = axios.create({
 })
 
 export const memebookApi = {
-  // 닉네임
-  ninkName : (nickname) => request.post(`member/create/nickname?nickname=${nickname}`),
+  // 닉네임 생성
+  nickName : (nickname) => request.post(`member/create/nickname?nickname=${nickname}`),
+  // 닉네임 중복 조회
+  nickNameCheck : (nickname) => request.get(`member/exist/nickname?nickname=${nickname}`),
+
+  // 회원 국가 조회
+  nationCheck : (memberIdx) => request.get(`member/nation?memberIdx=${memberIdx}`),
+  // 회원 국가 변경
+  nationChange : (nationInfo) => request.put(`member/update/nation`, nationInfo),
 
   // 전체 단어 리스트 조회
   wordList : (country, pageNumber) => request.get(`word/list?nation=${country}&page=${pageNumber}`),
   // 단어 정렬
   wordSort : (country, sort, sortBy) => request.get(`word/list?nation=${country}&sort=${sort}&sortBy=${sortBy}`),
   // 내가 쓴 단어 리스트 조회
-  myWordList : (memberIdx) => request.get(`word/list?${memberIdx}`),
+  myWordList : (memberIdx) => request.get(`word/list/${memberIdx}`),
   // 단어 디테일 조회
   wordDetail : (wordIdx, memberIdx) => request.get(`word/${wordIdx}?memberIdx=${memberIdx}`),
 
@@ -38,4 +45,6 @@ export const memebookApi = {
 
   // 팔로워 추가
   followerAdd : (memberIdx) => request.post(`follow/update`, memberIdx),
+  // 팔로워 리스트
+  followerStateApi : (memberIdx) => request.get(`follow/list?memberIdx=${memberIdx}`),
 }

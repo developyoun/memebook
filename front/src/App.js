@@ -1,19 +1,19 @@
-import './scss/common.scss';
+import './scss/common/common.scss';
 import './scss/components/darkMode.scss';
-import './scss/reset.scss';
+import './scss/page/reset.scss';
 import React from "react";
 import {Route, Routes} from 'react-router-dom';
 import Login from "./page/Login";
 import Main from "./page/Main";
 import WordAdd from "./page/WordAdd";
-import Library from "./page/Library";
+import Vocabulary from "./page/Vocabulary";
 import Profile from "./page/Profile";
-import WordDetail from "./page/WordDetail";
+import WordInfo from "./page/WordInfo";
 import ScrapeList from "./page/ScrapeList";
 import Layout from "./page/Layout";
-import AddList from "./page/AddList";
+import MyAddList from "./page/MyAddList";
 import Community from "./page/Community";
-import PostDetail from "./page/PostDetail";
+import Post from "./page/Post";
 
 function App() {
   return (
@@ -21,14 +21,14 @@ function App() {
       <Route element={<Layout/>}>
         <Route path="/" element={<Login/>}/>
         <Route path="/main" element={<Main/>}/>
-        <Route path="/wordAdd/:id?/:word?" element={<WordAdd/>}/>
-        <Route path="/word/:id" element={<WordDetail/>}/>
-        <Route path="/library" element={<Library/>}/>
+        <Route path="/vocabulary/wordAdd/:id?/:word?" element={<WordAdd/>}/>
+        <Route path="/vocabulary/wordInfo/:id" element={<WordInfo/>}/>
+        <Route path="/vocabulary" element={<Vocabulary/>}/>
         <Route path="/community" element={<Community/>}/>
-        <Route path="/postDetail" element={<PostDetail/>}/>
-        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/postDetail" element={<Post/>}/>
+        <Route path="/profile/:id" element={<Profile/>}/>
         <Route path="/profile/scrape" element={<ScrapeList/>}/>
-        <Route path="/profile/my_list" element={<AddList/>}/>
+        <Route path="/profile/my_list" element={<MyAddList/>}/>
       </Route>
     </Routes>
   );

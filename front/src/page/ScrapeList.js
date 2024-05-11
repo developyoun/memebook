@@ -4,7 +4,7 @@ import {memebookApi} from "../util/memebookApi";
 import {useDispatch, useSelector} from 'react-redux';
 import BtnBack from "../components/BtnBack";
 import {scrapDeleteData, scrapListData} from "../util/action/scrapAction";
-import './../scss/scrapeList.scss'
+import '../scss/page/scrapeList.scss'
 
 
 export default function ScrapeList() {
@@ -12,7 +12,7 @@ export default function ScrapeList() {
   const scrapList = useSelector(state => state.meme.scrapList);
 
   const [scrapState, setScrapState] = useState(false);
-  const [memberIdx, setMemberIdx] = useState(123);
+  const [memberIdx, setMemberIdx] = useState(321);
 
 
   useEffect(() => {

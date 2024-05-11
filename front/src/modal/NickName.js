@@ -1,4 +1,4 @@
-import '../../scss/modal/nickName.scss'
+import '../scss/modal/nickName.scss'
 export default function NickName({nickNameAdd, nickNameInput}) {
 
   return (

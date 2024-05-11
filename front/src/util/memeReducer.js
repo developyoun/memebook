@@ -3,10 +3,16 @@ const initialState = {
   scrapList : [],
   wordList : [],
   myWordList : [],
+  nationCheck : [],
 };
 
 const memeReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "SEND_NATION_CHECK_ACTION":
+      return {
+        ...state,
+        nationCheck: action.payload,
+      };
     case "SEND_WORD_LIST":
       return {
         ...state,

@@ -1,7 +1,7 @@
 import {Outlet} from "react-router-dom";
 import {useEffect, useState} from "react";
 import HomeFooter from "../components/HomeFooter";
-import {useTop} from "../js/commonEvent";
+import {useTop} from "../util/commonEvent";
 
 export default function Layout() {
   useTop();

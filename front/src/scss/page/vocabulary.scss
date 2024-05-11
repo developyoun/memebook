@@ -1,0 +1,45 @@
+.library_wrap {
+  min-height:calc(100vh - 40px);
+  padding:80px 20px 120px;
+  .library_top {
+    width:100%;
+    box-sizing:border-box;
+    .tit {
+      width:100%;
+      font-size:24px;
+    }
+    .box_btn {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-top:16px;
+      .txt {
+        margin-right:6px;
+        font-size:12px;
+      }
+      .word_add_btn {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        flex-shrink:0;
+        height:30px;
+        padding:0 16px;
+        color:#fff;
+        font-size:12px;
+        font-weight:bold;
+        line-height:26px;
+        border-radius:8px;
+        background:var(--primary-30);
+      }
+    }
+  }
+  .library_box {
+    margin-top:24px;
+    .list_box {
+      box-shadow:0 1px 12px -10px #000;
+    }
+  }
+}
+
+
+

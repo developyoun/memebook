@@ -1,6 +1,6 @@
-import './../scss/profile.scss'
+import '../scss/common/profile.scss'
 import HomeFooter from "../components/HomeFooter";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {scrapListData} from "../util/action/scrapAction";
@@ -8,10 +8,11 @@ import {myWordListData} from "../util/action/wordAction";
 import {memebookApi} from "../util/memebookApi";
 
 export default function Profile() {
+  let {id} = useParams();
   const dispatch = useDispatch();
   const scrapList = useSelector(state => state.meme.scrapList);
   const myWordList = useSelector(state => state.meme.myWordList);
-  const [memberIdx, setMemberIdx] = useState('123');
+  const [memberIdx, setMemberIdx] = useState(321);
   // 팔로워
   const [followerCount, setFollowerCount] = useState(0);
   const [followerAddState, setFollowerAddState] = useState(false);
@@ -19,15 +20,17 @@ export default function Profile() {
   const [copyState , setCopyState] = useState(false);
 
   useEffect(() => {
-    async function scrapeApi() {
+    async function profileApi() {
       try {
         dispatch(scrapListData(memberIdx));
         dispatch(myWordListData(memberIdx));
+        const followerStateApi = await memebookApi.followerStateApi(memberIdx);
+        setFollowerCount(followerStateApi.data.followList.length);
       } catch (error) {
         console.log(error)
       }
     }
-    scrapeApi();
+    profileApi();
   }, []);
 
 
@@ -35,14 +38,14 @@ export default function Profile() {
     try {
       let count = 0;
       const followerAddData = await memebookApi.followerAdd({
-        "follower": count,
-        "followee": 0,
+        "follower": id,
+        "followee": memberIdx,
       });
-      if (followerAddState === true) {
-        setFollowerCount(count--);
-      } else {
-        setFollowerCount(count++);
-      }
+      // if (followerAddState === true) {
+      //   setFollowerCount(count--);
+      // } else {
+      //   setFollowerCount(count++);
+      // }
       setFollowerAddState(!followerAddState);
       console.log('성공')
     } catch (error) {
@@ -60,24 +63,32 @@ export default function Profile() {
   }
 
   return (
-    <div className="profile_container">
+    <div className="profile_wrap">
       <div className="user_info">
+        <div className="follower_box">
+          {
+            id !== memberIdx && (
+              <button type="button" className={`btn_followers ${followerAddState ? 'active' : ''}`} onClick={followerAdd}>
+                <span className="blind">팔로워</span>
+              </button>
+            )
+          }
+        </div>
         <div className="user_name">
           <h3 className="name">누징</h3>
         </div>
 
         <div className="user_info_desc">
 
-          <button type="button" className={`btn_followers ${followerAddState ? 'active' : ''}`} onClick={followerAdd}>팔로워</button>
 
           <ul>
             <li>
-              <span className="count">6</span>
-              <span className="txt">팔로잉</span>
+              <span className="count">{followerCount ? followerCount : 0}</span>
+              <span className="txt">follower</span>
             </li>
             <li>
-              <span className="count">1</span>
-              <span className="txt">팔로워</span>
+              <span className="count">0</span>
+              <span className="txt">following</span>
             </li>
           </ul>
 
@@ -131,16 +142,21 @@ export default function Profile() {
       <div className="user_box">
         <div className="user_tit">
           <h4>
-            등록한 단어
-            <span className="count">{myWordList.wordList?.length}</span>
+            참여한 단어
+            <span className="count">{myWordList.wordContentList?.length}</span>
           </h4>
           <Link to="/profile/my_list" className="item">더보기</Link>
         </div>
         {
-          myWordList.wordList?.length > 0 && (
+          myWordList.wordContentList?.length === 0 && (
+            <div className="content_none">등록한 단어가 없어요 &#128172;</div>
+          )
+        }
+        {
+          myWordList.wordContentList?.length > 0 && (
             <ul className="list_box">
               {
-                myWordList.wordList?.slice(0, 5).map((item, idx) => {
+                myWordList.wordContentList?.slice(0, 5).map((item, idx) => {
                   return (
                     <li className="list_item">
                       <Link to={`/word/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
@@ -151,6 +167,7 @@ export default function Profile() {
             </ul>
           )
         }
+
       </div>
 
       <div className="user_box">
@@ -161,6 +178,11 @@ export default function Profile() {
           </h4>
           <Link to="/profile/scrape" className="item">더보기</Link>
         </div>
+        {
+          scrapList.content?.length === 0 && (
+            <div className="content_none">스크랩한 단어가 없어요 &#128172;</div>
+          )
+        }
         {
           scrapList.content?.length > 0 && (
             <ul className="list_box">

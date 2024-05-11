@@ -1,3 +1,12 @@
+// 회원 국가 조회
+
+export const nationCheckAction = (data) => {
+  return {
+    type: "SEND_NATION_CHECK_ACTION",
+    payload: data.data
+  };
+};
+
 // 전체 단어 리스트
 export const wordListAction = (data) => {
   return {
@@ -13,6 +22,15 @@ export const wordSortAction = (data) => {
   };
 };
 
+// 설명 삭제
+export const wordDeleteAction = (data) => {
+  return {
+    type: "SEND_WORD_DELETE_ACTION",
+    payload: data.data
+  };
+};
+
+
 // 내가 쓴 단어 리스트
 export const myWordListAction = (data) => {
   return {
@@ -20,6 +38,7 @@ export const myWordListAction = (data) => {
     payload: data.data
   };
 };
+
 
 // 스크랩 리스트
 export const scrapListAction = (data) => {

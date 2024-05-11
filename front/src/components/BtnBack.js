@@ -1,4 +1,4 @@
-import '../scss/common.scss'
+import '../scss/common/common.scss'
 import React from "react";
 
 export default function BtnBack() {
