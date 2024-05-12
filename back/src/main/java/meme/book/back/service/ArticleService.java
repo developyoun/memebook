@@ -19,8 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -53,10 +52,25 @@ public class ArticleService {
 
         List<CommentDto> commentDtoList = commentRepository.getCommentList(articleIdx);
 
+        List<CommentDto> savedCommentDto = new ArrayList<>();
+        Map<Long, CommentDto> commentDtoMap = new HashMap<>();
+
+        commentDtoList.forEach(commentDto -> {
+            Long commentIdx = commentDto.getCommentIdx();
+            Long upperIdx = commentDto.getUpperIdx();
+            commentDtoMap.put(commentIdx, commentDto);
+
+            if (upperIdx == 0) {
+                commentDto.setCommentReplyList(new ArrayList<>());
+                savedCommentDto.add(commentDto);
+            } else {
+                commentDtoMap.get(upperIdx).getCommentReplyList().add(commentDto);
+            }
+        });
+
         return ArticleDetailResponseDto.toDto(article)
                 .setNickname(memberNickname)
-                .setCommentDtoList(commentDtoList);
-
+                .setCommentDtoList(savedCommentDto);
     }
 
     @Transactional
