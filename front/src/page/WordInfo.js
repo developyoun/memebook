@@ -45,7 +45,7 @@ export default function WordInfo() {
   useEffect(() => {
     async function wordDetailApi() {
       try {
-        const wordDetailData = await memebookApi.wordDetail(id, memberIdx);
+        const wordDetailData = await memebookApi.wordDetailApi(id, memberIdx);
         setWordData(wordDetailData.data);
         setScrapData(wordDetailData.data.scrapIdx);
         setWordListData(wordDetailData.data.wordContentList);
@@ -61,7 +61,7 @@ export default function WordInfo() {
   useEffect(() => {
     async function wordReactionApi() {
       try {
-        const wordReactionCountData = await memebookApi.wordReactionCount(id);
+        const wordReactionCountData = await memebookApi.wordReactionCountApi(id);
         setLikeCount(wordReactionCountData.data.likeCount);
         setDislikeCount(wordReactionCountData.data.dislikeCount);
       } catch (error) {
@@ -76,13 +76,13 @@ export default function WordInfo() {
     try {
       setReactionState(false);
       if (type === 'like') {
-        const wordLikeData = await memebookApi.wordReactionUpdate({
+        const wordLikeData = await memebookApi.wordReactionUpdateApi({
           "reactionType": "LIKE",
           "memberIdx": memberIdx,
           "wordIdx": id,
         });
       } else if (type === 'dislike') {
-        const wordLikeData = await memebookApi.wordReactionUpdate({
+        const wordLikeData = await memebookApi.wordReactionUpdateApi({
           "reactionType": "DISLIKE",
           "memberIdx": memberIdx,
           "wordIdx": id,
@@ -147,7 +147,7 @@ export default function WordInfo() {
   async function wordDelete(wordContentIdx) {
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
-        const wordDeleteData = await memebookApi.wordDelete(wordContentIdx);
+        const wordDeleteData = await memebookApi.wordDeleteApi(wordContentIdx);
         setDeleteState(true);
       }
       setWordSetState(false);

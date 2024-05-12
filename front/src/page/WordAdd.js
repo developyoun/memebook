@@ -27,7 +27,7 @@ export default function WordAdd() {
   }, []);
   async function wordAddPost() {
     try {
-      const wordAddApi = await memebookApi.wordAdd( {
+      const wordAddApi = await memebookApi.wordAddApi( {
         wordName : titleValue,
         wordContent : contentValue,
         wordNation : "KOR",

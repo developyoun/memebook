@@ -41,7 +41,7 @@ export default function Profile() {
   async function followerAdd() {
     try {
       let count = 0;
-      const followerAddData = await memebookApi.followerAdd({
+      const followerAddData = await memebookApi.followerAddApi({
         "follower": id,
         "followee": memberIdx,
       });

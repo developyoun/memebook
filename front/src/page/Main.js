@@ -49,7 +49,7 @@ export default function Main() {
 
   async function nickNamePost() {
     try {
-      const nickNameApi = await memebookApi.nickName(nickname);
+      const nickNameApi = await memebookApi.nickNameAddApi(nickname);
       console.log('성공');
     } catch (error) {
       console.log(error)
