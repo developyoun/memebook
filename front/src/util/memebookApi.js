@@ -20,6 +20,8 @@ export const memebookApi = {
   postModifyApi : (postIdx) => request.put(`article/update`, postIdx),
   // 게시글 좋아요
   postReactionApi : (postIdx) => request.post(`article/like`, postIdx),
+  // 게시글 삭제
+  postDeleteApi : (postIdx, memberIdx) => request.post(`article/delete/${postIdx}?reqMemIdx=${memberIdx}`),
 
   // 회원 국가 조회
   nationCheck : (memberIdx) => request.get(`member/nation?memberIdx=${memberIdx}`),
