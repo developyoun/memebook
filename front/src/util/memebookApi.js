@@ -10,6 +10,17 @@ export const memebookApi = {
   // 닉네임 중복 조회
   nickNameCheck : (nickname) => request.get(`member/exist/nickname?nickname=${nickname}`),
 
+  // 게시글 등록
+  postAddApi : (postInfo) => request.post(`article/create`, postInfo),
+  // 게시글 리스트
+  postListApi : () => request.get(`article/list`),
+  // 게시글 상세
+  postDetailApi : (postIdx) => request.get(`article/detail/list/${postIdx}`),
+  // 게시글 수정
+  postModifyApi : (postIdx) => request.put(`article/update`, postIdx),
+  // 게시글 좋아요
+  postReactionApi : (postIdx) => request.post(`article/like`, postIdx),
+
   // 회원 국가 조회
   nationCheck : (memberIdx) => request.get(`member/nation?memberIdx=${memberIdx}`),
   // 회원 국가 변경
@@ -42,7 +53,6 @@ export const memebookApi = {
   wordReactionUpdate : (update) => request.post(`reaction/word/update`, update),
   // 좋아요, 싫어요 횟수
   wordReactionCount : (wordIdx) => request.get(`reaction/count?wordIdx=${wordIdx}`),
-
 
   // 팔로워 상태
   followerStateApi : (memberIdx, otherMemberIdx) => request.get(`follow/follow?me=${memberIdx}&other=${otherMemberIdx}`),
