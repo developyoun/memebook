@@ -67,7 +67,9 @@ public class MemberService {
     // 저장된 국가 코드 조회
     @Transactional(readOnly = true)
     public MemberDto getNationCodeByMemberIdx(String memberIdx) {
-        Member member = memberRepository.findByMemberIdx(Long.parseLong(memberIdx));
+        Member member = memberRepository.findByMemberIdx(Long.parseLong(memberIdx))
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_MEMBER));
+
         log.info("### member: {}", member);
 
         return new MemberDto()
@@ -83,7 +85,8 @@ public class MemberService {
         NationCode originNation = requestDto.getOriginNation();
         NationCode targetNation = requestDto.getTargetNation();
 
-        Member member = memberRepository.findByMemberIdx(memberIdx);
+        Member member = memberRepository.findByMemberIdx(memberIdx)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_MEMBER));
 
         member.setOriginNation(originNation)
                 .setTargetNation(targetNation);

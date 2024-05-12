@@ -5,9 +5,8 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import meme.book.back.dto.article.ArticleListDto;
+import meme.book.back.dto.article.ArticleDto;
 import meme.book.back.dto.article.ArticleListRequestDto;
-import meme.book.back.entity.QArticle;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
@@ -22,9 +21,9 @@ public class ArticleRepositoryImpl implements ArticleCustomRepository {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<ArticleListDto> getArticleList(Pageable pageable, ArticleListRequestDto requestDto) {
+    public Page<ArticleDto> getArticleList(Pageable pageable, ArticleListRequestDto requestDto) {
 
-        List<ArticleListDto> fetch = queryFactory.select(Projections.fields(ArticleListDto.class,
+        List<ArticleDto> fetch = queryFactory.select(Projections.fields(ArticleDto.class,
                         article.articleIdx.as("articleIdx"),
                         article.articleTitle.as("articleTitle"),
                         article.memberIdx.as("memberIdx"),

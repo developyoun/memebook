@@ -29,15 +29,22 @@ public class ArticleController {
                                             @RequestParam(required = false) String search) {
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         ArticleListRequestDto requestDto = new ArticleListRequestDto().setSearch(search);
-        log.info("Article Get List Request, page: {}, pageSize: {}, request: {}", page, page, requestDto);
+        log.info("Get Article List Request, page: {}, pageSize: {}, request: {}", page, page, requestDto);
 
         return ResponseEntity.ok(articleService.getArticleList(pageable, requestDto));
+    }
+
+    @Operation(summary = "게시글 상세 API")
+    @GetMapping("/detail/{articleIdx}")
+    public ResponseEntity<?> getArticleDetail(@PathVariable Long articleIdx) {
+        log.info("Get Article Detail, idx: {}", articleIdx);
+        return ResponseEntity.ok(articleService.getArticleDetail(articleIdx));
     }
 
     @Operation(summary = "게시글 생성 API")
     @PostMapping("/create")
     public ResponseEntity<?> createArticle(@RequestBody ArticleRequestDto requestDto) {
-        log.info("Article Create Request: {}", requestDto);
+        log.info("Create Article Request: {}", requestDto);
         return ResponseEntity.ok(articleService.createArticle(requestDto));
     }
 
@@ -66,7 +73,5 @@ public class ArticleController {
         log.info("Article Like Update: {}, Request: {}", articleIdx, requestDto);
         return ResponseEntity.ok(articleService.countArticleUpdate(articleIdx, requestDto));
     }
-
-
 
 }

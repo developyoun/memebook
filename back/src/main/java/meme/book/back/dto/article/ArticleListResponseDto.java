@@ -2,7 +2,6 @@ package meme.book.back.dto.article;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import meme.book.back.entity.Article;
 
 import java.util.List;
 
@@ -10,11 +9,10 @@ import java.util.List;
 @Accessors(chain = true)
 public class ArticleListResponseDto {
 
-    List<ArticleListDto> articleList;
+    List<ArticleDto> articleList;
 
     long totalCount;
 
     int totalPage;
-
 
 }

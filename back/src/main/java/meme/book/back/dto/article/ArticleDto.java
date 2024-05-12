@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Accessors(chain = true)
-public class ArticleListDto {
+public class ArticleDto {
 
     @Schema(name = "articleIdx", description = "게시글 번호")
     private Long articleIdx;

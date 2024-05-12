@@ -27,6 +27,7 @@ public class CommentService {
     @Transactional
     public CommentResponseDto createComment(CommentRequestDto requestDto) {
         Comment comment = new Comment()
+                .setArticleIdx(requestDto.getArticleIdx())
                 .setCommentContent(requestDto.getCommentContent())
                 .setMemberIdx(requestDto.getMemberIdx())
                 .setUpperIdx(requestDto.getUpperIdx());
