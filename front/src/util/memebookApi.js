@@ -16,7 +16,7 @@ export const memebookApi = {
   nationChange : (nationInfo) => request.put(`member/update/nation`, nationInfo),
 
   // 전체 단어 리스트 조회
-  wordList : (country, pageNumber) => request.get(`word/list?nation=${country}&page=${pageNumber}`),
+  wordList : (country, pageNumber) => request.get(`word/list?page=${pageNumber}`),
   // 단어 정렬
   wordSort : (country, sort, sortBy) => request.get(`word/list?nation=${country}&sort=${sort}&sortBy=${sortBy}`),
   // 내가 쓴 단어 리스트 조회
@@ -43,8 +43,13 @@ export const memebookApi = {
   // 좋아요, 싫어요 횟수
   wordReactionCount : (wordIdx) => request.get(`reaction/count?wordIdx=${wordIdx}`),
 
+
+  // 팔로워 상태
+  followerStateApi : (memberIdx, otherMemberIdx) => request.get(`follow/follow?me=${memberIdx}&other=${otherMemberIdx}`),
   // 팔로워 추가
   followerAdd : (memberIdx) => request.post(`follow/update`, memberIdx),
   // 팔로워 리스트
-  followerStateApi : (memberIdx) => request.get(`follow/list?memberIdx=${memberIdx}`),
+  followerListApi : (memberIdx) => request.get(`follow/follower/list?memberIdx=${memberIdx}`),
+  // 팔로잉 리스트
+  followeeListApi : (memberIdx) => request.get(`follow/followee/list?memberIdx=${memberIdx}`),
 }
