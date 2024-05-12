@@ -31,10 +31,10 @@ public class Comment implements Serializable {
     private Long commentIdx;
 
     @Column(name = "COMMENT_CONTENT")
-    private Long commentContent;
+    private String commentContent;
 
     @Column(name = "ARTICLE_IDX")
-    private String articleIdx;
+    private Long articleIdx;
 
     @Column(name = "COMMENT_LIKE_CNT")
     private Long commentLikeCnt = 0L;
@@ -46,7 +46,7 @@ public class Comment implements Serializable {
     @Column(name = "REG_DTM")
     private LocalDateTime regDtm;
 
-    @Column(name = "LEVEL")
-    private int level;
+    @Column(name = "UPPER_Idx")
+    private Long upperIdx;
 }
 

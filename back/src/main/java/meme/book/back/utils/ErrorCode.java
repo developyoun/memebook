@@ -16,6 +16,7 @@ public enum ErrorCode {
     NOT_EXIST_WORD(HttpStatus.NOT_FOUND, "존재하지 않는 단어입니다."),
     NOT_EXIST_SCRAP(HttpStatus.NOT_FOUND, "존재하지 않는 스크랩입니다."),
     NOT_EXIST_ARTICLE(HttpStatus.NOT_FOUND, "존재하지 않는 게시글입니다."),
+    NOT_EXIST_COMMENT(HttpStatus.NOT_FOUND, "존재하지 않는 댓글입니다."),
     NOT_EXIST_MEMBER(HttpStatus.NOT_FOUND, "존재하지 않는 회원입니다."),
 
     NOT_EXIST_CONTENT_USER(HttpStatus.BAD_REQUEST, "회원이 작성한 컨텐츠가 아닙니다"),

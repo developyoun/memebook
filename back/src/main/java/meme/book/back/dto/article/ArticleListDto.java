@@ -20,9 +20,6 @@ public class ArticleListDto {
     @Schema(name = "memberIdx", description = "회원 번호")
     private Long memberIdx;
 
-    @Schema(name = "articleContent", description = "게시글 내용")
-    private String articleContent;
-
     @Schema(name = "regDtm", description = "등록일시")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime regDtm;

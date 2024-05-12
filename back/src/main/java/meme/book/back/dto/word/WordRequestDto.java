@@ -17,5 +17,4 @@ public class WordRequestDto {
 
     private String sortBy;
 
-
 }

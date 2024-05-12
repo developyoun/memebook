@@ -63,9 +63,13 @@ public class ArticleService {
     }
 
     @Transactional
-    public void deleteArticle(Long articleIdx) {
+    public void deleteArticle(Long articleIdx, Long reqMemIdx) {
         Article article = articleRepository.findByArticleIdx(articleIdx)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_ARTICLE));
+
+        if (!article.getMemberIdx().equals(reqMemIdx)) {
+            throw new CustomException(ErrorCode.NOT_MATCH_MEMBER);
+        }
 
         log.info("Article Deleted, article Idx: {}", articleIdx);
         articleRepository.delete(article);

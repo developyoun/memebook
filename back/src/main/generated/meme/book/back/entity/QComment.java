@@ -19,19 +19,19 @@ public class QComment extends EntityPathBase<Comment> {
 
     public static final QComment comment = new QComment("comment");
 
-    public final StringPath articleIdx = createString("articleIdx");
+    public final NumberPath<Long> articleIdx = createNumber("articleIdx", Long.class);
 
-    public final NumberPath<Long> commentContent = createNumber("commentContent", Long.class);
+    public final StringPath commentContent = createString("commentContent");
 
     public final NumberPath<Long> commentIdx = createNumber("commentIdx", Long.class);
 
     public final NumberPath<Long> commentLikeCnt = createNumber("commentLikeCnt", Long.class);
 
-    public final NumberPath<Integer> level = createNumber("level", Integer.class);
-
     public final NumberPath<Long> memberIdx = createNumber("memberIdx", Long.class);
 
     public final DateTimePath<java.time.LocalDateTime> regDtm = createDateTime("regDtm", java.time.LocalDateTime.class);
+
+    public final NumberPath<Long> upperIdx = createNumber("upperIdx", Long.class);
 
     public QComment(String variable) {
         super(Comment.class, forVariable(variable));

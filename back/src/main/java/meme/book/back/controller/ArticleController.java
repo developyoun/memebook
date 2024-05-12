@@ -1,6 +1,7 @@
 package meme.book.back.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,17 +51,19 @@ public class ArticleController {
 
     @Operation(summary = "게시글 삭제 API")
     @DeleteMapping("/delete/{articleIdx}")
-    public ResponseEntity<?> deleteArticle(@PathVariable Long articleIdx) {
+    public ResponseEntity<?> deleteArticle(
+            @Parameter(description = "게시글 번호") @PathVariable Long articleIdx,
+            @Parameter(description = "요청 회원 번호") @RequestParam Long reqMemIdx) {
         log.info("Article Delete Request: {}", articleIdx);
-        articleService.deleteArticle(articleIdx);
+        articleService.deleteArticle(articleIdx, reqMemIdx);
         return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "게시글 좋아요 업데이트 API")
-    @PostMapping("/count/{articleIdx}")
-    public ResponseEntity<?> countUpdateArticle(@PathVariable Long articleIdx,
+    @PostMapping("/like/{articleIdx}")
+    public ResponseEntity<?> likeUpdateArticle(@PathVariable Long articleIdx,
                                                 @RequestBody ArticleRequestDto requestDto) {
-        log.info("Article Count Update: {}, Request: {}", articleIdx, requestDto);
+        log.info("Article Like Update: {}, Request: {}", articleIdx, requestDto);
         return ResponseEntity.ok(articleService.countArticleUpdate(articleIdx, requestDto));
     }
 

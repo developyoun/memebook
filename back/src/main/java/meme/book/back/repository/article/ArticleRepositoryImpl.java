@@ -27,7 +27,6 @@ public class ArticleRepositoryImpl implements ArticleCustomRepository {
         List<ArticleListDto> fetch = queryFactory.select(Projections.fields(ArticleListDto.class,
                         article.articleIdx.as("articleIdx"),
                         article.articleTitle.as("articleTitle"),
-                        article.articleContent.as("articleContent"),
                         article.memberIdx.as("memberIdx"),
                         article.regDtm.as("regDtm"),
                         article.articleLikeCnt.as("likeCount"))
