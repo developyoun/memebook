@@ -4,7 +4,7 @@ import {Link, useLocation, useParams} from 'react-router-dom';
 
 export default function HomeFooter() {
   const location = useLocation();
-  const [memberIdx, setMemberIdx] = useState('123');
+  const [memberIdx, setMemberIdx] = useState(321);
 
   return (
     <footer>

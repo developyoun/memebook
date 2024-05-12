@@ -5,46 +5,73 @@ const request = axios.create({
 })
 
 export const memebookApi = {
-  // 닉네임 생성
-  nickName : (nickname) => request.post(`member/create/nickname?nickname=${nickname}`),
-  // 닉네임 중복 조회
-  nickNameCheck : (nickname) => request.get(`member/exist/nickname?nickname=${nickname}`),
-
+  // 회원 생성
+  memberAddApi : (memberInfo) => request.post(`member/create`, memberInfo),
   // 회원 국가 조회
-  nationCheck : (memberIdx) => request.get(`member/nation?memberIdx=${memberIdx}`),
+  nationCheckApi : (memberIdx) => request.get(`member/nation?memberIdx=${memberIdx}`),
   // 회원 국가 변경
-  nationChange : (nationInfo) => request.put(`member/update/nation`, nationInfo),
+  nationModifyApi : (nationInfo) => request.put(`member/update/nation`, nationInfo),
+  // 닉네임 생성
+  nickNameAddApi : (nickname) => request.post(`member/create/nickname?nickname=${nickname}`),
+  // 닉네임 중복 조회
+  nickNameCheckApi : (nickname) => request.get(`member/exist/nickname?nickname=${nickname}`),
+
+  // 게시글 등록
+  postAddApi : (postInfo) => request.post(`article/create`, postInfo),
+  // 게시글 리스트
+  postListApi : () => request.get(`article/list`),
+  // 게시글 상세
+  postDetailApi : (postIdx) => request.get(`article/detail/list/${postIdx}`),
+  // 게시글 수정
+  postModifyApi : (postIdx) => request.put(`article/update`, postIdx),
+  // 게시글 좋아요
+  postReactionApi : (postIdx) => request.post(`article/like`, postIdx),
+  // 게시글 삭제
+  postDeleteApi : (postIdx, memberIdx) => request.post(`article/delete/${postIdx}?reqMemIdx=${memberIdx}`),
+
+  // 댓글 수정
+  commentModifyApi : (commentIdx) => request.put(`comment/update`, commentIdx),
+  // 댓글 좋아요
+  commentReactionApi : (commentIdx) => request.post(`comment/like`, commentIdx),
+  // 댓글 등록
+  commentAddApi : (commentInfo) => request.post(`comment/create`, commentInfo),
+  // 게시글 삭제
+  commentDeleteApi : (commentIdx, memberIdx) => request.post(`comment/delete/${commentIdx}?reqMemIdx=${memberIdx}`),
 
   // 전체 단어 리스트 조회
-  wordList : (country, pageNumber) => request.get(`word/list?nation=${country}&page=${pageNumber}`),
+  wordListApi : (country, pageNumber) => request.get(`word/list?page=${pageNumber}`),
   // 단어 정렬
-  wordSort : (country, sort, sortBy) => request.get(`word/list?nation=${country}&sort=${sort}&sortBy=${sortBy}`),
+  wordSortApi : (country, sort, sortBy) => request.get(`word/list?nation=${country}&sort=${sort}&sortBy=${sortBy}`),
   // 내가 쓴 단어 리스트 조회
-  myWordList : (memberIdx) => request.get(`word/list/${memberIdx}`),
+  myWordListApi : (memberIdx) => request.get(`word/list/${memberIdx}`),
   // 단어 디테일 조회
-  wordDetail : (wordIdx, memberIdx) => request.get(`word/${wordIdx}?memberIdx=${memberIdx}`),
+  wordDetailApi : (wordIdx, memberIdx) => request.get(`word/${wordIdx}?memberIdx=${memberIdx}`),
 
   // 단어 추가
-  wordAdd : (addList) => request.post(`word/create`, addList),
+  wordAddApi : (addList) => request.post(`word/create`, addList),
   // 설명 수정
   wordModifyApi : (wordInfo) => request.put(`word/update`, wordInfo),
   // 설명 삭제
-  wordDelete : (wordContentIdx) => request.delete(`word/delete?wordContentIdx=${wordContentIdx}`),
+  wordDeleteApi : (wordContentIdx) => request.delete(`word/delete?wordContentIdx=${wordContentIdx}`),
 
   // 스크랩 조회
-  wordScrapeUpdate : (memberIdx) => request.get(`scrap/word/list/${memberIdx}`),
+  wordScrapeUpdateApi : (memberIdx) => request.get(`scrap/word/list/${memberIdx}`),
   // 스크랩 등록
-  wordScrap : (wordInfo) => request.post(`scrap/word`, wordInfo),
+  wordScrapAddApi : (wordInfo) => request.post(`scrap/word`, wordInfo),
   // 스크랩 삭제
-  wordScrapDelete : (wordIdx) => request.delete(`scrap/word?scrapIdx=${wordIdx}`),
+  wordScrapDeleteApi : (wordIdx) => request.delete(`scrap/word?scrapIdx=${wordIdx}`),
 
   // 좋아요, 싫어요 조회
-  wordReactionUpdate : (update) => request.post(`reaction/word/update`, update),
+  wordReactionUpdateApi : (update) => request.post(`reaction/word/update`, update),
   // 좋아요, 싫어요 횟수
-  wordReactionCount : (wordIdx) => request.get(`reaction/count?wordIdx=${wordIdx}`),
+  wordReactionCountApi : (wordIdx) => request.get(`reaction/count?wordIdx=${wordIdx}`),
 
+  // 팔로워 상태
+  followerStateApi : (memberIdx, otherMemberIdx) => request.get(`follow/follow?me=${memberIdx}&other=${otherMemberIdx}`),
   // 팔로워 추가
-  followerAdd : (memberIdx) => request.post(`follow/update`, memberIdx),
+  followerAddApi : (memberIdx) => request.post(`follow/update`, memberIdx),
   // 팔로워 리스트
-  followerStateApi : (memberIdx) => request.get(`follow/list?memberIdx=${memberIdx}`),
+  followerListApi : (memberIdx) => request.get(`follow/follower/list?memberIdx=${memberIdx}`),
+  // 팔로잉 리스트
+  followeeListApi : (memberIdx) => request.get(`follow/followee/list?memberIdx=${memberIdx}`),
 }

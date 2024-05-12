@@ -4,7 +4,7 @@ import {scrapListAction, scrapDeleteAction} from "../action";
 // 스크랩 리스트
 export const scrapListData = (id) => async (dispatch) => {
   try {
-    const scrapListData = await memebookApi.wordScrapeUpdate(id);
+    const scrapListData = await memebookApi.wordScrapeUpdateApi(id);
     dispatch(scrapListAction(scrapListData));
   } catch (error) {
     console.error(error);
@@ -14,7 +14,7 @@ export const scrapListData = (id) => async (dispatch) => {
 // 스크랩 추가
 export const scrapAddData = (id, memberIdx) => async () => {
   try {
-    const scrapAddData = await memebookApi.wordScrap({
+    const scrapAddData = await memebookApi.wordScrapAddApi({
       "wordIdx": id,
       "memberIdx": memberIdx,
     });
@@ -26,7 +26,7 @@ export const scrapAddData = (id, memberIdx) => async () => {
 // 스크랩 삭제
 export const scrapDeleteData = (scrapIdx) => async (dispatch) => {
   try {
-    const scrapDeleteData = await memebookApi.wordScrapDelete(scrapIdx);
+    const scrapDeleteData = await memebookApi.wordScrapDeleteApi(scrapIdx);
     dispatch(scrapDeleteAction(scrapDeleteData));
   } catch (error) {
     console.error(error);

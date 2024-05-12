@@ -29,7 +29,7 @@ export default function CountryChoice({ countryChoiceClose, selectType }) {
 
   async function countrySave() {
     try {
-      const nationChangeData = memebookApi.nationChange({
+      const nationChangeData = memebookApi.nationModifyApi({
         "memberIdx": memberIdx,
         "originNation": originNationCheck,
         "targetNation": targetNationCheck,

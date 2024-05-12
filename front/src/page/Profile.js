@@ -14,6 +14,7 @@ export default function Profile() {
   const myWordList = useSelector(state => state.meme.myWordList);
   const [memberIdx, setMemberIdx] = useState(321);
   // 팔로워
+  const [followerState, setFollowerState] = useState();
   const [followerCount, setFollowerCount] = useState(0);
   const [followerAddState, setFollowerAddState] = useState(false);
   // 링크 복사 상태
@@ -24,8 +25,11 @@ export default function Profile() {
       try {
         dispatch(scrapListData(memberIdx));
         dispatch(myWordListData(memberIdx));
-        const followerStateApi = await memebookApi.followerStateApi(memberIdx);
-        setFollowerCount(followerStateApi.data.followList.length);
+        const followerListApi = await memebookApi.followerListApi(memberIdx);
+        const followerStateApi = await memebookApi.followerStateApi(id, memberIdx);
+        setFollowerState(followerStateApi)
+        setFollowerCount(followerListApi.data.followList.length);
+        console.log(followerListApi)
       } catch (error) {
         console.log(error)
       }
@@ -37,15 +41,10 @@ export default function Profile() {
   async function followerAdd() {
     try {
       let count = 0;
-      const followerAddData = await memebookApi.followerAdd({
+      const followerAddData = await memebookApi.followerAddApi({
         "follower": id,
         "followee": memberIdx,
       });
-      // if (followerAddState === true) {
-      //   setFollowerCount(count--);
-      // } else {
-      //   setFollowerCount(count++);
-      // }
       setFollowerAddState(!followerAddState);
       console.log('성공')
     } catch (error) {
@@ -68,7 +67,7 @@ export default function Profile() {
         <div className="follower_box">
           {
             id !== memberIdx && (
-              <button type="button" className={`btn_followers ${followerAddState ? 'active' : ''}`} onClick={followerAdd}>
+              <button type="button" className={`btn_followers ${followerState ? 'active' : ''}`} onClick={followerAdd}>
                 <span className="blind">팔로워</span>
               </button>
             )
