@@ -62,3 +62,11 @@ export const postListAction = (data) => {
     payload: data.data
   };
 };
+
+// 포스트 상세
+export const postDetailAction = (data) => {
+  return {
+    type: "SEND_POST_DETAIL",
+    payload: data.data
+  };
+};

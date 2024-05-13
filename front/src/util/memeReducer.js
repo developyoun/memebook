@@ -44,6 +44,11 @@ const memeReducer = (state = initialState, action) => {
         ...state,
         postList: action.payload,
       };
+    case "SEND_POST_DETAIL":
+      return {
+        ...state,
+        postDetail: action.payload,
+      };
     default:
       return state;
   }

@@ -1,9 +1,32 @@
 import '../scss/page/post.scss'
-import React from "react";
-import {Link} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Link, useParams} from "react-router-dom";
 import Header from "../components/Header";
+import {useDispatch, useSelector} from "react-redux";
+import {postDetailData, postListData} from "../util/action/communityAction";
 
 export default function Post() {
+  const id = useParams();
+  const dispatch = useDispatch();
+  const postList = useSelector(state => state.meme.postList);
+  const postDetail = useSelector(state => state.meme.postDetail);
+  const [loading, setLoading] = useState(true);
+
+  // 포스트 디테일 Api
+  useEffect(() => {
+    async function postDetailApi() {
+      try {
+        await dispatch(postListData());
+        await dispatch(postDetailData(id.id));
+        console.log(postList);
+        console.log(postDetail);
+      } catch (error) {
+        console.log('오류')
+      }
+    }
+    postDetailApi();
+  }, []);
+
 
   return (
     <>
@@ -33,34 +56,34 @@ export default function Post() {
         </div>
         <div className="post_comment">
           <ul className="comment_list">
-            <li className="list">
-              <div className="comments">
-                <span className="nickname">변태호</span>
-                <p className="txt">수면제를 드세요</p>
-                <button type="button" className="btn_icon like">
-                  <span className="blind">좋아요</span>
-                </button>
-              </div>
-              <ul className="list">
-                <li className="comments">
-                  <span className="nickname">변태호</span>
-                  <p className="txt">수면제를 드세요</p>
-                  <button type="button" className="btn_icon like">
-                    <span className="blind">좋아요</span>
-                  </button>
-                </li>
-                <li className="comments">
-                  <span className="nickname">김태호</span>
-                  <p className="txt">맞아요 수면에 드링킹하세요</p>
-                </li>
-              </ul>
-            </li>
-            <li className="list">
-              <div className="comments">
-                <span className="nickname">김태호</span>
-                <p className="txt">맞아요 수면에 드링킹하세요</p>
-              </div>
-            </li>
+            {
+              postDetail.commentDtoList?.map((item, idx) => {
+                return (
+                  <li className="list">
+                    <div className="comments">
+                      <span className="nickname">{item.nickname}</span>
+                      <p className="txt">{item.commentContent}</p>
+                    </div>
+                    <ul className="list">
+                    </ul>
+                    {
+                      item.commentReplyList?.map((item, idx) => {
+                        return (
+                          <li className="comments">
+                            <span className="nickname">{item.nickname}</span>
+                            <p className="txt">{item.commentContent}</p>
+                            <button type="button" className="btn_icon like">
+                              <span className="blind">좋아요</span>
+                            </button>
+                          </li>
+                        )
+                      })
+                    }
+                  </li>
+                )
+              })
+            }
+
           </ul>
         </div>
       </div>
