@@ -32,7 +32,7 @@ export default function Community() {
           <div className="post_list">
             <ul className="list">
               <li>
-                <Link to="/postDetail" className="post_link">
+                <Link to="/community/postDetail" className="post_link">
                   <div className="post_top">
                     <h3 className="tit">요즘 잠이 안와요</h3>
                     <span className="nickname">김누징</span>
@@ -46,17 +46,17 @@ export default function Community() {
                   <button type="button" className={`btn_post_like ${postReactionState ? 'active' : ''}`} onClick={postReaction}>
                     <span className="blind">좋아요</span>
                   </button>
-                  <Link to="/postDetail" className="comments_count">
+                  <Link to="/community/postDetail" className="comments_count">
                     <span className="blind">댓글</span>
                   </Link>
-                  <Link to="/postDetail" className="view_count">
+                  <Link to="/community/postDetail" className="view_count">
                     <span className="blind">조회수</span>
                   </Link>
                 </div>
               </li>
 
               <li>
-                <Link to="/postDetail" className="post_link">
+                <Link to="/community/postDetail" className="post_link">
                   <h3 className="tit">요즘 잠이 안와요</h3>
                   <p className="txt">왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요</p>
                 </Link>
@@ -72,7 +72,7 @@ export default function Community() {
                     <span className="blind">조회수</span>
                   </button>
                 </div>
-                <Link to="/postDetail" className="post_contents">
+                <Link to="/community/postDetail" className="post_contents">
                   <span className="nickname">변태호</span>
                   <p className="comments">수면제를 드세요</p>
                 </Link>
@@ -81,6 +81,10 @@ export default function Community() {
           </div>
 
         </div>
+
+        <Link to={`/community/postAdd`} className="desc_add_btn">
+          <span className="blind">작성하기</span>
+        </Link>
       </div>
     </>
   );
