@@ -1,5 +1,4 @@
 // 회원 국가 조회
-
 export const nationCheckAction = (data) => {
   return {
     type: "SEND_NATION_CHECK_ACTION",
@@ -56,3 +55,10 @@ export const scrapDeleteAction = (data) => {
   };
 };
 
+// 포스트 리스트
+export const postListAction = (data) => {
+  return {
+    type: "SEND_POST_LIST",
+    payload: data.data
+  };
+};

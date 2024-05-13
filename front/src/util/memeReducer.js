@@ -4,6 +4,7 @@ const initialState = {
   wordList : [],
   myWordList : [],
   nationCheck : [],
+  postList : [],
 };
 
 const memeReducer = (state = initialState, action) => {
@@ -37,6 +38,11 @@ const memeReducer = (state = initialState, action) => {
       return {
         ...state,
         scrapList: action.payload,
+      };
+    case "SEND_POST_LIST":
+      return {
+        ...state,
+        postList: action.payload,
       };
     default:
       return state;

@@ -1,11 +1,29 @@
 import '../scss/page/community.scss'
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {Swiper, SwiperSlide} from "swiper/react";
 import Header from "../components/Header";
+import {memebookApi} from "../util/memebookApi";
+import {useDispatch, useSelector} from "react-redux";
+import {postListData} from "../util/action/communityAction";
 
 export default function Community() {
+  const dispatch = useDispatch();
+  const postList = useSelector(state => state.meme.postList);
   const [postReactionState, setPostReactionState] = useState(false);
+
+  // 포스트 Api
+  useEffect(() => {
+    async function postListApi() {
+      try {
+        dispatch(postListData());
+      } catch (error) {
+        // window.history.back();
+      }
+    }
+
+    postListApi();
+  }, []);
 
   const postReaction = () => {
     setPostReactionState(!postReactionState)
@@ -31,52 +49,36 @@ export default function Community() {
         <div className="post_box">
           <div className="post_list">
             <ul className="list">
-              <li>
-                <Link to="/community/postDetail" className="post_link">
-                  <div className="post_top">
-                    <h3 className="tit">요즘 잠이 안와요</h3>
-                    <span className="nickname">김누징</span>
-                  </div>
+              {
+                postList.articleList?.map((item, idx) => {
+                  return (
+                    <li>
+                      <Link to="/community/postDetail" className="post_link">
+                        <div className="post_top">
+                          <h3 className="tit">{item.articleTitle}</h3>
+                          <span className="nickname">김누징</span>
+                        </div>
 
-                  <p className="txt">왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요</p>
-                </Link>
-                <button type="button" className="post_more_btn">더보기</button>
+                        <p className="txt">왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요</p>
+                      </Link>
+                      <button type="button" className="post_more_btn">더보기</button>
 
-                <div className="post_reaction">
-                  <button type="button" className={`btn_post_like ${postReactionState ? 'active' : ''}`} onClick={postReaction}>
-                    <span className="blind">좋아요</span>
-                  </button>
-                  <Link to="/community/postDetail" className="comments_count">
-                    <span className="blind">댓글</span>
-                  </Link>
-                  <Link to="/community/postDetail" className="view_count">
-                    <span className="blind">조회수</span>
-                  </Link>
-                </div>
-              </li>
+                      <div className="post_reaction">
+                        <button type="button" className={`btn_post_like ${postReactionState ? 'active' : ''}`} onClick={postReaction}>
+                          <span className="blind">좋아요</span>
+                        </button>
+                        <Link to="/community/postDetail" className="comments_count">
+                          <span className="blind">댓글</span>
+                        </Link>
+                        <Link to="/community/postDetail" className="view_count">
+                          <span className="blind">조회수</span>
+                        </Link>
+                      </div>
+                    </li>
+                  )
+                })
+              }
 
-              <li>
-                <Link to="/community/postDetail" className="post_link">
-                  <h3 className="tit">요즘 잠이 안와요</h3>
-                  <p className="txt">왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요</p>
-                </Link>
-                <button type="button" className="post_more_btn">더보기</button>
-                <div className="post_reaction">
-                  <button type="button" className="post_like_btn">
-                    <span className="blind">좋아요</span>
-                  </button>
-                  <button type="button" className="comments_btn">
-                    <span className="blind">댓글</span>
-                  </button>
-                  <button type="button" className="view_btn">
-                    <span className="blind">조회수</span>
-                  </button>
-                </div>
-                <Link to="/community/postDetail" className="post_contents">
-                  <span className="nickname">변태호</span>
-                  <p className="comments">수면제를 드세요</p>
-                </Link>
-              </li>
             </ul>
           </div>
 

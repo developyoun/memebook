@@ -25,6 +25,8 @@ export default function PostAdd() {
         "memberIdx": memberIdx,
         "articleContent": contentValue,
       });
+      alert('등록 완료');
+      window.location.reload();
       setAddState(addState);
       console.log('등록')
     } catch (error) {
