@@ -8,16 +8,13 @@ import Title from "../components/Title";
 export default function MyAddList() {
   const dispatch = useDispatch();
   const myWordList = useSelector(state => state.meme.myWordList);
-
-  const [memberIdx, setMemberIdx] = useState(321);
   const [deleteState, SetDeleteState] = useState(false);
+  const [memberIdx, setMemberIdx] = useState(321);
 
   useEffect(() => {
     async function wordAddListApi() {
       try {
         dispatch(myWordListData(memberIdx));
-        console.log(myWordList)
-        // dispatch(scrapDeleteData());
       } catch (error) {
         console.log(error)
       }
@@ -33,20 +30,34 @@ export default function MyAddList() {
         SetDeleteState(!deleteState);
         alert('삭제');
       }
-      console.log('성공');
     } catch (error) {
       console.log(error)
-      console.log('에러')
     }
   }
 
   return (
     <div className="my_word_wrap">
-      <Title title="내가 등록한 단어" type="back"></Title>
+
+      <Title title="참여한 단어" type="back"></Title>
+
       <div className="container">
+
+        {
+          myWordList.wordContentList?.length === 0 && (
+            <div className="content_none list">
+              <p>
+                참여한 단어가 없어요 &#128172;
+              </p>
+              <Link to="/vocabulary" className="btn_primary_line size_m">
+                단어 구경하러 가기
+              </Link>
+            </div>
+          )
+        }
+
         {
           myWordList.wordContentList?.length > 0 && (
-            <ul className="list_box">
+            <ul className="list_box inside">
               {
                 myWordList.wordContentList?.map((item, idx) => {
                   return (

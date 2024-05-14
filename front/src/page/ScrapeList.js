@@ -44,26 +44,33 @@ export default function ScrapeList() {
   }
 
   return (
-    <div className="scrape_list_wrap">
+    <div className="scrap_list_wrap">
 
-      <Title title="스크랩 리스트" type="back"></Title>
+      <Title title="스크랩한 단어" type="back"></Title>
 
       <div className="container">
         {
           scrapList.content?.length === 0 && (
-            <div>없어용</div>
+            <div className="content_none list">
+              <p>
+                스크랩한 단어가 없어요 &#128172;
+              </p>
+              <Link to="/vocabulary" className="btn_primary_line size_m">
+                단어 구경하러 가기
+              </Link>
+            </div>
           )
         }
 
         {
           scrapList.content?.length > 0 && (
-            <ul className="list_box">
+            <ul className="list_box inside">
               {
                 scrapList.content?.map((item, idx) => {
                   return (
                     <li className="list_item">
                       <Link to={`/vocabulary/wordInfo/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
-                      <button type="button" className="scrap_delete_btn" onClick={() => scrapDeleteApi(item.scrapIdx)}>
+                      <button type="button" className="btn_delete" onClick={() => scrapDeleteApi(item.scrapIdx)}>
                         <span className="blind">스크랩 삭제</span>
                       </button>
                     </li>

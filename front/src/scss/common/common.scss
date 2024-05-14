@@ -201,6 +201,9 @@
   font-size:14px;
   border-radius:12px;
   background:#fff;
+  &.inside {
+    padding:0;
+  }
   .list_item {
     display:flex;
     align-items:center;
@@ -293,5 +296,62 @@
         color:#fff;
       }
     }
+  }
+}
+
+
+.content_none {
+  font-size:12px;
+  &.list {
+    text-align:center;
+    &:before {
+      content:'';
+      display:block;
+      margin:0 auto 20px;
+      width:200px;
+      height:200px;
+      background:url('./../../assets/img/img_content_none.png') center / 100% no-repeat;
+    }
+  }
+}
+
+// BUTTON
+.btn_primary {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:12px;
+  font-weight:bold;
+  border:1px solid var(--primary-30);
+  border-radius:8px;
+  background:var(--primary-30);
+  &.size_s {
+    padding:0 16px;
+    height:30px;
+  }
+  &.size_m {
+    padding:0 32px;
+    height:38px;
+  }
+}
+// BUTTON - LINE
+.btn_primary_line {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--primary-30);
+  font-size:12px;
+  font-weight:bold;
+  border:1px solid var(--primary-30);
+  border-radius:8px;
+  background:#fff;
+  &.size_s {
+    padding:0 16px;
+    height:30px;
+  }
+  &.size_m {
+    padding:0 32px;
+    height:38px;
   }
 }

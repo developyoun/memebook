@@ -75,12 +75,6 @@
   &+.user_box {
     margin-top:12px;
   }
-  .content_none {
-    font-size:12px;
-  }
-  .list_box {
-    padding:0
-  }
 }
 
 
@@ -156,25 +150,17 @@
   }
 }
 
+
+// 초대하기
 .invite_box {
   margin-top:24px;
+  text-align:center;
   .invite_txt {
     color:var(--primary-10);
     font-size:12px;
     text-align:center;
   }
-  .invite_btn {
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    height:38px;
+  .btn_primary {
     margin:16px auto 0;
-    padding:0 32px;
-    color:#fff;
-    font-size:12px;
-    font-weight:bold;
-    line-height:26px;
-    border-radius:8px;
-    background:var(--primary-30);
   }
 }

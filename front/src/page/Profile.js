@@ -152,12 +152,12 @@ export default function Profile() {
         }
         {
           myWordList.wordContentList?.length > 0 && (
-            <ul className="list_box">
+            <ul className="list_box inside">
               {
                 myWordList.wordContentList?.slice(0, 3).map((item, idx) => {
                   return (
                     <li className="list_item">
-                      <Link to={`/word/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
+                      <Link to={`/vocabulary/wordInfo/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
                     </li>
                   )
                 })
@@ -182,12 +182,12 @@ export default function Profile() {
         }
         {
           scrapList.content?.length > 0 && (
-            <ul className="list_box">
+            <ul className="list_box inside">
               {
                 scrapList.content?.slice(0, 3).map((item, idx) => {
                   return (
                     <li className="list_item">
-                      <Link to={`/word/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
+                      <Link to={`/vocabulary/wordInfo/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
                     </li>
                   )
                 })
@@ -219,7 +219,7 @@ export default function Profile() {
 
       <div className="invite_box">
         <p className="invite_txt">&#127881; 친구 초대를 통해 밈북의 세계를 넓혀주세요 &#127881;</p>
-        <button type="button" onClick={inviteLink} className="invite_btn">
+        <button type="button" onClick={inviteLink} className="btn_primary size_m">
           {copyState === true ? '복사 완료 ! 친구에게 공유해주세요!' : '링크 복사하기'}
         </button>
       </div>
