@@ -47,13 +47,13 @@ export default function Community() {
           </SwiperSlide>
         </Swiper>
 
-        <div className="post_box">
-          <div className="post_list">
-            <ul className="list">
-              {
-                postList.articleList?.map((item, idx) => {
-                  return (
-                    <li key={idx}>
+        <div className="post_list">
+          <ul className="list">
+            {
+              postList.articleList?.map((item, idx) => {
+                return (
+                  <li key={idx}>
+                    <div className="post_item">
                       <Link to={`/community/postDetail/${item.articleIdx}`} className="post_link">
                         <div className="post_top">
                           <h3 className="tit">{item.articleTitle}</h3>
@@ -75,14 +75,13 @@ export default function Community() {
                           <span className="blind">조회수</span>
                         </Link>
                       </div>
-                    </li>
-                  )
-                })
-              }
+                    </div>
+                  </li>
+                )
+              })
+            }
 
-            </ul>
-          </div>
-
+          </ul>
         </div>
 
         <Link to={`/community/postAdd`} className="desc_add_btn">
