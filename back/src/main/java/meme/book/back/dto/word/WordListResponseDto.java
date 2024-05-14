@@ -11,7 +11,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class WordListResponseDto {
 
-    List<WordDto> wordList;
+    List<WordListDto> wordList;
 
     private int nowPage;
 
@@ -20,5 +20,7 @@ public class WordListResponseDto {
     private long nowCount;
 
     private long totalCount;
+
+    private long wordContentCount;
 
 }

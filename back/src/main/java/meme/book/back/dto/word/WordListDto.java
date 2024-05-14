@@ -8,7 +8,7 @@ import meme.book.back.utils.NationCode;
 @Data
 @Accessors(chain = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class WordDto {
+public class WordListDto {
 
     // 단어 고유 번호
     private Long wordIdx;
@@ -30,4 +30,7 @@ public class WordDto {
 
     // 스크랩 여부
     private boolean isScrap;
+
+    // 단어 설명 카운트
+    private long wordContentCount;
 }

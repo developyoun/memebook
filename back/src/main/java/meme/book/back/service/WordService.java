@@ -53,7 +53,7 @@ public class WordService {
 
     @Transactional(readOnly = true)
     public WordListResponseDto getWordListService(Pageable pageable, WordRequestDto requestDto) {
-        Page<WordDto> wordDtoList = wordRepository.getAllWordList(pageable, requestDto);
+        Page<WordListDto> wordDtoList = wordRepository.getAllWordList(pageable, requestDto);
         log.info("### Get Word: {}", wordDtoList.getContent());
 
         return new WordListResponseDto()

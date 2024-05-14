@@ -37,7 +37,7 @@ public class ArticleRepositoryImpl implements ArticleCustomRepository {
                 ))
                 .from(article)
                 .join(member).on(article.memberIdx.eq(member.memberIdx))
-                .join(comment).on(article.articleIdx.eq(comment.articleIdx))
+                .leftJoin(comment).on(article.articleIdx.eq(comment.articleIdx))
                 .where(eqSearch(requestDto.getSearch()))
                 .orderBy(article.articleIdx.desc())
                 .groupBy(article.articleIdx)

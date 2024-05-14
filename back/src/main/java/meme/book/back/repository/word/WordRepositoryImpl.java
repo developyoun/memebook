@@ -7,7 +7,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import meme.book.back.dto.word.WordDto;
+import meme.book.back.dto.word.WordListDto;
 import meme.book.back.dto.word.WordRequestDto;
 import meme.book.back.utils.NationCode;
 import meme.book.back.utils.SortType;
@@ -18,6 +18,7 @@ import org.springframework.data.support.PageableExecutionUtils;
 import java.util.List;
 
 import static meme.book.back.entity.QWord.word;
+import static meme.book.back.entity.QWordContent.wordContent;
 
 @RequiredArgsConstructor
 public class WordRepositoryImpl implements WordCustomRepository {
@@ -25,20 +26,23 @@ public class WordRepositoryImpl implements WordCustomRepository {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<WordDto> getAllWordList(Pageable pageable, WordRequestDto dto) {
+    public Page<WordListDto> getAllWordList(Pageable pageable, WordRequestDto dto) {
 
-        List<WordDto> fetch = queryFactory.select(
-                        Projections.fields(WordDto.class,
+        List<WordListDto> fetch = queryFactory.select(
+                        Projections.fields(WordListDto.class,
                                 word.wordIdx.as("wordIdx"),
                                 word.wordNation.as("wordNation"),
                                 word.wordName.as("wordName"),
                                 word.wordLike.as("likeCount"),
-                                word.wordDislike.as("dislikeCount")
+                                word.wordDislike.as("dislikeCount"),
+                                wordContent.count().as("wordContentCount")
                         )
                 )
                 .from(word)
+                .leftJoin(wordContent).on(word.wordIdx.eq(wordContent.wordIdx))
                 .where(nationEq(dto.getNationCode()), titleEq(dto.getSearch()))
                 .orderBy(dynamicSort(dto.getSort(), dto.getSortBy()))
+                .groupBy(word.wordIdx)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
