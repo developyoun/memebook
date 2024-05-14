@@ -9,7 +9,7 @@ import java.util.List;
 @Accessors(chain = true)
 public class ArticleListResponseDto {
 
-    List<ArticleDto> articleList;
+    List<ArticleListDto> articleList;
 
     long totalCount;
 

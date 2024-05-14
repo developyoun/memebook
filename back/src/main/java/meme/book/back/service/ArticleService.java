@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.article.*;
 import meme.book.back.dto.comment.CommentDto;
 import meme.book.back.entity.Article;
-import meme.book.back.entity.Comment;
 import meme.book.back.entity.Reaction;
 import meme.book.back.exception.CustomException;
 import meme.book.back.repository.article.ArticleRepository;
@@ -32,7 +31,7 @@ public class ArticleService {
     private final MemberRepository memberRepository;
 
     public ArticleListResponseDto getArticleList(Pageable pageable, ArticleListRequestDto requestDto) {
-        Page<ArticleDto> articleDtoList = articleRepository.getArticleList(pageable, requestDto);
+        Page<ArticleListDto> articleDtoList = articleRepository.getArticleList(pageable, requestDto);
         log.info("Get Article List");
 
         return new ArticleListResponseDto()
@@ -70,6 +69,7 @@ public class ArticleService {
 
         return ArticleDetailResponseDto.toDto(article)
                 .setNickname(memberNickname)
+                .setCommentCount(commentDtoList.size())
                 .setCommentDtoList(savedCommentDto);
     }
 

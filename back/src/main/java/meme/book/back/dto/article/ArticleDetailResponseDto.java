@@ -15,9 +15,15 @@ public class ArticleDetailResponseDto {
 
     private Long articleIdx;
 
+    private String articleTitle;
+
+    private String articleContent;
+
     private Long articleMemberIdx;
 
     private String nickname;
+
+    private long commentCount;
 
     private long articleLikeCount;
 
@@ -30,6 +36,9 @@ public class ArticleDetailResponseDto {
         return new ArticleDetailResponseDto().setArticleIdx(article.getArticleIdx())
                 .setArticleMemberIdx(article.getMemberIdx())
                 .setArticleLikeCount(article.getArticleLikeCnt())
-                .setArticleRegDtm(article.getRegDtm());
+                .setArticleRegDtm(article.getRegDtm())
+                .setArticleTitle(article.getArticleTitle())
+                .setArticleContent(article.getArticleContent());
+
     }
 }

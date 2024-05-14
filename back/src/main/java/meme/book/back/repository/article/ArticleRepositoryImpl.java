@@ -5,7 +5,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import meme.book.back.dto.article.ArticleDto;
+import meme.book.back.dto.article.ArticleListDto;
 import meme.book.back.dto.article.ArticleListRequestDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +14,8 @@ import org.springframework.data.support.PageableExecutionUtils;
 import java.util.List;
 
 import static meme.book.back.entity.QArticle.article;
+import static meme.book.back.entity.QMember.member;
+import static meme.book.back.entity.QComment.comment;
 
 @RequiredArgsConstructor
 public class ArticleRepositoryImpl implements ArticleCustomRepository {
@@ -21,17 +23,24 @@ public class ArticleRepositoryImpl implements ArticleCustomRepository {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<ArticleDto> getArticleList(Pageable pageable, ArticleListRequestDto requestDto) {
+    public Page<ArticleListDto> getArticleList(Pageable pageable, ArticleListRequestDto requestDto) {
 
-        List<ArticleDto> fetch = queryFactory.select(Projections.fields(ArticleDto.class,
+        List<ArticleListDto> fetch = queryFactory.select(Projections.fields(ArticleListDto.class,
                         article.articleIdx.as("articleIdx"),
                         article.articleTitle.as("articleTitle"),
+                        article.articleContent.as("articleContent"),
                         article.memberIdx.as("memberIdx"),
                         article.regDtm.as("regDtm"),
-                        article.articleLikeCnt.as("likeCount"))
-                )
+                        article.articleLikeCnt.as("likeCount"),
+                        member.nickname.as("memberNickname"),
+                        comment.count().as("commentCount")
+                ))
                 .from(article)
+                .join(member).on(article.memberIdx.eq(member.memberIdx))
+                .join(comment).on(article.articleIdx.eq(comment.articleIdx))
                 .where(eqSearch(requestDto.getSearch()))
+                .orderBy(article.articleIdx.desc())
+                .groupBy(article.articleIdx)
                 .limit(pageable.getPageSize())
                 .offset(pageable.getOffset())
                 .fetch();

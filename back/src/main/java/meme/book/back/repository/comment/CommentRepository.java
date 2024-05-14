@@ -10,6 +10,9 @@ import java.util.Optional;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long>, CommentCustomRepository {
 
+    long countByArticleIdx(Long articleIdx);
+
     Optional<Comment> findByCommentIdx(Long commentIdx);
+
     Optional<Comment> findByCommentIdxAndArticleIdx(Long commentIdx, Long articleIdx);
 }

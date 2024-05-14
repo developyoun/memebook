@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Accessors(chain = true)
-public class ArticleDto {
+public class ArticleListDto {
 
     @Schema(name = "articleIdx", description = "게시글 번호")
     private Long articleIdx;
@@ -17,8 +17,17 @@ public class ArticleDto {
     @Schema(name = "articleTitle", description = "게시글 제목")
     private String articleTitle;
 
+    @Schema(name = "articleContent", description = "게시글 내용")
+    private String articleContent;
+
     @Schema(name = "memberIdx", description = "회원 번호")
     private Long memberIdx;
+
+    @Schema(name = "memberNickname", description = "회원 닉네임")
+    private String memberNickname;
+
+    @Schema(name = "commentCount", description = "댓글 개수")
+    private long commentCount;
 
     @Schema(name = "regDtm", description = "등록일시")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
