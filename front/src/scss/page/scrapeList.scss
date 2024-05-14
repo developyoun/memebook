@@ -1,8 +1,9 @@
-.scrape_container {
+.scrape_list_wrap {
   min-height: calc(100vh - 40px);
-  padding: 40px 20px 120px;
-  background: #f7f7f7;
-
+  padding: 0 20px 140px;
+  .container {
+    margin-top:40px;
+  }
   .scrape_top {
     display:flex;
     align-items:center;

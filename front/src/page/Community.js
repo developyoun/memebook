@@ -3,7 +3,6 @@ import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {Swiper, SwiperSlide} from "swiper/react";
 import Header from "../components/Header";
-import {memebookApi} from "../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
 import {postDetailData, postListData} from "../util/action/communityAction";
 

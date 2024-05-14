@@ -47,6 +47,7 @@ export default function WordInfo() {
       try {
         const wordDetailData = await memebookApi.wordDetailApi(id, memberIdx);
         setWordData(wordDetailData.data);
+        console.log(wordDetailData)
         setScrapData(wordDetailData.data.scrapIdx);
         setWordListData(wordDetailData.data.wordContentList);
       } catch (error) {

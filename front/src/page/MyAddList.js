@@ -1,17 +1,15 @@
 import '../scss/page/myAddList.scss'
 import React, {useEffect, useState} from "react";
-import {memebookApi} from "../util/memebookApi";
 import {Link} from "react-router-dom";
-import BtnBack from "../components/BtnBack";
 import {useDispatch, useSelector} from "react-redux";
 import {myWordListData, wordDeleteData} from "../util/action/wordAction";
-import {scrapDeleteData} from "../util/action/scrapAction";
+import Title from "../components/Title";
 
 export default function MyAddList() {
   const dispatch = useDispatch();
   const myWordList = useSelector(state => state.meme.myWordList);
 
-  const [memberIdx, setMemberIdx] = useState('123');
+  const [memberIdx, setMemberIdx] = useState(321);
   const [deleteState, SetDeleteState] = useState(false);
 
   useEffect(() => {
@@ -43,32 +41,29 @@ export default function MyAddList() {
   }
 
   return (
-    <div className="add_container">
-      <div className="add_top">
-        <BtnBack></BtnBack>
-        <h2 className="tit">&#128214; 참여한 단어</h2>
-        <div className="box_btn">
-          <span className="txt"></span>
-        </div>
+    <div className="my_word_wrap">
+      <Title title="내가 등록한 단어" type="back"></Title>
+      <div className="container">
+        {
+          myWordList.wordContentList?.length > 0 && (
+            <ul className="list_box">
+              {
+                myWordList.wordContentList?.map((item, idx) => {
+                  return (
+                    <li className="list_item">
+                      <Link to={`/vocabulary/wordInfo/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
+                      <button type="button" className="btn_delete" onClick={() => myAddWordDelete(item.wordContentIdx)}>
+                        <span className="blind">스크랩 삭제</span>
+                      </button>
+                    </li>
+                  )
+                })
+              }
+            </ul>
+          )
+        }
       </div>
-      {
-        myWordList.wordContentList?.length > 0 && (
-          <ul className="list_box">
-            {
-              myWordList.wordContentList?.map((item, idx) => {
-                return (
-                  <li className="list_item">
-                    <Link to={`/word/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
-                    <button type="button" className="scrap_delete_btn" onClick={() => myAddWordDelete(item.wordContentIdx)}>
-                      <span className="blind">스크랩 삭제</span>
-                    </button>
-                  </li>
-                )
-              })
-            }
-          </ul>
-        )
-      }
+
     </div>
   );
 }

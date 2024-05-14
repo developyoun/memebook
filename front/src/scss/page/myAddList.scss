@@ -1,8 +1,9 @@
-.add_container {
+.my_word_wrap {
   min-height: calc(100vh - 40px);
-  padding: 40px 20px 120px;
-  background: #f7f7f7;
-
+  padding: 0 20px 140px;
+  .container {
+    margin-top:40px;
+  }
   .add_top {
     display:flex;
     align-items:center;
@@ -10,5 +11,9 @@
     .tit {
       font-size: 24px;
     }
+  }
+
+  .list_box {
+    box-shadow: 0 1px 12px -10px #000;
   }
 }

@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import BtnBack from "../components/BtnBack";
 import {scrapDeleteData, scrapListData} from "../util/action/scrapAction";
 import '../scss/page/scrapeList.scss'
+import Title from "../components/Title";
 
 
 export default function ScrapeList() {
@@ -43,15 +44,11 @@ export default function ScrapeList() {
   }
 
   return (
-    <div className="scrape_container">
-      <div className="scrape_top">
-        <BtnBack></BtnBack>
-        <h2 className="tit">&#128214; 스크랩 {}</h2>
-        <div className="box_btn">
-          <span className="txt"></span>
-        </div>
-      </div>
+    <div className="scrape_list_wrap">
 
+      <Title title="스크랩 리스트" type="back"></Title>
+
+      <div className="container">
         {
           scrapList.content?.length === 0 && (
             <div>없어용</div>
@@ -65,7 +62,7 @@ export default function ScrapeList() {
                 scrapList.content?.map((item, idx) => {
                   return (
                     <li className="list_item">
-                      <Link to={`/word/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
+                      <Link to={`/vocabulary/wordInfo/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
                       <button type="button" className="scrap_delete_btn" onClick={() => scrapDeleteApi(item.scrapIdx)}>
                         <span className="blind">스크랩 삭제</span>
                       </button>
@@ -76,7 +73,8 @@ export default function ScrapeList() {
             </ul>
           )
         }
-
       </div>
+
+    </div>
   );
 }

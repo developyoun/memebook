@@ -1,4 +1,4 @@
-import '../scss/common/profile.scss'
+import '../scss/page/profile.scss'
 import HomeFooter from "../components/HomeFooter";
 import {Link, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
@@ -79,7 +79,6 @@ export default function Profile() {
 
         <div className="user_info_desc">
 
-
           <ul>
             <li>
               <span className="count">{followerCount ? followerCount : 0}</span>
@@ -155,7 +154,7 @@ export default function Profile() {
           myWordList.wordContentList?.length > 0 && (
             <ul className="list_box">
               {
-                myWordList.wordContentList?.slice(0, 5).map((item, idx) => {
+                myWordList.wordContentList?.slice(0, 3).map((item, idx) => {
                   return (
                     <li className="list_item">
                       <Link to={`/word/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
@@ -166,7 +165,6 @@ export default function Profile() {
             </ul>
           )
         }
-
       </div>
 
       <div className="user_box">
@@ -186,7 +184,7 @@ export default function Profile() {
           scrapList.content?.length > 0 && (
             <ul className="list_box">
               {
-                scrapList.content?.slice(0, 5).map((item, idx) => {
+                scrapList.content?.slice(0, 3).map((item, idx) => {
                   return (
                     <li className="list_item">
                       <Link to={`/word/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
@@ -197,7 +195,26 @@ export default function Profile() {
             </ul>
           )
         }
+      </div>
 
+      <div className="user_box">
+        <div className="user_tit">
+          <h4>
+            내가 쓴 글
+            <span className="count">0</span>
+          </h4>
+          <Link to="" className="item">더보기</Link>
+        </div>
+      </div>
+
+      <div className="user_box">
+        <div className="user_tit">
+          <h4>
+            내가 쓴 댓글
+            <span className="count">0</span>
+          </h4>
+          <Link to="" className="item">더보기</Link>
+        </div>
       </div>
 
       <div className="invite_box">
