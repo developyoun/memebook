@@ -1,4 +1,4 @@
-import '../scss/page/post.scss'
+import '../scss/page/community.scss'
 import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import Header from "../components/Header";
@@ -10,6 +10,7 @@ export default function Post() {
   const dispatch = useDispatch();
   const postList = useSelector(state => state.meme.postList);
   const postDetail = useSelector(state => state.meme.postDetail);
+  const [postReactionState, setPostReactionState] = useState(false);
   const [loading, setLoading] = useState(true);
 
   // 포스트 디테일 Api
@@ -27,6 +28,9 @@ export default function Post() {
     postDetailApi();
   }, []);
 
+  const postReaction = () => {
+    setPostReactionState(!postReactionState)
+  }
 
   return (
     <>
@@ -43,15 +47,17 @@ export default function Post() {
             왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요
           </p>
           <div className="post_reaction">
-            <button type="button" className="post_like_btn">
+            <button type="button" className={`btn_post_like ${postReactionState ? 'active' : ''}`} onClick={postReaction}>
               <span className="blind">좋아요</span>
             </button>
-            <button type="button" className="comments_btn">
-              <span>댓글</span>
-            </button>
-            <button type="button" className="view_btn">
-              <span>조회수</span>
-            </button>
+            <Link to="/community/postDetail" className="comments_count">
+               <span className={`${postDetail.commentDtoList.length === 0 ? 'blind' : ''}`}>
+                 {postDetail.commentDtoList.length === 0 ? '댓글' : postDetail.commentDtoList.length}
+               </span>
+            </Link>
+            <Link to="/community/postDetail" className="view_count">
+              <span className="blind">조회수</span>
+            </Link>
           </div>
         </div>
         <div className="post_comment">
@@ -64,20 +70,24 @@ export default function Post() {
                       <span className="nickname">{item.nickname}</span>
                       <p className="txt">{item.commentContent}</p>
                     </div>
-                    <ul className="list">
-                    </ul>
                     {
-                      item.commentReplyList?.map((item, idx) => {
-                        return (
-                          <li className="comments">
-                            <span className="nickname">{item.nickname}</span>
-                            <p className="txt">{item.commentContent}</p>
-                            <button type="button" className="btn_icon like">
-                              <span className="blind">좋아요</span>
-                            </button>
-                          </li>
-                        )
-                      })
+                      item.commentReplyList.length !== 0 && (
+                        <ul className="list">
+                          {
+                            item.commentReplyList?.map((item, idx) => {
+                              return (
+                                <li className="comments">
+                                  <span className="nickname">{item.nickname}</span>
+                                  <p className="txt">{item.commentContent}</p>
+                                  <button type="button" className="btn_icon like">
+                                    <span className="blind">좋아요</span>
+                                  </button>
+                                </li>
+                              )
+                            })
+                          }
+                        </ul>
+                      )
                     }
                   </li>
                 )
