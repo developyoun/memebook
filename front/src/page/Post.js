@@ -11,13 +11,15 @@ export default function Post() {
   const postList = useSelector(state => state.meme.postList);
   const postDetail = useSelector(state => state.meme.postDetail);
   const [postReactionState, setPostReactionState] = useState(false);
+  const [textareaActive, setTextareaActive] = useState(false);
   const [loading, setLoading] = useState(true);
+
 
   // 포스트 디테일 Api
   useEffect(() => {
     async function postDetailApi() {
       try {
-        await dispatch(postListData());
+        // await dispatch(postListData());
         await dispatch(postDetailData(id.id));
         console.log(postList);
         console.log(postDetail);
@@ -32,6 +34,25 @@ export default function Post() {
     setPostReactionState(!postReactionState)
   }
 
+  const commtentActive = () => {
+    setTextareaActive(true);
+  }
+
+  const useOutsideClick = (ref, callback) => {
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (ref.current && !ref.current.contains(event.target)) {
+          callback();
+        }
+      };
+
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, [ref, callback]);
+  };
+
   return (
     <>
       <Header></Header>
@@ -40,10 +61,10 @@ export default function Post() {
         <div className="post_item">
           <Link to={`/community/postDetail/`} className="post_link">
             <div className="post_top">
-              <h3 className="tit">요즘 잠이 안와요</h3>
-              <span className="nickname">김누징</span>
+              <h3 className="tit">{postDetail?.articleTitle}</h3>
+              <span className="nickname">{postDetail?.nickname}</span>
             </div>
-            <p className="txt">왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요</p>
+            <p className="txt">{postDetail?.articleContent}</p>
           </Link>
           <button type="button" className="post_more_btn">더보기</button>
 
@@ -52,7 +73,7 @@ export default function Post() {
               <span className="blind">좋아요</span>
             </button>
             <Link to="/community/postDetail" className="comments_count">
-              <span className="blind">댓글</span>
+              <span className={`${postDetail?.commentCount === 0 ? 'blind' : ''}`}>{postDetail?.commentCount === 0 ? '댓글' : postDetail?.commentCount}</span>
             </Link>
             <Link to="/community/postDetail" className="view_count">
               <span className="blind">조회수</span>
@@ -63,7 +84,7 @@ export default function Post() {
         <div className="comment_box">
           <ul className="comment_list">
             {
-              postDetail.commentDtoList?.map((item, idx) => {
+              postDetail?.commentDtoList?.map((item, idx) => {
                 return (
                   <li className="list">
                     <div className="comments">
@@ -96,6 +117,10 @@ export default function Post() {
             }
 
           </ul>
+        </div>
+
+        <div className="comment_input_box">
+          <textarea type="text" className={`${textareaActive ? 'active' : ''}`} placeholder="댓글 입력" onClick={commtentActive}></textarea>
         </div>
       </div>
     </>

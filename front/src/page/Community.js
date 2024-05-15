@@ -57,10 +57,9 @@ export default function Community() {
                       <Link to={`/community/postDetail/${item.articleIdx}`} className="post_link">
                         <div className="post_top">
                           <h3 className="tit">{item.articleTitle}</h3>
-                          <span className="nickname">김누징</span>
+                          <span className="nickname">{item.memberNickname}</span>
                         </div>
-
-                        <p className="txt">왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요</p>
+                        <p className="txt">{item.articleContent}</p>
                       </Link>
                       <button type="button" className="post_more_btn">더보기</button>
 
@@ -69,7 +68,7 @@ export default function Community() {
                           <span className="blind">좋아요</span>
                         </button>
                         <Link to="/community/postDetail" className="comments_count">
-                          <span className="blind">댓글</span>
+                          <span className={`${item.commentCount === 0 ? 'blind' : ''}`}>{item.commentCount === 0 ? '댓글' : item.commentCount}</span>
                         </Link>
                         <Link to="/community/postDetail" className="view_count">
                           <span className="blind">조회수</span>
