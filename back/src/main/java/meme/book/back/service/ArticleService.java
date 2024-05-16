@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.article.*;
 import meme.book.back.dto.comment.CommentDto;
 import meme.book.back.entity.Article;
+import meme.book.back.entity.Comment;
 import meme.book.back.entity.Reaction;
 import meme.book.back.exception.CustomException;
 import meme.book.back.repository.article.ArticleRepository;
@@ -109,8 +110,11 @@ public class ArticleService {
             throw new CustomException(ErrorCode.NOT_MATCH_MEMBER);
         }
 
-        log.info("Article Deleted, article Idx: {}", articleIdx);
-        articleRepository.delete(article);
+        List<Comment> commentList = commentRepository.findAllByArticleIdx(articleIdx);
+        log.info("Article Deleted, article Idx: {}, comment list: {}", articleIdx, commentList.size());
+
+        commentRepository.deleteAll(commentList);
+        articleRepository.save(article);
     }
 
     @Transactional

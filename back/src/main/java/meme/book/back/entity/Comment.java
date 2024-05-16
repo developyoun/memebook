@@ -46,7 +46,10 @@ public class Comment implements Serializable {
     @Column(name = "REG_DTM")
     private LocalDateTime regDtm;
 
-    @Column(name = "UPPER_Idx")
+    @Column(name = "UPPER_IDX")
     private Long upperIdx;
+
+    @Column(name = "DELETED")
+    private boolean deleted = false;
 }
 

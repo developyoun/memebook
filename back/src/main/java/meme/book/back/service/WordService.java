@@ -157,7 +157,6 @@ public class WordService {
     }
 
     public WordContentListResponseDto getWordListByMember(Pageable pageable, Long memberIdx) {
-
         Page<WordContentDto> wordContentDtoList = wordContentRepository.getWordContentListByMemberIdx(pageable, memberIdx);
 
         return new WordContentListResponseDto()

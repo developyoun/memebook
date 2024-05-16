@@ -25,8 +25,9 @@ public class CommentRepositoryImpl implements CommentCustomRepository {
                         member.nickname.as("nickname"),
                         member.memberIdx.as("commentMemberIdx"),
                         comment.upperIdx.as("upperIdx"),
-                        comment.regDtm.as("commentRegDtm"))
-                )
+                        comment.regDtm.as("commentRegDtm"),
+                        comment.deleted.as("deleted")
+                ))
                 .from(comment)
                 .join(member).on(comment.memberIdx.eq(member.memberIdx))
                 .where(comment.articleIdx.eq(articleIdx))

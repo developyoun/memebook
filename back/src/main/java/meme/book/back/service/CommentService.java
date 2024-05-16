@@ -91,7 +91,8 @@ public class CommentService {
             throw new CustomException(ErrorCode.NOT_MATCH_MEMBER);
         }
 
-        commentRepository.delete(comment);
+        comment.setDeleted(true);
+        commentRepository.save(comment);
         log.info("Deleted Comment, idx: {}", commentIdx);
     }
 }
