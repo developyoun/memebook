@@ -70,6 +70,7 @@ export default function Post() {
   }
   const replayNicknameDelete = () => {
     setReplyNickname('');
+    setCommentIdx(0);
   };
 
   async function commentSubmitData() {
