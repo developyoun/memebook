@@ -68,6 +68,10 @@ export default function Post() {
   const commentValueCount = (event) => {
     setCommentValue(event.target.value);
   }
+  const replayNicknameDelete = () => {
+    setReplyNickname('');
+  };
+
   async function commentSubmitData() {
     try {
       if (commentValue?.length > 0) {
@@ -196,7 +200,7 @@ export default function Post() {
           <div className={`comment_input_box ${commentLength ? 'invalid' : ''}`} >
             {
               replyNickname && (
-                <span className="reply_nickname">@{replyNickname}</span>
+                <span className="reply_nickname" onClick={replayNicknameDelete}>@{replyNickname}</span>
               )
             }
             <textarea type="text" className={`${textareaActive ? 'active' : ''}`} value={commentValue} placeholder="댓글 입력" onClick={commtentActive}  onChange={commentValueCount}></textarea>
