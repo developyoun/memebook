@@ -3,7 +3,8 @@
   --primary-20:#234C7D;
   --primary-30:#5779A2;
   --primary-40:#7D8CB5;
-  --primary-50:#F1F4F9;
+  --primary-50:#d5e0f3;
+  --primary-60:#F1F4F9;
   --bg-red: #F05161;
   --bg-yellow: #FFC960;
 }
@@ -64,13 +65,12 @@
     padding: 8px 16px;
     width: 100%;
     font-size: 12px;
-    border: 1px solid var(--primary-50);
+    border: 1px solid var(--primary-60);
     border-radius: 32px;
     box-sizing: border-box;
     resize: none;
   }
 }
-
 .text_input {
   width: 100%;
   padding: 12px;
@@ -211,7 +211,7 @@
     &+.list_item {
       margin-top:8px;
       padding-top:8px;
-      border-top:1px solid var(--primary-50);
+      border-top:1px solid var(--primary-60);
     }
     .link {
       width:100%;
@@ -225,7 +225,7 @@
       padding:0 8px;
       font-size:12px;
       border-radius:4px;
-      background:var(--primary-50);
+      background:var(--primary-60);
     }
   }
 }
@@ -281,7 +281,7 @@
     color:var(--bg-brown);
     font-size:12px;
     border-radius:8px;
-    background:var(--primary-50);
+    background:var(--primary-60);
     button {
       color:#747474;
     }

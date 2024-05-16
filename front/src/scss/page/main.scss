@@ -1,7 +1,7 @@
 .wrap {
   &:has(.main_wrap) {
     .header {
-      background:var(--primary-50);
+      background:var(--primary-60);
     }
   }
 }
@@ -10,7 +10,7 @@
 .main_wrap {
   position:relative;
   padding-top:100px;
-  background:var(--primary-50);
+  background:var(--primary-60);
   &:before {
     position:absolute;
     top:66px;
@@ -64,7 +64,7 @@
     font-weight: bold;
     line-height: 20px;
     text-align:right;
-    text-shadow: -2px 0px var(--primary-50), 0px 2px var(--primary-50), 2px 0px var(--primary-50), 0px -2px var(--primary-50);
+    text-shadow: -2px 0px var(--primary-60), 0px 2px var(--primary-60), 2px 0px var(--primary-60), 0px -2px var(--primary-60);
   }
 }
 

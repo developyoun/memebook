@@ -4,6 +4,8 @@ import {Link, useParams} from "react-router-dom";
 import Header from "../components/Header";
 import {useDispatch, useSelector} from "react-redux";
 import {postDetailData, postListData} from "../util/action/communityAction";
+import {memebookApi} from "../util/memebookApi";
+import {wordDeleteData} from "../util/action/wordAction";
 
 export default function Post() {
   const id = useParams();
@@ -11,14 +13,24 @@ export default function Post() {
   const postList = useSelector(state => state.meme.postList);
   const postDetail = useSelector(state => state.meme.postDetail);
   const [postReactionState, setPostReactionState] = useState(false);
+  const [textareaActive, setTextareaActive] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const [memberIdx, setMemberIdx] = useState(123);
+
+  const [commentValue, setCommentValue] = useState();
+  const [commentLength, setCommentLength] = useState(false);
+  const [commentState, setCommentState] = useState(false);
+  const [commentIdx, setCommentIdx] = useState();
+  const [replyNickname , setReplyNickname] = useState('');
+
 
   // 포스트 디테일 Api
   useEffect(() => {
     async function postDetailApi() {
       try {
-        await dispatch(postListData());
         await dispatch(postDetailData(id.id));
+        console.log(id.id);
         console.log(postList);
         console.log(postDetail);
       } catch (error) {
@@ -26,10 +38,63 @@ export default function Post() {
       }
     }
     postDetailApi();
-  }, []);
+  }, [commentState]);
 
   const postReaction = () => {
     setPostReactionState(!postReactionState)
+  }
+
+  const commtentActive = () => {
+    setTextareaActive(true);
+  }
+
+  async function commentDeleteData(commentIdx) {
+    try {
+      if (window.confirm("정말 삭제하시겠습니까?")) {
+        const commentDeleteApi = await memebookApi.commentDeleteApi(commentIdx, memberIdx);
+        setCommentState(!commentState);
+        alert('삭제');
+
+      }
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
+  const commentReplyData = (nickname, commentIdx) => {
+    setReplyNickname(nickname);
+    setCommentIdx(commentIdx);
+  }
+  const commentValueCount = (event) => {
+    setCommentValue(event.target.value);
+  }
+  const replayNicknameDelete = () => {
+    setReplyNickname('');
+    setCommentIdx(0);
+  };
+
+  async function commentSubmitData() {
+    try {
+      if (commentValue?.length > 0) {
+        const postAddApi = await memebookApi.commentAddApi( {
+          "commentContent": commentValue,
+          "articleIdx": id.id,
+          "memberIdx": memberIdx,
+          "upperIdx": commentIdx,
+        });
+        setCommentState(!commentState);
+        setTextareaActive(false);
+        setCommentValue('');
+        alert('등록 완료');
+      } else {
+        setCommentLength(true);
+      }
+
+    console.log(commentLength)
+    } catch (error) {
+      console.log(error)
+      console.log('에러')
+    }
   }
 
   return (
@@ -40,10 +105,10 @@ export default function Post() {
         <div className="post_item">
           <Link to={`/community/postDetail/`} className="post_link">
             <div className="post_top">
-              <h3 className="tit">요즘 잠이 안와요</h3>
-              <span className="nickname">김누징</span>
+              <h3 className="tit">{postDetail?.articleTitle}</h3>
+              <span className="nickname">{postDetail?.nickname}</span>
             </div>
-            <p className="txt">왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요왜 안오는지 누가 알려주실래요 괴롭네요</p>
+            <p className="txt">{postDetail?.articleContent}</p>
           </Link>
           <button type="button" className="post_more_btn">더보기</button>
 
@@ -52,7 +117,7 @@ export default function Post() {
               <span className="blind">좋아요</span>
             </button>
             <Link to="/community/postDetail" className="comments_count">
-              <span className="blind">댓글</span>
+              <span className={`${postDetail?.commentCount === 0 ? 'blind' : ''}`}>{postDetail?.commentCount === 0 ? '댓글' : postDetail?.commentCount}</span>
             </Link>
             <Link to="/community/postDetail" className="view_count">
               <span className="blind">조회수</span>
@@ -60,42 +125,91 @@ export default function Post() {
           </div>
         </div>
 
-        <div className="comment_box">
-          <ul className="comment_list">
-            {
-              postDetail.commentDtoList?.map((item, idx) => {
-                return (
-                  <li className="list">
-                    <div className="comments">
-                      <span className="nickname">{item.nickname}</span>
-                      <p className="txt">{item.commentContent}</p>
+        <ul className="comment_list">
+          {
+            postDetail?.commentDtoList?.map((item, idx) => {
+              return (
+                <li className="list">
+                  <div className="comments_box">
+                    <div className="comments_top">
+                      <span className="nickname">{item?.nickname}</span>
+                      <p className="txt">{item?.commentContent}</p>
                     </div>
-                    {
-                      item.commentReplyList.length !== 0 && (
-                        <ul className="list">
-                          {
-                            item.commentReplyList?.map((reply, idx) => {
-                              return (
-                                <li className="comments">
-                                  <span className="nickname_tag">@{item.nickname}</span>
-                                  <span className="nickname">{reply.nickname}</span>
-                                  <p className="txt">{reply.commentContent}</p>
-                                  <button type="button" className="btn_icon like">
-                                    <span className="blind">좋아요</span>
-                                  </button>
-                                </li>
-                              )
-                            })
-                          }
-                        </ul>
-                      )
-                    }
-                  </li>
-                )
-              })
-            }
 
-          </ul>
+                    <div className="comments_btm">
+                      <button type="button" className="btn_reply" onClick={() => commentReplyData(item?.nickname, item?.commentIdx)}>답글 달기</button>
+                      <button type="button" className="btn_icon like">
+                        <span className="blind">좋아요</span>
+                      </button>
+                      {
+                        item?.commentMemberIdx === memberIdx && (
+                          <button type="button" className="btn_delete" onClick={() => {commentDeleteData(item?.commentIdx)}}>
+                            <span className="blind">댓글 삭제</span>
+                          </button>
+                        )
+                      }
+
+                    </div>
+                  </div>
+                  {
+                    item?.commentReplyList.length !== 0 && (
+                      <ul className="comment_list">
+                        {
+                          item?.commentReplyList?.map((reply, idx) => {
+                            return (
+                              <li className="list">
+                                <div className="comments_box">
+                                  <div className="comments_top">
+                                    <span className="nickname">{reply?.nickname}</span>
+                                    <p className="txt">
+                                      <span className="nickname_tag">@{item?.nickname}</span>
+                                      {reply?.commentContent}
+                                    </p>
+                                  </div>
+                                  <div className="comments_btm">
+                                    <button type="button" className="btn_reply" onClick={() => commentReplyData(item?.nickname, item?.commentIdx)}>답글 달기</button>
+                                    <button type="button" className="btn_icon like">
+                                      <span className="blind">좋아요</span>
+                                    </button>
+                                    {
+                                      item?.commentMemberIdx === memberIdx && (
+                                        <button type="button" className="btn_delete" onClick={() => {commentDeleteData(item?.commentIdx)}}>
+                                          <span className="blind">댓글 삭제</span>
+                                        </button>
+                                      )
+                                    }
+
+                                  </div>
+                                </div>
+                              </li>
+                            )
+                          })
+                        }
+                      </ul>
+                    )
+                  }
+
+                </li>
+              )
+            })
+          }
+
+        </ul>
+
+        <div className="comment_input_btm">
+
+          <div className={`comment_input_box ${commentLength ? 'invalid' : ''}`} >
+            {
+              replyNickname && (
+                <span className="reply_nickname" onClick={replayNicknameDelete}>@{replyNickname}</span>
+              )
+            }
+            <textarea type="text" className={`${textareaActive ? 'active' : ''}`} value={commentValue} placeholder="댓글 입력" onClick={commtentActive}  onChange={commentValueCount}></textarea>
+            <button type="button" className="btn_comment_submit" onClick={() => {commentSubmitData(replyNickname)}}>
+              <span>등록</span>
+            </button>
+          </div>
+
         </div>
       </div>
     </>
