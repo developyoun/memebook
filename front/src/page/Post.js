@@ -4,6 +4,8 @@ import {Link, useParams} from "react-router-dom";
 import Header from "../components/Header";
 import {useDispatch, useSelector} from "react-redux";
 import {postDetailData, postListData} from "../util/action/communityAction";
+import {memebookApi} from "../util/memebookApi";
+import {wordDeleteData} from "../util/action/wordAction";
 
 export default function Post() {
   const id = useParams();
@@ -14,12 +16,18 @@ export default function Post() {
   const [textareaActive, setTextareaActive] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const [memberIdx, setMemberIdx] = useState(321);
+
+  const [commentValue, setCommentValue] = useState();
+  const [commentState, setCommentState] = useState(false);
+  const [commentIdx, setCommentIdx] = useState();
+  const [replyNickname , setReplyNickname] = useState('');
+
 
   // 포스트 디테일 Api
   useEffect(() => {
     async function postDetailApi() {
       try {
-        // await dispatch(postListData());
         await dispatch(postDetailData(id.id));
         console.log(postList);
         console.log(postDetail);
@@ -28,7 +36,7 @@ export default function Post() {
       }
     }
     postDetailApi();
-  }, []);
+  }, [commentState]);
 
   const postReaction = () => {
     setPostReactionState(!postReactionState)
@@ -38,20 +46,44 @@ export default function Post() {
     setTextareaActive(true);
   }
 
-  const useOutsideClick = (ref, callback) => {
-    useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (ref.current && !ref.current.contains(event.target)) {
-          callback();
-        }
-      };
+  async function commentDeleteData(commentIdx) {
+    try {
+      if (window.confirm("정말 삭제하시겠습니까?")) {
+        const commentDeleteApi = await memebookApi.commentDeleteApi(commentIdx, memberIdx);
+        setCommentState(!commentState);
+        alert('삭제');
 
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
-      };
-    }, [ref, callback]);
-  };
+      }
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
+  const commentReplyData = (nickname, commentIdx) => {
+    setReplyNickname(nickname);
+    setCommentIdx(commentIdx);
+  }
+  const commentValueCount = (event) => {
+    setCommentValue(event.target.value);
+    console.log(event.target.value)
+  }
+  async function commentSubmitData() {
+    try {
+      const postAddApi = await memebookApi.commentAddApi( {
+        "commentContent": commentValue,
+        "articleIdx": id.id,
+        "memberIdx": memberIdx,
+        "upperIdx": commentIdx,
+      });
+      setCommentState(!commentState);
+      setTextareaActive(false);
+      setCommentValue('');
+      alert('등록 완료');
+    } catch (error) {
+      console.log(error)
+      console.log('에러')
+    }
+  }
 
   return (
     <>
@@ -90,6 +122,14 @@ export default function Post() {
                     <div className="comments">
                       <span className="nickname">{item.nickname}</span>
                       <p className="txt">{item.commentContent}</p>
+                      {
+                        item.commentMemberIdx === memberIdx && (
+                          <button type="button" className="btn_delete" onClick={() => {commentDeleteData(item.commentIdx)}}>
+                            <span className="blind">댓글 삭제</span>
+                          </button>
+                        )
+                      }
+                      <button type="button" className="btn_reply" onClick={() => commentReplyData(item.nickname, item.commentIdx)}>답글 달기</button>
                     </div>
                     {
                       item.commentReplyList.length !== 0 && (
@@ -104,6 +144,7 @@ export default function Post() {
                                   <button type="button" className="btn_icon like">
                                     <span className="blind">좋아요</span>
                                   </button>
+                                  <button type="button" className="btn_reply" onClick={() => commentReplyData(item.nickname, item.commentIdx)}>답글 달기</button>
                                 </li>
                               )
                             })
@@ -111,6 +152,7 @@ export default function Post() {
                         </ul>
                       )
                     }
+
                   </li>
                 )
               })
@@ -119,8 +161,20 @@ export default function Post() {
           </ul>
         </div>
 
-        <div className="comment_input_box">
-          <textarea type="text" className={`${textareaActive ? 'active' : ''}`} placeholder="댓글 입력" onClick={commtentActive}></textarea>
+        <div className="comment_input_btm">
+
+          <div className="comment_input_box">
+            {
+              replyNickname && (
+                <span className="reply_nickname">@{replyNickname}</span>
+              )
+            }
+            <textarea type="text" className={`${textareaActive ? 'active' : ''}`} value={commentValue} placeholder="댓글 입력" onClick={commtentActive}  onChange={commentValueCount}></textarea>
+            <button type="button" className="btn_comment_submit" onClick={() => {commentSubmitData(replyNickname)}}>
+              전송
+            </button>
+          </div>
+
         </div>
       </div>
     </>
