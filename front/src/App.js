@@ -1,6 +1,6 @@
 import './scss/common/common.scss';
 import './scss/components/darkMode.scss';
-import './scss/page/reset.scss';
+import './scss/common/reset.scss';
 import React from "react";
 import {Route, Routes} from 'react-router-dom';
 import Login from "./page/Login";

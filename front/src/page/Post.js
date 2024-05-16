@@ -16,9 +16,10 @@ export default function Post() {
   const [textareaActive, setTextareaActive] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const [memberIdx, setMemberIdx] = useState(321);
+  const [memberIdx, setMemberIdx] = useState(123);
 
   const [commentValue, setCommentValue] = useState();
+  const [commentLength, setCommentLength] = useState(false);
   const [commentState, setCommentState] = useState(false);
   const [commentIdx, setCommentIdx] = useState();
   const [replyNickname , setReplyNickname] = useState('');
@@ -29,6 +30,7 @@ export default function Post() {
     async function postDetailApi() {
       try {
         await dispatch(postDetailData(id.id));
+        console.log(id.id);
         console.log(postList);
         console.log(postDetail);
       } catch (error) {
@@ -65,20 +67,25 @@ export default function Post() {
   }
   const commentValueCount = (event) => {
     setCommentValue(event.target.value);
-    console.log(event.target.value)
   }
   async function commentSubmitData() {
     try {
-      const postAddApi = await memebookApi.commentAddApi( {
-        "commentContent": commentValue,
-        "articleIdx": id.id,
-        "memberIdx": memberIdx,
-        "upperIdx": commentIdx,
-      });
-      setCommentState(!commentState);
-      setTextareaActive(false);
-      setCommentValue('');
-      alert('등록 완료');
+      if (commentValue?.length > 0) {
+        const postAddApi = await memebookApi.commentAddApi( {
+          "commentContent": commentValue,
+          "articleIdx": id.id,
+          "memberIdx": memberIdx,
+          "upperIdx": commentIdx,
+        });
+        setCommentState(!commentState);
+        setTextareaActive(false);
+        setCommentValue('');
+        alert('등록 완료');
+      } else {
+        setCommentLength(true);
+      }
+
+    console.log(commentLength)
     } catch (error) {
       console.log(error)
       console.log('에러')
@@ -113,57 +120,80 @@ export default function Post() {
           </div>
         </div>
 
-        <div className="comment_box">
-          <ul className="comment_list">
-            {
-              postDetail?.commentDtoList?.map((item, idx) => {
-                return (
-                  <li className="list">
-                    <div className="comments">
-                      <span className="nickname">{item.nickname}</span>
-                      <p className="txt">{item.commentContent}</p>
+        <ul className="comment_list">
+          {
+            postDetail?.commentDtoList?.map((item, idx) => {
+              return (
+                <li className="list">
+                  <div className="comments_box">
+                    <div className="comments_top">
+                      <span className="nickname">{item?.nickname}</span>
+                      <p className="txt">{item?.commentContent}</p>
+                    </div>
+
+                    <div className="comments_btm">
+                      <button type="button" className="btn_reply" onClick={() => commentReplyData(item?.nickname, item?.commentIdx)}>답글 달기</button>
+                      <button type="button" className="btn_icon like">
+                        <span className="blind">좋아요</span>
+                      </button>
                       {
-                        item.commentMemberIdx === memberIdx && (
-                          <button type="button" className="btn_delete" onClick={() => {commentDeleteData(item.commentIdx)}}>
+                        item?.commentMemberIdx === memberIdx && (
+                          <button type="button" className="btn_delete" onClick={() => {commentDeleteData(item?.commentIdx)}}>
                             <span className="blind">댓글 삭제</span>
                           </button>
                         )
                       }
-                      <button type="button" className="btn_reply" onClick={() => commentReplyData(item.nickname, item.commentIdx)}>답글 달기</button>
+
                     </div>
-                    {
-                      item.commentReplyList.length !== 0 && (
-                        <ul className="list">
-                          {
-                            item.commentReplyList?.map((reply, idx) => {
-                              return (
-                                <li className="comments">
-                                  <span className="nickname_tag">@{item.nickname}</span>
-                                  <span className="nickname">{reply.nickname}</span>
-                                  <p className="txt">{reply.commentContent}</p>
-                                  <button type="button" className="btn_icon like">
-                                    <span className="blind">좋아요</span>
-                                  </button>
-                                  <button type="button" className="btn_reply" onClick={() => commentReplyData(item.nickname, item.commentIdx)}>답글 달기</button>
-                                </li>
-                              )
-                            })
-                          }
-                        </ul>
-                      )
-                    }
+                  </div>
+                  {
+                    item?.commentReplyList.length !== 0 && (
+                      <ul className="comment_list">
+                        {
+                          item?.commentReplyList?.map((reply, idx) => {
+                            return (
+                              <li className="list">
+                                <div className="comments_box">
+                                  <div className="comments_top">
+                                    <span className="nickname">{reply?.nickname}</span>
+                                    <p className="txt">
+                                      <span className="nickname_tag">@{item?.nickname}</span>
+                                      {reply?.commentContent}
+                                    </p>
+                                  </div>
+                                  <div className="comments_btm">
+                                    <button type="button" className="btn_reply" onClick={() => commentReplyData(item?.nickname, item?.commentIdx)}>답글 달기</button>
+                                    <button type="button" className="btn_icon like">
+                                      <span className="blind">좋아요</span>
+                                    </button>
+                                    {
+                                      item?.commentMemberIdx === memberIdx && (
+                                        <button type="button" className="btn_delete" onClick={() => {commentDeleteData(item?.commentIdx)}}>
+                                          <span className="blind">댓글 삭제</span>
+                                        </button>
+                                      )
+                                    }
 
-                  </li>
-                )
-              })
-            }
+                                  </div>
+                                </div>
+                              </li>
+                            )
+                          })
+                        }
+                      </ul>
+                    )
+                  }
 
-          </ul>
-        </div>
+                </li>
+              )
+            })
+          }
+
+        </ul>
 
         <div className="comment_input_btm">
 
-          <div className="comment_input_box">
+          <div className={`comment_input_box ${commentLength ? 'invalid' : ''}`} >
             {
               replyNickname && (
                 <span className="reply_nickname">@{replyNickname}</span>
@@ -171,7 +201,7 @@ export default function Post() {
             }
             <textarea type="text" className={`${textareaActive ? 'active' : ''}`} value={commentValue} placeholder="댓글 입력" onClick={commtentActive}  onChange={commentValueCount}></textarea>
             <button type="button" className="btn_comment_submit" onClick={() => {commentSubmitData(replyNickname)}}>
-              전송
+              <span>등록</span>
             </button>
           </div>
 
