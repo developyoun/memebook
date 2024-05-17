@@ -26,7 +26,7 @@ function App() {
         <Route path="/vocabulary/wordInfo/:id" element={<WordInfo/>}/>
         <Route path="/vocabulary" element={<Vocabulary/>}/>
         <Route path="/community" element={<Community/>}/>
-        <Route path="/community/postAdd" element={<PostAdd/>}/>
+        <Route path="/community/postAdd/:id?" element={<PostAdd/>}/>
         <Route path="/profile/:id" element={<Profile/>}/>
         <Route path="/profile/scrape" element={<ScrapeList/>}/>
         <Route path="/profile/my_list" element={<MyAddList/>}/>

@@ -1,6 +1,6 @@
 import '../scss/page/community.scss'
 import React, {useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import {Link, useHistory, useNavigate, useParams} from "react-router-dom";
 import Header from "../components/Header";
 import {useDispatch, useSelector} from "react-redux";
 import {postDetailData, postListData} from "../util/action/communityAction";
@@ -9,6 +9,7 @@ import {wordDeleteData} from "../util/action/wordAction";
 
 export default function Post() {
   const id = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const postList = useSelector(state => state.meme.postList);
   const postDetail = useSelector(state => state.meme.postDetail);
@@ -104,6 +105,11 @@ export default function Post() {
     setWordSetState(!wordSetState);
   }
 
+
+  const redirectToPage = () => {
+    navigate(`/community/postAdd/${id.id}`, { state: { title : postDetail?.articleTitle, content: postDetail?.articleContent} });
+  };
+
   return (
     <>
       <Header></Header>
@@ -129,7 +135,7 @@ export default function Post() {
                       postDetail?.articleMemberIdx === memberIdx && (
                         <>
                           <li>
-                            <button type="button" className="">
+                            <button type="button" onClick={redirectToPage} className="">
                               <span className="">수정</span>
                             </button>
                           </li>
