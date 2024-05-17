@@ -1,86 +1,98 @@
-import '../scss/page/community.scss'
-import React, {useEffect, useState} from "react";
-import {Link, useHistory, useNavigate, useParams} from "react-router-dom";
-import Header from "../components/Header";
-import {useDispatch, useSelector} from "react-redux";
-import {postDetailData, postListData} from "../util/action/communityAction";
 import {memebookApi} from "../util/memebookApi";
-import {wordDeleteData} from "../util/action/wordAction";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useState} from "react";
+import {Link, useNavigate, useParams} from "react-router-dom";
+import {postDetailData} from "../util/action/communityAction";
+import Header from "../components/Header";
+import '../scss/page/community.scss'
 
-export default function Post() {
+export default function PostInfo() {
   const id = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const postList = useSelector(state => state.meme.postList);
   const postDetail = useSelector(state => state.meme.postDetail);
+  // 글 좋아요
   const [postReactionState, setPostReactionState] = useState(false);
+  // 툴팁
+  const [wordSetState, setWordSetState] = useState(false);
+  // 댓글 폼 활성화
   const [textareaActive, setTextareaActive] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  const [memberIdx, setMemberIdx] = useState(321);
-
-  const [wordSetState, setWordSetState] = useState(false)
-
+  // 댓글
+  const [commentIdx, setCommentIdx] = useState();
   const [commentValue, setCommentValue] = useState();
   const [commentLength, setCommentLength] = useState(false);
   const [commentState, setCommentState] = useState(false);
-  const [commentIdx, setCommentIdx] = useState();
+  // 대댓글
   const [replyNickname , setReplyNickname] = useState('');
 
+  const [memberIdx, setMemberIdx] = useState(321);
 
-  // 포스트 디테일 Api
+  // 글 상세 Api
   useEffect(() => {
     async function postDetailApi() {
       try {
         await dispatch(postDetailData(id.id));
-        console.log(id.id);
-        console.log(postList);
-        console.log(postList);
-        console.log(postDetail);
       } catch (error) {
-        console.log('오류')
+        console.log(error)
       }
     }
     postDetailApi();
   }, [commentState]);
 
+  // 글 좋아요
   const postReaction = () => {
     setPostReactionState(!postReactionState)
   }
 
+  // 댓글 클릭하면 커지기
   const commtentActive = () => {
     setTextareaActive(true);
   }
 
+  // 댓글 삭제하기
   async function commentDeleteData(commentIdx) {
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
-        const commentDeleteApi = await memebookApi.commentDeleteApi(commentIdx, memberIdx);
+        await memebookApi.commentDeleteApi(commentIdx, memberIdx);
         setCommentState(!commentState);
-        alert('삭제');
-
       }
     } catch(error) {
       console.log(error);
     }
   }
 
+  // 툴팁 열기
+  const wordSet = () => {
+    setWordSetState(!wordSetState);
+  }
+
+  // 댓글 개수
+  const commentValueCount = (event) => {
+    setCommentValue(event.target.value);
+  }
+
+  // 제목, 설명 - 글 수정하기 페이지로 데이터 전달
+  const postModifyToPage = () => {
+    navigate(`/community/postAdd/${id.id}`, { state: { title : postDetail?.articleTitle, content: postDetail?.articleContent} });
+  };
+
+  // 답글 달기 - 닉네임 추가
   const commentReplyData = (nickname, commentIdx) => {
     setReplyNickname(nickname);
     setCommentIdx(commentIdx);
   }
-  const commentValueCount = (event) => {
-    setCommentValue(event.target.value);
-  }
+
+  // 닉네임 다시 클릭하면 데이터 제거
   const replayNicknameDelete = () => {
     setReplyNickname('');
     setCommentIdx(0);
   };
 
+  // 댓글 달기
   async function commentSubmitData() {
     try {
       if (commentValue?.length > 0) {
-        const postAddApi = await memebookApi.commentAddApi( {
+        await memebookApi.commentAddApi( {
           "commentContent": commentValue,
           "articleIdx": id.id,
           "memberIdx": memberIdx,
@@ -93,22 +105,10 @@ export default function Post() {
       } else {
         setCommentLength(true);
       }
-
-    console.log(commentLength)
     } catch (error) {
       console.log(error)
-      console.log('에러')
     }
   }
-
-  const wordSet = () => {
-    setWordSetState(!wordSetState);
-  }
-
-
-  const redirectToPage = () => {
-    navigate(`/community/postAdd/${id.id}`, { state: { title : postDetail?.articleTitle, content: postDetail?.articleContent} });
-  };
 
   return (
     <>
@@ -126,16 +126,21 @@ export default function Post() {
               wordSetState && (
                 <>
                   <ul className="set_box">
-                    <li>
-                      <button type="button" className="">
-                        <span>신고하기</span>
-                      </button>
-                    </li>
+                    {
+                      postDetail?.articleMemberIdx !== memberIdx && (
+                        <li>
+                          <button type="button" className="">
+                            <span>신고하기</span>
+                          </button>
+                        </li>
+                      )
+                    }
+
                     {
                       postDetail?.articleMemberIdx === memberIdx && (
                         <>
                           <li>
-                            <button type="button" onClick={redirectToPage} className="">
+                            <button type="button" onClick={postModifyToPage} className="">
                               <span className="">수정</span>
                             </button>
                           </li>

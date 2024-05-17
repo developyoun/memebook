@@ -26,9 +26,8 @@
       margin-bottom: 12px;
     }
     .tit {
-
       color:var(--primary-10);
-      font-size:14px;
+      font-size:12px;
     }
     & + .input_box {
       margin-top: 16px;
@@ -71,6 +70,7 @@
     resize: none;
   }
 }
+
 .text_input {
   width: 100%;
   padding: 12px;

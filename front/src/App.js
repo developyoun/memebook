@@ -13,7 +13,7 @@ import ScrapeList from "./page/ScrapeList";
 import Layout from "./page/Layout";
 import MyAddList from "./page/MyAddList";
 import Community from "./page/Community";
-import Post from "./page/Post";
+import PostInfo from "./page/PostInfo";
 import PostAdd from "./page/PostAdd";
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
         <Route path="/profile/scrape" element={<ScrapeList/>}/>
         <Route path="/profile/my_list" element={<MyAddList/>}/>
       </Route>
-      <Route path="/community/postDetail/:id" element={<Post/>}/>
+      <Route path="/community/postDetail/:id" element={<PostInfo/>}/>
     </Routes>
   );
 }
