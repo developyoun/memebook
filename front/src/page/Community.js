@@ -9,7 +9,6 @@ import {postDetailData, postListData} from "../util/action/communityAction";
 export default function Community() {
   const dispatch = useDispatch();
   const postList = useSelector(state => state.meme.postList);
-  const postDetail = useSelector(state => state.meme.postDetail);
   const [postReactionState, setPostReactionState] = useState(false);
 
   // 포스트 Api
@@ -17,7 +16,6 @@ export default function Community() {
     async function postListApi() {
       try {
         dispatch(postListData());
-        dispatch(postDetailData(5));
       } catch (error) {
         // window.history.back();
       }
@@ -67,10 +65,10 @@ export default function Community() {
                         <button type="button" className={`btn_post_like ${postReactionState ? 'active' : ''}`} onClick={postReaction}>
                           <span className="blind">좋아요</span>
                         </button>
-                        <Link to="/community/postDetail" className="comments_count">
+                        <Link to={`/community/postDetail/${item.articleIdx}`} className="comments_count">
                           <span className={`${item.commentCount === 0 ? 'blind' : ''}`}>{item.commentCount === 0 ? '댓글' : item.commentCount}</span>
                         </Link>
-                        <Link to="/community/postDetail" className="view_count">
+                        <Link to={`/community/postDetail/${item.articleIdx}`} className="view_count">
                           <span className="blind">조회수</span>
                         </Link>
                       </div>

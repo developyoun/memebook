@@ -16,7 +16,9 @@ export default function Post() {
   const [textareaActive, setTextareaActive] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const [memberIdx, setMemberIdx] = useState(123);
+  const [memberIdx, setMemberIdx] = useState(321);
+
+  const [wordSetState, setWordSetState] = useState(false)
 
   const [commentValue, setCommentValue] = useState();
   const [commentLength, setCommentLength] = useState(false);
@@ -31,6 +33,7 @@ export default function Post() {
       try {
         await dispatch(postDetailData(id.id));
         console.log(id.id);
+        console.log(postList);
         console.log(postList);
         console.log(postDetail);
       } catch (error) {
@@ -85,7 +88,7 @@ export default function Post() {
         setCommentState(!commentState);
         setTextareaActive(false);
         setCommentValue('');
-        alert('등록 완료');
+        setReplyNickname('');
       } else {
         setCommentLength(true);
       }
@@ -97,19 +100,54 @@ export default function Post() {
     }
   }
 
+  const wordSet = () => {
+    setWordSetState(!wordSetState);
+  }
+
   return (
     <>
       <Header></Header>
       <div className="post_wrap">
 
         <div className="post_item">
-          <Link to={`/community/postDetail/`} className="post_link">
-            <div className="post_top">
-              <h3 className="tit">{postDetail?.articleTitle}</h3>
-              <span className="nickname">{postDetail?.nickname}</span>
-            </div>
-            <p className="txt">{postDetail?.articleContent}</p>
-          </Link>
+          <div className="post_top">
+            <h3 className="tit">{postDetail?.articleTitle}</h3>
+            <span className="nickname">{postDetail?.nickname}</span>
+            <button type="button" className="btn_set" onClick={wordSet}>
+              <span className="blind">유저 셋</span>
+            </button>
+            {
+              wordSetState && (
+                <>
+                  <ul className="set_box">
+                    <li>
+                      <button type="button" className="">
+                        <span>신고하기</span>
+                      </button>
+                    </li>
+                    {
+                      postDetail?.articleMemberIdx === memberIdx && (
+                        <>
+                          <li>
+                            <button type="button" className="">
+                              <span className="">수정</span>
+                            </button>
+                          </li>
+                          <li>
+                            <button type="button" className="">
+                              <span className="">삭제</span>
+                            </button>
+
+                          </li>
+                        </>
+                      )
+                    }
+                  </ul>
+                </>
+              )
+            }
+          </div>
+          <p className="txt">{postDetail?.articleContent}</p>
           <button type="button" className="post_more_btn">더보기</button>
 
           <div className="post_reaction">
@@ -165,6 +203,7 @@ export default function Post() {
                                       <span className="nickname_tag">@{item?.nickname}</span>
                                       {reply?.commentContent}
                                     </p>
+
                                   </div>
                                   <div className="comments_btm">
                                     <button type="button" className="btn_reply" onClick={() => commentReplyData(item?.nickname, item?.commentIdx)}>답글 달기</button>

@@ -16,7 +16,7 @@ export default function PostAdd() {
   const [explainOver, setExplainOver] = useState(false);
   const [tipBoxState, setTipBoxState] = useState(false);
 
-  const [memberIdx, setMemberIdx] = useState('123');
+  const [memberIdx, setMemberIdx] = useState(321);
 
   async function postAddData() {
     try {
