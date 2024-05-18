@@ -102,6 +102,7 @@ export default function PostInfo() {
         setTextareaActive(false);
         setCommentValue('');
         setReplyNickname('');
+        setCommentLength(false);
       } else {
         setCommentLength(true);
       }

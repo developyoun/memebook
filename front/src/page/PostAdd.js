@@ -25,6 +25,9 @@ export default function PostAdd() {
   useEffect(() => {
     setTitleValue(title);
     setContentValue(content);
+    setTitleCount(title.length);
+    setContentCount(content.length);
+    console.log(titleValue)
   }, []);
 
   // 제목 입력
@@ -32,7 +35,7 @@ export default function PostAdd() {
     setTitleValue(event.target.value);
     setTitleCount(event.target.value.length);
     console.log(event.target.value)
-    event.target.value.length >= 20 ? setTitleOver(true) : setTitleOver(false);
+    event.target.value.length >= 30 ? setTitleOver(true) : setTitleOver(false);
     setTitleNull(false);
   }
 
@@ -47,12 +50,20 @@ export default function PostAdd() {
   // 글 등록하기
   async function postAddData() {
     try {
-      await memebookApi.postAddApi( {
-        "articleTitle": titleValue,
-        "memberIdx": memberIdx,
-        "articleContent": contentValue,
-      });
-      window.history.back();
+      if (titleCount === 0) {
+        setTitleNull(true);
+      }
+      if (contentCount === 0) {
+        setContentNull(true);
+      }
+      if (titleCount !== 0 && contentCount !== 0) {
+        await memebookApi.postAddApi( {
+          "articleTitle": titleValue,
+          "memberIdx": memberIdx,
+          "articleContent": contentValue,
+        });
+        window.history.back();
+      }
     } catch (error) {
       console.log(error)
       console.log('에러')
@@ -84,7 +95,7 @@ export default function PostAdd() {
           <div className="input_top">
             <h4 className="tit">제목</h4>
           </div>
-          <input type="text" className="text_input" placeholder="단어를 입력해주세요" defaultValue={title ? title : null} maxLength="19" onChange={titleValueCount}/>
+          <input type="text" className="text_input" placeholder="단어를 입력해주세요" defaultValue={title ? title : null} maxLength="29" onChange={titleValueCount}/>
           <div className="input_sub">
             {
               titleNull && (
@@ -96,7 +107,7 @@ export default function PostAdd() {
                 <p className="invalid_msg">&#128546; 20자 이하로 작성해주세요</p>
               )
             }
-            <p className="character_count">{titleCount}/20</p>
+            <p className="character_count">{titleCount}/30</p>
           </div>
         </div>
 
@@ -107,7 +118,7 @@ export default function PostAdd() {
           <textarea className="text_input" cols="30" rows="10" maxLength="99" defaultValue={content ? content : null} onChange={contentValueCount}></textarea>
           <div className="input_sub">
             {
-              contentNull && (
+              contentCount === 0 && (
                 <p className="invalid_msg">&#128397; 한글자 이상 작성해주세요</p>
               )
             }
@@ -122,7 +133,7 @@ export default function PostAdd() {
         </div>
 
         <div className="btn_box">
-          <button type="button" className="btn_submit" onClick={title && content ?  postModifyData : postAddData}>등록하기</button>
+          <button type="button" className="btn_submit" disabled={titleNull || contentNull ? true : null}  onClick={title && content ?  postModifyData : postAddData}>등록하기</button>
         </div>
 
       </div>
