@@ -8,4 +8,6 @@ import lombok.experimental.Accessors;
 public class ArticleListRequestDto {
 
     private String search;
+
+    private Long memberIdx;
 }

@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.comment.CommentRequestDto;
 import meme.book.back.service.CommentService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,14 +21,26 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @Operation(description = "댓글 생성 API")
+    @Operation(summary = "회원 댓글 리스트 API")
+    @GetMapping("/list/{memberIdx}")
+    public ResponseEntity<?> getCommentListByMember(@PathVariable Long memberIdx,
+                                                    @RequestParam(defaultValue = "1") int page,
+                                                    @RequestParam(defaultValue = "10") int pageSize) {
+        log.info("Get Comment List, member idx: {}", memberIdx);
+        Pageable pageable = PageRequest.of(page, pageSize);
+
+        commentService.getCommentListByMember(pageable, memberIdx);
+        return ResponseEntity.ok(commentService.getCommentListByMember(pageable, memberIdx));
+    }
+
+    @Operation(summary = "댓글 생성 API")
     @PostMapping("/create")
     public ResponseEntity<?> createComment(@RequestBody CommentRequestDto requestDto) {
         log.info("Create new Comment Request: {}", requestDto);
         return ResponseEntity.ok(commentService.createComment(requestDto));
     }
 
-    @Operation(description = "댓글 수정 API")
+    @Operation(summary = "댓글 수정 API")
     @PutMapping("/update/{commentIdx}")
     public ResponseEntity<?> updateComment(@PathVariable Long commentIdx,
                                            @RequestBody CommentRequestDto requestDto) {
@@ -34,7 +48,7 @@ public class CommentController {
         return ResponseEntity.ok(commentService.updateComment(commentIdx, requestDto));
     }
 
-    @Operation(description = "댓글 좋아요 수정 API")
+    @Operation(summary = "댓글 좋아요 수정 API")
     @PostMapping("/like/{commentIdx}")
     public ResponseEntity<?> likeUpdateComment(@PathVariable Long commentIdx,
                                                @RequestBody CommentRequestDto requestDto) {
@@ -42,7 +56,7 @@ public class CommentController {
         return ResponseEntity.ok(commentService.updateCommentLike(commentIdx, requestDto));
     }
 
-    @Operation(description = "댓글 삭제 API")
+    @Operation(summary = "댓글 삭제 API")
     @DeleteMapping("/delete/{commentIdx}")
     public ResponseEntity<?> deleteComment(
             @Parameter(description = "댓글 번호") @PathVariable Long commentIdx,
