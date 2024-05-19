@@ -13,10 +13,18 @@ export const wordListAction = (data) => {
     payload: data.data
   };
 };
-// 전체 단어 리스트
+// 전체 단어 정렬
 export const wordSortAction = (data) => {
   return {
     type: "SEND_WORD_SORT",
+    payload: data.data
+  };
+};
+
+// 전체 단어 정렬
+export const commentListAction = (data) => {
+  return {
+    type: "SEND_COMMENT_LIST",
     payload: data.data
   };
 };

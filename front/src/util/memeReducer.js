@@ -24,6 +24,11 @@ const memeReducer = (state = initialState, action) => {
         ...state,
         wordSort: action.payload,
       };
+    case "SEND_MY_COMMENT_LIST":
+      return {
+        ...state,
+        myCommentList: action.payload,
+      };
     case "SEND_MY_WORD_LIST":
       return {
         ...state,

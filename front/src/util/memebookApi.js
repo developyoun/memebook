@@ -19,7 +19,7 @@ export const memebookApi = {
   // 게시글 등록
   postAddApi : (postInfo) => request.post(`article/create`, postInfo),
   // 게시글 리스트
-  postListApi : () => request.get(`article/list`),
+  postListApi : (memberIdx) => request.get(`article/list?${memberIdx}`),
   // 게시글 상세
   postDetailApi : (postIdx) => request.get(`article/detail/${postIdx}`),
   // 게시글 수정
@@ -29,13 +29,15 @@ export const memebookApi = {
   // 게시글 삭제
   postDeleteApi : (postIdx, memberIdx) => request.post(`article/delete/${postIdx}?reqMemIdx=${memberIdx}`),
 
+  // 댓글 리스트
+  commentListApi : (memberIdx) => request.put(`comment/list/${memberIdx}`),
   // 댓글 수정
   commentModifyApi : (commentIdx) => request.put(`comment/update`, commentIdx),
   // 댓글 좋아요
   commentReactionApi : (commentIdx) => request.post(`comment/like`, commentIdx),
   // 댓글 등록
   commentAddApi : (commentInfo) => request.post(`comment/create`, commentInfo),
-  // 게시글 삭제
+  // 댓글 삭제
   commentDeleteApi : (commentIdx, memberIdx) => request.delete(`comment/delete/${commentIdx}?reqMemIdx=${memberIdx}`),
 
   // 전체 단어 리스트 조회

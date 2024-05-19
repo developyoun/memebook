@@ -203,7 +203,7 @@ export default function Profile() {
             내가 쓴 글
             <span className="count">0</span>
           </h4>
-          <Link to="" className="item">더보기</Link>
+          <Link to="/profile/myPostList" className="item">더보기</Link>
         </div>
       </div>
 
@@ -213,7 +213,7 @@ export default function Profile() {
             내가 쓴 댓글
             <span className="count">0</span>
           </h4>
-          <Link to="" className="item">더보기</Link>
+          <Link to="/profile/myCommentList" className="item">더보기</Link>
         </div>
       </div>
 
