@@ -25,9 +25,8 @@ export default function PostAdd() {
   useEffect(() => {
     setTitleValue(title);
     setContentValue(content);
-    setTitleCount(title.length);
-    setContentCount(content.length);
-    console.log(titleValue)
+    setTitleCount(title?.length);
+    setContentCount(content?.length);
   }, []);
 
   // 제목 입력
@@ -36,7 +35,7 @@ export default function PostAdd() {
     setTitleCount(event.target.value.length);
     console.log(event.target.value)
     event.target.value.length >= 30 ? setTitleOver(true) : setTitleOver(false);
-    setTitleNull(false);
+    event.target.value.length === 0 ? setTitleNull(true) : setTitleNull(false);
   }
 
   // 내용 입력
@@ -44,20 +43,23 @@ export default function PostAdd() {
     setContentValue(event.target.value);
     setContentCount(event.target.value.length);
     event.target.value.length.length >= 99 ? setContentOver(true) : setContentOver(false);
-    setContentNull(false);
+    event.target.value.length === 0 ? setContentNull(true) : setContentNull(false);
   }
 
   // 글 등록하기
-  async function postAddData() {
+  async function postAddData(type) {
     try {
-      if (titleCount === 0) {
-        setTitleNull(true);
-      }
-      if (contentCount === 0) {
-        setContentNull(true);
-      }
-      if (titleCount !== 0 && contentCount !== 0) {
+      if (type === 'add') {
+        // 등록
         await memebookApi.postAddApi( {
+          "articleTitle": titleValue,
+          "memberIdx": memberIdx,
+          "articleContent": contentValue,
+        });
+        window.history.back();
+      } else if (type === 'modify') {
+        // 수정
+        await memebookApi.postModifyApi(id.id, {
           "articleTitle": titleValue,
           "memberIdx": memberIdx,
           "articleContent": contentValue,
@@ -69,21 +71,6 @@ export default function PostAdd() {
       console.log('에러')
     }
   }
-
-  // 글 수정하기
-  async function postModifyData() {
-    try {
-      await memebookApi.postModifyApi(id.id, {
-        "articleTitle": titleValue,
-        "memberIdx": memberIdx,
-        "articleContent": contentValue,
-      });
-      window.history.back();
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   return (
     <div className="post_add_wrap">
 
@@ -133,7 +120,7 @@ export default function PostAdd() {
         </div>
 
         <div className="btn_box">
-          <button type="button" className="btn_submit" disabled={titleNull || contentNull ? true : null}  onClick={title && content ?  postModifyData : postAddData}>등록하기</button>
+          <button type="button" className="btn_submit" disabled={titleNull && contentNull ? true : null}  onClick={title && content ? () => postAddData('modify') : () => postAddData('add')}>등록하기</button>
         </div>
 
       </div>
