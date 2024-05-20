@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {wordListData, wordSortData} from "../util/action/wordAction";
 import {commonEvent} from "../util/commonEvent"
 import Header from "../components/Header";
+import {memebookApi} from "../util/memebookApi";
 
 export default function Word() {
   const dispatch = useDispatch();
@@ -22,7 +23,6 @@ export default function Word() {
     async function libraryList() {
       try {
         await dispatch(wordListData('ALL', pageNumber));
-        console.log(wordList)
       } catch (error) {
         console.log(error)
       }
@@ -37,30 +37,19 @@ export default function Word() {
   }, [wordList]);
 
 
-  //
-  // const pageMore = useCallback(debounce(async () => {
-  //   try {
-  //     const nextPage = pageNumber + 1;
-  //     setPageNumber(nextPage);
-  //
-  //     if (isBottom) {
-  //       const libraryApi = await memebookApi.wordList('ALL', nextPage, '123');
-  //       setLibraryData((prevLibraryData) => [...prevLibraryData, ...libraryApi.data.data.content]);
-  //       console.log('닿음');
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, 1000), [pageNumber]);
 
-  // useEffect(() => {
-  //   window.addEventListener('scroll', pageMore);
-  //
-  //   return () => {
-  //     window.removeEventListener('scroll', pageMore);
-  //     pageMore.cancel(); // 컴포넌트가 언마운트될 때 debounce 함수를 취소하여 메모리 누수 방지
-  //   };
-  // }, [pageMore]);
+  const pageMore = useCallback(debounce(async () => {
+    try {
+      const nextPage = pageNumber + 1;
+      setPageNumber(nextPage);
+      const libraryApi = await memebookApi.wordListApi('ALL', nextPage);
+      console.log(libraryApi.data);
+      setLibraryData((prevLibraryData) => [...prevLibraryData, ...libraryApi.data.wordList]);
+
+    } catch (error) {
+      console.log(error);
+    }
+  }, 1000), [pageNumber]);
 
   // 단어 정렬
   async function wordSortBtn(word) {
@@ -136,18 +125,19 @@ export default function Word() {
                       })
                     }
                   </ul>
+                  <button type="button" className="btn_primary size_s" onClick={pageMore}>더보기</button>
                 </>
               )
             }
           </div>
 
-          {
-            window.scrollY > 20 && (
-              <button type="button" className="btn_top" onClick={commonEvent}>
-                <span className="blind">올리기</span>
-              </button>
-            )
-          }
+          {/*{*/}
+          {/*  window.scrollY > 20 && (*/}
+          {/*    <button type="button" className="btn_top" onClick={commonEvent}>*/}
+          {/*      <span className="blind">올리기</span>*/}
+          {/*    </button>*/}
+          {/*  )*/}
+          {/*}*/}
         </div>
       </div>
     </>
