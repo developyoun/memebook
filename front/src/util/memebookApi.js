@@ -27,7 +27,7 @@ export const memebookApi = {
   // 게시글 좋아요
   postReactionApi : (postIdx) => request.post(`article/like`, postIdx),
   // 게시글 삭제
-  postDeleteApi : (postIdx, memberIdx) => request.post(`article/delete/${postIdx}?reqMemIdx=${memberIdx}`),
+  postDeleteApi : (postIdx, memberIdx) => request.delete(`article/delete/${postIdx}?reqMemIdx=${memberIdx}`),
 
   // 댓글 수정
   commentModifyApi : (commentIdx) => request.put(`comment/update`, commentIdx),
