@@ -13,6 +13,15 @@ export const wordListAction = (data) => {
     payload: data.data
   };
 };
+
+// 단어 검색
+export const wordSearchAction = (data) => {
+  return {
+    type: "SEND_WORD_SEARCH",
+    payload: data.data
+  };
+};
+
 // 전체 단어 정렬
 export const wordSortAction = (data) => {
   return {

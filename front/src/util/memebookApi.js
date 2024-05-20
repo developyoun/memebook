@@ -27,7 +27,7 @@ export const memebookApi = {
   // 게시글 좋아요
   postReactionApi : (postIdx) => request.post(`article/like`, postIdx),
   // 게시글 삭제
-  postDeleteApi : (postIdx, memberIdx) => request.post(`article/delete/${postIdx}?reqMemIdx=${memberIdx}`),
+  postDeleteApi : (postIdx, memberIdx) => request.delete(`article/delete/${postIdx}?reqMemIdx=${memberIdx}`),
 
   // 댓글 리스트
   commentListApi : (memberIdx) => request.put(`comment/list/${memberIdx}`),
@@ -42,6 +42,8 @@ export const memebookApi = {
 
   // 전체 단어 리스트 조회
   wordListApi : (country, pageNumber) => request.get(`word/list?page=${pageNumber}`),
+  // 전체 단어 리스트 조회
+  wordSearchApi : (searchWord) => request.get(`word/list?search=${searchWord}`),
   // 단어 정렬
   wordSortApi : (country, sort, sortBy) => request.get(`word/list?nation=${country}&sort=${sort}&sortBy=${sortBy}`),
   // 내가 쓴 단어 리스트 조회

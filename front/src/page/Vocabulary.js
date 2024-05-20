@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {wordListData, wordSortData} from "../util/action/wordAction";
 import {commonEvent} from "../util/commonEvent"
 import Header from "../components/Header";
+import {memebookApi} from "../util/memebookApi";
 
 export default function Word() {
   const dispatch = useDispatch();
@@ -18,11 +19,12 @@ export default function Word() {
   const [loadingState, setLoadingState] = useState(true);
   const [libraryTab, setLibraryTab] = useState('ALL');
 
+  const [moreBtnState, setMoreBtnState] = useState(true);
+
   useEffect(() => {
     async function libraryList() {
       try {
         await dispatch(wordListData('ALL', pageNumber));
-        console.log(wordList)
       } catch (error) {
         console.log(error)
       }
@@ -34,33 +36,29 @@ export default function Word() {
     if (wordList && wordList.wordList) {
       setLibraryData(wordList.wordList);
     }
+    // 현재 페이지가 마지막 페이지가 아니라면 더보기 미노출
+    if (wordList?.nowPage !== wordList?.totalPage) {
+      setMoreBtnState(true);
+    }
   }, [wordList]);
 
 
-  //
-  // const pageMore = useCallback(debounce(async () => {
-  //   try {
-  //     const nextPage = pageNumber + 1;
-  //     setPageNumber(nextPage);
-  //
-  //     if (isBottom) {
-  //       const libraryApi = await memebookApi.wordList('ALL', nextPage, '123');
-  //       setLibraryData((prevLibraryData) => [...prevLibraryData, ...libraryApi.data.data.content]);
-  //       console.log('닿음');
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, 1000), [pageNumber]);
-
-  // useEffect(() => {
-  //   window.addEventListener('scroll', pageMore);
-  //
-  //   return () => {
-  //     window.removeEventListener('scroll', pageMore);
-  //     pageMore.cancel(); // 컴포넌트가 언마운트될 때 debounce 함수를 취소하여 메모리 누수 방지
-  //   };
-  // }, [pageMore]);
+  // 더보기
+  const pageMore = useCallback(debounce(async () => {
+    try {
+      const nextPage = pageNumber + 1;
+      setPageNumber(nextPage);
+      // 다른 변수에 담기 위해 새로 가져오기
+      const libraryApi = await memebookApi.wordListApi('ALL', nextPage);
+      setLibraryData((prevLibraryData) => [...prevLibraryData, ...libraryApi.data.wordList]);
+      // 총 리스트의 페이지가 마지막 페이지가 아니라면 더보기 미노출
+      if (libraryApi.data.nowPage === libraryApi.data.totalPage) {
+        setMoreBtnState(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, 1000), [pageNumber]);
 
   // 단어 정렬
   async function wordSortBtn(word) {
@@ -136,18 +134,28 @@ export default function Word() {
                       })
                     }
                   </ul>
+
+
+                  {
+                    moreBtnState && (
+                      <div className="list_btm">
+                        <button type="button" className="btn_primary size_s" onClick={pageMore}>더보기</button>
+                      </div>
+                    )
+                  }
+
                 </>
               )
             }
           </div>
 
-          {
-            window.scrollY > 20 && (
-              <button type="button" className="btn_top" onClick={commonEvent}>
-                <span className="blind">올리기</span>
-              </button>
-            )
-          }
+          {/*{*/}
+          {/*  window.scrollY > 20 && (*/}
+          {/*    <button type="button" className="btn_top" onClick={commonEvent}>*/}
+          {/*      <span className="blind">올리기</span>*/}
+          {/*    </button>*/}
+          {/*  )*/}
+          {/*}*/}
         </div>
       </div>
     </>

@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.article.ArticleListRequestDto;
 import meme.book.back.dto.article.ArticleRequestDto;
+import meme.book.back.exception.CustomException;
 import meme.book.back.service.ArticleService;
+import meme.book.back.utils.ErrorCode;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +28,16 @@ public class ArticleController {
     @GetMapping("/list")
     public ResponseEntity<?> getArticleList(@RequestParam(defaultValue = "1") int page,
                                             @RequestParam(defaultValue = "10") int pageSize,
-                                            @RequestParam(required = false) String search) {
+                                            @RequestParam(required = false) String search,
+                                            @RequestParam(required = false) Long memberIdx) {
+        if (search != null && search.length() < 3) {
+            throw new CustomException(ErrorCode.NOT_ALLOW_SIZE_LIMIT);
+        }
+
         Pageable pageable = PageRequest.of(page - 1, pageSize);
-        ArticleListRequestDto requestDto = new ArticleListRequestDto().setSearch(search);
+        ArticleListRequestDto requestDto = new ArticleListRequestDto()
+                .setSearch(search)
+                .setMemberIdx(memberIdx);
         log.info("Get Article List Request, page: {}, pageSize: {}, request: {}", page, page, requestDto);
 
         return ResponseEntity.ok(articleService.getArticleList(pageable, requestDto));

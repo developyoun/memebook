@@ -12,6 +12,7 @@ public enum ErrorCode {
 
     // 4xx
     NOT_CORRECT_PARAMETER(HttpStatus.BAD_REQUEST, "옳바르지 않은 파라미터 값입니다."),
+    NOT_ALLOW_SIZE_LIMIT(HttpStatus.BAD_REQUEST, "길이가 허락되지 않습니다."),
     ALREADY_EXIST_NICKNAME(HttpStatus.CONFLICT, "이미 존재하는 닉네임입니다."),
     NOT_EXIST_WORD(HttpStatus.NOT_FOUND, "존재하지 않는 단어입니다."),
     NOT_EXIST_SCRAP(HttpStatus.NOT_FOUND, "존재하지 않는 스크랩입니다."),

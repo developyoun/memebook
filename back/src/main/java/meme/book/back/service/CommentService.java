@@ -2,6 +2,8 @@ package meme.book.back.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import meme.book.back.dto.comment.CommentDto;
+import meme.book.back.dto.comment.CommentListDto;
 import meme.book.back.dto.comment.CommentRequestDto;
 import meme.book.back.dto.comment.CommentResponseDto;
 import meme.book.back.entity.Comment;
@@ -11,9 +13,12 @@ import meme.book.back.repository.comment.CommentRepository;
 import meme.book.back.repository.reaction.ReactionRepository;
 import meme.book.back.utils.ActionType;
 import meme.book.back.utils.ErrorCode;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -23,6 +28,22 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final ReactionRepository reactionRepository;
+
+    public CommentListDto getCommentListByMember(Pageable pageable, Long memberIdx) {
+        Page<Comment> commentList = commentRepository
+                .findByMemberIdxAndDeletedFalseOrderByCommentIdxDesc(pageable, memberIdx);
+
+        List<CommentResponseDto> commentDtoList = commentList.getContent()
+                .stream()
+                .map(CommentResponseDto::toDto)
+                .toList();
+
+        log.info("Comment List: {}", commentList.getContent());
+        return new CommentListDto()
+                .setCommentList(commentDtoList)
+                .setTotalCount(commentList.getTotalElements())
+                .setTotalPage(commentList.getTotalPages());
+    }
 
     @Transactional
     public CommentResponseDto createComment(CommentRequestDto requestDto) {
