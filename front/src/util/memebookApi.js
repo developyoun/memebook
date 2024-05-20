@@ -30,7 +30,7 @@ export const memebookApi = {
   postDeleteApi : (postIdx, memberIdx) => request.delete(`article/delete/${postIdx}?reqMemIdx=${memberIdx}`),
 
   // 댓글 리스트
-  commentListApi : (memberIdx) => request.put(`comment/list/${memberIdx}`),
+  commentListApi : (memberIdx) => request.get(`comment/list/${memberIdx}`),
   // 댓글 수정
   commentModifyApi : (commentIdx) => request.put(`comment/update`, commentIdx),
   // 댓글 좋아요

@@ -30,10 +30,10 @@ export const wordSortAction = (data) => {
   };
 };
 
-// 전체 단어 정렬
+// 내가 쓴 댓글 리스트
 export const commentListAction = (data) => {
   return {
-    type: "SEND_COMMENT_LIST",
+    type: "SEND_MY_COMMENT_LIST",
     payload: data.data
   };
 };

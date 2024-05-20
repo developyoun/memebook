@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {Swiper, SwiperSlide} from "swiper/react";
 import Header from "../components/Header";
 import {useDispatch, useSelector} from "react-redux";
-import {postDetailData, postListData} from "../util/action/communityAction";
+import {postListData} from "../util/action/communityAction";
 
 export default function Community() {
   const dispatch = useDispatch();
