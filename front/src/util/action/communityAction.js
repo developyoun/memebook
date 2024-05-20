@@ -1,5 +1,5 @@
 import {memebookApi} from "../memebookApi";
-import {commentListAction, postDetailAction, postListAction} from "../action";
+import {postDetailAction, postListAction} from "../action";
 
 // 포스트 리스트 조회
 export const postListData = () => async (dispatch) => {
@@ -27,7 +27,7 @@ export const postDetailData = (articleIdx) => async (dispatch) => {
 export const postCommentData = (memberIdx) => async (dispatch) => {
   try {
     const postCommentData = await memebookApi.commentListApi(memberIdx);
-    dispatch(commentListAction(postCommentData));
+    dispatch(postDetailAction(postCommentData));
   } catch (error) {
     console.error(error);
   }
