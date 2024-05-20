@@ -1,6 +1,7 @@
 import '../scss/page/main.scss';
 import {Link} from 'react-router-dom';
 import React, {useEffect, useState} from "react";
+import {debounce} from 'lodash';
 import CountryChoice from "../modal/CountryChoice";
 import NickName from "../modal/NickName";
 import {memebookApi} from "../util/memebookApi";
@@ -9,9 +10,11 @@ import {nationCheckData} from "../util/action/nationAction";
 import Header from "../components/Header";
 import {myWordListData, wordListData} from "../util/action/wordAction";
 import {scrapListData} from "../util/action/scrapAction";
+import {wordSearchData} from "../util/action/searchAction";
 
 export default function Main() {
   const dispatch = useDispatch();
+  const wordSearch = useSelector(state => state.meme.wordSearch);
   const wordList = useSelector(state => state.meme.wordList);
   const nationCheck = useSelector(state => state.meme.nationCheck);
   const scrapList = useSelector(state => state.meme.scrapList);
@@ -23,6 +26,10 @@ export default function Main() {
   const [nickname, setNickname] = useState('');
   const [nicknameSave, setNicknameSave] = useState('');
   const [libraryData, setLibraryData] = useState([]);
+
+  const [searchWord, setSearchWord] = useState('');
+  const [searchState, setSearchState] = useState(false);
+
   useEffect(() => {
     dispatch(wordListData('ALL', 1));
     dispatch(nationCheckData(memberIdx));
@@ -39,11 +46,11 @@ export default function Main() {
     }
   }, [wordList]);
 
+
   // 닉네임 설정 모달
   const nickNameClose = ({nickNameClose}) => {
     setNicknameModalOpen(!nicknameModalOpen);
     setNicknameSave(nickname);
-
     nickNamePost();
   }
 
@@ -72,6 +79,15 @@ export default function Main() {
     setCountryModalOpen(!countryModalOpen);
   }
 
+  // 단어 검색
+  const wordSearchApi = debounce((event) => {
+    if (event.target.value.length > 0) {
+      setSearchState(true);
+      dispatch(wordSearchData(event.target.value));
+    } else {
+      setSearchState(false);
+    }
+  }, 500)
 
   return (
     <>
@@ -111,7 +127,25 @@ export default function Main() {
              )
            }
            <div className="search_box">
-             <input type="text" className="text_input" placeholder="단어를 검색해보세요"/>
+             <input type="text" className="text_input" placeholder="단어를 검색해보세요" onChange={wordSearchApi}/>
+             {
+               searchState && (
+                 <ul className="search_list">
+                   {
+                     wordSearch?.wordList.map((item) => {
+                       return (
+                         <li>
+                           <Link to={`/vocabulary/wordInfo/${item.wordIdx}`}>
+                             {item.wordName}
+                           </Link>
+                         </li>
+                       )
+                     })
+                   }
+                 </ul>
+               )
+             }
+
            </div>
          </div>
 

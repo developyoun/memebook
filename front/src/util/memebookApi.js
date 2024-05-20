@@ -40,6 +40,8 @@ export const memebookApi = {
 
   // 전체 단어 리스트 조회
   wordListApi : (country, pageNumber) => request.get(`word/list?page=${pageNumber}`),
+  // 전체 단어 리스트 조회
+  wordSearchApi : (searchWord) => request.get(`word/list?search=${searchWord}`),
   // 단어 정렬
   wordSortApi : (country, sort, sortBy) => request.get(`word/list?nation=${country}&sort=${sort}&sortBy=${sortBy}`),
   // 내가 쓴 단어 리스트 조회

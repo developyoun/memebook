@@ -19,6 +19,8 @@ export default function Word() {
   const [loadingState, setLoadingState] = useState(true);
   const [libraryTab, setLibraryTab] = useState('ALL');
 
+  const [moreBtnState, setMoreBtnState] = useState(true);
+
   useEffect(() => {
     async function libraryList() {
       try {
@@ -34,18 +36,25 @@ export default function Word() {
     if (wordList && wordList.wordList) {
       setLibraryData(wordList.wordList);
     }
+    // 현재 페이지가 마지막 페이지가 아니라면 더보기 미노출
+    if (wordList?.nowPage !== wordList?.totalPage) {
+      setMoreBtnState(true);
+    }
   }, [wordList]);
 
 
-
+  // 더보기
   const pageMore = useCallback(debounce(async () => {
     try {
       const nextPage = pageNumber + 1;
       setPageNumber(nextPage);
+      // 다른 변수에 담기 위해 새로 가져오기
       const libraryApi = await memebookApi.wordListApi('ALL', nextPage);
-      console.log(libraryApi.data);
       setLibraryData((prevLibraryData) => [...prevLibraryData, ...libraryApi.data.wordList]);
-
+      // 총 리스트의 페이지가 마지막 페이지가 아니라면 더보기 미노출
+      if (libraryApi.data.nowPage === libraryApi.data.totalPage) {
+        setMoreBtnState(false);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -125,7 +134,16 @@ export default function Word() {
                       })
                     }
                   </ul>
-                  <button type="button" className="btn_primary size_s" onClick={pageMore}>더보기</button>
+
+
+                  {
+                    moreBtnState && (
+                      <div className="list_btm">
+                        <button type="button" className="btn_primary size_s" onClick={pageMore}>더보기</button>
+                      </div>
+                    )
+                  }
+
                 </>
               )
             }
