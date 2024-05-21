@@ -7,10 +7,12 @@ import '../scss/page/postAdd.scss'
 export default function PostAdd() {
   const id = useParams();
   const location = useLocation();
+  // 제목
   const [titleNull, setTitleNull] = useState(false);
   const [titleCount, setTitleCount] = useState(0);
   const [titleOver, setTitleOver] = useState(false);
   const [titleValue, setTitleValue] = useState(false);
+  // 내용
   const [contentNull, setContentNull] = useState(false);
   const [contentValue, setContentValue] = useState(false);
   const [contentCount, setContentCount] = useState(0);

@@ -1,16 +1,18 @@
-import '../scss/page/myAddList.scss'
-import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {myWordListData, wordDeleteData} from "../util/action/wordAction";
-import Title from "../components/Title";
-import {postListData} from "../util/action/communityAction";
 import {memebookApi} from "../util/memebookApi";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
+import {postListData} from "../util/action/communityAction";
+import Title from "../components/Title";
+import '../scss/page/myAddList.scss'
 
 export default function MyPostList() {
   const dispatch = useDispatch();
+  // 내가 등록한 글 리스트
   const postList = useSelector(state => state.meme.postList);
+  // 삭제 상태
   const [deleteState, setDeleteState] = useState(false);
+
   const [memberIdx, setMemberIdx] = useState(321);
 
   useEffect(() => {
