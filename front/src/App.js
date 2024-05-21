@@ -15,6 +15,8 @@ import MyAddList from "./page/MyAddList";
 import Community from "./page/Community";
 import PostInfo from "./page/PostInfo";
 import PostAdd from "./page/PostAdd";
+import MyPostList from "./page/MyPostList";
+import MyCommentList from "./page/MyCommentList";
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
         <Route path="/profile/:id" element={<Profile/>}/>
         <Route path="/profile/scrape" element={<ScrapeList/>}/>
         <Route path="/profile/my_list" element={<MyAddList/>}/>
+        <Route path="/profile/myPostList" element={<MyPostList/>}/>
+        <Route path="/profile/myCommentList" element={<MyCommentList/>}/>
       </Route>
       <Route path="/community/postDetail/:id" element={<PostInfo/>}/>
     </Routes>

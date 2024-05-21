@@ -84,6 +84,41 @@
     color:var(--primary-10);
     font-size:12px;
   }
+  &:focus {
+    outline:2px solid var(--primary-10);
+  }
+}
+
+// 검색 리스트
+
+.search_box {
+  position:relative;
+  .search_list {
+    position:absolute;
+    top:42px;
+    left:0;
+    width:100%;
+    padding:12px;
+    border-radius:6px;
+    box-shadow: 0 1px 12px -10px #000;
+    background:#fff;
+    z-index:10;
+    li {
+      &+li {
+        margin-top:4px;
+        padding-top:4px;
+        border-top:1px solid var(--primary-60);
+      }
+      a {
+        display:block;
+        width:100%;
+        font-size:12px;
+      }
+      .list_none {
+        font-size:12px
+      }
+    }
+  }
 }
 
 /* 유효성 문구 */

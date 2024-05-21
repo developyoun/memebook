@@ -110,11 +110,12 @@ public class ArticleService {
             throw new CustomException(ErrorCode.NOT_MATCH_MEMBER);
         }
 
+        articleRepository.delete(article);
+
         List<Comment> commentList = commentRepository.findAllByArticleIdx(articleIdx);
         log.info("Article Deleted, article Idx: {}, comment list: {}", articleIdx, commentList.size());
 
         commentRepository.deleteAll(commentList);
-        articleRepository.save(article);
     }
 
     @Transactional

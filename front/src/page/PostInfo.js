@@ -39,6 +39,18 @@ export default function PostInfo() {
     postDetailApi();
   }, [commentState]);
 
+  // 글 삭제하기
+  async function postDeleteData(articleIdx) {
+    try {
+      if (window.confirm("정말 삭제하시겠습니까?")) {
+        await memebookApi.postDeleteApi(articleIdx, memberIdx);
+        window.history.back();
+      }
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
   // 글 좋아요
   const postReaction = () => {
     setPostReactionState(!postReactionState)
@@ -146,7 +158,7 @@ export default function PostInfo() {
                             </button>
                           </li>
                           <li>
-                            <button type="button" className="">
+                            <button type="button" className="" onClick={() => postDeleteData(postDetail.articleIdx)}>
                               <span className="">삭제</span>
                             </button>
 

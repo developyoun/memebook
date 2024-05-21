@@ -13,10 +13,27 @@ export const wordListAction = (data) => {
     payload: data.data
   };
 };
-// 전체 단어 리스트
+
+// 단어 검색
+export const wordSearchAction = (data) => {
+  return {
+    type: "SEND_WORD_SEARCH",
+    payload: data.data
+  };
+};
+
+// 전체 단어 정렬
 export const wordSortAction = (data) => {
   return {
     type: "SEND_WORD_SORT",
+    payload: data.data
+  };
+};
+
+// 내가 쓴 댓글 리스트
+export const commentListAction = (data) => {
+  return {
+    type: "SEND_MY_COMMENT_LIST",
     payload: data.data
   };
 };
