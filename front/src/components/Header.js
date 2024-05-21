@@ -12,6 +12,8 @@ export default function Header(props) {
 
   // 단어 검색
   const wordSearchApi = debounce((event) => {
+    console.log(event.target.value)
+    console.log(event.target.value.length)
     if (event.target.value.length > 0) {
       setSearchState(true);
       dispatch(wordSearchData(event.target.value));
@@ -26,13 +28,20 @@ export default function Header(props) {
         <span className="blind">memebook</span>
       </Link>
       <div className="search_box">
-        <input type="text" className="search_input" placeholder="단어를 검색해보세요" onClick={wordSearchApi}/>
+        <input type="text" className="search_input" placeholder="단어를 검색해보세요" onChange={wordSearchApi}/>
 
         {
           searchState && (
             <ul className="search_list">
               {
-                wordSearch?.wordList.map((item) => {
+                wordSearch?.wordList.length === 0 && (
+                  <li>
+                    <span className="list_none">검색에 맞는 단어가 없어요</span>
+                  </li>
+                )
+              }
+              {
+                wordSearch?.wordList.length > 0 && wordSearch?.wordList.map((item) => {
                   return (
                     <li>
                       <Link to={`/vocabulary/wordInfo/${item.wordIdx}`}>

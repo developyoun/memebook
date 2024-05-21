@@ -216,7 +216,7 @@ export default function Profile() {
           <h4>
             내가 쓴 글
             {
-              postList.totalCount !== 0 && (
+              postList?.totalCount !== 0 && (
                 <span className="count">{postList.totalCount}</span>
               )
             }
@@ -224,15 +224,15 @@ export default function Profile() {
           <Link to="/profile/myPostList" className="item">더보기</Link>
         </div>
         {
-          postList.totalCount === 0 && (
+          postList?.totalCount === 0 && (
             <div className="content_none">작성한 글이 없어요 &#128172;</div>
           )
         }
         {
-          postList.totalCount > 0 && (
+          postList?.totalCount > 0 && (
             <ul className="list_box inside">
               {
-                postList.articleList?.slice(0, 3).map((item, idx) => {
+                postList?.articleList?.slice(0, 3).map((item, idx) => {
                   return (
                     <li className="list_item">
                       <Link to={`/community/postDetail/${item.articleIdx}`} className="link" key={idx}>{item.articleTitle}</Link>
@@ -250,20 +250,20 @@ export default function Profile() {
           <h4>
             내가 쓴 댓글
             {
-              myCommentList.totalCount !== 0 && (
-                <span className="count">{myCommentList.totalCount}</span>
+              myCommentList?.totalCount !== 0 && (
+                <span className="count">{myCommentList?.totalCount}</span>
               )
             }
           </h4>
           <Link to="/profile/myCommentList" className="item">더보기</Link>
         </div>
         {
-          myCommentList.totalCount === 0 && (
+          myCommentList?.totalCount === 0 && (
             <div className="content_none">작성한 댓글이 없어요 &#128172;</div>
           )
         }
         {
-          myCommentList.totalCount > 0 && (
+          myCommentList?.totalCount > 0 && (
             <ul className="list_box inside">
               {
                 myCommentList.commentList?.slice(0, 3).map((item, idx) => {
