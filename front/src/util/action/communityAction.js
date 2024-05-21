@@ -1,5 +1,5 @@
 import {memebookApi} from "../memebookApi";
-import {commentListAction, postDetailAction, postListAction} from "../action";
+import {commentListAction, postDetailAction, postListAction, wordDeleteAction} from "../action";
 
 // 포스트 리스트 조회
 export const postListData = () => async (dispatch) => {

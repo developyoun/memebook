@@ -44,14 +44,12 @@ export default function PostInfo() {
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
         await memebookApi.postDeleteApi(articleIdx, memberIdx);
-        setCommentState(!commentState);
-        console.log(articleIdx, memberIdx)
+        window.history.back();
       }
     } catch(error) {
       console.log(error);
     }
   }
-
 
   // 글 좋아요
   const postReaction = () => {

@@ -5,11 +5,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {myWordListData, wordDeleteData} from "../util/action/wordAction";
 import Title from "../components/Title";
 import {postListData} from "../util/action/communityAction";
+import {memebookApi} from "../util/memebookApi";
 
 export default function MyPostList() {
   const dispatch = useDispatch();
   const postList = useSelector(state => state.meme.postList);
-  const [deleteState, SetDeleteState] = useState(false);
+  const [deleteState, setDeleteState] = useState(false);
   const [memberIdx, setMemberIdx] = useState(321);
 
   useEffect(() => {
@@ -23,16 +24,15 @@ export default function MyPostList() {
     wordAddListApi();
   }, [deleteState]);
 
-  // 설명 삭제
-  async function myAddWordDelete(wordContentIdx) {
+  // 글 삭제하기
+  async function postDeleteData(articleIdx) {
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
-        dispatch(wordDeleteData(wordContentIdx));
-        SetDeleteState(!deleteState);
-        alert('삭제');
+        await memebookApi.postDeleteApi(articleIdx, memberIdx);
+        setDeleteState(!deleteState)
       }
-    } catch (error) {
-      console.log(error)
+    } catch(error) {
+      console.log(error);
     }
   }
 
@@ -64,7 +64,7 @@ export default function MyPostList() {
                   return (
                     <li className="list_item">
                       <Link to={`/community/postDetail/${item.articleIdx}`} className="link" key={idx}>{item.articleTitle}</Link>
-                      <button type="button" className="btn_delete">
+                      <button type="button" className="btn_delete" onClick={() => {postDeleteData(item.articleIdx)}}>
                         <span className="blind">글 삭제</span>
                       </button>
                     </li>
