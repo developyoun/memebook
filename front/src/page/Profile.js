@@ -4,8 +4,8 @@ import {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {scrapListData} from "../util/action/scrapAction";
 import {myWordListData} from "../util/action/wordAction";
-import '../scss/page/profile.scss'
 import {postCommentData, postListData} from "../util/action/communityAction";
+import '../scss/page/profile.scss'
 
 export default function Profile() {
   let id = useParams();

@@ -17,6 +17,7 @@ export default function MyCommentList() {
     async function myCommentListApi() {
       try {
         dispatch(postCommentData(memberIdx));
+        console.log(myCommentList)
       } catch (error) {
         console.log(error)
       }
