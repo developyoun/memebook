@@ -27,34 +27,40 @@ export default function Header(props) {
       <Link to="/main" className="logo">
         <span className="blind">memebook</span>
       </Link>
-      <div className="search_box">
-        <input type="text" className="search_input" placeholder="단어를 검색해보세요" onChange={wordSearchApi}/>
 
-        {
-          searchState && (
-            <ul className="search_list">
-              {
-                wordSearch?.wordList.length === 0 && (
-                  <li>
-                    <span className="list_none">검색에 맞는 단어가 없어요</span>
-                  </li>
-                )
-              }
-              {
-                wordSearch?.wordList.length > 0 && wordSearch?.wordList.map((item) => {
-                  return (
-                    <li>
-                      <Link to={`/vocabulary/wordInfo/${item.wordIdx}`}>
-                        {item.wordName}
-                      </Link>
-                    </li>
-                  )
-                })
-              }
-            </ul>
-          )
-        }
-      </div>
+      {
+        props.type !== 'searchNone' && (
+          <div className="search_box">
+            <input type="text" className="search_input" placeholder="단어를 검색해보세요" onChange={wordSearchApi}/>
+
+            {
+              searchState && (
+                <ul className="search_list">
+                  {
+                    wordSearch?.wordList.length === 0 && (
+                      <li>
+                        <span className="list_none">검색에 맞는 단어가 없어요</span>
+                      </li>
+                    )
+                  }
+                  {
+                    wordSearch?.wordList.length > 0 && wordSearch?.wordList.map((item) => {
+                      return (
+                        <li>
+                          <Link to={`/vocabulary/wordInfo/${item.wordIdx}`}>
+                            {item.wordName}
+                          </Link>
+                        </li>
+                      )
+                    })
+                  }
+                </ul>
+              )
+            }
+          </div>
+        )
+      }
+
     </header>
   )
 }

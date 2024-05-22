@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {postCommentData} from "../util/action/communityAction";
 import Title from "../components/Title";
@@ -73,6 +73,11 @@ export default function MyCommentList() {
             </ul>
           )
         }
+
+        <div className="list_btm">
+          <button type="button" className="btn_primary size_s">더보기</button>
+        </div>
+
       </div>
 
     </div>

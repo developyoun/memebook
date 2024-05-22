@@ -6,7 +6,6 @@ export const wordListData = (id, memberIdx) => async (dispatch) => {
   try {
     const wordListData = await memebookApi.wordListApi(id, memberIdx);
     dispatch(wordListAction(wordListData));
-    console.log(wordListData)
   } catch (error) {
     console.error(error);
   }

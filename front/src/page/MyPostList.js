@@ -1,6 +1,6 @@
 import {memebookApi} from "../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {postListData} from "../util/action/communityAction";
 import Title from "../components/Title";
@@ -74,7 +74,7 @@ export default function MyPostList() {
                 postList.articleList?.map((item, idx) => {
                   return (
                     <li className="list_item" key={idx}>
-                      <Link to={`/community/postDetail/${item.articleIdx}`} className="link" key={idx}>{item.articleTitle}</Link>
+                      <Link to={`/community가/postDetail/${item.articleIdx}`} className="link" key={idx}>{item.articleTitle}</Link>
                       <button type="button" className="btn_delete" onClick={() => {postDeleteData(item.articleIdx)}}>
                         <span className="blind">글 삭제</span>
                       </button>
@@ -85,6 +85,10 @@ export default function MyPostList() {
             </ul>
           )
         }
+
+        <div className="list_btm">
+          <button type="button" className="btn_primary size_s">더보기</button>
+        </div>
 
       </div>
 

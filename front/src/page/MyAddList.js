@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {myWordListData, wordDeleteData} from "../util/action/wordAction";
 import Title from "../components/Title";
@@ -87,6 +87,11 @@ export default function MyAddList() {
             </ul>
           )
         }
+
+        <div className="list_btm">
+          <button type="button" className="btn_primary size_s">더보기</button>
+        </div>
+
       </div>
 
     </div>

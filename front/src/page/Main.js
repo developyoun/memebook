@@ -1,50 +1,49 @@
-import '../scss/page/main.scss';
-import {Link} from 'react-router-dom';
-import React, {useEffect, useState} from "react";
-import {debounce} from 'lodash';
-import CountryChoice from "../modal/CountryChoice";
-import NickName from "../modal/NickName";
 import {memebookApi} from "../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useState} from "react";
+import {Link} from 'react-router-dom';
+import {debounce} from 'lodash';
 import {nationCheckData} from "../util/action/nationAction";
-import Header from "../components/Header";
 import {myWordListData, wordListData} from "../util/action/wordAction";
 import {scrapListData} from "../util/action/scrapAction";
 import {wordSearchData} from "../util/action/searchAction";
+import Header from "../components/Header";
+import CountryChoice from "../modal/CountryChoice";
+import NickName from "../modal/NickName";
+import '../scss/page/main.scss';
 
 export default function Main() {
   const dispatch = useDispatch();
+  // 검색
   const wordSearch = useSelector(state => state.meme.wordSearch);
+  const [searchState, setSearchState] = useState(false);
+  // 단어 인기 리스트
   const wordList = useSelector(state => state.meme.wordList);
+  // 내가 등록한 글 리스트
+  const postList = useSelector(state => state.meme.postList);
+  // 댓글 리스트
+  const myCommentList = useSelector(state => state.meme.myCommentList);
+  // 닉네임
+  const [nickname, setNickname] = useState('');
+  const [nicknameSave, setNicknameSave] = useState('');
+  // 나라 선택
   const nationCheck = useSelector(state => state.meme.nationCheck);
-  const scrapList = useSelector(state => state.meme.scrapList);
-  const myWordList = useSelector(state => state.meme.myWordList);
-  const [memberIdx, setMemberIdx] = useState(321);
   const [nicknameModalOpen, setNicknameModalOpen] = useState(false);
   const [countryModalOpen, setCountryModalOpen] = useState(false);
   const [studyCountryType, setStudyCountryType] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [nicknameSave, setNicknameSave] = useState('');
-  const [libraryData, setLibraryData] = useState([]);
+  // 스크랩 리스트
+  const scrapList = useSelector(state => state.meme.scrapList);
+  // 내 단어 리스트
+  const myWordList = useSelector(state => state.meme.myWordList);
 
-  const [searchWord, setSearchWord] = useState('');
-  const [searchState, setSearchState] = useState(false);
+  const [memberIdx, setMemberIdx] = useState(123);
 
   useEffect(() => {
     dispatch(wordListData('ALL', 1));
     dispatch(nationCheckData(memberIdx));
     dispatch(scrapListData(memberIdx));
     dispatch(myWordListData(memberIdx));
-    console.log(wordList);
-
   }, []);
-
-  useEffect(() => {
-    if (wordList && wordList.wordList) {
-      setLibraryData(wordList.wordList);
-      console.log(wordList.wordList)
-    }
-  }, [wordList]);
 
 
   // 닉네임 설정 모달
@@ -54,6 +53,12 @@ export default function Main() {
     nickNamePost();
   }
 
+  // 닉네임 입력
+  const nickNameValue = (event) => {
+    setNickname(event.target.value);
+  }
+
+  // 닉네임 설정
   async function nickNamePost() {
     try {
       const nickNameApi = await memebookApi.nickNameAddApi(nickname);
@@ -62,10 +67,6 @@ export default function Main() {
       console.log(error)
       console.log('에러')
     }
-  }
-
-  const nickNameValue = (event) => {
-    setNickname(event.target.value);
   }
 
   // 모달 열고 닫히기
@@ -91,7 +92,7 @@ export default function Main() {
 
   return (
     <>
-      <Header searchState="searchNone"></Header>
+      <Header type="searchNone"></Header>
 
       {
         countryModalOpen && (
@@ -139,9 +140,9 @@ export default function Main() {
                      )
                    }
                    {
-                     wordSearch?.wordList.length > 0 && wordSearch?.wordList.map((item) => {
+                     wordSearch?.wordList.length > 0 && wordSearch?.wordList.map((item, idx) => {
                        return (
-                         <li>
+                         <li key={idx}>
                            <Link to={`/vocabulary/wordInfo/${item.wordIdx}`}>
                              {item.wordName}
                            </Link>
@@ -163,9 +164,9 @@ export default function Main() {
 
               <ul className="popular_list">
                 {
-                  libraryData?.map((item, idx) => {
+                  wordList.wordList?.map((item, idx) => {
                     return (
-                      <li>
+                      <li key={idx}>
                         <Link to={`/vocabulary/wordInfo/${item.wordIdx}`} className="keyword">
                           {item.wordName}
                         </Link>
@@ -178,7 +179,6 @@ export default function Main() {
 
             <ul className="check_list">
               <li className="list word">
-
                   {
                     myWordList.wordContentList?.length === 0 && (
                       <Link to="/profile/my_list" className="link">
@@ -193,10 +193,7 @@ export default function Main() {
                       </Link>
                     )
                   }
-
-
               </li>
-
 
               <li className="list scrape">
                 {
@@ -209,11 +206,46 @@ export default function Main() {
                 {
                   scrapList.content?.length > 0 && (
                     <Link to="/profile/scrape" className="link">
-                      지금까지 <strong>{scrapList.content?.length}</strong>개의 단어를 등록했어요
+                      지금까지 <strong>{scrapList.content?.length}</strong>개의 단어에 참여했어요
                     </Link>
                   )
                 }
               </li>
+
+              <li className="list post">
+                {
+                  postList.articleList?.length === 0 && (
+                    <Link to="/profile/myPostList" className="link">
+                      아직 작성한 글이 없어요 &#128172;
+                    </Link>
+                  )
+                }
+                {
+                  postList.articleList?.length > 0 && (
+                    <Link to="/profile/myPostList" className="link">
+                      지금까지 <strong>{postList.articleList?.length}</strong>개의 글을 작성했어요
+                    </Link>
+                  )
+                }
+              </li>
+
+              <li className="list post">
+                {
+                  myCommentList?.commentList.length === 0 && (
+                    <Link to="/profile/myCommentList" className="link">
+                      아직 작성한 댓글이 없어요 &#128172;
+                    </Link>
+                  )
+                }
+                {
+                  myCommentList?.commentList.length > 0 && (
+                    <Link to="/profile/myCommentList" className="link">
+                      지금까지 <strong>{myCommentList?.commentList.length}</strong>개의 댓글을 작성했어요
+                    </Link>
+                  )
+                }
+              </li>
+
               <li className="list visit">
                 <p className="link">
                   연속 방문 최대 <strong>12</strong>번을 달성했어요
