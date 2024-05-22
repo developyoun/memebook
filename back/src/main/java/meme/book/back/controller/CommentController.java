@@ -27,9 +27,8 @@ public class CommentController {
                                                     @RequestParam(defaultValue = "1") int page,
                                                     @RequestParam(defaultValue = "10") int pageSize) {
         log.info("Get Comment List, member idx: {}", memberIdx);
-        Pageable pageable = PageRequest.of(page, pageSize);
+        Pageable pageable = PageRequest.of(page-1, pageSize);
 
-        commentService.getCommentListByMember(pageable, memberIdx);
         return ResponseEntity.ok(commentService.getCommentListByMember(pageable, memberIdx));
     }
 
