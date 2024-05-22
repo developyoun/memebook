@@ -1,19 +1,22 @@
-import '../scss/page/myAddList.scss'
-import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 import {postCommentData} from "../util/action/communityAction";
 import Title from "../components/Title";
-import {Link} from "react-router-dom";
+import '../scss/page/myAddList.scss'
+
 export default function MyCommentList() {
   const dispatch = useDispatch();
+  // 댓글 리스트
   const myCommentList = useSelector(state => state.meme.myCommentList);
+
   const [memberIdx, setMemberIdx] = useState(123);
 
+  // 댓글 리스트 Api
   useEffect(() => {
     async function myCommentListApi() {
       try {
         dispatch(postCommentData(memberIdx));
-        console.log(myCommentList)
       } catch (error) {
         console.log(error)
       }
@@ -27,6 +30,17 @@ export default function MyCommentList() {
       <Title title="작성한 댓글" type="back"></Title>
 
       <div className="container">
+
+        <div className="list_top">
+          <span className="txt">
+            총 {myCommentList.totalCount} 개
+          </span>
+          <span className="check_box">
+            <input type="checkbox"/>
+            <label htmlFor="">전체 삭제</label>
+          </span>
+        </div>
+
         {
           myCommentList?.commentList.length === 0 && (
             <div className="content_none list">
@@ -46,7 +60,7 @@ export default function MyCommentList() {
               {
                 myCommentList?.commentList.map((item, idx) => {
                   return (
-                    <li className="list_item">
+                    <li className="list_item" key={idx}>
                       <Link to={`/community/postDetail/${item.commentIdx}`} className="link" key={idx}>{item.commentContent}</Link>
                       <button type="button" className="btn_delete">
                         <span className="blind">글 삭제</span>

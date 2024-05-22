@@ -25,7 +25,7 @@ export default function Profile() {
   // 링크 복사 상태
   const [copyState , setCopyState] = useState(false);
 
-  const [memberIdx, setMemberIdx] = useState(321);
+  const [memberIdx, setMemberIdx] = useState(123);
 
   useEffect(() => {
     async function profileApi() {
@@ -34,7 +34,6 @@ export default function Profile() {
         dispatch(myWordListData(memberIdx));
         dispatch(postListData(memberIdx));
         dispatch(postCommentData(memberIdx));
-        console.log(myCommentList)
       } catch (error) {
         console.log(error)
       }
@@ -166,7 +165,7 @@ export default function Profile() {
               {
                 myWordList.wordContentList?.slice(0, 3).map((item, idx) => {
                   return (
-                    <li className="list_item">
+                    <li className="list_item" key={idx}>
                       <Link to={`/vocabulary/wordInfo/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
                     </li>
                   )
@@ -200,7 +199,7 @@ export default function Profile() {
               {
                 scrapList.content?.slice(0, 3).map((item, idx) => {
                   return (
-                    <li className="list_item">
+                    <li className="list_item" key={idx}>
                       <Link to={`/vocabulary/wordInfo/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
                     </li>
                   )
@@ -234,7 +233,7 @@ export default function Profile() {
               {
                 postList?.articleList?.slice(0, 3).map((item, idx) => {
                   return (
-                    <li className="list_item">
+                    <li className="list_item" key={idx}>
                       <Link to={`/community/postDetail/${item.articleIdx}`} className="link" key={idx}>{item.articleTitle}</Link>
                     </li>
                   )
@@ -268,7 +267,7 @@ export default function Profile() {
               {
                 myCommentList.commentList?.slice(0, 3).map((item, idx) => {
                   return (
-                    <li className="list_item">
+                    <li className="list_item" key={idx}>
                       <Link to={`/community/postDetail/${item.articleIdx}`} className="link" key={idx}>{item.commentContent}</Link>
                     </li>
                   )

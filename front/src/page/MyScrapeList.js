@@ -1,21 +1,20 @@
-import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
-import {memebookApi} from "../util/memebookApi";
 import {useDispatch, useSelector} from 'react-redux';
-import BtnBack from "../components/BtnBack";
+import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 import {scrapDeleteData, scrapListData} from "../util/action/scrapAction";
-import '../scss/page/scrapeList.scss'
 import Title from "../components/Title";
+import '../scss/page/scrapeList.scss'
 
-
-export default function ScrapeList() {
+export default function MyScrapeList() {
   const dispatch = useDispatch();
+  // 스크랩 리스트
   const scrapList = useSelector(state => state.meme.scrapList);
-
+  // 스크랩 상태
   const [scrapState, setScrapState] = useState(false);
-  const [memberIdx, setMemberIdx] = useState(321);
 
+  const [memberIdx, setMemberIdx] = useState(123);
 
+  // 스크랩 리스트 Api
   useEffect(() => {
     async function scrapeApi() {
       try {
@@ -68,7 +67,7 @@ export default function ScrapeList() {
               {
                 scrapList.content?.map((item, idx) => {
                   return (
-                    <li className="list_item">
+                    <li className="list_item" key={idx}>
                       <Link to={`/vocabulary/wordInfo/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
                       <button type="button" className="btn_delete" onClick={() => scrapDeleteApi(item.scrapIdx)}>
                         <span className="blind">스크랩 삭제</span>

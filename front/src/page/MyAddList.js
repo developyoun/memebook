@@ -1,16 +1,20 @@
-import '../scss/page/myAddList.scss'
-import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 import {myWordListData, wordDeleteData} from "../util/action/wordAction";
 import Title from "../components/Title";
+import '../scss/page/myAddList.scss'
 
 export default function MyAddList() {
   const dispatch = useDispatch();
+  // 단어 리스트
   const myWordList = useSelector(state => state.meme.myWordList);
+  // 삭제 상태
   const [deleteState, SetDeleteState] = useState(false);
-  const [memberIdx, setMemberIdx] = useState(321);
 
+  const [memberIdx, setMemberIdx] = useState(123);
+
+  // 단어 리스트 Api
   useEffect(() => {
     async function wordAddListApi() {
       try {
@@ -42,6 +46,16 @@ export default function MyAddList() {
 
       <div className="container">
 
+        <div className="list_top">
+          <span className="txt">
+            총 {myWordList.totalCount} 개
+          </span>
+          <span className="check_box">
+            <input type="checkbox"/>
+            <label htmlFor="">전체 삭제</label>
+          </span>
+        </div>
+
         {
           myWordList.wordContentList?.length === 0 && (
             <div className="content_none list">
@@ -61,7 +75,7 @@ export default function MyAddList() {
               {
                 myWordList.wordContentList?.map((item, idx) => {
                   return (
-                    <li className="list_item">
+                    <li className="list_item" key={idx}>
                       <Link to={`/vocabulary/wordInfo/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
                       <button type="button" className="btn_delete" onClick={() => myAddWordDelete(item.wordContentIdx)}>
                         <span className="blind">스크랩 삭제</span>

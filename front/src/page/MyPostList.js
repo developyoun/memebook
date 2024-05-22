@@ -13,7 +13,7 @@ export default function MyPostList() {
   // 삭제 상태
   const [deleteState, setDeleteState] = useState(false);
 
-  const [memberIdx, setMemberIdx] = useState(321);
+  const [memberIdx, setMemberIdx] = useState(123);
 
   useEffect(() => {
     async function wordAddListApi() {
@@ -44,7 +44,16 @@ export default function MyPostList() {
       <Title title="작성한 글" type="back"></Title>
 
       <div className="container">
-        
+
+        <div className="list_top">
+          <span className="txt">
+            총 {postList.totalCount} 개
+          </span>
+          <span className="check_box">
+            <input type="checkbox"/>
+            <label htmlFor="">전체 삭제</label>
+          </span>
+        </div>
         {
           postList.articleList?.length === 0 && (
             <div className="content_none list">
@@ -64,7 +73,7 @@ export default function MyPostList() {
               {
                 postList.articleList?.map((item, idx) => {
                   return (
-                    <li className="list_item">
+                    <li className="list_item" key={idx}>
                       <Link to={`/community/postDetail/${item.articleIdx}`} className="link" key={idx}>{item.articleTitle}</Link>
                       <button type="button" className="btn_delete" onClick={() => {postDeleteData(item.articleIdx)}}>
                         <span className="blind">글 삭제</span>

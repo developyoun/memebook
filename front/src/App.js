@@ -9,7 +9,7 @@ import WordAdd from "./page/WordAdd";
 import Vocabulary from "./page/Vocabulary";
 import Profile from "./page/Profile";
 import WordInfo from "./page/WordInfo";
-import ScrapeList from "./page/ScrapeList";
+import MyScrapeList from "./page/MyScrapeList";
 import Layout from "./page/Layout";
 import MyAddList from "./page/MyAddList";
 import Community from "./page/Community";
@@ -30,7 +30,7 @@ function App() {
         <Route path="/community" element={<Community/>}/>
         <Route path="/community/postAdd/:id?" element={<PostAdd/>}/>
         <Route path="/profile/:id" element={<Profile/>}/>
-        <Route path="/profile/scrape" element={<ScrapeList/>}/>
+        <Route path="/profile/scrape" element={<MyScrapeList/>}/>
         <Route path="/profile/my_list" element={<MyAddList/>}/>
         <Route path="/profile/myPostList" element={<MyPostList/>}/>
         <Route path="/profile/myCommentList" element={<MyCommentList/>}/>
