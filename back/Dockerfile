@@ -2,7 +2,7 @@
 FROM openjdk:17-jdk-slim
 
 # gradle 빌드 명령어
-RUN gradle clean build -x test
+RUN ./gradlew clean build -x test
 
 # 컨테이너 디렉토리 볼륨 지정
 VOLUME /tmp
