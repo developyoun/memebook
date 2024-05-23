@@ -74,7 +74,7 @@ export default function MyPostList() {
                 postList.articleList?.map((item, idx) => {
                   return (
                     <li className="list_item" key={idx}>
-                      <Link to={`/community가/postDetail/${item.articleIdx}`} className="link" key={idx}>{item.articleTitle}</Link>
+                      <Link to={`/community/postDetail/${item.articleIdx}`} className="link" key={idx}>{item.articleTitle}</Link>
                       <button type="button" className="btn_delete" onClick={() => {postDeleteData(item.articleIdx)}}>
                         <span className="blind">글 삭제</span>
                       </button>

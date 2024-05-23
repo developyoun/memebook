@@ -123,7 +123,7 @@ export default function Word() {
                           <li className="list_item" key={idx}>
                             <Link to={`/vocabulary/wordInfo/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
                             <span className="content_count">
-                            3
+                              {item.wordContentCount}
                           </span>
                           </li>
                         )

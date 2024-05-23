@@ -33,14 +33,8 @@ export default function WordAdd() {
         wordNation : "KOR",
         memberIdx : memberIdx,
       });
-      if (word !== undefined) {
-        navigate(`/word/${id}`);
-      } else {
-        navigate(`/vocabulary`);
-      }
-      setAddState(addState);
+      window.history.back();
       alert('등록 완료');
-      window.location.reload();
     } catch (error) {
       console.log(error)
       console.log('에러')

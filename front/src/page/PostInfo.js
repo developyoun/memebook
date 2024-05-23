@@ -67,6 +67,7 @@ export default function PostInfo() {
       if (window.confirm("정말 삭제하시겠습니까?")) {
         await memebookApi.commentDeleteApi(commentIdx, memberIdx);
         setCommentState(!commentState);
+        console.log('성공')
       }
     } catch(error) {
       console.log(error);
@@ -191,7 +192,7 @@ export default function PostInfo() {
           {
             postDetail?.commentDtoList?.map((item, idx) => {
               return (
-                <li className="list">
+                <li className="list" key={idx}>
                   <div className="comments_box">
                     <div className="comments_top">
                       <span className="nickname">{item?.nickname}</span>
@@ -219,7 +220,7 @@ export default function PostInfo() {
                         {
                           item?.commentReplyList?.map((reply, idx) => {
                             return (
-                              <li className="list">
+                              <li className="list" key={idx}>
                                 <div className="comments_box">
                                   <div className="comments_top">
                                     <span className="nickname">{reply?.nickname}</span>
