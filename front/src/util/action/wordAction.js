@@ -12,18 +12,18 @@ export const wordListData = (id, memberIdx) => async (dispatch) => {
 };
 
 // 단어 정렬
-export const wordSortData = (word) => async (dispatch) => {
+export const wordSortData = (nation, word) => async (dispatch) => {
   try {
     let wordSortData;
     switch (word) {
       case 'LIKE' :
-        wordSortData = await memebookApi.wordSortApi('ALL', word, 'ASC');
+        wordSortData = await memebookApi.wordSortApi(nation, word);
         break;
       case 'DISLIKE' :
-        wordSortData = await memebookApi.wordSortApi('ALL', word, 'ASC');
+        wordSortData = await memebookApi.wordSortApi(nation, word);
         break;
       case 'LATEST' :
-        wordSortData = await memebookApi.wordSortApi('ALL', word, 'ASC');
+        wordSortData = await memebookApi.wordSortApi(nation, word);
         break;
     }
     dispatch(wordSortAction(wordSortData));

@@ -45,7 +45,7 @@ export const memebookApi = {
   // 전체 단어 리스트 조회
   wordSearchApi : (searchWord) => request.get(`word/list?search=${searchWord}`),
   // 단어 정렬
-  wordSortApi : (country, sort, sortBy) => request.get(`word/list?nation=${country}&sort=${sort}&sortBy=${sortBy}`),
+  wordSortApi : (country, sort, sortBy) => request.get(`word/list?nation=${country}&sort=${sort}`),
   // 내가 쓴 단어 리스트 조회
   myWordListApi : (memberIdx) => request.get(`word/list/${memberIdx}`),
   // 단어 디테일 조회

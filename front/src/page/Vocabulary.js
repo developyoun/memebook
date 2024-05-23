@@ -18,13 +18,14 @@ export default function Word() {
   const [libraryData, setLibraryData] = useState([]);
   const [loadingState, setLoadingState] = useState(true);
   const [libraryTab, setLibraryTab] = useState('ALL');
+  const [nationName, setNationName] = useState('KOR');
 
   const [moreBtnState, setMoreBtnState] = useState(true);
 
   useEffect(() => {
     async function libraryList() {
       try {
-        await dispatch(wordListData('ALL', pageNumber));
+        await dispatch(wordListData('KOR', pageNumber));
       } catch (error) {
         console.log(error)
       }
@@ -64,13 +65,8 @@ export default function Word() {
   async function wordSortBtn(word) {
     try {
       setLibraryTab(word);
-      if (word === 'ALL') {
-        dispatch(wordListData('ALL', pageNumber));
-        setLibraryData(wordList.wordList);
-      } else {
-        dispatch(wordSortData(word));
-        setLibraryData(wordSort.wordList);
-      }
+      dispatch(wordSortData(nationName, word));
+      setLibraryData(wordSort.wordList);
     } catch(error) {
       console.log(error)
     }
@@ -124,7 +120,7 @@ export default function Word() {
                     {
                       libraryData?.map((item, idx) => {
                         return (
-                          <li className="list_item">
+                          <li className="list_item" key={idx}>
                             <Link to={`/vocabulary/wordInfo/${item.wordIdx}`} className="link" key={idx}>{item.wordName}</Link>
                             <span className="content_count">
                             3
