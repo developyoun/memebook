@@ -4,11 +4,12 @@ import {Link} from "react-router-dom";
 import {Swiper, SwiperSlide} from "swiper/react";
 import Header from "../components/Header";
 import {useDispatch, useSelector} from "react-redux";
-import {postListData} from "../util/action/communityAction";
+import {postDetailData, postListData} from "../util/action/communityAction";
 
 export default function Community() {
   const dispatch = useDispatch();
   const postList = useSelector(state => state.meme.postList);
+  const postDetail = useSelector(state => state.meme.postDetail);
   const [postReactionState, setPostReactionState] = useState(false);
 
   // 포스트 Api
@@ -73,6 +74,7 @@ export default function Community() {
                         </Link>
                       </div>
                     </div>
+
                   </li>
                 )
               })
