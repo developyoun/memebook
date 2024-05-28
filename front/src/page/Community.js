@@ -1,15 +1,14 @@
-import '../scss/page/community.scss'
-import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
-import {Swiper, SwiperSlide} from "swiper/react";
-import Header from "../components/Header";
 import {useDispatch, useSelector} from "react-redux";
-import {postDetailData, postListData} from "../util/action/communityAction";
+import {Swiper, SwiperSlide} from "swiper/react";
+import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
+import {postListData} from "../util/action/communityAction";
+import Header from "../components/Header";
+import '../scss/page/community.scss'
 
 export default function Community() {
   const dispatch = useDispatch();
   const postList = useSelector(state => state.meme.postList);
-  const postDetail = useSelector(state => state.meme.postDetail);
   const [postReactionState, setPostReactionState] = useState(false);
 
   // 포스트 Api

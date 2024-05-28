@@ -25,8 +25,8 @@ export default function MyCommentList() {
         console.log(error)
       }
     }
-    myCommentListApi(commentState);
-  }, []);
+    myCommentListApi();
+  }, [commentState]);
 
 
   // 댓글 삭제하기
@@ -79,9 +79,9 @@ export default function MyCommentList() {
                 myCommentList?.commentList.map((item, idx) => {
                   return (
                     <li className="list_item" key={idx}>
-                      <Link to={`/community/postDetail/${item.commentIdx}`} className="link" key={idx}>{item.commentContent}</Link>
+                      <Link to={`/community/postDetail/${item.articleIdx}`} className="link" key={idx}>{item.commentContent}</Link>
                       <button type="button" className="btn_delete" onClick={() => {commentDeleteData(item?.commentIdx)}}>
-                        <span className="blind">글 삭제</span>
+                        <span className="blind">댓글 삭제</span>
                       </button>
                     </li>
                   )

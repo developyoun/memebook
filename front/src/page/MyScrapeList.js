@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {scrapDeleteData, scrapListData} from "../util/action/scrapAction";
 import Title from "../components/Title";
