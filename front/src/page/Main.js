@@ -11,6 +11,7 @@ import Header from "../components/Header";
 import CountryChoice from "../modal/CountryChoice";
 import NickName from "../modal/NickName";
 import '../scss/page/main.scss';
+import HomeNav from "../components/HomeNav";
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -100,7 +101,8 @@ export default function Main() {
         )
       }
 
-      {
+
+            {
         nicknameModalOpen && (
           <NickName nickNameAdd={nickNameClose} nickNameInput={nickNameValue}></NickName>
         )

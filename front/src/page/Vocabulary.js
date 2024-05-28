@@ -1,26 +1,32 @@
-import '../scss/page/vocabulary.scss'
-import {Link} from "react-router-dom";
-import React, {useCallback, useEffect, useState} from "react";
-import {debounce} from 'lodash';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import {useDispatch, useSelector} from "react-redux";
-import {wordListData, wordSortData} from "../util/action/wordAction";
-import {commonEvent} from "../util/commonEvent"
-import Header from "../components/Header";
 import {memebookApi} from "../util/memebookApi";
+import {useDispatch, useSelector} from "react-redux";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import {Link} from "react-router-dom";
+import {useCallback, useEffect, useState} from "react";
+import {wordListData, wordSortData} from "../util/action/wordAction";
+import {debounce} from 'lodash';
+import Header from "../components/Header";
+import 'swiper/css';
+import '../scss/page/vocabulary.scss'
 
 export default function Word() {
   const dispatch = useDispatch();
+  // 단어 리스트
   const wordList = useSelector(state => state.meme.wordList);
+  // 단어 정렬
   const wordSort = useSelector(state => state.meme.wordSort);
+  // 단어 페이지
   const [pageNumber, setPageNumber] = useState(1);
+  // 단어 리스트
   const [libraryData, setLibraryData] = useState([]);
-  const [loadingState, setLoadingState] = useState(true);
+  // 단어 탭
   const [libraryTab, setLibraryTab] = useState('ALL');
+  // 국가
   const [nationName, setNationName] = useState('KOR');
-
+  // 더보기 버튼
   const [moreBtnState, setMoreBtnState] = useState(true);
+  // 로딩
+  const [loadingState, setLoadingState] = useState(true);
 
   useEffect(() => {
     async function libraryList() {
@@ -36,6 +42,7 @@ export default function Word() {
   useEffect(() => {
     if (wordList && wordList.wordList) {
       setLibraryData(wordList.wordList);
+      console.log(wordList)
     }
     // 현재 페이지가 마지막 페이지가 아니라면 더보기 미노출
     if (wordList?.nowPage !== wordList?.totalPage) {
@@ -76,9 +83,10 @@ export default function Word() {
     <>
       <Header></Header>
 
-      <div className="library_wrap">
+      <div className="voca_wrap">
         <div className="container">
-          <div className="library_top">
+
+          <div className="voca_top">
             <h2 className="tit">&#128214; 사전</h2>
             <div className="box_btn">
               <span className="txt">사전에 없는 단어가 있나요?<br/>지금 등록해보세요 &#128073;</span>
@@ -86,8 +94,31 @@ export default function Word() {
             </div>
           </div>
 
-          <div className="library_box">
+          <Swiper
+            slidesPerView='auto'
+            className="tab_box"
+          >
+            <SwiperSlide className={`tab_item ${libraryTab === 'ALL' ? 'active' : ''}`}>
+              <button type="button" className="item" onClick={() => wordSortBtn('ALL')}>&#128218; 전체</button>
+            </SwiperSlide>
+            <SwiperSlide className={`tab_item ${libraryTab === 'LIKE' ? 'active' : ''}`}>
+              <button type="button" className="item" onClick={() => wordSortBtn('LIKE')}>&#128077; 좋아요순</button>
+            </SwiperSlide>
+            <SwiperSlide className={`tab_item ${libraryTab === 'DISLIKE' ? 'active' : ''}`}>
+              <button type="button" className="item" onClick={() => wordSortBtn('DISLIKE')}>&#128078; 싫어요순</button>
+            </SwiperSlide>
+            <SwiperSlide className={`tab_item ${libraryTab === 'LATEST' ? 'active' : ''}`}>
+              <button type="button" className="item" onClick={() => wordSortBtn('LATEST')}>&#127775; 최신순</button>
+            </SwiperSlide>
+          </Swiper>
 
+
+          <div className="voca_desc">
+            총 {wordList?.totalCount} 개
+          </div>
+
+
+          <div className="voca_con">
 
             { libraryData === undefined && loadingState && (
               <div>
@@ -96,26 +127,12 @@ export default function Word() {
             )
             }
 
+
             {
               libraryData !== undefined && (
                 <>
-                  <Swiper
-                    slidesPerView='auto'
-                    className="tab_box"
-                  >
-                    <SwiperSlide className={`tab_item ${libraryTab === 'ALL' ? 'active' : ''}`}>
-                      <button type="button" className="item" onClick={() => wordSortBtn('ALL')}>&#128218; 전체</button>
-                    </SwiperSlide>
-                    <SwiperSlide className={`tab_item ${libraryTab === 'LIKE' ? 'active' : ''}`}>
-                      <button type="button" className="item" onClick={() => wordSortBtn('LIKE')}>&#128077; 좋아요순</button>
-                    </SwiperSlide>
-                    <SwiperSlide className={`tab_item ${libraryTab === 'DISLIKE' ? 'active' : ''}`}>
-                      <button type="button" className="item" onClick={() => wordSortBtn('DISLIKE')}>&#128078; 싫어요순</button>
-                    </SwiperSlide>
-                    <SwiperSlide className={`tab_item ${libraryTab === 'LATEST' ? 'active' : ''}`}>
-                      <button type="button" className="item" onClick={() => wordSortBtn('LATEST')}>&#127775; 최신순</button>
-                    </SwiperSlide>
-                  </Swiper>
+
+
                   <ul className="list_box">
                     {
                       libraryData?.map((item, idx) => {

@@ -1,6 +1,6 @@
 import {memebookApi} from "../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {postDetailData} from "../util/action/communityAction";
 import Header from "../components/Header";
@@ -25,13 +25,15 @@ export default function PostInfo() {
   // 대댓글
   const [replyNickname , setReplyNickname] = useState('');
 
-  const [memberIdx, setMemberIdx] = useState(321);
+  const [memberIdx, setMemberIdx] = useState(123);
 
   // 글 상세 Api
   useEffect(() => {
     async function postDetailApi() {
       try {
         await dispatch(postDetailData(id.id));
+        console.log(postDetail)
+
       } catch (error) {
         console.log(error)
       }
@@ -207,6 +209,7 @@ export default function PostInfo() {
                       {
                         item?.commentMemberIdx === memberIdx && (
                           <button type="button" className="btn_delete" onClick={() => {commentDeleteData(item?.commentIdx)}}>
+                            <span>{item?.commentIdx}</span>
                             <span className="blind">댓글 삭제</span>
                           </button>
                         )

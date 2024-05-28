@@ -6,7 +6,8 @@
   }
 }
 
-  /* 메인 - 공통 */
+
+/* 메인 - 공통 */
 .main_wrap {
   position:relative;
   padding-top:100px;
@@ -20,6 +21,7 @@
     background: url('./../../assets/img/main_top_img.png') center / 100% no-repeat;
     content:''
   }
+
   .container {
     &:before {
       position:absolute;
@@ -121,6 +123,7 @@
 
 .main_con {
   position:relative;
+  display:flex;
   padding:24px 24px 120px;
   border-radius:12px;
   background:#fff;
@@ -129,7 +132,7 @@
 /* 메인 - 인기순위 */
 .popular_box {
   position:relative;
-
+  width:100%;
   .popular_list {
     display: flex;
     flex-direction: column;
@@ -212,6 +215,7 @@
 /* 메인 - 출석횟수,단어등록횟수 */
 .check_list {
   position:relative;
+  width:100%;
   margin-top:40px;
   .list {
     position:relative;

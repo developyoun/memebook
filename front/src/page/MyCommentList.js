@@ -4,11 +4,14 @@ import {Link} from "react-router-dom";
 import {postCommentData} from "../util/action/communityAction";
 import Title from "../components/Title";
 import '../scss/page/myAddList.scss'
+import {memebookApi} from "../util/memebookApi";
 
 export default function MyCommentList() {
   const dispatch = useDispatch();
   // 댓글 리스트
   const myCommentList = useSelector(state => state.meme.myCommentList);
+  // 댓글 상태
+  const [commentState, setCommentState] = useState(false);
 
   const [memberIdx, setMemberIdx] = useState(123);
 
@@ -23,7 +26,21 @@ export default function MyCommentList() {
       }
     }
     myCommentListApi();
-  }, []);
+  }, [commentState]);
+
+
+  // 댓글 삭제하기
+  async function commentDeleteData(commentIdx) {
+    try {
+      if (window.confirm("정말 삭제하시겠습니까?")) {
+        await memebookApi.commentDeleteApi(commentIdx, memberIdx);
+        setCommentState(!commentState);
+        console.log('성공')
+      }
+    } catch(error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className="my_word_wrap">
@@ -34,7 +51,7 @@ export default function MyCommentList() {
 
         <div className="list_top">
           <span className="txt">
-            총 {myCommentList.totalCount} 개
+            총  개
           </span>
           <span className="check_box">
             <input type="checkbox"/>
@@ -62,9 +79,9 @@ export default function MyCommentList() {
                 myCommentList?.commentList.map((item, idx) => {
                   return (
                     <li className="list_item" key={idx}>
-                      <Link to={`/community/postDetail/${item.commentIdx}`} className="link" key={idx}>{item.commentContent}</Link>
-                      <button type="button" className="btn_delete">
-                        <span className="blind">글 삭제</span>
+                      <Link to={`/community/postDetail/${item.articleIdx}`} className="link" key={idx}>{item.commentContent}</Link>
+                      <button type="button" className="btn_delete" onClick={() => {commentDeleteData(item?.commentIdx)}}>
+                        <span className="blind">댓글 삭제</span>
                       </button>
                     </li>
                   )

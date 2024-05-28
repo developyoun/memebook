@@ -1,10 +1,10 @@
-import '../scss/page/community.scss'
-import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
-import {Swiper, SwiperSlide} from "swiper/react";
-import Header from "../components/Header";
 import {useDispatch, useSelector} from "react-redux";
+import {Swiper, SwiperSlide} from "swiper/react";
+import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 import {postListData} from "../util/action/communityAction";
+import Header from "../components/Header";
+import '../scss/page/community.scss'
 
 export default function Community() {
   const dispatch = useDispatch();
@@ -73,6 +73,7 @@ export default function Community() {
                         </Link>
                       </div>
                     </div>
+
                   </li>
                 )
               })
