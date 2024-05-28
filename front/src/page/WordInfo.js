@@ -13,7 +13,7 @@ import BtnBack from "../components/BtnBack";
 export default function WordInfo() {
   let {id} = useParams();
   const dispatch = useDispatch();
-  const [memberIdx, setMemberIdx] = useState(321);
+  const [memberIdx, setMemberIdx] = useState(123);
   // 단어 데이터
   const [wordData, setWordData] = useState([]);
   const [wordListData, setWordListData] = useState([]);

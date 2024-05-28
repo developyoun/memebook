@@ -1,8 +1,9 @@
-.library_wrap {
+.voca_wrap {
   min-height:calc(100vh - 40px);
   padding:80px 20px 120px;
-  .library_top {
+  .voca_top {
     width:100%;
+    margin-bottom:24px;
     box-sizing:border-box;
     .tit {
       width:100%;
@@ -33,8 +34,11 @@
       }
     }
   }
-  .library_box {
-    margin-top:24px;
+  .voca_desc {
+    margin:24px 0 12px;
+    font-size:12px;
+  }
+  .voca_con {
     .list_box {
       box-shadow:0 1px 12px -10px #000;
     }
