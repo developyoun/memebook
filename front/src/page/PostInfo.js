@@ -33,6 +33,7 @@ export default function PostInfo() {
       try {
         await dispatch(postDetailData(id.id));
         console.log(postDetail)
+
       } catch (error) {
         console.log(error)
       }

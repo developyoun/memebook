@@ -1,14 +1,12 @@
-import '../scss/page/wordInfo.scss'
-import {Link} from 'react-router-dom';
-import {useState, useEffect} from "react";
-import CommentPort from "../modal/CommentPort";
-import {useParams} from "react-router-dom";
 import {memebookApi} from "../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
+import {useState, useEffect} from "react";
+import {Link} from 'react-router-dom';
+import {useParams} from "react-router-dom";
 import {scrapAddData, scrapDeleteData} from "../util/action/scrapAction";
+import CommentPort from "../modal/CommentPort";
 import BtnBack from "../components/BtnBack";
-
-
+import '../scss/page/wordInfo.scss'
 
 export default function WordInfo() {
   let {id} = useParams();
@@ -47,16 +45,18 @@ export default function WordInfo() {
       try {
         const wordDetailData = await memebookApi.wordDetailApi(id, memberIdx);
         setWordData(wordDetailData.data);
-        console.log(wordDetailData)
         setScrapData(wordDetailData.data.scrapIdx);
         setWordListData(wordDetailData.data.wordContentList);
+        if (wordDetailData?.data.status === "NOT_FOUND") {
+          window.history.back();
+        }
       } catch (error) {
-        // window.history.back();
+        console.log(error)
       }
     }
-
     wordDetailApi();
   }, [modifyState, setScrapData, deleteState]);
+
 
   // 좋아요/싫어요 update Api
   useEffect(() => {
@@ -171,17 +171,17 @@ export default function WordInfo() {
       }
       <div className="detail_top">
         <h1 className="word_tit">
-          {wordData.wordName}
+          {wordData?.wordName}
         </h1>
 
       </div>
 
       <div className="desc_add_box">
         <span className="list_count">
-          총 {wordListData.length}개
+          총 {wordListData?.length}개
         </span>
         {
-          wordListData[0]?.memberIdx !== memberIdx && (
+          wordListData?.memberIdx !== memberIdx && (
             <button type="button" className={`btn_scrap ${scrapData ? 'active' : ''}`} onClick={ScrapeBtn}>
               <span className="blind">스크랩</span>
             </button>
