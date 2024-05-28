@@ -1,6 +1,6 @@
 import {Outlet} from "react-router-dom";
 import {useEffect, useState} from "react";
-import HomeFooter from "../components/HomeFooter";
+import HomeNav from "../components/HomeNav";
 import {useTop} from "../util/commonEvent";
 
 export default function Layout() {
@@ -15,7 +15,7 @@ export default function Layout() {
       <div id="wrap" className={`wrap ${isDark ? 'dark' : ''}`}>
         {/*<DarkMode darkModeCheck={darkModeCheck}/>*/}
         <Outlet></Outlet>
-        <HomeFooter></HomeFooter>
+        <HomeNav></HomeNav>
       </div>
     </>
   )

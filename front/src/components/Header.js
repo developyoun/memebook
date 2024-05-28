@@ -4,6 +4,7 @@ import React, {useState} from "react";
 import {wordSearchData} from "../util/action/searchAction";
 import {useDispatch, useSelector} from "react-redux";
 import {debounce} from 'lodash';
+import HomeNav from "./HomeNav";
 
 export default function Header(props) {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ export default function Header(props) {
         <span className="blind">memebook</span>
       </Link>
 
+      <HomeNav></HomeNav>
       {
         props.type !== 'searchNone' && (
           <div className="search_box">

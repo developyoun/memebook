@@ -2,13 +2,13 @@ import '../scss/components/homeFooter.scss'
 import React, {useEffect, useState} from "react";
 import {Link, useLocation, useParams} from 'react-router-dom';
 
-export default function HomeFooter() {
+export default function HomeNav(type) {
   const location = useLocation();
   const [memberIdx, setMemberIdx] = useState(321);
 
   return (
-    <footer>
-      <ul className="footer_list">
+    <nav className={type === 'main' ? '' : 'main_nav'}>
+      <ul className="nav_list">
         <li className="list">
           <Link to="/main" className={`link home ${location.pathname.startsWith('/main') ? 'active' : ''}`}>
             <span className="blind">홈</span>
@@ -30,6 +30,6 @@ export default function HomeFooter() {
           </Link>
         </li>
       </ul>
-    </footer>
+    </nav>
   );
 }
