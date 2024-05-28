@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'meme.book'
-version = '0.0.1-SNAPSHOT'
+version = '0.1-SNAPSHOT'
 
 jar {
     enabled = false
@@ -29,7 +29,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'     // thymeleaf 적용
     implementation 'org.hibernate.validator:hibernate-validator'                // entity validator
 //    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 //    implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -62,6 +61,51 @@ tasks.register('copySecret', Copy) {
     include "application*.yml"  // 복사할 파일들
     into 'src/main/resources'  // 복사 위치
 }
+
+def reactAppDir = "$projectDir/../front"
+
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["$projectDir/src/main/resources"]
+        }
+    }
+}
+processResources {
+    dependsOn "copyReactFile"
+}
+
+tasks.register('installReact', Exec) {
+    workingDir "$reactAppDir"
+    inputs.dir "$reactAppDir"
+    group = BasePlugin.BUILD_GROUP
+    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+        commandLine "npm.cmd", "audit", "fix"
+        commandLine 'npm.cmd', 'install'
+    } else {
+        commandLine "npm", "audit", "fix"
+        commandLine 'npm', 'install'
+    }
+}
+
+tasks.register('buildReact', Exec) {
+    dependsOn "installReact"
+    workingDir "$reactAppDir"
+    inputs.dir "$reactAppDir"
+    group = BasePlugin.BUILD_GROUP
+    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+        commandLine "npm.cmd", "run-script", "build"
+    } else {
+        commandLine "npm", "run-script", "build"
+    }
+}
+
+tasks.register('copyReactFile', Copy) {
+    dependsOn "buildReact"
+    from "$reactAppDir/build"
+    into "$buildDir/resources/main/static"
+}
+
 
 test {
     useJUnitPlatform()
