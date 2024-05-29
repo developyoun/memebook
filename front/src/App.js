@@ -23,6 +23,7 @@ function App() {
     <Routes>
       <Route element={<Layout/>}>
         <Route path="/" element={<Login/>}/>
+        <Route path="/main" element={<Main/>}/>
         <Route path="/vocabulary/wordAdd/:id?/:word?" element={<WordAdd/>}/>
         <Route path="/vocabulary/wordInfo/:id" element={<WordInfo/>}/>
         <Route path="/vocabulary" element={<Vocabulary/>}/>
@@ -34,7 +35,6 @@ function App() {
         <Route path="/profile/myPostList" element={<MyPostList/>}/>
         <Route path="/profile/myCommentList" element={<MyCommentList/>}/>
       </Route>
-      <Route path="/main" element={<Main/>}/>
       <Route path="/community/postDetail/:id" element={<PostInfo/>}/>
     </Routes>
   );

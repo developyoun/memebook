@@ -15,7 +15,7 @@ export default function Layout() {
       <div id="wrap" className={`wrap ${isDark ? 'dark' : ''}`}>
         {/*<DarkMode darkModeCheck={darkModeCheck}/>*/}
         <Outlet></Outlet>
-        <HomeNav></HomeNav>
+        <HomeNav type="sub"></HomeNav>
       </div>
     </>
   )

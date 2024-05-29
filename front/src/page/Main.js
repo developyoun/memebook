@@ -7,12 +7,11 @@ import {nationCheckData} from "../util/action/nationAction";
 import {myWordListData, wordListData} from "../util/action/wordAction";
 import {scrapListData} from "../util/action/scrapAction";
 import {wordSearchData} from "../util/action/searchAction";
+import {postCommentData} from "../util/action/communityAction";
 import Header from "../components/Header";
 import CountryChoice from "../modal/CountryChoice";
 import NickName from "../modal/NickName";
 import '../scss/page/main.scss';
-import {postCommentData} from "../util/action/communityAction";
-import HomeNav from "../components/HomeNav";
 
 export default function Main() {
   const dispatch = useDispatch();

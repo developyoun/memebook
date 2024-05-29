@@ -47,7 +47,6 @@
   left:0;
   display:flex;
   align-items:center;
-  justify-content:space-between;
   width:100%;
   padding:8px 16px;
   z-index:1000;
@@ -60,7 +59,9 @@
     height:34px;
     background: url('./../../assets/img/logo.png') center / 100% no-repeat;
   }
+
   .search_input {
+    margin-left:auto;
     padding: 8px 16px;
     width: 100%;
     font-size: 12px;
@@ -92,6 +93,7 @@
 // 검색 리스트
 
 .search_box {
+  margin-left:auto;
   position:relative;
   .search_list {
     position:absolute;
@@ -474,17 +476,6 @@
   }
 
   .header {
-    position:fixed;
-    top:0;
-    left:0;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    width:100%;
-    padding:8px 16px;
-    z-index:1000;
-    background:#fff;
-    box-sizing:border-box;
     .logo {
       flex-shrink:0;
       margin-right:32px;

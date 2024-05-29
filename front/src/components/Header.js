@@ -29,7 +29,7 @@ export default function Header(props) {
         <span className="blind">memebook</span>
       </Link>
 
-      <HomeNav></HomeNav>
+      <HomeNav type="main"></HomeNav>
       {
         props.type !== 'searchNone' && (
           <div className="search_box">
