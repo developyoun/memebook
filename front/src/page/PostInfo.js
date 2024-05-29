@@ -196,10 +196,23 @@ export default function PostInfo() {
               return (
                 <li className="list" key={idx}>
                   <div className="comments_box">
-                    <div className="comments_top">
-                      <span className="nickname">{item?.nickname}</span>
-                      <p className="txt">{item?.commentContent}</p>
-                    </div>
+                    {
+                      item?.deleted === false && (
+                        <div className="comments_top">
+                          <span className="nickname">{item?.nickname}</span>
+                          <p className="txt">{item?.commentContent}</p>
+                        </div>
+                      )
+                    }
+
+                    {
+                      item?.deleted === true && (
+                        <div className="comments_top">
+                          <p className="txt">삭제된 댓글입니다</p>
+                        </div>
+                      )
+                    }
+
 
                     <div className="comments_btm">
                       <button type="button" className="btn_reply" onClick={() => commentReplyData(item?.nickname, item?.commentIdx)}>답글 달기</button>

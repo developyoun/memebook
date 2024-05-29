@@ -11,6 +11,7 @@ import Header from "../components/Header";
 import CountryChoice from "../modal/CountryChoice";
 import NickName from "../modal/NickName";
 import '../scss/page/main.scss';
+import {postCommentData} from "../util/action/communityAction";
 import HomeNav from "../components/HomeNav";
 
 export default function Main() {
@@ -44,6 +45,7 @@ export default function Main() {
     dispatch(nationCheckData(memberIdx));
     dispatch(scrapListData(memberIdx));
     dispatch(myWordListData(memberIdx));
+    dispatch(postCommentData(memberIdx));
   }, []);
 
 
