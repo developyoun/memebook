@@ -17,7 +17,7 @@ services:
       context: back/
       dockerfile: Dockerfile
     environment:
-      - PROFILE=dev
+      - PROFILE=local
     image: spring:0.1
     ports:
       - "8080:8080"
