@@ -18,7 +18,7 @@
     left:30px;
     width:200px;
     height:290px;
-    background: url('./../../assets/img/main_top_img.png') center / 100% no-repeat;
+    background: url('./../../../assets/img/main_top_img.png') center / 100% no-repeat;
     content:''
   }
 
@@ -30,7 +30,7 @@
       width:80px;
       height:80px;
       transform: rotate(26deg);
-      background: url('./../../assets/img/main_item01_img.png') center / 100% no-repeat;
+      background: url('./../../../assets/img/main_item01_img.png') center / 100% no-repeat;
       content:''
     }
     &:after {
@@ -40,7 +40,7 @@
       width:100px;
       height:100px;
       transform: rotate(-26deg);
-      background: url('./../../assets/img/main_item02_img.png') center / 100% no-repeat;
+      background: url('./../../../assets/img/main_item02_img.png') center / 100% no-repeat;
       content:''
     }
   }
@@ -265,17 +265,17 @@
     }
     &.word {
       &:after {
-        background:url('./../../assets/img/icon_bulb.png') center / 100% no-repeat;
+        background:url('./../../../assets/img/icon_bulb.png') center / 100% no-repeat;
       }
     }
     &.scrape {
       &:after {
-        background:url('./../../assets/img/icon_folder.png') center / 100% no-repeat;
+        background:url('./../../../assets/img/icon_folder.png') center / 100% no-repeat;
       }
     }
     &.visit {
       &:after {
-        background:url('./../../assets/img/icon_fire.png') center / 100% no-repeat;
+        background:url('./../../../assets/img/icon_fire.png') center / 100% no-repeat;
       }
     }
   }
@@ -302,7 +302,7 @@
       left:30px;
       width:200px;
       height:290px;
-      background: url('./../../assets/img/main_top_img.png') center / 100% no-repeat;
+      background: url('./../../../assets/img/main_top_img.png') center / 100% no-repeat;
       content:''
     }
 
@@ -314,7 +314,7 @@
         width:80px;
         height:80px;
         transform: rotate(26deg);
-        background: url('./../../assets/img/main_item01_img.png') center / 100% no-repeat;
+        background: url('./../../../assets/img/main_item01_img.png') center / 100% no-repeat;
         content:''
       }
       &:after {
@@ -324,7 +324,7 @@
         width:100px;
         height:100px;
         transform: rotate(-26deg);
-        background: url('./../../assets/img/main_item02_img.png') center / 100% no-repeat;
+        background: url('./../../../assets/img/main_item02_img.png') center / 100% no-repeat;
         content:''
       }
     }
@@ -545,17 +545,17 @@
       }
       &.word {
         &:after {
-          background:url('./../../assets/img/icon_bulb.png') center / 100% no-repeat;
+          background:url('./../../../assets/img/icon_bulb.png') center / 100% no-repeat;
         }
       }
       &.scrape {
         &:after {
-          background:url('./../../assets/img/icon_folder.png') center / 100% no-repeat;
+          background:url('./../../../assets/img/icon_folder.png') center / 100% no-repeat;
         }
       }
       &.visit {
         &:after {
-          background:url('./../../assets/img/icon_fire.png') center / 100% no-repeat;
+          background:url('./../../../assets/img/icon_fire.png') center / 100% no-repeat;
         }
       }
     }

@@ -10,7 +10,7 @@ import {wordSearchData} from "./../../util/action/searchAction";
 import {postCommentData} from "./../../util/action/communityAction";
 import CountryChoice from "./../../modal/CountryChoice";
 import NickName from "./../../modal/NickName";
-import './../../scss/page/main.scss';
+import './../../scss/page/main/main.scss';
 
 export default function Main() {
   const dispatch = useDispatch();

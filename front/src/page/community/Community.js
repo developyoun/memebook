@@ -3,7 +3,7 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {postListData} from "../../util/action/communityAction";
-import './../../scss/page/community.scss'
+import './../../scss/page/community/community.scss'
 
 export default function Community() {
   const dispatch = useDispatch();

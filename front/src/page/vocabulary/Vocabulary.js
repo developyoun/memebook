@@ -6,7 +6,7 @@ import {useCallback, useEffect, useState} from "react";
 import {wordListData, wordSortData} from "./../../util/action/wordAction";
 import {debounce} from 'lodash';
 import 'swiper/css';
-import './../../scss/page/vocabulary.scss'
+import './../../scss/page/vocabulary/vocabulary.scss'
 
 export default function Word() {
   const dispatch = useDispatch();

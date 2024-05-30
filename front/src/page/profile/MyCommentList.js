@@ -1,10 +1,10 @@
+import {memebookApi} from "./../../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {postCommentData} from "./../../util/action/communityAction";
 import Title from "./../../components/Title";
-import './../../scss/page/myAddList.scss'
-import {memebookApi} from "./../../util/memebookApi";
+import './../../scss/page/profile/myAddList.scss'
 
 export default function MyCommentList() {
   const dispatch = useDispatch();
