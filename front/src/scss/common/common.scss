@@ -17,7 +17,7 @@
 .container {
   margin:0 auto;
   min-width: 280px;
-  max-width: 960px;
+  width: 960px;
   box-sizing: border-box;
   .input_box {
     .input_top {
@@ -52,6 +52,9 @@
   z-index:1000;
   background:#fff;
   box-sizing:border-box;
+  .container {
+    display:flex;
+  }
   .logo {
     flex-shrink:0;
     margin-right:32px;

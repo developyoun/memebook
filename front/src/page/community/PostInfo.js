@@ -126,172 +126,171 @@ export default function PostInfo() {
   }
 
   return (
-    <>
       <div className="post_wrap">
+          <div className="container">
+              <div className="post_item">
+                  <div className="post_top">
+                      <h3 className="tit">{postDetail?.articleTitle}</h3>
+                      <span className="nickname">{postDetail?.nickname}</span>
+                      <button type="button" className="btn_set" onClick={wordSet}>
+                          <span className="blind">유저 셋</span>
+                      </button>
+                      {
+                          wordSetState && (
+                              <>
+                                  <ul className="set_box">
+                                      {
+                                          postDetail?.articleMemberIdx !== memberIdx && (
+                                              <li>
+                                                  <button type="button" className="">
+                                                      <span>신고하기</span>
+                                                  </button>
+                                              </li>
+                                          )
+                                      }
 
-        <div className="post_item">
-          <div className="post_top">
-            <h3 className="tit">{postDetail?.articleTitle}</h3>
-            <span className="nickname">{postDetail?.nickname}</span>
-            <button type="button" className="btn_set" onClick={wordSet}>
-              <span className="blind">유저 셋</span>
-            </button>
-            {
-              wordSetState && (
-                <>
-                  <ul className="set_box">
-                    {
-                      postDetail?.articleMemberIdx !== memberIdx && (
-                        <li>
-                          <button type="button" className="">
-                            <span>신고하기</span>
-                          </button>
-                        </li>
-                      )
-                    }
+                                      {
+                                          postDetail?.articleMemberIdx === memberIdx && (
+                                              <>
+                                                  <li>
+                                                      <button type="button" onClick={postModifyToPage} className="">
+                                                          <span className="">수정</span>
+                                                      </button>
+                                                  </li>
+                                                  <li>
+                                                      <button type="button" className="" onClick={() => postDeleteData(postDetail.articleIdx)}>
+                                                          <span className="">삭제</span>
+                                                      </button>
 
-                    {
-                      postDetail?.articleMemberIdx === memberIdx && (
-                        <>
-                          <li>
-                            <button type="button" onClick={postModifyToPage} className="">
-                              <span className="">수정</span>
-                            </button>
-                          </li>
-                          <li>
-                            <button type="button" className="" onClick={() => postDeleteData(postDetail.articleIdx)}>
-                              <span className="">삭제</span>
-                            </button>
-
-                          </li>
-                        </>
-                      )
-                    }
-                  </ul>
-                </>
-              )
-            }
-          </div>
-          <p className="txt">{postDetail?.articleContent}</p>
-          <button type="button" className="post_more_btn">더보기</button>
-
-          <div className="post_reaction">
-            <button type="button" className={`btn_post_like ${postReactionState ? 'active' : ''}`} onClick={postReaction}>
-              <span className="blind">좋아요</span>
-            </button>
-            <Link to="/community/postDetail" className="comments_count">
-              <span className={`${postDetail?.commentCount === 0 ? 'blind' : ''}`}>{postDetail?.commentCount === 0 ? '댓글' : postDetail?.commentCount}</span>
-            </Link>
-            <Link to="/community/postDetail" className="view_count">
-              <span className="blind">조회수</span>
-            </Link>
-          </div>
-        </div>
-
-        <ul className="comment_list">
-          {
-            postDetail?.commentDtoList?.map((item, idx) => {
-              return (
-                <li className="list" key={idx}>
-                  <div className="comments_box">
-
-                    {
-                      item?.deleted === false && (
-                        <>
-                          <div className="comments_top">
-                            <span className="nickname">{item?.nickname}</span>
-                            <p className="txt">{item?.commentContent}</p>
-                          </div>
-                          <div className="comments_btm">
-                            <button type="button" className="btn_reply" onClick={() => commentReplyData(item?.nickname, item?.commentIdx)}>답글 달기</button>
-                            <button type="button" className="btn_icon like">
-                              <span className="blind">좋아요</span>
-                            </button>
-                            {
-                              item?.commentMemberIdx === memberIdx && (
-                                <button type="button" className="btn_delete" onClick={() => {commentDeleteData(item?.commentIdx)}}>
-                                  <span className="blind">댓글 삭제</span>
-                                </button>
-                              )
-                            }
-                          </div>
-                        </>
-                      )
-                    }
-
-                    {/* 작성자가 삭제한 댓글 */}
-                    {
-                      item?.deleted === true && (
-                        <div className="comments_top">
-                          <p className="txt">작성자가 삭제한 댓글입니다</p>
-                        </div>
-                      )
-                    }
+                                                  </li>
+                                              </>
+                                          )
+                                      }
+                                  </ul>
+                              </>
+                          )
+                      }
                   </div>
+                  <p className="txt">{postDetail?.articleContent}</p>
+                  <button type="button" className="post_more_btn">더보기</button>
 
-                  {/* 리플 */}
+                  <div className="post_reaction">
+                      <button type="button" className={`btn_post_like ${postReactionState ? 'active' : ''}`} onClick={postReaction}>
+                          <span className="blind">좋아요</span>
+                      </button>
+                      <Link to="/community/postDetail" className="comments_count">
+                          <span className={`${postDetail?.commentCount === 0 ? 'blind' : ''}`}>{postDetail?.commentCount === 0 ? '댓글' : postDetail?.commentCount}</span>
+                      </Link>
+                      <Link to="/community/postDetail" className="view_count">
+                          <span className="blind">조회수</span>
+                      </Link>
+                  </div>
+              </div>
+
+              <ul className="comment_list">
                   {
-                    item?.commentReplyList.length !== 0 && (
-                      <ul className="comment_list">
-                        {
-                          item?.commentReplyList?.map((reply, idx) => {
-                            return (
+                      postDetail?.commentDtoList?.map((item, idx) => {
+                          return (
                               <li className="list" key={idx}>
-                                <div className="comments_box">
-                                  <div className="comments_top">
-                                    <span className="nickname">{reply?.nickname}</span>
-                                    <p className="txt">
-                                      <span className="nickname_tag">@{item?.nickname}</span>
-                                      {reply?.commentContent}
-                                    </p>
+                                  <div className="comments_box">
 
+                                      {
+                                          item?.deleted === false && (
+                                              <>
+                                                  <div className="comments_top">
+                                                      <span className="nickname">{item?.nickname}</span>
+                                                      <p className="txt">{item?.commentContent}</p>
+                                                  </div>
+                                                  <div className="comments_btm">
+                                                      <button type="button" className="btn_reply" onClick={() => commentReplyData(item?.nickname, item?.commentIdx)}>답글 달기</button>
+                                                      <button type="button" className="btn_icon like">
+                                                          <span className="blind">좋아요</span>
+                                                      </button>
+                                                      {
+                                                          item?.commentMemberIdx === memberIdx && (
+                                                              <button type="button" className="btn_delete" onClick={() => {commentDeleteData(item?.commentIdx)}}>
+                                                                  <span className="blind">댓글 삭제</span>
+                                                              </button>
+                                                          )
+                                                      }
+                                                  </div>
+                                              </>
+                                          )
+                                      }
+
+                                      {/* 작성자가 삭제한 댓글 */}
+                                      {
+                                          item?.deleted === true && (
+                                              <div className="comments_top">
+                                                  <p className="txt">작성자가 삭제한 댓글입니다</p>
+                                              </div>
+                                          )
+                                      }
                                   </div>
-                                  <div className="comments_btm">
-                                    <button type="button" className="btn_reply" onClick={() => commentReplyData(item?.nickname, item?.commentIdx)}>답글 달기</button>
-                                    <button type="button" className="btn_icon like">
-                                      <span className="blind">좋아요</span>
-                                    </button>
-                                    {
-                                      item?.commentMemberIdx === memberIdx && (
-                                        <button type="button" className="btn_delete" onClick={() => {commentDeleteData(item?.commentIdx)}}>
-                                          <span className="blind">댓글 삭제</span>
-                                        </button>
+
+                                  {/* 리플 */}
+                                  {
+                                      item?.commentReplyList.length !== 0 && (
+                                          <ul className="comment_list">
+                                              {
+                                                  item?.commentReplyList?.map((reply, idx) => {
+                                                      return (
+                                                          <li className="list" key={idx}>
+                                                              <div className="comments_box">
+                                                                  <div className="comments_top">
+                                                                      <span className="nickname">{reply?.nickname}</span>
+                                                                      <p className="txt">
+                                                                          <span className="nickname_tag">@{item?.nickname}</span>
+                                                                          {reply?.commentContent}
+                                                                      </p>
+
+                                                                  </div>
+                                                                  <div className="comments_btm">
+                                                                      <button type="button" className="btn_reply" onClick={() => commentReplyData(item?.nickname, item?.commentIdx)}>답글 달기</button>
+                                                                      <button type="button" className="btn_icon like">
+                                                                          <span className="blind">좋아요</span>
+                                                                      </button>
+                                                                      {
+                                                                          item?.commentMemberIdx === memberIdx && (
+                                                                              <button type="button" className="btn_delete" onClick={() => {commentDeleteData(item?.commentIdx)}}>
+                                                                                  <span className="blind">댓글 삭제</span>
+                                                                              </button>
+                                                                          )
+                                                                      }
+
+                                                                  </div>
+                                                              </div>
+                                                          </li>
+                                                      )
+                                                  })
+                                              }
+                                          </ul>
                                       )
-                                    }
+                                  }
 
-                                  </div>
-                                </div>
                               </li>
-                            )
-                          })
-                        }
-                      </ul>
-                    )
+                          )
+                      })
                   }
 
-                </li>
-              )
-            })
-          }
+              </ul>
 
-        </ul>
+              <div className="comment_input_btm">
 
-        <div className="comment_input_btm">
+                  <div className={`comment_input_box ${commentLength ? 'invalid' : ''}`} >
+                      {
+                          replyNickname && (
+                              <span className="reply_nickname" onClick={replayNicknameDelete}>@{replyNickname}</span>
+                          )
+                      }
+                      <textarea type="text" className={`${textareaActive ? 'active' : ''}`} value={commentValue} placeholder="댓글 입력" onClick={commtentActive}  onChange={commentValueCount}></textarea>
+                      <button type="button" className="btn_comment_submit" onClick={() => {commentSubmitData(replyNickname)}}>
+                          <span>등록</span>
+                      </button>
+                  </div>
 
-          <div className={`comment_input_box ${commentLength ? 'invalid' : ''}`} >
-            {
-              replyNickname && (
-                <span className="reply_nickname" onClick={replayNicknameDelete}>@{replyNickname}</span>
-              )
-            }
-            <textarea type="text" className={`${textareaActive ? 'active' : ''}`} value={commentValue} placeholder="댓글 입력" onClick={commtentActive}  onChange={commentValueCount}></textarea>
-            <button type="button" className="btn_comment_submit" onClick={() => {commentSubmitData(replyNickname)}}>
-              <span>등록</span>
-            </button>
+              </div>
           </div>
-
-        </div>
       </div>
-    </>
   );
 }
