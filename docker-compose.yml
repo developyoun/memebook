@@ -1,4 +1,4 @@
-version: '3'
+#version: '3' # docker-compose v2.25.0 이상부터는 적을 필요 없어짐 (version is obsolete)
 services:
   app:
     image: 'jc21/nginx-proxy-manager:latest'
@@ -16,7 +16,7 @@ services:
       context: back/
       dockerfile: Dockerfile
     environment:
-      - PROFILE=local
+      - PROFILE=dev
     image: spring:0.1
     ports:
       - "8080:8080"
