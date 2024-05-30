@@ -1,12 +1,12 @@
-import {memebookApi} from "../util/memebookApi";
+import {memebookApi} from "./../../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
 import {useState, useEffect} from "react";
 import {Link} from 'react-router-dom';
 import {useParams} from "react-router-dom";
-import {scrapAddData, scrapDeleteData} from "../util/action/scrapAction";
-import CommentPort from "../modal/CommentPort";
-import BtnBack from "../components/BtnBack";
-import '../scss/page/wordInfo.scss'
+import {scrapAddData, scrapDeleteData} from "./../../util/action/scrapAction";
+import CommentPort from "./../../modal/CommentPort";
+import BtnBack from "./../../components/BtnBack";
+import './../../scss/page/wordInfo.scss'
 
 export default function WordInfo() {
   let {id} = useParams();

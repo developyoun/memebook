@@ -1,10 +1,9 @@
-import {memebookApi} from "../util/memebookApi";
+import {memebookApi} from "./../../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
-import {postDetailData} from "../util/action/communityAction";
-import Header from "../components/Header";
-import '../scss/page/community.scss'
+import {postDetailData} from "./../../util/action/communityAction";
+import './../../scss/page/community.scss'
 
 export default function PostInfo() {
   const id = useParams();
@@ -128,7 +127,6 @@ export default function PostInfo() {
 
   return (
     <>
-      <Header></Header>
       <div className="post_wrap">
 
         <div className="post_item">

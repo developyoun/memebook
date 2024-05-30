@@ -1,22 +1,22 @@
-import './scss/common/common.scss';
-import './scss/components/darkMode.scss';
-import './scss/common/reset.scss';
 import React from "react";
-import {Route, Routes} from 'react-router-dom';
-import Login from "./page/Login";
-import Main from "./page/Main";
-import WordAdd from "./page/WordAdd";
-import Vocabulary from "./page/Vocabulary";
-import Profile from "./page/Profile";
-import WordInfo from "./page/WordInfo";
-import MyScrapeList from "./page/MyScrapeList";
 import Layout from "./page/Layout";
-import MyAddList from "./page/MyAddList";
-import Community from "./page/Community";
-import PostInfo from "./page/PostInfo";
-import PostAdd from "./page/PostAdd";
-import MyPostList from "./page/MyPostList";
-import MyCommentList from "./page/MyCommentList";
+import {Route, Routes} from 'react-router-dom';
+import Login from "./page/main/Login";
+import Main from "./page/main/Main";
+import WordAdd from "./page/vocabulary/WordAdd";
+import WordInfo from "./page/vocabulary/WordInfo";
+import Vocabulary from "./page/vocabulary/Vocabulary";
+import Community from "./page/community/Community";
+import PostAdd from "./page/community/PostAdd";
+import Profile from "./page/profile/Profile";
+import PostInfo from "./page/community/PostInfo";
+import MyAddList from "./page/profile/MyAddList";
+import MyScrapeList from "./page/profile/MyScrapeList";
+import MyPostList from "./page/profile/MyPostList";
+import MyCommentList from "./page/profile/MyCommentList";
+import './scss/common/common.scss';
+import './scss/common/reset.scss';
+
 
 function App() {
   return (
@@ -30,12 +30,12 @@ function App() {
         <Route path="/community" element={<Community/>}/>
         <Route path="/community/postAdd/:id?" element={<PostAdd/>}/>
         <Route path="/profile/:id" element={<Profile/>}/>
-        <Route path="/profile/scrape" element={<MyScrapeList/>}/>
-        <Route path="/profile/my_list" element={<MyAddList/>}/>
-        <Route path="/profile/myPostList" element={<MyPostList/>}/>
-        <Route path="/profile/myCommentList" element={<MyCommentList/>}/>
+        <Route path="/community/postDetail/:id" element={<PostInfo/>}/>
       </Route>
-      <Route path="/community/postDetail/:id" element={<PostInfo/>}/>
+      <Route path="/profile/myWordList" element={<MyAddList/>}/>
+      <Route path="/profile/scrapList" element={<MyScrapeList/>}/>
+      <Route path="/profile/myPostList" element={<MyPostList/>}/>
+      <Route path="/profile/myCommentList" element={<MyCommentList/>}/>
     </Routes>
   );
 }

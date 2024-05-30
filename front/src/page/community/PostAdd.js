@@ -1,8 +1,8 @@
-import {memebookApi} from "../util/memebookApi";
+import {memebookApi} from "./../../util/memebookApi";
 import {useEffect, useState} from "react";
 import {useLocation, useParams} from "react-router-dom";
-import Title from '../components/Title'
-import '../scss/page/postAdd.scss'
+import Title from './../../components/Title'
+import './../../scss/page/postAdd.scss'
 
 export default function PostAdd() {
   const id = useParams();

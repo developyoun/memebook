@@ -1,9 +1,9 @@
 import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import {myWordListData, wordDeleteData} from "../util/action/wordAction";
-import Title from "../components/Title";
-import '../scss/page/myAddList.scss'
+import {myWordListData, wordDeleteData} from "./../../util/action/wordAction";
+import Title from "./../../components/Title";
+import './../../scss/page/myAddList.scss'
 
 export default function MyAddList() {
   const dispatch = useDispatch();

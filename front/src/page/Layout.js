@@ -2,6 +2,7 @@ import {Outlet} from "react-router-dom";
 import {useEffect, useState} from "react";
 import HomeNav from "../components/HomeNav";
 import {useTop} from "../util/commonEvent";
+import Header from "../components/Header";
 
 export default function Layout() {
   useTop();
@@ -12,6 +13,7 @@ export default function Layout() {
   }
   return (
     <>
+      <Header></Header>
       <div id="wrap" className={`wrap ${isDark ? 'dark' : ''}`}>
         {/*<DarkMode darkModeCheck={darkModeCheck}/>*/}
         <Outlet></Outlet>

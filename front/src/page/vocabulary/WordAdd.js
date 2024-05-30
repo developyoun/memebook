@@ -1,13 +1,12 @@
-import '../scss/page/wordAdd.scss'
-import Title from '../components/Title'
+import {memebookApi} from "./../../util/memebookApi";
 import {useEffect, useState} from "react";
-import {memebookApi} from "../util/memebookApi";
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
+import Title from './../../components/Title'
+import './../../scss/page/wordAdd.scss'
 
 
 export default function WordAdd() {
   let {id, word} = useParams();
-  const navigate = useNavigate();
   const [addState, setAddState] = useState(false);
   const [titleNull, setTitleNull] = useState(false);
   const [explainNull, setExplainNull] = useState(false);

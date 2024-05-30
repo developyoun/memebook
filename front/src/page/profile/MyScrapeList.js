@@ -1,9 +1,9 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import {scrapDeleteData, scrapListData} from "../util/action/scrapAction";
-import Title from "../components/Title";
-import '../scss/page/scrapeList.scss'
+import {scrapDeleteData, scrapListData} from "./../../util/action/scrapAction";
+import Title from "./../../components/Title";
+import './../../scss/page/scrapeList.scss'
 
 export default function MyScrapeList() {
   const dispatch = useDispatch();

@@ -1,17 +1,16 @@
-import {memebookApi} from "../util/memebookApi";
+import {memebookApi} from "./../../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {Link} from 'react-router-dom';
 import {debounce} from 'lodash';
-import {nationCheckData} from "../util/action/nationAction";
-import {myWordListData, wordListData} from "../util/action/wordAction";
-import {scrapListData} from "../util/action/scrapAction";
-import {wordSearchData} from "../util/action/searchAction";
-import {postCommentData} from "../util/action/communityAction";
-import Header from "../components/Header";
-import CountryChoice from "../modal/CountryChoice";
-import NickName from "../modal/NickName";
-import '../scss/page/main.scss';
+import {nationCheckData} from "./../../util/action/nationAction";
+import {myWordListData, wordListData} from "./../../util/action/wordAction";
+import {scrapListData} from "./../../util/action/scrapAction";
+import {wordSearchData} from "./../../util/action/searchAction";
+import {postCommentData} from "./../../util/action/communityAction";
+import CountryChoice from "./../../modal/CountryChoice";
+import NickName from "./../../modal/NickName";
+import './../../scss/page/main.scss';
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -94,8 +93,6 @@ export default function Main() {
 
   return (
     <>
-      <Header type="searchNone"></Header>
-
       {
         countryModalOpen && (
           <CountryChoice countryChoiceClose={countryChoiceClose} selectType={studyCountrySave}></CountryChoice>
@@ -184,14 +181,14 @@ export default function Main() {
               <li className="list word">
                   {
                     myWordList.wordContentList?.length === 0 && (
-                      <Link to="/profile/my_list" className="link">
+                      <Link to="/profile/myWordList" className="link">
                         아직 등록한 단어가 없어요
                       </Link>
                     )
                   }
                   {
                     myWordList.wordContentList?.length > 0 && (
-                      <Link to="/profile/my_list" className="link">
+                      <Link to="/profile/myWordList" className="link">
                         지금까지 <strong>{myWordList.wordContentList?.length}</strong>개의 단어에 참여했어요
                       </Link>
                     )
@@ -201,14 +198,14 @@ export default function Main() {
               <li className="list scrape">
                 {
                   scrapList.content?.length === 0 && (
-                    <Link to="/profile/scrape" className="link">
+                    <Link to="/profile/scrapList" className="link">
                       아직 스크랩한 단어가 없어요 &#128172;
                     </Link>
                   )
                 }
                 {
                   scrapList.content?.length > 0 && (
-                    <Link to="/profile/scrape" className="link">
+                    <Link to="/profile/scrapList" className="link">
                       지금까지 <strong>{scrapList.content?.length}</strong>개의 단어에 참여했어요
                     </Link>
                   )

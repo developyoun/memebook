@@ -1,6 +1,6 @@
-import '../scss/components/homeFooter.scss'
-import React, {useEffect, useState} from "react";
-import {Link, useLocation, useParams} from 'react-router-dom';
+import {useState} from "react";
+import {Link, useLocation} from 'react-router-dom';
+import '../scss/components/homeNav.scss'
 
 export default function HomeNav({type}) {
   const location = useLocation();

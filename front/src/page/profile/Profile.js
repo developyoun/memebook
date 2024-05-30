@@ -1,11 +1,11 @@
-import {memebookApi} from "../util/memebookApi";
+import {memebookApi} from "./../../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
-import {scrapListData} from "../util/action/scrapAction";
-import {myWordListData} from "../util/action/wordAction";
-import {postCommentData, postListData} from "../util/action/communityAction";
-import '../scss/page/profile.scss'
+import {scrapListData} from "./../../util/action/scrapAction";
+import {myWordListData} from "./../../util/action/wordAction";
+import {postCommentData, postListData} from "./../../util/action/communityAction";
+import './../../scss/page/profile.scss'
 
 export default function Profile() {
   let id = useParams();
@@ -152,7 +152,7 @@ export default function Profile() {
               )
             }
           </h4>
-          <Link to="/profile/my_list" className="item">더보기</Link>
+          <Link to="/profile/myWordList" className="item">더보기</Link>
         </div>
         {
           myWordList.wordContentList?.length === 0 && (
@@ -186,7 +186,7 @@ export default function Profile() {
               )
             }
           </h4>
-          <Link to="/profile/scrape" className="item">더보기</Link>
+          <Link to="/profile/scrapList" className="item">더보기</Link>
         </div>
         {
           scrapList.content?.length === 0 && (

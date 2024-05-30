@@ -1,41 +1,37 @@
+import {memebookApi} from "./../../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import {postCommentData} from "../util/action/communityAction";
-import Title from "../components/Title";
-import '../scss/page/myAddList.scss'
-import {memebookApi} from "../util/memebookApi";
+import {postListData} from "./../../util/action/communityAction";
+import Title from "./../../components/Title";
+import './../../scss/page/myAddList.scss'
 
-export default function MyCommentList() {
+export default function MyPostList() {
   const dispatch = useDispatch();
-  // 댓글 리스트
-  const myCommentList = useSelector(state => state.meme.myCommentList);
-  // 댓글 상태
-  const [commentState, setCommentState] = useState(false);
+  // 내가 등록한 글 리스트
+  const postList = useSelector(state => state.meme.postList);
+  // 삭제 상태
+  const [deleteState, setDeleteState] = useState(false);
 
   const [memberIdx, setMemberIdx] = useState(123);
 
-  // 댓글 리스트 Api
   useEffect(() => {
-    async function myCommentListApi() {
+    async function wordAddListApi() {
       try {
-        dispatch(postCommentData(memberIdx));
-        console.log(myCommentList)
+        dispatch(postListData(memberIdx));
       } catch (error) {
         console.log(error)
       }
     }
-    myCommentListApi();
-  }, [commentState]);
+    wordAddListApi();
+  }, [deleteState]);
 
-
-  // 댓글 삭제하기
-  async function commentDeleteData(commentIdx) {
+  // 글 삭제하기
+  async function postDeleteData(articleIdx) {
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
-        await memebookApi.commentDeleteApi(commentIdx, memberIdx);
-        setCommentState(!commentState);
-        console.log('성공')
+        await memebookApi.postDeleteApi(articleIdx, memberIdx);
+        setDeleteState(!deleteState)
       }
     } catch(error) {
       console.log(error);
@@ -45,22 +41,21 @@ export default function MyCommentList() {
   return (
     <div className="my_word_wrap">
 
-      <Title title="작성한 댓글" type="back"></Title>
+      <Title title="작성한 글" type="back"></Title>
 
       <div className="container">
 
         <div className="list_top">
           <span className="txt">
-            총  개
+            총 {postList.totalCount} 개
           </span>
           <span className="check_box">
             <input type="checkbox"/>
             <label htmlFor="">전체 삭제</label>
           </span>
         </div>
-
         {
-          myCommentList?.commentList.length === 0 && (
+          postList.articleList?.length === 0 && (
             <div className="content_none list">
               <p>
                 작성한 글이 없어요 &#128172;
@@ -73,15 +68,15 @@ export default function MyCommentList() {
         }
 
         {
-          myCommentList?.commentList.length > 0 && (
+          postList.articleList?.length > 0 && (
             <ul className="list_box inside">
               {
-                myCommentList?.commentList.map((item, idx) => {
+                postList.articleList?.map((item, idx) => {
                   return (
                     <li className="list_item" key={idx}>
-                      <Link to={`/community/postDetail/${item.articleIdx}`} className="link" key={idx}>{item.commentContent}</Link>
-                      <button type="button" className="btn_delete" onClick={() => {commentDeleteData(item?.commentIdx)}}>
-                        <span className="blind">댓글 삭제</span>
+                      <Link to={`/community/postDetail/${item.articleIdx}`} className="link" key={idx}>{item.articleTitle}</Link>
+                      <button type="button" className="btn_delete" onClick={() => {postDeleteData(item.articleIdx)}}>
+                        <span className="blind">글 삭제</span>
                       </button>
                     </li>
                   )
