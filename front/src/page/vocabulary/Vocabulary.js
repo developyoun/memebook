@@ -90,31 +90,31 @@ export default function Word() {
           </div>
         </div>
 
-        <Swiper
-          slidesPerView='auto'
-          className="tab_box"
-        >
-          <SwiperSlide className={`tab_item ${libraryTab === 'ALL' ? 'active' : ''}`}>
-            <button type="button" className="item" onClick={() => wordSortBtn('ALL')}>&#128218; 전체</button>
-          </SwiperSlide>
-          <SwiperSlide className={`tab_item ${libraryTab === 'LIKE' ? 'active' : ''}`}>
-            <button type="button" className="item" onClick={() => wordSortBtn('LIKE')}>&#128077; 좋아요순</button>
-          </SwiperSlide>
-          <SwiperSlide className={`tab_item ${libraryTab === 'DISLIKE' ? 'active' : ''}`}>
-            <button type="button" className="item" onClick={() => wordSortBtn('DISLIKE')}>&#128078; 싫어요순</button>
-          </SwiperSlide>
-          <SwiperSlide className={`tab_item ${libraryTab === 'LATEST' ? 'active' : ''}`}>
-            <button type="button" className="item" onClick={() => wordSortBtn('LATEST')}>&#127775; 최신순</button>
-          </SwiperSlide>
-        </Swiper>
-
-
-        <div className="voca_desc">
-          총 {wordList?.totalCount} 개
-        </div>
 
 
         <div className="voca_con">
+          <Swiper
+            slidesPerView='auto'
+            className="tab_box"
+          >
+            <SwiperSlide className={`tab_item ${libraryTab === 'ALL' ? 'active' : ''}`}>
+              <button type="button" className="item" onClick={() => wordSortBtn('ALL')}>&#128218; 전체</button>
+            </SwiperSlide>
+            <SwiperSlide className={`tab_item ${libraryTab === 'LIKE' ? 'active' : ''}`}>
+              <button type="button" className="item" onClick={() => wordSortBtn('LIKE')}>&#128077; 좋아요순</button>
+            </SwiperSlide>
+            <SwiperSlide className={`tab_item ${libraryTab === 'DISLIKE' ? 'active' : ''}`}>
+              <button type="button" className="item" onClick={() => wordSortBtn('DISLIKE')}>&#128078; 싫어요순</button>
+            </SwiperSlide>
+            <SwiperSlide className={`tab_item ${libraryTab === 'LATEST' ? 'active' : ''}`}>
+              <button type="button" className="item" onClick={() => wordSortBtn('LATEST')}>&#127775; 최신순</button>
+            </SwiperSlide>
+          </Swiper>
+
+
+          <div className="voca_desc">
+            총 {wordList?.totalCount} 개
+          </div>
 
           { libraryData === undefined && loadingState && (
             <div>

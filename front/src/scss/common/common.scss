@@ -15,6 +15,7 @@
 
 /* 공통 레이아웃 */
 .container {
+  position:relative;
   margin:0 auto;
   min-width: 280px;
   width: 960px;
@@ -42,7 +43,7 @@
 }
 
 .header {
-  position:fixed;
+  position:sticky;
   top:0;
   left:0;
   display:flex;
@@ -256,7 +257,6 @@
 }
 .list_box {
   padding:16px;
-  font-size:14px;
   border-radius:12px;
   background:#fff;
   &.inside {
@@ -274,14 +274,14 @@
     .link {
       width:100%;
       padding:6px 0;
-      font-size:12px;
+      font-size:14px;
     }
     .content_count {
       display:flex;
       align-items:center;
       height:26px;
       padding:0 8px;
-      font-size:12px;
+      font-size:14px;
       border-radius:4px;
       background:var(--primary-60);
     }
@@ -368,10 +368,10 @@
     align-items:center;
     justify-content:center;
     width:auto;
-    height:28px;
+    height:32px;
     padding:0 12px;
     color:var(--bg-brown);
-    font-size:12px;
+    font-size:14px;
     border-radius:8px;
     background:var(--primary-60);
     button {
@@ -673,10 +673,6 @@
     }
   }
   .list_box {
-    padding:16px;
-    font-size:14px;
-    border-radius:12px;
-    background:#fff;
     &.inside {
       padding:0;
     }
@@ -690,8 +686,6 @@
         border-top:1px solid var(--primary-60);
       }
       .link {
-        width:100%;
-        padding:6px 0;
         font-size:12px;
       }
       .content_count {
