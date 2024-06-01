@@ -57,4 +57,4 @@ jobs:
             docker rm -f $(docker ps -aq)
             docker rmi ${{ secrets.USERNAME }}/memebook:0.1
             docker pull ${{ secrets.USERNAME }}/memebook:0.1
-            docker-compose -f docker-compose-dev.yml up -d
+            docker compose -f docker-compose-dev.yml up -d
