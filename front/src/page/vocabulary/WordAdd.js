@@ -2,7 +2,7 @@ import {memebookApi} from "./../../util/memebookApi";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import Title from './../../components/Title'
-import './../../scss/page/wordAdd.scss'
+import './../../scss/page/vocabulary/wordAdd.scss'
 
 
 export default function WordAdd() {

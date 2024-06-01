@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {postListData} from "./../../util/action/communityAction";
 import Title from "./../../components/Title";
-import './../../scss/page/myAddList.scss'
+import './../../scss/page/profile/myAddList.scss'
 
 export default function MyPostList() {
   const dispatch = useDispatch();

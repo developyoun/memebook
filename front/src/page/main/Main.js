@@ -10,7 +10,10 @@ import {wordSearchData} from "./../../util/action/searchAction";
 import {postCommentData} from "./../../util/action/communityAction";
 import CountryChoice from "./../../modal/CountryChoice";
 import NickName from "./../../modal/NickName";
-import './../../scss/page/main.scss';
+import 'swiper/css';
+import './../../scss/page/main/main.scss';
+import {Swiper, SwiperSlide} from "swiper/react";
+import {Navigation, Pagination} from "swiper/modules";
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -44,6 +47,8 @@ export default function Main() {
     dispatch(scrapListData(memberIdx));
     dispatch(myWordListData(memberIdx));
     dispatch(postCommentData(memberIdx));
+    dispatch(postCommentData(memberIdx));
+    console.log(myWordList)
   }, []);
 
 
@@ -157,6 +162,12 @@ export default function Main() {
            </div>
          </div>
 
+          <Swiper slidesPerView='auto' className="main_banner" navigation={true} pagination={true} modules={[Navigation, Pagination]}>
+            <SwiperSlide className={`tab_item`}>
+              광고
+            </SwiperSlide>
+          </Swiper>
+
           <div className="main_con">
 
             <div className="popular_box">
@@ -178,6 +189,8 @@ export default function Main() {
             </div>
 
             <ul className="check_list">
+
+              {/* 등록한 단어*/}
               <li className="list word">
                   {
                     myWordList.wordContentList?.length === 0 && (
@@ -195,7 +208,8 @@ export default function Main() {
                   }
               </li>
 
-              <li className="list scrape">
+              {/* 스크랩한 단어 */}
+              <li className="list scrap">
                 {
                   scrapList.content?.length === 0 && (
                     <Link to="/profile/scrapList" className="link">
@@ -206,12 +220,13 @@ export default function Main() {
                 {
                   scrapList.content?.length > 0 && (
                     <Link to="/profile/scrapList" className="link">
-                      지금까지 <strong>{scrapList.content?.length}</strong>개의 단어에 참여했어요
+                      지금까지 <strong>{scrapList.content?.length}</strong>개의 단어를 스크랩했어요
                     </Link>
                   )
                 }
               </li>
 
+              {/* 작성한 글 */}
               <li className="list post">
                 {
                   postList.articleList?.length === 0 && (
@@ -229,6 +244,7 @@ export default function Main() {
                 }
               </li>
 
+              {/* 작성한 댓글 */}
               <li className="list post">
                 {
                   myCommentList?.commentList.length === 0 && (
@@ -251,6 +267,7 @@ export default function Main() {
                   연속 방문 최대 <strong>12</strong>번을 달성했어요
                 </p>
               </li>
+
             </ul>
           </div>
 

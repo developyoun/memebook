@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {postDetailData} from "./../../util/action/communityAction";
-import './../../scss/page/community.scss'
+import './../../scss/page/community/community.scss'
 
 export default function PostInfo() {
   const id = useParams();

@@ -6,7 +6,7 @@ import {useParams} from "react-router-dom";
 import {scrapAddData, scrapDeleteData} from "./../../util/action/scrapAction";
 import CommentPort from "./../../modal/CommentPort";
 import BtnBack from "./../../components/BtnBack";
-import './../../scss/page/wordInfo.scss'
+import './../../scss/page/vocabulary/wordInfo.scss'
 
 export default function WordInfo() {
   let {id} = useParams();

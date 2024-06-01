@@ -2,7 +2,7 @@ import {memebookApi} from "./../../util/memebookApi";
 import {useEffect, useState} from "react";
 import {useLocation, useParams} from "react-router-dom";
 import Title from './../../components/Title'
-import './../../scss/page/postAdd.scss'
+import './../../scss/page/community/postAdd.scss'
 
 export default function PostAdd() {
   const id = useParams();
