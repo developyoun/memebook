@@ -12,7 +12,6 @@
   position:relative;
   min-height:100vh;
   padding-top:60px;
-  background:var(--primary-60);
   .container {
     &:before {
       position:absolute;
@@ -36,8 +35,9 @@
     }
   }
   .search_box {
-    margin:0 0 46px auto;
+    margin-left:auto;
     width:calc(100% - 140px);
+    z-index:1;
   }
 
   .tit {
@@ -121,14 +121,21 @@
     }
   }
 }
-
+.main_banner {
+  margin-top:140px;
+  .tab_item {
+    width:100%;
+  }
+}
 
 .main_con {
   position:relative;
   display:flex;
+  margin-top:20px;
   padding:24px 24px 120px;
   border-radius:12px;
   background:#fff;
+
 }
 
 /* 메인 - 인기순위 */

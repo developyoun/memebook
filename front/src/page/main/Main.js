@@ -10,7 +10,10 @@ import {wordSearchData} from "./../../util/action/searchAction";
 import {postCommentData} from "./../../util/action/communityAction";
 import CountryChoice from "./../../modal/CountryChoice";
 import NickName from "./../../modal/NickName";
+import 'swiper/css';
 import './../../scss/page/main/main.scss';
+import {Swiper, SwiperSlide} from "swiper/react";
+import {Navigation, Pagination} from "swiper/modules";
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -158,6 +161,12 @@ export default function Main() {
 
            </div>
          </div>
+
+          <Swiper slidesPerView='auto' className="main_banner" navigation={true} pagination={true} modules={[Navigation, Pagination]}>
+            <SwiperSlide className={`tab_item`}>
+              광고
+            </SwiperSlide>
+          </Swiper>
 
           <div className="main_con">
 
