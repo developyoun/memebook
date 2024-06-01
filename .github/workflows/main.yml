@@ -55,6 +55,6 @@ jobs:
           script: |
             docker login -u ${{ secrets.USERNAME }} -p ${{ secrets.PASSWORD }}
             docker rm -f $(docker ps -aq)
-            docker rmi ${{ secrets.USERNAME }}/${{ secrets.IMAGE_NAME }}
-            docker pull ${{ secrets.USERNAME }}/${{ secrets.IMAGE_NAME }}
-            docker compose -f ./docker-compose-dev.yml up -d
+            docker rmi ${{ secrets.USERNAME }}/memebook:0.1
+            docker pull ${{ secrets.USERNAME }}/memebook:0.1
+            docker compose -f docker-compose-dev.yml up -d
