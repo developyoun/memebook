@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: rocky-latest
+    runs-on: ubuntu-latest
     steps:
       # 기본 체크아웃
       - name: checkout
