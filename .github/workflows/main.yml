@@ -54,7 +54,7 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}          
           script: |
             docker login -u ${{ secrets.USERNAME }} -p ${{ secrets.PASSWORD }}
-            sudo docker rm $(docker ps -aq)
-            sudo docker rmi ${{ secrets.USERNAME }}/${{ secrets.IMAGE_NAME }}
-            sudo docker pull ${{ secrets.USERNAME }}/${{ secrets.IMAGE_NAME }}
-            sudo docker compose -f docker-compose-dev.yml up -d
+            docker rm -f $(docker ps -aq)
+            docker rmi ${{ secrets.USERNAME }}/${{ secrets.IMAGE_NAME }}
+            docker pull ${{ secrets.USERNAME }}/${{ secrets.IMAGE_NAME }}
+            docker compose -f docker-compose-dev.yml up -d
