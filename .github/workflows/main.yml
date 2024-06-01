@@ -40,6 +40,7 @@ jobs:
       ## 3) Docker Hub에 이미지 push 하기
       - name: Docker build
         run: |
+          cd ./back
           docker login -u ${{ secrets.USERNAME }} -p ${{ secrets.PASSWORD }}
           docker build -t ${{ secrets.USERNAME }}/${{ secrets.IMAGE_NAME }} . 
           docker push ${{ secrets.USERNAME }}/${{ secrets.IMAGE_NAME }}
