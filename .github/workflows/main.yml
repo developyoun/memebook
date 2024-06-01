@@ -28,14 +28,12 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
           cache: 'gradle'
-      - name: Use node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
       ## 2) 스프링 프로젝트 jar 파일 빌드
       - name: gradle build
         run: chmod +x back/gradlew
       - name: Build with Gradle
+        env:
+          CI: ""
         run: |
           cd ./back
           ./gradlew clean build -x test --no-daemon
