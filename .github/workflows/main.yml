@@ -38,9 +38,10 @@ jobs:
       - name: Deploy
         uses: appleboy/ssh-action@v0.1.8
         with:
-          host: ${{ secrets.AWS_TEST_X_HOST }}
-          username: ${{ secrets.AWS_TEST_X_USERNAME }}
-          port: ${{ secrets.AWS_TEST_X_PORT }}          
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: ${{ secrets.SERVER_PORT }}          
           script: |
             docker login -u ${{ secrets.USERNAME }} -p ${{ secrets.PASSWORD }}
             sudo docker rm $(docker ps -aq)
