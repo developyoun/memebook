@@ -18,7 +18,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - PROFILE=local
-    image: spring:0.1
+    image: pyoun820/memebook:0.1
     ports:
       - "8080:8080"
 
