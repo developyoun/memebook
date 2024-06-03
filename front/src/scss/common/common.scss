@@ -56,6 +56,7 @@
   box-sizing:border-box;
   .container {
     display:flex;
+    align-items:center;
   }
   .logo {
     flex-shrink:0;
@@ -491,13 +492,11 @@
       background: url('./../../assets/img/logo.png') center / 100% no-repeat;
     }
     .search_input {
-      padding: 8px 16px;
+      padding: 0 16px;
       width: 100%;
+      height:28px;
       font-size: 12px;
-      border: 1px solid var(--primary-60);
-      border-radius: 32px;
-      box-sizing: border-box;
-      resize: none;
+      border-radius: 16px;
     }
   }
 
@@ -516,7 +515,6 @@
   // 검색 리스트
 
   .search_box {
-    position:relative;
     .search_list {
       position:absolute;
       top:42px;

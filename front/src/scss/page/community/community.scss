@@ -1,15 +1,45 @@
 // 커뮤니티 홈
 .community_wrap {
   min-height: calc(100vh - 40px);
-  padding: 80px 0 140px 0;
-  .tab_box {
-    padding:0 16px;
+  padding: 80px 20px 140px 20px;
+  .container {
+    display:flex;
   }
-  .post_list {
-    li {
-      padding:16px 0;
-      &+li {
-        border-top:1px solid var(--primary-60);
+  .commu_top {
+    flex:1;
+    width:100%;
+    margin-bottom:24px;
+    box-sizing:border-box;
+    .tit {
+      width:100%;
+      font-size:24px;
+    }
+    .box_btn {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      margin-top:16px;
+      .txt {
+        width:100%;
+        margin-right:8px;
+        font-size:14px;
+        line-height:20px;
+      }
+      .btn_primary {
+        margin-top:36px;
+      }
+    }
+  }
+  .commu_con {
+    flex: 2;
+    width: 100%;
+    .post_list {
+      li {
+        padding:16px 0;
+        &+li {
+          border-top:1px solid var(--primary-60);
+        }
       }
     }
   }
@@ -224,3 +254,25 @@
   }
 }
 
+
+
+@media screen and (max-width:960px) {
+  .community_wrap {
+    padding-top: 32px;
+    .container {
+      display: block;
+      .commu_top {
+        .tit {
+          font-size:18px;
+        }
+        .box_btn {
+          margin-top:8px;
+          .txt {
+            font-size:12px;
+            line-height:18px;
+          }
+        }
+      }
+    }
+  }
+}

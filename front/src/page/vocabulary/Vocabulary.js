@@ -90,8 +90,6 @@ export default function Word() {
           </div>
         </div>
 
-
-
         <div className="voca_con">
           <Swiper
             slidesPerView='auto'

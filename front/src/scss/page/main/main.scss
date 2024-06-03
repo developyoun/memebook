@@ -294,15 +294,15 @@
     .container {
       &:before {
         top:0;
-        left:180px;
-        width:68px;
-        height:68px;
+        left:140px;
+        width:54px;
+        height:54px;
       }
       &:after {
         top:110px;
         left:10px;
-        width:80px;
-        height:80px;
+        width:64px;
+        height:64px;
       }
     }
     .tit {
@@ -313,6 +313,9 @@
   /* 메인 탑 */
   .main_top {
     &:before {
+      left:20px;
+      width:160px;
+      height:240px;
     }
     p {
       margin:12px 0 16px;
@@ -320,7 +323,7 @@
       line-height: 20px;
     }
     .search_box {
-      max-width:calc(100% - 60px);
+      width:calc(100% - 60px);
       margin:0 0 46px auto;
     }
     .user_country_box {
