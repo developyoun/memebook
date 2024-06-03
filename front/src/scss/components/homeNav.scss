@@ -4,14 +4,14 @@
     display: flex;
     width:100%;
     margin:0 auto;
-    gap:0 16px;
+    gap:0 32px;
     .list {
       width: 100%;
       .link {
         display: block;
         padding:8px 0;
         width: 100%;
-        font-size:14px;
+        font-size:16px;
         text-align: center;
         white-space:nowrap;
         &.active {

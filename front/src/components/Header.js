@@ -1,12 +1,13 @@
 import '../scss/common/common.scss'
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import React, {useState} from "react";
 import {wordSearchData} from "../util/action/searchAction";
 import {useDispatch, useSelector} from "react-redux";
 import {debounce} from 'lodash';
 import HomeNav from "./HomeNav";
 
-export default function Header(props) {
+export default function Header() {
+  const location = useLocation();
   const dispatch = useDispatch();
   const wordSearch = useSelector(state => state.meme.wordSearch);
   const [searchState, setSearchState] = useState(false);
@@ -33,36 +34,36 @@ export default function Header(props) {
 
             <HomeNav type="main"></HomeNav>
             {
-                props.type !== 'searchNone' && (
-                    <div className="search_box">
-                        <input type="text" className="search_input" placeholder="단어를 검색해보세요" onChange={wordSearchApi}/>
+              !location.pathname.startsWith('/main') && (
+                <div className="search_box">
+                  <input type="text" className="search_input" placeholder="단어를 검색해보세요" onChange={wordSearchApi}/>
 
+                  {
+                    searchState && (
+                      <ul className="search_list">
                         {
-                            searchState && (
-                                <ul className="search_list">
-                                    {
-                                        wordSearch?.wordList.length === 0 && (
-                                            <li>
-                                                <span className="list_none">검색에 맞는 단어가 없어요</span>
-                                            </li>
-                                        )
-                                    }
-                                    {
-                                        wordSearch?.wordList.length > 0 && wordSearch?.wordList.map((item) => {
-                                            return (
-                                                <li>
-                                                    <Link to={`/vocabulary/wordInfo/${item.wordIdx}`}>
-                                                        {item.wordName}
-                                                    </Link>
-                                                </li>
-                                            )
-                                        })
-                                    }
-                                </ul>
-                            )
+                          wordSearch?.wordList.length === 0 && (
+                            <li>
+                              <span className="list_none">검색에 맞는 단어가 없어요</span>
+                            </li>
+                          )
                         }
-                    </div>
-                )
+                        {
+                          wordSearch?.wordList.length > 0 && wordSearch?.wordList.map((item) => {
+                            return (
+                              <li>
+                                <Link to={`/vocabulary/wordInfo/${item.wordIdx}`}>
+                                  {item.wordName}
+                                </Link>
+                              </li>
+                            )
+                          })
+                        }
+                      </ul>
+                    )
+                  }
+                </div>
+              )
             }
         </div>
 
