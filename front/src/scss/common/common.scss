@@ -24,11 +24,11 @@
     .input_top {
       display:flex;
       align-items:center;
-      margin-bottom: 12px;
+      margin-bottom: 24px;
     }
     .tit {
       color:var(--primary-10);
-      font-size:12px;
+      font-size:16px;
     }
     & + .input_box {
       margin-top: 16px;
@@ -38,7 +38,14 @@
     display:flex;
     align-items:center;
     margin-top:8px;
-    font-size:12px;
+    .character_count {
+      color:var(--primary-10);
+      font-size:14px;
+    }
+  }
+  textarea {
+    height:300px;
+    font-size:14px;
   }
 }
 
@@ -85,10 +92,9 @@
   height:48px;
   padding: 0 16px;
   color:var(--primary-10);
-  font-size:12px;
-  border:none;
+  font-size:14px;
+  border:1px solid var(--primary-50);
   border-radius:6px;
-  box-shadow: 0 1px 12px -10px #000;
   box-sizing: border-box;
   resize:none;
   &::placeholder {

@@ -3,19 +3,20 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import Title from './../../components/Title'
 import './../../scss/page/vocabulary/wordAdd.scss'
+import InputComponent from "../../components/InputComponent";
 
 
 export default function WordAdd() {
   let {id, word} = useParams();
   const [addState, setAddState] = useState(false);
   const [titleNull, setTitleNull] = useState(false);
-  const [explainNull, setExplainNull] = useState(false);
   const [titleValue, setTitleValue] = useState(false);
-  const [contentValue, setContentValue] = useState(false);
   const [titleCount, setTitleCount] = useState(0);
   const [titleOver, setTitleOver] = useState(false);
+  const [explainNull, setExplainNull] = useState(false);
   const [explainCount, setExplainCount] = useState(0);
   const [explainOver, setExplainOver] = useState(false);
+  const [contentValue, setContentValue] = useState(false);
   const [tipBoxState, setTipBoxState] = useState(false);
 
   const [memberIdx, setMemberIdx] = useState('123');
@@ -42,9 +43,7 @@ export default function WordAdd() {
 
   const titleValueCount = (event) => {
     setTitleValue(event.target.value);
-
     setTitleCount(event.target.value.length);
-
     event.target.value.length >= 20 ? setTitleOver(true) : setTitleOver(false);
     setTitleNull(false);
   }
@@ -93,31 +92,17 @@ export default function WordAdd() {
             </div>
           </div>
 
+          <InputComponent length={20} word={word}></InputComponent>
 
-          <input type="text" className="text_input" placeholder="단어를 입력해주세요" value={word ? word : null} readOnly={word !== undefined}  maxLength={19} onChange={titleValueCount}/>
-
-          <div className="input_sub">
-            {
-              titleNull && (
-                <p className="invalid_msg">&#128397; 한글자 이상 작성해주세요</p>
-              )
-            }
-            {
-              titleOver && (
-                <p className="invalid_msg">&#128546; 20자 이하로 작성해주세요</p>
-              )
-            }
-            <p className="character_count">
-              {titleCount}/20
-            </p>
-          </div>
         </div>
 
 
         <div className="input_box">
-          <h4 className="tit">
-            설명
-          </h4>
+          <div className="input_top">
+            <h4 className="tit">
+              설명
+            </h4>
+          </div>
           <textarea className="text_input" name="" id="" cols="30" rows="10" maxLength={99} onChange={contentValueCount}></textarea>
 
           <div className="input_sub">

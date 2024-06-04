@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {useLocation, useParams} from "react-router-dom";
 import Title from './../../components/Title'
 import './../../scss/page/community/postAdd.scss'
+import InputComponent from "../../components/InputComponent";
 
 export default function PostAdd() {
   const id = useParams();
@@ -84,20 +85,9 @@ export default function PostAdd() {
           <div className="input_top">
             <h4 className="tit">제목</h4>
           </div>
-          <input type="text" className="text_input" placeholder="단어를 입력해주세요" defaultValue={title ? title : null} maxLength="29" onChange={titleValueCount}/>
-          <div className="input_sub">
-            {
-              titleNull && (
-                <p className="invalid_msg">&#128397; 한글자 이상 작성해주세요</p>
-              )
-            }
-            {
-              titleOver && (
-                <p className="invalid_msg">&#128546; 20자 이하로 작성해주세요</p>
-              )
-            }
-            <p className="character_count">{titleCount}/30</p>
-          </div>
+
+          <InputComponent length={20} word={title}></InputComponent>
+
         </div>
 
         <div className="input_box">

@@ -143,7 +143,7 @@
   .popular_list {
     display: flex;
     flex-direction: column;
-    max-height: 190px;
+    max-height: 200px;
     flex-wrap: wrap;
 
     li {
@@ -386,7 +386,9 @@
     .popular_box {
       .popular_list {
         li {
-
+          .keyword {
+            font-size:12px;
+          }
           .date {
             color: #406A52;
             font-size: 12px;
