@@ -10,8 +10,11 @@ export default function InputComponent(props) {
   const titleValueCount = (event) => {
     setTitleValue(event.target.value);
     setTitleCount(event.target.value.length);
-    event.target.value.length >= props.length ? setTitleOver(true) : setTitleOver(false)
+    event.target.value.length >= props.length - 1 ? setTitleOver(true) : setTitleOver(false)
     setTitleNull(false);
+    if (props.titleValueCheck) {
+      props.titleValueCheck(event.target.value);
+    }
   }
   return (
     <>
