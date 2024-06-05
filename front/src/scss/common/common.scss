@@ -34,9 +34,14 @@
       margin-top: 16px;
     }
   }
+}
 
-  textarea {
-    height:300px;
+.input_sub {
+  display:flex;
+  align-items:center;
+  margin-top:8px;
+  .character_count {
+    color:var(--primary-10);
     font-size:14px;
   }
 }
@@ -451,6 +456,12 @@
       }
     }
 
+  }
+
+  .input_sub {
+    .character_count {
+      font-size:12px;
+    }
   }
 
   .header {

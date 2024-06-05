@@ -18,7 +18,7 @@ export default function TextareaComponent(props) {
   }
   return (
     <>
-      <textarea className="text_input" name="" id="" cols="30" rows="10" maxLength={props.length} onChange={contentValueCount}></textarea>
+      <textarea className="textarea_input" name="" id="" cols="30" rows="10" maxLength={props.length} onChange={contentValueCount}></textarea>
 
       <div className="input_sub">
         {
