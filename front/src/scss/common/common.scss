@@ -39,6 +39,7 @@
 .input_sub {
   display:flex;
   align-items:center;
+  justify-content:end;
   margin-top:8px;
   .character_count {
     color:var(--primary-10);
@@ -437,7 +438,6 @@
 }
 
 @media (max-width:960px) {
-
   /* 공통 레이아웃 */
   .container {
     width:100%;

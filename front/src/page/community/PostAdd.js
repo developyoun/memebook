@@ -4,6 +4,7 @@ import {useLocation, useParams} from "react-router-dom";
 import Title from './../../components/Title'
 import './../../scss/page/community/postAdd.scss'
 import InputComponent from "../../components/InputComponent";
+import TextareaComponent from "../../components/TextareaComponent";
 
 export default function PostAdd() {
   const id = useParams();
@@ -49,6 +50,17 @@ export default function PostAdd() {
     event.target.value.length === 0 ? setContentNull(true) : setContentNull(false);
   }
 
+  // 인풋 컴포넌트에서 내용 받아서 보내기
+  const titleValueCheck = (length) => {
+    setTitleValue(length);
+    console.log(length)
+  }
+
+  const contentVelueCheck = (length) => {
+    setContentValue(length);
+    console.log(length)
+  }
+
   // 글 등록하기
   async function postAddData(type) {
     try {
@@ -85,30 +97,16 @@ export default function PostAdd() {
           <div className="input_top">
             <h4 className="tit">제목</h4>
           </div>
-          <InputComponent length={20} word={title}></InputComponent>
+          <InputComponent length={20} word={title} titleValueCheck={titleValueCheck}></InputComponent>
         </div>
 
         <div className="input_box">
           <div className="input_top">
             <h4 className="tit">내용</h4>
           </div>
-          <textarea className="text_input" cols="30" rows="10" maxLength="99" defaultValue={content ? content : null} onChange={contentValueCount}></textarea>
-          <div className="input_sub">
-            {
-              contentCount === 0 && (
-                <p className="invalid_msg">&#128397; 한글자 이상 작성해주세요</p>
-              )
-            }
 
-            {
-              contentOver && (
-                <p className="invalid_msg">&#128546; 100자 이하로 작성해주세요 !</p>
-              )
-            }
-            <p className="character_count">{contentCount}/100</p>
-          </div>
+          <TextareaComponent length={100} contentVelueCheck={contentVelueCheck}></TextareaComponent>
         </div>
-
         <div className="btn_box">
           <button type="button" className="btn_submit" disabled={titleNull && contentNull ? true : null}  onClick={title && content ? () => postAddData('modify') : () => postAddData('add')}>등록하기</button>
         </div>
