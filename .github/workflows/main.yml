@@ -66,4 +66,4 @@ jobs:
             sudo docker rm -f $(sudo docker ps -qa)
             sudo docker compose -f $COMPOSE down
             sudo docker pull ${{ secrets.DOCKER_REPO }}/memebook
-            sudo docker compose -f $COMPOSE up -d --build
+            sudo docker compose -f $COMPOSE up -d
