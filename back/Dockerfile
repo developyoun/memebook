@@ -31,7 +31,7 @@ ARG JAR_FILE=/build/libs/*.jar
 COPY ${JAR_FILE} app.jar
 
 # 컨테이너가 사용할 포트 설정
-EXPOSE 8080 8080
+EXPOSE 8080
 #
 ## 컨테이너 실행 명령어
 ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=${PROFILE}", "/app/app.jar"]
