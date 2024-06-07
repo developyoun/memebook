@@ -25,8 +25,18 @@
         font-size:14px;
         line-height:20px;
       }
-      .btn_primary {
+      .btn_add_word {
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        height:30px;
         margin-top:36px;
+        padding:0 24px;
+        color:#fff;
+        font-size:14px;
+        border:1px solid var(--primary-30);
+        border-radius:8px;
+        background:var(--primary-30);
       }
     }
   }
@@ -59,8 +69,22 @@
           font-size:12px;
           line-height:18px;
         }
-        .btn_primary {
-          margin-top:12px;
+        .btn_add_word {
+          position:fixed;
+          right:24px;
+          bottom:100px;
+          display:inline-flex;
+          align-items:center;
+          justify-content:center;
+          flex-shrink:0;
+          width:40px;
+          height:40px;
+          padding:0;
+          border-radius:50%;
+          background:var(--primary-30) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 26 26' fill='none'%3E%3Cpath opacity='0.15' d='M4.33301 21.6667H8.66634L19.4997 10.8333L15.1663 6.5L4.33301 17.3333V21.6667Z' fill='white'/%3E%3Cpath d='M19.4997 10.8333L22.7497 7.58333L18.4163 3.25L15.1663 6.5M19.4997 10.8333L8.66634 21.6667H4.33301V17.3333L15.1663 6.5M19.4997 10.8333L15.1663 6.5' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
+          span {
+            display:none;
+          }
         }
       }
     }

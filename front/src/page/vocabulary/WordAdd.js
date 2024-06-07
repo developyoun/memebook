@@ -4,6 +4,7 @@ import {useParams} from "react-router-dom";
 import Title from './../../components/Title'
 import './../../scss/page/vocabulary/wordAdd.scss'
 import InputComponent from "../../components/InputComponent";
+import TextareaComponent from "../../components/TextareaComponent";
 
 
 export default function WordAdd() {
@@ -21,10 +22,6 @@ export default function WordAdd() {
 
   const [memberIdx, setMemberIdx] = useState('123');
 
-  useEffect(() => {
-    setTitleValue(word);
-    console.log(word);
-  }, []);
   async function wordAddPost() {
     try {
       const wordAddApi = await memebookApi.wordAddApi( {
@@ -41,18 +38,15 @@ export default function WordAdd() {
     }
   }
 
-  const titleValueCount = (event) => {
-    setTitleValue(event.target.value);
-    setTitleCount(event.target.value.length);
-    event.target.value.length >= 20 ? setTitleOver(true) : setTitleOver(false);
-    setTitleNull(false);
+  // 인풋 컴포넌트에서 내용 받아서 보내기
+  const titleValueCheck = (length) => {
+    setTitleValue(length);
+    console.log(length)
   }
 
-  const contentValueCount = (event) => {
-    setContentValue(event.target.value);
-    setExplainCount(event.target.value.length);
-    event.target.value.length.length >= 99 ? setExplainOver(true) : setExplainOver(false);
-    setExplainNull(false);
+  const contentVelueCheck = (length) => {
+    setContentValue(length);
+    console.log(length)
   }
 
   const tipEvent = () => {
@@ -76,7 +70,6 @@ export default function WordAdd() {
 
       <div className="container">
 
-
         <div className="input_box">
           <div className="input_top">
             <h4 className="tit">
@@ -92,7 +85,7 @@ export default function WordAdd() {
             </div>
           </div>
 
-          <InputComponent length={20} word={word}></InputComponent>
+          <InputComponent length={20} word={word} titleValueCheck={titleValueCheck}></InputComponent>
 
         </div>
 
@@ -103,24 +96,8 @@ export default function WordAdd() {
               설명
             </h4>
           </div>
-          <textarea className="text_input" name="" id="" cols="30" rows="10" maxLength={99} onChange={contentValueCount}></textarea>
 
-          <div className="input_sub">
-            {
-              explainNull && (
-                <p className="invalid_msg">&#128397; 한글자 이상 작성해주세요</p>
-              )
-            }
-
-            {
-              explainOver && (
-                <p className="invalid_msg">&#128546; 100자 이하로 작성해주세요 !</p>
-              )
-            }
-            <p className="character_count">
-              {explainCount}/100
-            </p>
-          </div>
+          <TextareaComponent length={100} contentVelueCheck={contentVelueCheck}></TextareaComponent>
 
         </div>
         <div className="floating_box">

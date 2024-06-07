@@ -32,9 +32,12 @@ export default function Community() {
         <div className="container">
 
           <div className="commu_top">
-            <h2 className="tit">&#128214; 무엇이든지<br/>물어보세요!</h2>
+            <h2 className="tit">&#128214; 커뮤니티</h2>
             <div className="box_btn">
-              <span className="txt">사전에 없는 단어가 있나요?<br/>지금 등록해보세요 &#128073;</span>
+              <span className="txt">궁금하거나 모르는게 있나요?<br/>지금 물어보세요 &#128073;</span>
+              <Link to={`/community/postAdd`} className="btn_add_post">
+                <span>글쓰기</span>
+              </Link>
             </div>
           </div>
 
@@ -48,6 +51,18 @@ export default function Community() {
               </SwiperSlide>
               <SwiperSlide className="tab_item">
                 <button type="button" className="item">&#128640; 요즘 유행</button>
+              </SwiperSlide>
+              <SwiperSlide className="tab_item">
+                <button type="button" className="item">&#128640; 문화 이슈</button>
+              </SwiperSlide>
+              <SwiperSlide className="tab_item">
+                <button type="button" className="item">&#128640; K-POP</button>
+              </SwiperSlide>
+              <SwiperSlide className="tab_item">
+                <button type="button" className="item">&#128640; K-DRAMA</button>
+              </SwiperSlide>
+              <SwiperSlide className="tab_item">
+                <button type="button" className="item">&#128640; MEME</button>
               </SwiperSlide>
             </Swiper>
 
@@ -89,9 +104,7 @@ export default function Community() {
             </div>
           </div>
 
-            <Link to={`/community/postAdd`} className="desc_add_btn">
-                <span className="blind">작성하기</span>
-            </Link>
+
         </div>
 
     </div>
