@@ -38,7 +38,9 @@ public class ArticleRepositoryImpl implements ArticleCustomRepository {
                 .from(article)
                 .join(member).on(article.memberIdx.eq(member.memberIdx))
                 .leftJoin(comment).on(article.articleIdx.eq(comment.articleIdx))
-                .where(eqSearch(requestDto.getSearch()), eqMemberIdx(requestDto.getMemberIdx()))
+                .where(eqSearch(requestDto.getSearch()),
+                        eqMemberIdx(requestDto.getMemberIdx()),
+                        eqTag(requestDto.getTag()))
                 .orderBy(article.articleIdx.desc())
                 .groupBy(article.articleIdx)
                 .limit(pageable.getPageSize())
@@ -60,5 +62,9 @@ public class ArticleRepositoryImpl implements ArticleCustomRepository {
 
     private BooleanExpression eqMemberIdx(Long memberIdx) {
         return memberIdx == null ? null : article.memberIdx.eq(memberIdx);
+    }
+
+    private BooleanExpression eqTag(String tag) {
+        return tag == null ? null : article.tag.eq(tag);
     }
 }

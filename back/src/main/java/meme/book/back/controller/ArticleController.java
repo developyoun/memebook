@@ -28,6 +28,7 @@ public class ArticleController {
     @GetMapping("/list")
     public ResponseEntity<?> getArticleList(@RequestParam(defaultValue = "1") int page,
                                             @RequestParam(defaultValue = "10") int pageSize,
+                                            @RequestParam(required = false) String tag,
                                             @RequestParam(required = false) String search,
                                             @RequestParam(required = false) Long memberIdx) {
         if (search != null && search.length() < 3) {
@@ -36,6 +37,7 @@ public class ArticleController {
 
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         ArticleListRequestDto requestDto = new ArticleListRequestDto()
+                .setTag(tag)
                 .setSearch(search)
                 .setMemberIdx(memberIdx);
         log.info("Get Article List Request, page: {}, pageSize: {}, request: {}", page, page, requestDto);

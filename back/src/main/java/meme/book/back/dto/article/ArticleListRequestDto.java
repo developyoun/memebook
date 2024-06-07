@@ -9,5 +9,7 @@ public class ArticleListRequestDto {
 
     private String search;
 
+    private String tag;
+
     private Long memberIdx;
 }

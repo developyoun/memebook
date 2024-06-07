@@ -24,6 +24,9 @@ public class ArticleResponseDto {
     @Schema(name = "articleContent", description = "게시글 내용")
     private String articleContent;
 
+    @Schema(name = "tag", description = "게시글 태그")
+    private String tag;
+
     @Schema(name = "regDtm", description = "등록일시")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime regDtm;
@@ -38,6 +41,7 @@ public class ArticleResponseDto {
                 .setArticleContent(article.getArticleContent())
                 .setMemberIdx(article.getMemberIdx())
                 .setRegDtm(article.getRegDtm())
+                .setTag(article.getTag())
                 .setLikeCount(article.getArticleLikeCnt());
     }
 

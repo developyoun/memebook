@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -38,6 +37,9 @@ public class Article implements Serializable {
 
     @Column(name = "ARTICLE_CONTENT")
     private String articleContent;
+
+    @Column(name = "TAG")
+    private String tag;
 
     @Column(name = "ARTICLE_LIKE_CNT")
     private Long articleLikeCnt = 0L;

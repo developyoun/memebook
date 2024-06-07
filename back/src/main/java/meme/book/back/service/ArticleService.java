@@ -79,7 +79,8 @@ public class ArticleService {
         Article article = new Article()
                 .setArticleTitle(requestDto.getArticleTitle())
                 .setMemberIdx(requestDto.getMemberIdx())
-                .setArticleContent(requestDto.getArticleContent());
+                .setArticleContent(requestDto.getArticleContent())
+                .setTag(requestDto.getTag());
 
         articleRepository.save(article);
 

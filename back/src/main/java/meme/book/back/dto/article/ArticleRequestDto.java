@@ -11,6 +11,9 @@ public class ArticleRequestDto {
     @Schema(name = "articleTitle", description = "게시글 제목")
     private String articleTitle;
 
+    @Schema(name = "tag", description = "게시글 태그")
+    private String tag;
+
     @Schema(name = "memberIdx", description = "회원 번호")
     private Long memberIdx;
 
