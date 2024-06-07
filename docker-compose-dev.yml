@@ -12,7 +12,7 @@ services:
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt
   back:
-    container_name: back
+    container_name: app
     build:
       context: back/
       dockerfile: Dockerfile
