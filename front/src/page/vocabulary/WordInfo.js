@@ -170,29 +170,31 @@ export default function WordInfo() {
                   <CommentPort commentPortClose={commentReportOpen}></CommentPort>
               )
           }
-          <div className="detail_top">
+          <div className="info_top">
               <h1 className="word_tit">
                   {wordData?.wordName}
               </h1>
 
           </div>
 
-          <div className="desc_add_box">
-        <span className="list_count">
-          총 {wordListData?.length}개
-        </span>
-              {
-                  wordListData?.memberIdx !== memberIdx && (
-                      <button type="button" className={`btn_scrap ${scrapData ? 'active' : ''}`} onClick={ScrapeBtn}>
-                          <span className="blind">스크랩</span>
-                      </button>
-                  )
-              }
+          <div className="info_desc">
+            {
+              wordListData?.memberIdx !== memberIdx && (
+                <button type="button" className={`btn_scrap ${scrapData ? 'active' : ''}`} onClick={ScrapeBtn}>
+                  <span className="blind">스크랩</span>
+                </button>
+              )
+            }
+            <span className="list_count">
+              총 {wordListData?.length}개
+            </span>
 
-
+            <Link to={`/vocabulary/wordAdd/${id}/${wordData.wordName}`} className="btn_add_word">
+              <span>작성하기</span>
+            </Link>
           </div>
 
-          <ul className="word_mean_list">
+          <ul className="info_list">
               {
                   wordListData?.map((item, idx) => {
                       return (
@@ -298,9 +300,7 @@ export default function WordInfo() {
 
           </ul>
 
-          <Link to={`/vocabulary/wordAdd/${id}/${wordData.wordName}`} className="desc_add_btn">
-              <span className="blind">작성하기</span>
-          </Link>
+
       </div>
 
     </div>
