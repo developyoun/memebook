@@ -25,7 +25,7 @@ WORKDIR /app
 ENV PROFILE local
 
 # 변수 지정
-ARG JAR_FILE=/build/libs/*.jar
+ARG JAR_FILE=build/libs/*.jar
 
 # 변수로 지정된 파일을 컨테이너로 복사
 COPY ${JAR_FILE} app.jar
