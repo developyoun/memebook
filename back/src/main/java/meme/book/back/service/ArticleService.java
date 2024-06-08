@@ -103,18 +103,19 @@ public class ArticleService {
     }
 
     @Transactional
-    public void deleteArticle(Long articleIdx, Long reqMemIdx) {
-        Article article = articleRepository.findByArticleIdx(articleIdx)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_ARTICLE));
+    public void deleteArticleList(List<Long> articleIdxList, Long reqMemIdx) {
+        List<Article> articleList = articleRepository.findAllByArticleIdxIn(articleIdxList);
 
-        if (!article.getMemberIdx().equals(reqMemIdx)) {
-            throw new CustomException(ErrorCode.NOT_MATCH_MEMBER);
-        }
+        articleList.forEach(article -> {
+            if (!article.getMemberIdx().equals(reqMemIdx)) {
+                throw new CustomException(ErrorCode.NOT_MATCH_MEMBER);
+            }
+        });
 
-        articleRepository.delete(article);
+        articleRepository.deleteAll(articleList);
 
-        List<Comment> commentList = commentRepository.findAllByArticleIdx(articleIdx);
-        log.info("Article Deleted, article Idx: {}, comment list: {}", articleIdx, commentList.size());
+        List<Comment> commentList = commentRepository.findAllByArticleIdxIn(articleIdxList);
+        log.info("Article Deleted, article Idx: {}, comment list: {}", articleIdxList, commentList);
 
         commentRepository.deleteAll(commentList);
     }

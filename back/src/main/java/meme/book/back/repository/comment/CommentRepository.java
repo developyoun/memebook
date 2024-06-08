@@ -17,7 +17,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long>, Comment
 
     Optional<Comment> findByCommentIdxAndArticleIdx(Long commentIdx, Long articleIdx);
 
-    List<Comment> findAllByArticleIdx(Long articleIdx);
+    List<Comment> findAllByArticleIdxIn(List<Long> articleIdxList);
 
     Page<Comment> findByMemberIdxAndDeletedFalseOrderByCommentIdxDesc(Pageable pageable, Long memberIdx);
 }
