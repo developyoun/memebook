@@ -148,17 +148,14 @@ export default function WordInfo() {
   async function wordDelete(wordContentIdx) {
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
-        const wordDeleteData = await memebookApi.wordDeleteApi(wordContentIdx);
+        await memebookApi.wordDeleteApi(wordContentIdx);
         setDeleteState(true);
       }
       setWordSetState(false);
-      console.log('성공');
     } catch (error) {
       console.log(error)
-      console.log('에러')
     }
   }
-
 
   return (
     <div className="word_info_wrap">

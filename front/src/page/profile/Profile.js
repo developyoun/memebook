@@ -41,16 +41,13 @@ export default function Profile() {
     profileApi();
   }, []);
 
-
   async function followerAdd() {
     try {
-      let count = 0;
-      const followerAddData = await memebookApi.followerAddApi({
+      await memebookApi.followerAddApi({
         "follower": id,
         "followee": memberIdx,
       });
       setFollowerAddState(!followerAddState);
-      console.log('성공')
     } catch (error) {
       console.error(error);
     }
@@ -58,7 +55,7 @@ export default function Profile() {
 
   // 밈북 공유하기
   const inviteLink = () => {
-    window.navigator.clipboard.writeText('http://www.naver.com').then(() => {
+    window.navigator.clipboard.writeText('https://memebook.co.kr/main').then(() => {
       alert('복사되었어요');
       setCopyState(true);
     }) .catch(() => {
@@ -69,7 +66,9 @@ export default function Profile() {
   return (
     <div className="profile_wrap">
         <div className="container">
-            <div className="user_info">
+
+          {/* 정보 */}
+          <div className="user_info">
                 <div className="follower_box">
                     {
                         id !== memberIdx && (
@@ -79,31 +78,28 @@ export default function Profile() {
                         )
                     }
                 </div>
-                <div className="user_name">
+                <div className="info_name">
                     <h3 className="name">누징</h3>
                 </div>
 
-                <div className="user_info_desc">
+                <ul className="info_desc">
+                  <li>
+                    <span className="count">{followerCount ? followerCount : 0}</span>
+                    <span className="txt">follower</span>
+                  </li>
+                  <li>
+                    <span className="count">0</span>
+                    <span className="txt">following</span>
+                  </li>
+                </ul>
 
-                    <ul>
-                        <li>
-                            <span className="count">{followerCount ? followerCount : 0}</span>
-                            <span className="txt">follower</span>
-                        </li>
-                        <li>
-                            <span className="count">0</span>
-                            <span className="txt">following</span>
-                        </li>
-                    </ul>
-
-                </div>
-
-                <p className="visit_count">🏡 연속 방문 최대 <strong>12</strong>번을 달성했어요!</p>
+                <p className="info_visit">🏡 연속 방문 최대 <strong>12</strong>번을 달성했어요!</p>
 
             </div>
 
-            <div className="daily_box">
-                <h3 className="tit">🌻 출석체크</h3>
+          {/* 출석체크 */}
+          <div className="user_daily">
+                <h3 className="daily_tit">🌻 출석체크</h3>
                 <ul className="daily_list">
                     <li>
                         <div className="day check">
@@ -143,9 +139,10 @@ export default function Profile() {
                 </ul>
             </div>
 
-            <div className="user_history">
-              <div className="user_box">
-                <div className="user_tit">
+          {/* 히스토리 */}
+          <div className="user_history">
+              <div className="history_box">
+                <div className="history_tit">
                   <h4>
                     참여한 단어
                     {
@@ -178,8 +175,8 @@ export default function Profile() {
                 }
               </div>
 
-              <div className="user_box">
-                <div className="user_tit">
+              <div className="history_box">
+                <div className="history_tit">
                   <h4>
                     스크랩한 단어
                     {
@@ -212,8 +209,8 @@ export default function Profile() {
                 }
               </div>
 
-              <div className="user_box">
-                <div className="user_tit">
+              <div className="history_box">
+                <div className="history_tit">
                   <h4>
                     내가 쓴 글
                     {
@@ -246,8 +243,8 @@ export default function Profile() {
                 }
               </div>
 
-              <div className="user_box">
-                <div className="user_tit">
+              <div className="history_box">
+                <div className="history_tit">
                   <h4>
                     내가 쓴 댓글
                     {
@@ -281,7 +278,8 @@ export default function Profile() {
               </div>
             </div>
 
-            <div className="invite_box">
+          {/* 초대하기 */}
+          <div className="invite_box">
                 <p className="invite_txt">&#127881; 친구 초대를 통해 밈북의 세계를 넓혀주세요 &#127881;</p>
                 <button type="button" onClick={inviteLink} className="btn_primary size_m">
                     {copyState === true ? '복사 완료 ! 친구에게 공유해주세요!' : '링크 복사하기'}

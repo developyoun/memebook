@@ -20,6 +20,13 @@ export default function Layout() {
         <Outlet></Outlet>
         <HomeNav type="sub"></HomeNav>
       </div>
+      {/*{*/}
+      {/*  window.scrollY > 20 && (*/}
+      {/*    <button type="button" className="btn_top" onClick={commonEvent}>*/}
+      {/*      <span className="blind">올리기</span>*/}
+      {/*    </button>*/}
+      {/*  )*/}
+      {/*}*/}
     </>
   )
 }

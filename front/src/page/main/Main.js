@@ -245,7 +245,7 @@ export default function Main() {
               </li>
 
               {/* 작성한 댓글 */}
-              <li className="list post">
+              <li className="list comment">
                 {
                   myCommentList?.commentList.length === 0 && (
                     <Link to="/profile/myCommentList" className="link">
