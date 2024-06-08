@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import HomeNav from "../components/HomeNav";
 import {useTop} from "../util/commonEvent";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function Layout() {
   useTop();
