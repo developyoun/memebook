@@ -104,16 +104,17 @@ public class CommentService {
     }
 
     @Transactional
-    public void deleteComment(Long commentIdx, Long reqMemIdx) {
-        Comment comment = commentRepository.findByCommentIdx(commentIdx)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_COMMENT));
+    public void deleteComment(List<Long> commentIdx, Long reqMemIdx) {
+        List<Comment> commentList = commentRepository.findAllByCommentIdxIn(commentIdx);
 
-        if (!comment.getMemberIdx().equals(reqMemIdx)) {
-            throw new CustomException(ErrorCode.NOT_MATCH_MEMBER);
-        }
+        commentList.forEach(comment -> {
+            if (!comment.getMemberIdx().equals(reqMemIdx)) {
+                throw new CustomException(ErrorCode.NOT_MATCH_MEMBER);
+            }
+            comment.setDeleted(true);
+        });
 
-        comment.setDeleted(true);
-        commentRepository.save(comment);
+        commentRepository.saveAll(commentList);
         log.info("Deleted Comment, idx: {}", commentIdx);
     }
 }
