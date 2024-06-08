@@ -104,8 +104,8 @@ public class CommentService {
     }
 
     @Transactional
-    public void deleteCommentList(List<Long> commentIdx, Long reqMemIdx) {
-        List<Comment> commentList = commentRepository.findAllByCommentIdxIn(commentIdx);
+    public void deleteCommentList(List<Long> commentIdxList, Long reqMemIdx) {
+        List<Comment> commentList = commentRepository.findAllByCommentIdxIn(commentIdxList);
 
         commentList.forEach(comment -> {
             if (!comment.getMemberIdx().equals(reqMemIdx)) {
@@ -115,6 +115,6 @@ public class CommentService {
         });
 
         commentRepository.saveAll(commentList);
-        log.info("Deleted Comment, idx: {}", commentIdx);
+        log.info("Deleted Comment, idx: {}", commentIdxList);
     }
 }
