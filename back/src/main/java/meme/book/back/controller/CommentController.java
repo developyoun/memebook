@@ -63,7 +63,7 @@ public class CommentController {
             @Parameter(description = "댓글 번호") @RequestParam List<Long> commentIdx,
             @Parameter(description = "요청 회원 번호") @RequestParam Long reqMemIdx) {
         log.info("Comment Delete Request, idx: {}, mem: {}", commentIdx, reqMemIdx);
-        commentService.deleteComment(commentIdx, reqMemIdx);
+        commentService.deleteCommentList(commentIdx, reqMemIdx);
         return ResponseEntity.ok().build();
     }
 

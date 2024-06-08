@@ -104,7 +104,7 @@ public class CommentService {
     }
 
     @Transactional
-    public void deleteComment(List<Long> commentIdx, Long reqMemIdx) {
+    public void deleteCommentList(List<Long> commentIdx, Long reqMemIdx) {
         List<Comment> commentList = commentRepository.findAllByCommentIdxIn(commentIdx);
 
         commentList.forEach(comment -> {

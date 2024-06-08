@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(name = "스크랩 API", description = "스크랩 관련 API")
 @RequiredArgsConstructor
 @Slf4j
@@ -40,8 +42,9 @@ public class ScrapController {
 
     @Operation(summary = "단어 스크랩 삭제 API", description = "단어의 스크랩을 삭제한다.")
     @DeleteMapping("/word")
-    public ResponseEntity<?> deleteWordScrap(@RequestParam Long scrapIdx) {
-        scrapService.deleteWordScrap(scrapIdx);
+    public ResponseEntity<?> deleteWordScrap(@RequestParam List<Long> scrapIdx,
+                                             @RequestParam Long reqMemIdx) {
+        scrapService.deleteWordScrapList(scrapIdx, reqMemIdx);
 
         return ResponseEntity.ok(null);
     }
