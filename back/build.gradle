@@ -54,13 +54,13 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
-processResources.dependsOn('copySecret')
+//processResources.dependsOn('copySecret')
 
-tasks.register('copySecret', Copy) {
-    from './sub-secret' // 서브모듈 디렉토리 경로
-    include "application*.yml"  // 복사할 파일들
-    into 'src/main/resources'  // 복사 위치
-}
+//tasks.register('copySecret', Copy) {
+//    from './sub-secret' // 서브모듈 디렉토리 경로
+//    include "application*.yml"  // 복사할 파일들
+//    into 'src/main/resources'  // 복사 위치
+//}
 
 def reactAppDir = "$projectDir/../front"
 
