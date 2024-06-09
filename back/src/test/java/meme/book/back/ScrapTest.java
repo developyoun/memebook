@@ -19,6 +19,6 @@ public class ScrapTest {
 
     @Test
     void scrapDeleteTest() {
-        scrapService.deleteWordScrapList(List.of(52L, 58L), 31L);
+        scrapService.deleteWordScrapList(List.of(52L, 58L));
     }
 }

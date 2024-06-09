@@ -54,14 +54,17 @@ public class ScrapService {
     }
 
     @Transactional
-    public void deleteWordScrapList(List<Long> scrapIdxList, Long reqMemIdx) {
-        List<Scrap> scrapList = scrapRepository.findAllByScrapIdxIn(scrapIdxList);
+    public void deleteWordScrap(Long scrapIdx) {
+        Scrap scrap = scrapRepository.findByScrapIdx(scrapIdx)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_SCRAP));
 
-        scrapList.forEach(scrap -> {
-            if (!scrap.getMemberIdx().equals(reqMemIdx)) {
-                throw new CustomException(ErrorCode.NOT_MATCH_MEMBER);
-            }
-        });
+        scrapRepository.delete(scrap);
+        log.info("Delete Scrap: {}", scrap);
+    }
+
+    @Transactional
+    public void deleteWordScrapList(List<Long> scrapIdxList) {
+        List<Scrap> scrapList = scrapRepository.findAllByScrapIdxIn(scrapIdxList);
 
         scrapRepository.deleteAll(scrapList);
 

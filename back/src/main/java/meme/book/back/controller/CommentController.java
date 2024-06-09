@@ -57,13 +57,20 @@ public class CommentController {
         return ResponseEntity.ok(commentService.updateCommentLike(commentIdx, requestDto));
     }
 
-    @Operation(summary = "댓글 삭제 API")
+    @Operation(summary = "단일 댓글 삭제 API")
+    @DeleteMapping("/delete/{commentIdx}")
+    public ResponseEntity<?> deleteComment(@PathVariable Long commentIdx) {
+        log.info("Comment One Delete Request: {}", commentIdx);
+        commentService.deleteComment(commentIdx);
+        return ResponseEntity.ok().build();
+    }
+
+    @Operation(summary = "댓글 선택 삭제 API")
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteComment(
-            @Parameter(description = "댓글 번호") @RequestParam List<Long> commentIdx,
-            @Parameter(description = "요청 회원 번호") @RequestParam Long reqMemIdx) {
-        log.info("Comment Delete Request, idx: {}, mem: {}", commentIdx, reqMemIdx);
-        commentService.deleteCommentList(commentIdx, reqMemIdx);
+    public ResponseEntity<?> deleteCommentList(
+            @Parameter(description = "댓글 번호 리스트") @RequestParam List<Long> commentIdx) {
+        log.info("Comment List Delete Request: {}", commentIdx);
+        commentService.deleteCommentList(commentIdx);
         return ResponseEntity.ok().build();
     }
 

@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -155,6 +156,21 @@ public class WordService {
             log.info("Word Content is Zero, Delete Word: {}", wordIdx);
             wordRepository.deleteByWordIdx(wordIdx);
         }
+    }
+
+    @Transactional
+    public void deleteWordContentList(List<Long> wordContentIdxList) {
+        List<WordContent> wordContentList = wordContentRepository.findAllByWordContentIdxIn(wordContentIdxList);
+        List<Long> wordIdxList = wordContentList.stream().map(WordContent::getWordIdx).distinct().toList();
+
+        wordContentRepository.deleteAll(wordContentList);
+        log.info("Deleted Word Content: {}", wordContentList);
+
+        List<Word> wordList = wordRepository.getWordListByNotExistContent(wordIdxList);
+
+        wordRepository.deleteAll(wordList);
+        log.info("Deleted Word Idx List: {}", wordList);
+
     }
 
     public WordContentListResponseDto getWordListByMember(Pageable pageable, Long memberIdx) {

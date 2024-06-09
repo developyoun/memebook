@@ -19,7 +19,7 @@ public class CommentTest {
 
     @Test
     void commentDeleteTest() {
-        commentService.deleteCommentList(List.of(45L, 57L), 321L);
+        commentService.deleteCommentList(List.of(45L, 57L));
 
     }
 }

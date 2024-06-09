@@ -74,11 +74,18 @@ public class WordController {
         return ResponseEntity.ok(wordService.getWordListService(pageable, requestDto));
     }
 
-    @Operation(summary = "단어 컨텐츠 삭제 API", description = "단어의 컨텐츠를 삭제한다.")
+    @Operation(summary = "단어 컨텐츠 단일 삭제 API", description = "단일 단어 컨텐츠를 삭제한다.")
+    @DeleteMapping("/delete/{wordContentIdx}")
+    public ResponseEntity<?> deleteWordContent(@PathVariable Long wordContentIdx) {
+        wordService.deleteWordContent(wordContentIdx);
+
+        return ResponseEntity.ok(null);
+    }
+
+    @Operation(summary = "단어 컨텐츠 선택 삭제 API", description = "단어의 컨텐츠를 선택 삭제한다.")
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteWordContent(@RequestParam List<Long> wordContentIdx,
-                                               @RequestParam Long reqMemIdx) {
-        wordService.deleteWordContentList(wordContentIdx, reqMemIdx);
+    public ResponseEntity<?> deleteWordContentList(@RequestParam List<Long> wordContentIdx) {
+        wordService.deleteWordContentList(wordContentIdx);
 
         return ResponseEntity.ok(null);
     }

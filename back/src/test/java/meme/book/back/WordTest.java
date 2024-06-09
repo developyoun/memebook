@@ -1,7 +1,7 @@
 package meme.book.back;
 
 import lombok.extern.slf4j.Slf4j;
-import meme.book.back.service.ArticleService;
+import meme.book.back.service.WordService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,14 +12,13 @@ import java.util.List;
 @Transactional
 @Slf4j
 @SpringBootTest
-public class ArticleTest {
+public class WordTest {
 
     @Autowired
-    ArticleService articleService;
+    WordService wordService;
 
     @Test
-    void articleDeleteTest() {
-        articleService.deleteArticleList(List.of(20L, 21L));
-        log.info("");
+    void selectedWordDelete() {
+        wordService.deleteWordContentList(List.of(114L, 113L));
     }
 }

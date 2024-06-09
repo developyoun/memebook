@@ -9,6 +9,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import meme.book.back.dto.word.WordListDto;
 import meme.book.back.dto.word.WordRequestDto;
+import meme.book.back.entity.Word;
 import meme.book.back.utils.NationCode;
 import meme.book.back.utils.SortType;
 import org.springframework.data.domain.Page;
@@ -74,5 +75,14 @@ public class WordRepositoryImpl implements WordCustomRepository {
             case DISLIKE -> new OrderSpecifier<>(order, word.wordDislike);
             default -> new OrderSpecifier<>(order, word.wordIdx);
         };
+    }
+
+    @Override
+    public List<Word> getWordListByNotExistContent(List<Long> wordIdxList) {
+        return queryFactory.select(word)
+                .from(word)
+                .leftJoin(wordContent).on(word.wordIdx.eq(wordContent.wordIdx))
+                .where(wordContent.wordContentIdx.isNull().and(word.wordIdx.in(wordIdxList)))
+                .fetch();
     }
 }

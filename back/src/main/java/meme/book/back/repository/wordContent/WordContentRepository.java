@@ -18,5 +18,7 @@ public interface WordContentRepository extends JpaRepository<WordContent, Long>,
 
     Optional<WordContent> findByWordContentIdx(Long wordContentIdx);
 
+    List<WordContent> findAllByWordContentIdxIn(List<Long> wordContentIdx);
+
     long countByWordIdx(Long wordIdx);
 }

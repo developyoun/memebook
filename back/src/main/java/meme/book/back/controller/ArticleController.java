@@ -69,13 +69,20 @@ public class ArticleController {
         return ResponseEntity.ok(articleService.updateArticle(articleIdx, requestDto));
     }
 
+    @Operation(summary = "게시글 단일 삭제")
+    @DeleteMapping("/delete/{articleIdx}")
+    public ResponseEntity<?> deleteArticle(@PathVariable Long articleIdx) {
+        log.info("Delete One Article Request: {}", articleIdx);
+        articleService.deleteArticle(articleIdx);
+        return ResponseEntity.ok().build();
+    }
+
     @Operation(summary = "게시글 선택 삭제 API")
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteArticle(
-            @Parameter(description = "게시글 번호") @RequestParam List<Long> articleIdx,
-            @Parameter(description = "요청 회원 번호") @RequestParam Long reqMemIdx) {
+    public ResponseEntity<?> deleteArticleList(
+            @Parameter(description = "게시글 번호") @RequestParam List<Long> articleIdx) {
         log.info("Article Delete Request: {}", articleIdx);
-        articleService.deleteArticleList(articleIdx, reqMemIdx);
+        articleService.deleteArticleList(articleIdx);
         return ResponseEntity.ok().build();
     }
 
