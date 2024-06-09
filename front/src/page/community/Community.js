@@ -14,9 +14,10 @@ export default function Community() {
   useEffect(() => {
     async function postListApi() {
       try {
-        dispatch(postListData)
+        dispatch(postListData);
+        console.log(postList);
       } catch (error) {
-        // window.history.back();
+        console.log(error);
       }
     }
 

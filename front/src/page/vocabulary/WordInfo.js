@@ -55,7 +55,7 @@ export default function WordInfo() {
       }
     }
     wordDetailApi();
-  }, [modifyState, setScrapData, deleteState]);
+  }, [modifyState, setScrapData, deleteState, memberIdx, id]);
 
 
   // 좋아요/싫어요 update Api
@@ -66,24 +66,25 @@ export default function WordInfo() {
         setLikeCount(wordReactionCountData.data.likeCount);
         setDislikeCount(wordReactionCountData.data.dislikeCount);
       } catch (error) {
+        console.log(error);
       }
     }
 
     wordReactionApi();
-  }, [reactionState]);
+  }, [reactionState, id]);
 
   // 좋아요/싫어요 button Api
   async function wordReaction(type) {
     try {
       setReactionState(false);
       if (type === 'like') {
-        const wordLikeData = await memebookApi.wordReactionUpdateApi({
+        await memebookApi.wordReactionUpdateApi({
           "reactionType": "LIKE",
           "memberIdx": memberIdx,
           "wordIdx": id,
         });
       } else if (type === 'dislike') {
-        const wordLikeData = await memebookApi.wordReactionUpdateApi({
+        await memebookApi.wordReactionUpdateApi({
           "reactionType": "DISLIKE",
           "memberIdx": memberIdx,
           "wordIdx": id,
@@ -128,8 +129,7 @@ export default function WordInfo() {
   // 수정된 내용 put Api
   async function wordModify() {
     try {
-
-      const wordModifyData = await memebookApi.wordModifyApi({
+      await memebookApi.wordModifyApi({
         "wordIdx": wordListData[0].wordIdx,
         "wordName": wordListData[0].content,
         "wordContent": modifyContent,
@@ -139,8 +139,7 @@ export default function WordInfo() {
 
       setModifyState(false);
     } catch (error) {
-      console.log(error)
-      console.log('에러')
+      console.log(error);
     }
   }
 
@@ -153,7 +152,7 @@ export default function WordInfo() {
       }
       setWordSetState(false);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 

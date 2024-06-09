@@ -36,7 +36,7 @@ export default function Word() {
       }
     }
     libraryList();
-  }, [dispatch]);
+  }, [dispatch, pageNumber]);
 
   useEffect(() => {
     if (wordList && wordList.wordList) {

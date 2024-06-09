@@ -37,7 +37,7 @@ export default function PostInfo() {
     }
 
     postDetailApi();
-  }, [commentState]);
+  }, [commentState, dispatch, id.id]);
 
   // 글 삭제하기
   async function postDeleteData(articleIdx) {

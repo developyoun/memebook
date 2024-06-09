@@ -39,7 +39,7 @@ export default function Profile() {
       }
     }
     profileApi();
-  }, []);
+  }, [dispatch, memberIdx]);
 
   async function followerAdd() {
     try {
