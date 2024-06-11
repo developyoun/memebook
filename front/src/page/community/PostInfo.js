@@ -292,7 +292,6 @@ export default function PostInfo() {
         </ul>
 
         <div className="comment_input_box">
-
           <div className={`input_box ${commentLength ? 'invalid' : ''}`}>
             {
               replyNickname && (
@@ -307,8 +306,8 @@ export default function PostInfo() {
               <span>등록</span>
             </button>
           </div>
-
         </div>
+
       </div>
     </div>
   );

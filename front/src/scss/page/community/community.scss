@@ -31,7 +31,7 @@
         display:inline-flex;
         align-items:center;
         justify-content:center;
-        height:30px;
+        height:40px;
         margin-top:32px;
         padding:0 24px;
         color:#fff;
@@ -124,6 +124,7 @@
         background-repeat:no-repeat;
       }
       .txt_count {
+        margin-left:8px;
         color:var(--primary-40);
         font-size:12px;
       }
@@ -405,6 +406,10 @@
         }
       }
     }
+  }
+
+  .comment_input_box {
+    bottom:80px;
   }
 }
 

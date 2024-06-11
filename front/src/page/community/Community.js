@@ -34,7 +34,7 @@ export default function Community() {
 
           {/* 타이틀 */}
           <div className="commu_top">
-            <h2 className="tit">&#128214; 커뮤니티</h2>
+            <h2 className="commu_tit">&#128214; 커뮤니티</h2>
             <div className="commu_box">
               <span className="commu_txt">궁금하거나 모르는게 있나요?<br/>지금 물어보세요 &#128073;</span>
               <Link to={`/community/postAdd`} className="btn_add_post">
@@ -111,6 +111,7 @@ export default function Community() {
               </ul>
             </div>
           </div>
+
 
         </div>
 

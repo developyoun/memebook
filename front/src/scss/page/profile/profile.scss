@@ -152,11 +152,13 @@
     text-align:center;
     .invite_txt {
       color:var(--primary-10);
-      font-size:12px;
+      font-size:14px;
       text-align:center;
     }
     .btn_primary {
+      height:40px;
       margin:16px auto 0;
+      font-size:14px;
     }
   }
 }

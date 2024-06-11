@@ -296,6 +296,14 @@ export default function WordInfo() {
 
           </ul>
 
+        <div className="comment_input_box">
+          <div className={`input_box`}>
+            <textarea type="text" placeholder="댓글 입력"></textarea>
+            <button type="button" className="btn_comment_submit">
+              <span>등록</span>
+            </button>
+          </div>
+        </div>
 
       </div>
 
