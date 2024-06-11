@@ -14,7 +14,7 @@ export default function Community() {
   useEffect(() => {
     async function postListApi() {
       try {
-        dispatch(postListData);
+        await dispatch(postListData());
         console.log(postList);
       } catch (error) {
         console.log(error);
@@ -22,7 +22,7 @@ export default function Community() {
     }
 
     postListApi();
-  }, []);
+  }, [dispatch]);
 
   const postReaction = () => {
     setPostReactionState(!postReactionState)
