@@ -7,6 +7,7 @@ import {scrapAddData, scrapDeleteData} from "./../../util/action/scrapAction";
 import CommentPort from "./../../modal/CommentPort";
 import BtnBack from "./../../components/BtnBack";
 import './../../scss/page/vocabulary/wordInfo.scss'
+import AddComponent from "../../components/AddComponent";
 
 export default function WordInfo() {
   let {id} = useParams();
@@ -32,6 +33,8 @@ export default function WordInfo() {
   const [deleteState, setDeleteState] = useState(false);
   // 신고하기
   const [reportOpen, setReportOpen] = useState(false);
+
+
 
   // 신고하기 팝업
   const commentReportOpen = ({commentPortClose}) => {
@@ -156,6 +159,11 @@ export default function WordInfo() {
     }
   }
 
+  const [contentValue, setContentValue] = useState(false);
+  const contentVelueCheck = (length) => {
+    setContentValue(length);
+  }
+
   return (
     <div className="word_info_wrap">
 
@@ -185,9 +193,6 @@ export default function WordInfo() {
               총 {wordListData?.length}개
             </span>
 
-            <Link to={`/vocabulary/wordAdd/${id}/${wordData.wordName}`} className="btn_add_word">
-              <span>작성하기</span>
-            </Link>
           </div>
 
           <ul className="info_list">
@@ -296,14 +301,7 @@ export default function WordInfo() {
 
           </ul>
 
-        <div className="comment_input_box">
-          <div className={`input_box`}>
-            <textarea type="text" placeholder="댓글 입력"></textarea>
-            <button type="button" className="btn_comment_submit">
-              <span>등록</span>
-            </button>
-          </div>
-        </div>
+        <AddComponent wordName={wordData?.wordName} length={100} contentVelueCheck={contentVelueCheck}></AddComponent>
 
       </div>
 

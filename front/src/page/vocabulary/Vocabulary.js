@@ -41,7 +41,6 @@ export default function Word() {
   useEffect(() => {
     if (wordList && wordList.wordList) {
       setLibraryData(wordList.wordList);
-      console.log(wordList)
     }
     // 현재 페이지가 마지막 페이지가 아니라면 더보기 미노출
     if (wordList?.nowPage !== wordList?.totalPage) {
