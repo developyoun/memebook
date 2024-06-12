@@ -208,65 +208,6 @@
   }
 }
 
-.comment_input_box {
-  position:fixed;
-  left:0;
-  bottom:0;
-  width:100%;
-  padding:16px;
-  z-index:10;
-  box-sizing:border-box;
-  .input_box {
-    display:flex;
-    flex-wrap:wrap;
-    width:100%;
-    padding:16px;
-    border: 1px solid var(--primary-50);
-    border-radius:8px;
-    background:#fff;
-    &.invalid {
-      border-color:var(--bg-red);
-    }
-    .reply_nickname {
-      display:block;
-      margin-bottom:10px;
-      font-size:12px;
-      font-weight:bold;
-    }
-    textarea {
-      width: 100%;
-      height:36px;
-      margin-bottom:8px;
-      font-size: 12px;
-      border:none;
-      box-sizing: border-box;
-      resize: none;
-      &.active {
-        height:180px
-      }
-    }
-    .btn_comment_submit {
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      margin-left:auto;
-      padding:0 4px 0 8px;
-      color:#fff;
-      font-size:12px;
-      border-radius:4px;
-      background:var(--primary-20);
-      &:after {
-        content:'';
-        display:block;
-        margin-left:4px;
-        width:24px;
-        height:24px;
-        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M15 1L1 6.76471L6.76471 9.23529M15 1L9.23529 15L6.76471 9.23529M15 1L6.76471 9.23529' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
-      }
-    }
-  }
-}
-
 
 @media screen and (max-width:960px) {
   .community_wrap {
@@ -408,8 +349,6 @@
     }
   }
 
-  .comment_input_box {
-    bottom:80px;
-  }
+
 }
 
