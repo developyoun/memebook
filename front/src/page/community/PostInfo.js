@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {postDetailData} from "./../../util/action/communityAction";
-import './../../scss/page/community/community.scss'
+import './../../scss/page/community/postInfo.scss'
 
 export default function PostInfo() {
   const id = useParams();
@@ -31,6 +31,7 @@ export default function PostInfo() {
     async function postDetailApi() {
       try {
         await dispatch(postDetailData(id.id));
+        console.log(postDetail)
       } catch (error) {
         console.log(error)
       }
@@ -176,9 +177,6 @@ export default function PostInfo() {
               )
             }
           </div>
-          <p className="post_con">{postDetail?.articleContent}</p>
-          <button type="button" className="btn_post_more">더보기</button>
-
           <div className="post_reaction">
             <button type="button" className={`btn_post_like ${postReactionState ? 'active' : ''}`}
                     onClick={postReaction}>
@@ -192,104 +190,111 @@ export default function PostInfo() {
               <span className="blind">조회수</span>
             </Link>
           </div>
+
+          <p className="post_con">{postDetail?.articleContent}</p>
+
         </div>
 
         {/* 코멘트 리스트 */}
-        <ul className="comment_list">
-          {
-            postDetail?.commentDtoList?.map((item, idx) => {
-              return (
-                <li className="list" key={idx}>
-                  <div className="comment_box">
+        {
+          postDetail?.commentDtoList.length > 0 && (
+            <ul className="post_comment">
+              {
+                postDetail?.commentDtoList?.map((item, idx) => {
+                  return (
+                    <li className="list" key={idx}>
+                      <div className="comment_box">
 
-                    {
-                      item?.deleted === false && (
-                        <>
-                          <div className="comment_top">
-                            <span className="comment_nickname">{item?.nickname}</span>
-                            <p className="comment_txt">{item?.commentContent}</p>
-                          </div>
-                          <div className="comment_btm">
-                            <button type="button" className="btn_reply"
-                                    onClick={() => commentReplyData(item?.nickname, item?.commentIdx)}>답글 달기
-                            </button>
-                            <button type="button" className="btn_icon like">
-                              <span className="blind">좋아요</span>
-                            </button>
-                            {
-                              item?.commentMemberIdx === memberIdx && (
-                                <button type="button" className="btn_delete" onClick={() => {
-                                  commentDeleteData(item?.commentIdx)
-                                }}>
-                                  <span className="blind">댓글 삭제</span>
-                                </button>
-                              )
-                            }
-                          </div>
-                        </>
-                      )
-                    }
-
-                    {/* 작성자가 삭제한 댓글 */}
-                    {
-                      item?.deleted === true && (
                         <div className="comment_top">
-                          <p className="txt">작성자가 삭제한 댓글입니다</p>
-                        </div>
-                      )
-                    }
-                  </div>
-
-                  {/* 대댓 */}
-                  {
-                    item?.commentReplyList.length !== 0 && (
-                      <ul className="comment_list">
-                        {
-                          item?.commentReplyList?.map((reply, idx) => {
-                            return (
-                              <li className="list" key={idx}>
-                                <div className="comment_box">
-                                  <div className="comment_top">
-                                    <span className="comment_nickname">{reply?.nickname}</span>
-                                    <p className="comment_txt">
-                                      <span className="comment_tag">@{item?.nickname}</span>
-                                      {reply?.commentContent}
-                                    </p>
-
-                                  </div>
-                                  <div className="comment_btm">
-                                    <button type="button" className="btn_reply"
-                                            onClick={() => commentReplyData(item?.nickname, item?.commentIdx)}>답글 달기
-                                    </button>
-                                    <button type="button" className="btn_icon like">
-                                      <span className="blind">좋아요</span>
-                                    </button>
-                                    {
-                                      item?.commentMemberIdx === memberIdx && (
-                                        <button type="button" className="btn_delete" onClick={() => {
-                                          commentDeleteData(item?.commentIdx)
-                                        }}>
-                                          <span className="blind">댓글 삭제</span>
-                                        </button>
-                                      )
-                                    }
-
-                                  </div>
-                                </div>
-                              </li>
+                          <span className="comment_nickname">{item?.nickname}</span>
+                          {/* 작성자가 삭제한 댓글 */}
+                            {
+                            item?.deleted === true && (
+                              <p className="comment_txt none">작성자가 삭제한 댓글입니다</p>
                             )
-                          })
-                        }
-                      </ul>
-                    )
-                  }
+                          }
+                          {
+                            item?.deleted === false && (
+                             <>
+                               <p className="comment_txt">{item?.commentContent}</p>
+                               <div className="comment_btm">
+                                 <button type="button" className="btn_reply"
+                                         onClick={() => commentReplyData(item?.nickname, item?.commentIdx)}>답글 달기
+                                 </button>
+                                 <button type="button" className="btn_icon like">
+                                   <span className="blind">좋아요</span>
+                                 </button>
+                                 {
+                                   item?.commentMemberIdx === memberIdx && (
+                                     <button type="button" className="btn_delete" onClick={() => {
+                                       commentDeleteData(item?.commentIdx)
+                                     }}>
+                                       <span className="blind">댓글 삭제</span>
+                                     </button>
+                                   )
+                                 }
+                               </div>
+                             </>
+                            )
+                          }
+                        </div>
 
-                </li>
-              )
-            })
-          }
 
-        </ul>
+                      </div>
+
+                      {/* 대댓 */}
+                      {
+                        item?.commentReplyList.length !== 0 && (
+                          <ul className="comment_list">
+                            {
+                              item?.commentReplyList?.map((reply, idx) => {
+                                return (
+                                  <li className="list" key={idx}>
+                                    <div className="comment_box">
+                                      <div className="comment_top">
+                                        <span className="comment_nickname">{reply?.nickname}</span>
+                                        <p className="comment_txt">
+                                          <span className="comment_tag">@{item?.nickname}</span>
+                                          {reply?.commentContent}
+                                        </p>
+
+                                      </div>
+                                      <div className="comment_btm">
+                                        <button type="button" className="btn_reply"
+                                                onClick={() => commentReplyData(item?.nickname, item?.commentIdx)}>답글 달기
+                                        </button>
+                                        <button type="button" className="btn_icon like">
+                                          <span className="blind">좋아요</span>
+                                        </button>
+                                        {
+                                          item?.commentMemberIdx === memberIdx && (
+                                            <button type="button" className="btn_delete" onClick={() => {
+                                              commentDeleteData(item?.commentIdx)
+                                            }}>
+                                              <span className="blind">댓글 삭제</span>
+                                            </button>
+                                          )
+                                        }
+
+                                      </div>
+                                    </div>
+                                  </li>
+                                )
+                              })
+                            }
+                          </ul>
+                        )
+                      }
+
+                    </li>
+                  )
+                })
+              }
+
+            </ul>
+          )
+        }
+
 
         <div className="comment_input_box">
           <div className={`input_box ${commentLength ? 'invalid' : ''}`}>
