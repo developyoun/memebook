@@ -13,12 +13,12 @@
       margin-bottom:8px;
       .post_nickname {
         flex-shrink:0;
-        font-size:14px;
+        font-size:12px;
         line-height:18px;
       }
       .post_tit {
         margin-right:auto;
-        font-size:18px;
+        font-size:16px;
         font-weight:bold;
       }
       .btn_set {
@@ -47,7 +47,7 @@
         .txt_count {
           margin-left:8px;
           color:var(--primary-40);
-          font-size:12px;
+          font-size:14px;
         }
         &.reaction_comment {
           &:before {
@@ -80,7 +80,7 @@
     // 포스트 내용
     .post_con {
       display: -webkit-box;
-      font-size:16px;
+      font-size:14px;
       overflow: hidden;
       text-overflow: ellipsis;
       -webkit-line-clamp: 3;
@@ -97,6 +97,9 @@
     margin-top:24px;
     padding:24px 0 80px;
     border-top:3px solid var(--primary-60);
+    &.active {
+      padding-bottom:200px;
+    }
     .list {
       &+.list {
         margin-top:16px;
@@ -118,11 +121,11 @@
             display:flex;
             align-items:center;
             margin-top:8px;
-            font-size:16px;
+            font-size:14px;
             word-break:break-all;
             &.none {
               color:var(--primary-40);
-              font-size:14px;
+              font-size:12px;
             }
           }
         }

@@ -70,7 +70,7 @@ export default function Community() {
             </Swiper>
 
             <div className="commu_desc">
-              총  개
+              총 {postList.totalCount}개
             </div>
 
             <div className="commu_list">

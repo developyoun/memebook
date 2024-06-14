@@ -1,30 +1,21 @@
 import {memebookApi} from "./../../util/memebookApi";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useLocation, useParams} from "react-router-dom";
 import Title from './../../components/Title'
-import './../../scss/page/community/postAdd.scss'
 import InputComponent from "../../components/InputComponent";
 import TextareaComponent from "../../components/TextareaComponent";
+import './../../scss/page/community/postAdd.scss'
 
 export default function PostAdd() {
   const id = useParams();
   const location = useLocation();
-  // 제목
-  const [titleNull, setTitleNull] = useState(false);
-  const [titleCount, setTitleCount] = useState(0);
-  const [titleOver, setTitleOver] = useState(false);
-  const [titleValue, setTitleValue] = useState(false);
-  // 내용
-  const [contentNull, setContentNull] = useState(false);
-  const [contentValue, setContentValue] = useState(false);
-  const [contentCount, setContentCount] = useState(0);
-  const [contentOver, setContentOver] = useState(false);
+  const [titleValue, setTitleValue] = useState('');
+  const [contentValue, setContentValue] = useState('');
   // 글 디테일 페이지에서 가져온 제목, 내용
   const { title, content } = location.state || {};
 
   const [memberIdx, setMemberIdx] = useState(321);
 
-  // 인풋 컴포넌트에서 내용 받아서 보내기
   const titleValueCheck = (length) => {
     setTitleValue(length);
   }
@@ -81,7 +72,7 @@ export default function PostAdd() {
           <TextareaComponent length={100} content={content} contentVelueCheck={contentVelueCheck}></TextareaComponent>
         </div>
         <div className="btn_box">
-          <button type="button" className="btn_submit" disabled={titleNull && contentNull ? true : null}  onClick={title && content ? () => postAddData('modify') : () => postAddData('add')}>등록하기</button>
+          <button type="button" className="btn_submit" onClick={title && content ? () => postAddData('modify') : () => postAddData('add')}>등록하기</button>
         </div>
 
       </div>

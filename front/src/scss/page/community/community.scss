@@ -75,20 +75,22 @@
 
       .post_nickname {
         flex-shrink: 0;
-        font-size: 14px;
+        font-size: 12px;
         line-height: 18px;
       }
 
       .post_tit {
         margin-right: auto;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: bold;
       }
 
       .btn_set {
         margin-left: 8px;
       }
-
+    }
+    .post_con {
+      font-size:14px;
     }
     .post_reaction {
       display: flex;

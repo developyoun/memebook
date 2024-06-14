@@ -1,9 +1,10 @@
 import {memebookApi} from "./../../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {postDetailData} from "./../../util/action/communityAction";
 import './../../scss/page/community/postInfo.scss'
+import OutsideHook from "../../util/OutsideHook";
 
 export default function PostInfo() {
   const id = useParams();
@@ -12,19 +13,27 @@ export default function PostInfo() {
   const postDetail = useSelector(state => state.meme.postDetail);
   // 글 좋아요
   const [postReactionState, setPostReactionState] = useState(false);
-  // 툴팁
-  const [wordSetState, setWordSetState] = useState(false);
   // 댓글 폼 활성화
+  // 클릭영역 외
   const [textareaActive, setTextareaActive] = useState(false);
+  const textRef = useRef(null);
+  OutsideHook(textRef, () => setTextareaActive(false));
   // 댓글
   const [commentIdx, setCommentIdx] = useState();
   const [commentValue, setCommentValue] = useState();
   const [commentLength, setCommentLength] = useState(false);
   const [commentState, setCommentState] = useState(false);
   // 대댓글
+  const [replyIdx, setReplyIdx] = useState('');
   const [replyNickname, setReplyNickname] = useState('');
+  // 클릭영역 외
+  const [isVisible, setIsVisible] = useState(false);
+  const sideRef = useRef(null);
+  OutsideHook(sideRef, () => setIsVisible(false));
 
   const [memberIdx, setMemberIdx] = useState(321);
+
+
 
   // 글 상세 Api
   useEffect(() => {
@@ -76,7 +85,7 @@ export default function PostInfo() {
 
   // 툴팁 열기
   const wordSet = () => {
-    setWordSetState(!wordSetState);
+    setIsVisible(!isVisible);
   }
 
   // 댓글 개수
@@ -95,8 +104,9 @@ export default function PostInfo() {
   };
 
   // 답글 달기 - 닉네임 추가
-  const commentReplyData = (nickname, commentIdx) => {
+  const commentReplyData = (nickname, commentIdx, upperIdx) => {
     setReplyNickname(nickname);
+    setReplyIdx(upperIdx);
     setCommentIdx(commentIdx);
   }
 
@@ -107,14 +117,14 @@ export default function PostInfo() {
   };
 
   // 댓글 달기
-  async function commentSubmitData() {
+  async function commentSubmitData(type) {
     try {
       if (commentValue?.length > 0) {
         await memebookApi.commentAddApi({
           "commentContent": commentValue,
           "articleIdx": id.id,
           "memberIdx": memberIdx,
-          "upperIdx": commentIdx,
+          "upperIdx": type === 'reply' ? replyIdx : commentIdx,
         });
         setCommentState(!commentState);
         setTextareaActive(false);
@@ -142,9 +152,9 @@ export default function PostInfo() {
               <span className="blind">유저 셋</span>
             </button>
             {
-              wordSetState && (
+              isVisible && (
                 <>
-                  <ul className="set_box">
+                  <ul className="set_box"  ref={sideRef}>
                     {
                       postDetail?.articleMemberIdx !== memberIdx && (
                         <li>
@@ -198,7 +208,7 @@ export default function PostInfo() {
         {/* 코멘트 리스트 */}
         {
           postDetail?.commentDtoList.length > 0 && (
-            <ul className="post_comment">
+            <ul className={`post_comment ${textareaActive ? 'active' : ''}`} >
               {
                 postDetail?.commentDtoList?.map((item, idx) => {
                   return (
@@ -206,20 +216,21 @@ export default function PostInfo() {
                       <div className="comment_box">
 
                         <div className="comment_top">
-                          <span className="comment_nickname">{item?.nickname}</span>
                           {/* 작성자가 삭제한 댓글 */}
-                            {
+                          {
                             item?.deleted === true && (
                               <p className="comment_txt none">작성자가 삭제한 댓글입니다</p>
                             )
                           }
+
                           {
                             item?.deleted === false && (
                              <>
+                               <span className="comment_nickname">{item?.nickname}</span>
                                <p className="comment_txt">{item?.commentContent}</p>
                                <div className="comment_btm">
                                  <button type="button" className="btn_reply"
-                                         onClick={() => commentReplyData(item?.nickname, item?.commentIdx)}>답글 달기
+                                         onClick={() => commentReplyData(item?.nickname, item?.commentIdx, item?.upperIdx)}>답글 달기
                                  </button>
                                  <button type="button" className="btn_icon like">
                                    <span className="blind">좋아요</span>
@@ -252,7 +263,7 @@ export default function PostInfo() {
                                   <li className="list" key={idx}>
                                     <div className="comment_box">
                                       <div className="comment_top">
-                                        <span className="comment_nickname">{reply?.nickname}</span>
+
 
                                         {/* 작성자가 삭제한 댓글 */}
                                         {
@@ -262,31 +273,35 @@ export default function PostInfo() {
                                         }
                                         {
                                           reply?.deleted === false && (
-                                            <p className="comment_txt">
-                                              <span className="comment_tag">@{item?.nickname}</span>
-                                              {reply?.commentContent}
-                                            </p>
-                                          )
-                                        }
-                                      </div>
-                                      <div className="comment_btm">
-                                        <button type="button" className="btn_reply"
-                                                onClick={() => commentReplyData(reply?.nickname, reply?.commentIdx)}>답글 달기
-                                        </button>
-                                        <button type="button" className="btn_icon like">
-                                          <span className="blind">좋아요</span>
-                                        </button>
-                                        {
-                                          reply?.commentMemberIdx === memberIdx && (
-                                            <button type="button" className="btn_delete" onClick={() => {
-                                              commentDeleteData(reply?.commentIdx)
-                                            }}>
-                                              <span className="blind">댓글 삭제</span>
-                                            </button>
-                                          )
-                                        }
+                                           <>
+                                             <span className="comment_nickname">{reply?.nickname}</span>
+                                             <p className="comment_txt">
+                                               <span className="comment_tag">@{item?.nickname}</span>
+                                               {reply?.commentContent}
+                                             </p>
+                                             <div className="comment_btm">
+                                               <button type="button" className="btn_reply"
+                                                       onClick={() => commentReplyData(reply?.nickname, reply?.commentIdx)}>답글 달기
+                                               </button>
+                                               <button type="button" className="btn_icon like">
+                                                 <span className="blind">좋아요</span>
+                                               </button>
+                                               {
+                                                 reply?.commentMemberIdx === memberIdx && (
+                                                   <button type="button" className="btn_delete" onClick={() => {
+                                                     commentDeleteData(reply?.commentIdx)
+                                                   }}>
+                                                     <span className="blind">댓글 삭제</span>
+                                                   </button>
+                                                 )
+                                               }
 
+                                             </div>
+                                           </>
+                                          )
+                                        }
                                       </div>
+
                                     </div>
                                   </li>
                                 )
@@ -313,11 +328,11 @@ export default function PostInfo() {
                 <span className="reply_nickname" onClick={replayNicknameDelete}>@{replyNickname}</span>
               )
             }
-            <textarea type="text" className={`${textareaActive ? 'active' : ''}`} value={commentValue}
+            <textarea type="text" className={`${textareaActive ? 'active' : ''}`} ref={textRef} value={commentValue}
                       placeholder="댓글 입력" onClick={commtentActive} onChange={commentValueCount}></textarea>
-            <button type="button" className="btn_comment_submit" onClick={() => {
-              commentSubmitData(commentIdx)
-            }}>
+            <button type="button" className="btn_comment_submit"
+                    onClick={() => { replyIdx > 0 ?  commentSubmitData('reply') : commentSubmitData('comment')}}
+            >
               <span>등록</span>
             </button>
           </div>
