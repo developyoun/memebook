@@ -20,45 +20,17 @@ export default function PostAdd() {
   const [contentCount, setContentCount] = useState(0);
   const [contentOver, setContentOver] = useState(false);
   // 글 디테일 페이지에서 가져온 제목, 내용
-  const title = location.state?.title;
-  const content = location.state?.content;
+  const { title, content } = location.state || {};
 
   const [memberIdx, setMemberIdx] = useState(321);
-
-  // 수정할 때 추가로 입력하지 않는 상태 방지
-  useEffect(() => {
-    setTitleValue(title);
-    setContentValue(content);
-    setTitleCount(title?.length);
-    setContentCount(content?.length);
-  }, []);
-
-  // 제목 입력
-  const titleValueCount = (event) => {
-    setTitleValue(event.target.value);
-    setTitleCount(event.target.value.length);
-    console.log(event.target.value)
-    event.target.value.length >= 30 ? setTitleOver(true) : setTitleOver(false);
-    event.target.value.length === 0 ? setTitleNull(true) : setTitleNull(false);
-  }
-
-  // 내용 입력
-  const contentValueCount = (event) => {
-    setContentValue(event.target.value);
-    setContentCount(event.target.value.length);
-    event.target.value.length.length >= 99 ? setContentOver(true) : setContentOver(false);
-    event.target.value.length === 0 ? setContentNull(true) : setContentNull(false);
-  }
 
   // 인풋 컴포넌트에서 내용 받아서 보내기
   const titleValueCheck = (length) => {
     setTitleValue(length);
-    console.log(length)
   }
 
   const contentVelueCheck = (length) => {
     setContentValue(length);
-    console.log(length)
   }
 
   // 글 등록하기
@@ -71,6 +43,7 @@ export default function PostAdd() {
           "memberIdx": memberIdx,
           "articleContent": contentValue,
         });
+        console.log('등록성공')
         window.history.back();
       } else if (type === 'modify') {
         // 수정
@@ -80,10 +53,10 @@ export default function PostAdd() {
           "articleContent": contentValue,
         });
         window.history.back();
+        console.log('수정성공')
       }
     } catch (error) {
-      console.log(error)
-      console.log('에러')
+      console.log(error);
     }
   }
   return (
@@ -97,7 +70,7 @@ export default function PostAdd() {
           <div className="input_top">
             <h4 className="tit">제목</h4>
           </div>
-          <InputComponent length={20} word={titleValue} titleValueCheck={titleValueCheck}></InputComponent>
+          <InputComponent length={20} word={title} titleValueCheck={titleValueCheck}></InputComponent>
         </div>
 
         <div className="input_box">
@@ -105,7 +78,7 @@ export default function PostAdd() {
             <h4 className="tit">내용</h4>
           </div>
 
-          <TextareaComponent length={100} contentVelueCheck={contentVelueCheck}></TextareaComponent>
+          <TextareaComponent length={100} content={content} contentVelueCheck={contentVelueCheck}></TextareaComponent>
         </div>
         <div className="btn_box">
           <button type="button" className="btn_submit" disabled={titleNull && contentNull ? true : null}  onClick={title && content ? () => postAddData('modify') : () => postAddData('add')}>등록하기</button>

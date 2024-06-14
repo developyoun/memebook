@@ -13,16 +13,18 @@ export default function InputComponent(props) {
     }
   }, []);
 
-  const titleValueCount = (event) => {
+  const titleValueCheck = (event) => {
     setTitleValue(event.target.value);
     setTitleCount(event.target.value.length);
     event.target.value.length >= props.length - 1 ? setTitleOver(true) : setTitleOver(false)
     setTitleNull(false);
-    console.log(titleValue)
+    if (props.titleValueCheck) {
+      props.titleValueCheck(event.target.value);
+    }
   }
   return (
     <>
-      <input type="text" className="text_input" placeholder="단어를 입력해주세요" value={titleValue} maxLength={props.length - 1} onChange={titleValueCount} />
+      <input type="text" className="text_input" placeholder="단어를 입력해주세요" value={titleValue} maxLength={props.length - 1} onChange={titleValueCheck} />
 
       <div className="input_sub">
         {
