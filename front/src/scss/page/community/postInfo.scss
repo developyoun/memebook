@@ -95,7 +95,7 @@
   // 코멘트 리스트
   .post_comment {
     margin-top:24px;
-    padding-top:24px;
+    padding:24px 0 80px;
     border-top:3px solid var(--primary-60);
     .list {
       &+.list {
@@ -108,13 +108,15 @@
           .comment_tag {
             margin-right:8px;
             color:var(--primary-10);
-            font-size:12px;
+            font-size:14px;
           }
           .comment_nickname {
             margin-right:16px;
             font-size:12px;
           }
           .comment_txt {
+            display:flex;
+            align-items:center;
             margin-top:8px;
             font-size:16px;
             word-break:break-all;

@@ -24,7 +24,7 @@ export default function PostInfo() {
   // 대댓글
   const [replyNickname, setReplyNickname] = useState('');
 
-  const [memberIdx, setMemberIdx] = useState(123);
+  const [memberIdx, setMemberIdx] = useState(321);
 
   // 글 상세 Api
   useEffect(() => {
@@ -253,23 +253,33 @@ export default function PostInfo() {
                                     <div className="comment_box">
                                       <div className="comment_top">
                                         <span className="comment_nickname">{reply?.nickname}</span>
-                                        <p className="comment_txt">
-                                          <span className="comment_tag">@{item?.nickname}</span>
-                                          {reply?.commentContent}
-                                        </p>
 
+                                        {/* 작성자가 삭제한 댓글 */}
+                                        {
+                                          reply?.deleted === true && (
+                                            <p className="comment_txt none">작성자가 삭제한 댓글입니다</p>
+                                          )
+                                        }
+                                        {
+                                          reply?.deleted === false && (
+                                            <p className="comment_txt">
+                                              <span className="comment_tag">@{item?.nickname}</span>
+                                              {reply?.commentContent}
+                                            </p>
+                                          )
+                                        }
                                       </div>
                                       <div className="comment_btm">
                                         <button type="button" className="btn_reply"
-                                                onClick={() => commentReplyData(item?.nickname, item?.commentIdx)}>답글 달기
+                                                onClick={() => commentReplyData(reply?.nickname, reply?.commentIdx)}>답글 달기
                                         </button>
                                         <button type="button" className="btn_icon like">
                                           <span className="blind">좋아요</span>
                                         </button>
                                         {
-                                          item?.commentMemberIdx === memberIdx && (
+                                          reply?.commentMemberIdx === memberIdx && (
                                             <button type="button" className="btn_delete" onClick={() => {
-                                              commentDeleteData(item?.commentIdx)
+                                              commentDeleteData(reply?.commentIdx)
                                             }}>
                                               <span className="blind">댓글 삭제</span>
                                             </button>
@@ -306,7 +316,7 @@ export default function PostInfo() {
             <textarea type="text" className={`${textareaActive ? 'active' : ''}`} value={commentValue}
                       placeholder="댓글 입력" onClick={commtentActive} onChange={commentValueCount}></textarea>
             <button type="button" className="btn_comment_submit" onClick={() => {
-              commentSubmitData(replyNickname)
+              commentSubmitData(commentIdx)
             }}>
               <span>등록</span>
             </button>
