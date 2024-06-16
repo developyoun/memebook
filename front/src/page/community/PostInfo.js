@@ -154,7 +154,7 @@ export default function PostInfo() {
             {
               isVisible && (
                 <>
-                  <ul className="set_box"  ref={sideRef}>
+                  <ul className="set_box" ref={sideRef}>
                     {
                       postDetail?.articleMemberIdx !== memberIdx && (
                         <li>

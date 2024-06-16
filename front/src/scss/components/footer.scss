@@ -1,0 +1,16 @@
+.footer {
+  margin-top:40px;
+  padding:40px 0;
+  border-top:1px solid var(--primary-60);
+  ul {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:0 16px;
+    li {
+      .item {
+        font-size:12px;
+      }
+    }
+  }
+}
