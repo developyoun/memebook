@@ -41,7 +41,6 @@ export default function WordAdd() {
   // 내용 받아오기
   const contentVelueCheck = (length) => {
     setContentValue(length);
-    console.log(length)
   }
 
   // 툴팁

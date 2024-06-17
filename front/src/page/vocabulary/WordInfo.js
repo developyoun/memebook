@@ -37,7 +37,6 @@ export default function WordInfo() {
   const [reportOpen, setReportOpen] = useState(false);
 
 
-
   // 신고하기 팝업
   const commentReportOpen = ({commentPortClose}) => {
     setReportOpen(!reportOpen);
@@ -60,6 +59,7 @@ export default function WordInfo() {
         console.log(error)
       }
     }
+
     wordDetailApi();
   }, [modifyState, setScrapData, deleteState, memberIdx, id, addState]);
 
@@ -107,8 +107,7 @@ export default function WordInfo() {
     try {
       if (!scrapData) {
         dispatch(scrapAddData(id, memberIdx));
-      }
-      else {
+      } else {
         dispatch(scrapDeleteData(scrapData));
       }
       setScrapData(!scrapData);
@@ -123,8 +122,8 @@ export default function WordInfo() {
   }
 
   // 수정하기
-  const modifyAction = () => {
-    setModifyState(true);
+  const modifyAction = (idx) => {
+    setModifyState(idx);
     setWordSetState(false);
   }
   // 수정된 단어
@@ -176,140 +175,141 @@ export default function WordInfo() {
     <div className="word_info_wrap">
 
       <div className="container">
-          <BtnBack></BtnBack>
+        <BtnBack></BtnBack>
+        {
+          reportOpen && (
+            <CommentPort commentPortClose={commentReportOpen}></CommentPort>
+          )
+        }
+        <div className="info_top">
+          <h1 className="word_tit">
+            {wordData?.wordName}
+          </h1>
+
+        </div>
+
+        <div className="info_desc">
           {
-              reportOpen && (
-                  <CommentPort commentPortClose={commentReportOpen}></CommentPort>
-              )
+            wordListData?.memberIdx !== memberIdx && (
+              <button type="button" className={`btn_scrap ${scrapData ? 'active' : ''}`} onClick={ScrapeBtn}>
+                <span className="blind">스크랩</span>
+              </button>
+            )
           }
-          <div className="info_top">
-              <h1 className="word_tit">
-                  {wordData?.wordName}
-              </h1>
-
-          </div>
-
-          <div className="info_desc">
-            {
-              wordListData?.memberIdx !== memberIdx && (
-                <button type="button" className={`btn_scrap ${scrapData ? 'active' : ''}`} onClick={ScrapeBtn}>
-                  <span className="blind">스크랩</span>
-                </button>
-              )
-            }
-            <span className="list_count">
+          <span className="list_count">
               총 {wordListData?.length}개
             </span>
 
-          </div>
+        </div>
 
-          <ul className="info_list">
-              {
-                  wordListData?.map((item, idx) => {
-                      return (
-                          <li className="list" key={idx}>
-                              <div className="mean_top">
-                                  <Link to={`/profile/${memberIdx}`} className="name">김누징</Link>
-                                  <ul className="util_list">
-                                      <li>
-                                          <button type="button" className="btn_like" onClick={() => {
-                                              wordReaction('like')
-                                          }}>
-                                              <span className="blind">좋아요</span>
-                                          </button>
-                                          <span className="count">
+        <ul className="info_list">
+          {
+            wordListData?.map((item, idx) => {
+              return (
+                <li className="list" key={idx}>
+                  <div className="mean_top">
+                    <Link to={`/profile/${memberIdx}`} className="name">김누징</Link>
+                    <ul className="util_list">
+                      <li>
+                        <button type="button" className="btn_like" onClick={() => {
+                          wordReaction('like')
+                        }}>
+                          <span className="blind">좋아요</span>
+                        </button>
+                        <span className="count">
                               {likeCount}
                             </span>
-                                      </li>
-                                      <li>
-                                          <button type="button" className="btn_dislike" onClick={() => {
-                                              wordReaction('dislike')
-                                          }}>
-                                              <span className="blind">싫어요</span>
-                                          </button>
-                                          <span className="count">
+                      </li>
+                      <li>
+                        <button type="button" className="btn_dislike" onClick={() => {
+                          wordReaction('dislike')
+                        }}>
+                          <span className="blind">싫어요</span>
+                        </button>
+                        <span className="count">
                               {dislikeCount}
                             </span>
-                                      </li>
+                      </li>
 
 
-                                      {
-                                          item.memberIdx === memberIdx && (
-                                              <li>
-                                                  <button type="button" className="btn_set" onClick={wordSet}>
-                                                      <span className="blind">유저 셋</span>
-                                                  </button>
-                                                  {
-                                                      wordSetState && (
-                                                          <>
-                                                              <ul className="set_box">
-                                                                  <li>
-                                                                      <button type="button" className="" onClick={commentReportOpen}>
-                                                                          <span>신고하기</span>
-                                                                      </button>
-                                                                  </li>
-                                                                  {
-                                                                      item.memberIdx === memberIdx && (
-                                                                          <>
-                                                                              <li>
-                                                                                  <button type="button" className="" onClick={modifyAction}>
-                                                                                      <span className="">수정</span>
-                                                                                  </button>
-                                                                              </li>
-                                                                              <li>
-                                                                                  <button type="button" className="" onClick={() => {
-                                                                                      wordDelete(item.wordContentIdx)
-                                                                                  }}>
-                                                                                      <span className="">삭제</span>
-                                                                                  </button>
+                      {
+                        item.memberIdx === memberIdx && (
+                          <li>
+                            <button type="button" className="btn_set" onClick={wordSet}>
+                              <span className="blind">유저 셋</span>
+                            </button>
+                            {
+                              wordSetState && (
+                                <>
+                                  <ul className="set_box">
+                                    <li>
+                                      <button type="button" className="" onClick={commentReportOpen}>
+                                        <span>신고하기</span>
+                                      </button>
+                                    </li>
+                                    {
+                                      item.memberIdx === memberIdx && (
+                                        <>
+                                          <li>
+                                            <button type="button" className="" onClick={() => modifyAction(idx)}>
+                                              <span className="">수정</span>
+                                            </button>
+                                          </li>
+                                          <li>
+                                            <button type="button" className="" onClick={() => {
+                                              wordDelete(item.wordContentIdx)
+                                            }}>
+                                              <span className="">삭제</span>
+                                            </button>
 
-                                                                              </li>
-                                                                          </>
-                                                                      )
-                                                                  }
-                                                              </ul>
-                                                          </>
-                                                      )
-                                                  }
-                                              </li>
-                                          )
-                                      }
-
-
+                                          </li>
+                                        </>
+                                      )
+                                    }
                                   </ul>
-                              </div>
-                              <div className="content_box">
-                                  {
-                                      !modifyState && (
-                                          <p className="word_modify_text">
-                                              {item.content}
-                                          </p>
-                                      )
-                                  }
-
-                                  {
-                                      modifyState && (
-                                          <>
-                        <textarea className="text_input word_modify_area" name="" id="" maxLength={99} onChange={contentChange}>
-                           {item.content}
-                        </textarea>
-                                              <button type="button" className="word_modify_btn" onClick={() => wordModify(item.wordContentIdx)}>
-                                                  수정
-                                              </button>
-                                          </>
-                                      )
-                                  }
-
-                              </div>
+                                </>
+                              )
+                            }
                           </li>
+                        )
+                      }
 
+
+                    </ul>
+                  </div>
+                  <div className="content_box">
+
+                    {
+                      modifyState !== idx ? (
+                        <p className="word_modify_text">{item.content}</p>
+                      ) : (
+                        <>
+                                  <textarea
+                                    className="word_modify_area"
+                                    maxLength={99}
+                                    onChange={(event) => contentChange(event, idx)}
+                                  >
+                                      {item.content}
+                                  </textarea>
+                          <button type="button" className="word_modify_btn"
+                                  onClick={() => wordModify(item.wordContentIdx)}>
+                            수정
+                          </button>
+                        </>
                       )
-                  })
-              }
+                    }
 
-          </ul>
+                  </div>
+                </li>
 
-        <AddComponent wordName={wordData?.wordName} length={100} addSubmit={addStateCheck} contentVelueCheck={contentVelueCheck}></AddComponent>
+              )
+            })
+          }
+
+        </ul>
+
+        <AddComponent wordName={wordData?.wordName} length={100} addSubmit={addStateCheck}
+                      contentVelueCheck={contentVelueCheck}></AddComponent>
 
       </div>
 

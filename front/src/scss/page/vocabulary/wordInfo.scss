@@ -109,8 +109,16 @@
       font-size:14px;
     }
     .word_modify_area {
-      width:100%;
-      border:1px solid #ddd;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding:16px;
+      color: var(--primary-10);
+      font-size: 14px;
+      border: 1px solid var(--primary-50);
+      border-radius: 6px;
+      box-sizing: border-box;
+      resize: none;
     }
     .word_modify_btn {
       display:inline-flex;
