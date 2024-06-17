@@ -12,7 +12,7 @@ import AddComponent from "../../components/AddComponent";
 export default function WordInfo() {
   let {id} = useParams();
   const dispatch = useDispatch();
-  const [memberIdx, setMemberIdx] = useState(123);
+  const [memberIdx, setMemberIdx] = useState(321);
   // 단어 데이터
   const [wordData, setWordData] = useState([]);
   const [wordListData, setWordListData] = useState([]);
@@ -26,6 +26,8 @@ export default function WordInfo() {
   const scrapDelete = useSelector(state => state.meme.scrapDelete);
 
   const [wordSetState, setWordSetState] = useState(false);
+  // 수정하기
+  const [addState, setAddState] = useState(false);
   // 수정하기
   const [modifyState, setModifyState] = useState(false);
   const [modifyContent, setModifyContent] = useState('');
@@ -50,6 +52,7 @@ export default function WordInfo() {
         setWordData(wordDetailData.data);
         setScrapData(wordDetailData.data.scrapIdx);
         setWordListData(wordDetailData.data.wordContentList);
+        console.log(wordDetailData.data.wordContentList)
         if (wordDetailData?.data.status === "NOT_FOUND") {
           window.history.back();
         }
@@ -58,7 +61,7 @@ export default function WordInfo() {
       }
     }
     wordDetailApi();
-  }, [modifyState, setScrapData, deleteState, memberIdx, id]);
+  }, [modifyState, setScrapData, deleteState, memberIdx, id, addState]);
 
 
   // 좋아요/싫어요 update Api
@@ -162,6 +165,11 @@ export default function WordInfo() {
   const [contentValue, setContentValue] = useState(false);
   const contentVelueCheck = (length) => {
     setContentValue(length);
+
+  }
+
+  const addStateCheck = (state) => {
+    setAddState(!addState);
   }
 
   return (
@@ -301,7 +309,7 @@ export default function WordInfo() {
 
           </ul>
 
-        <AddComponent wordName={wordData?.wordName} length={100} contentVelueCheck={contentVelueCheck}></AddComponent>
+        <AddComponent wordName={wordData?.wordName} length={100} addSubmit={addStateCheck} contentVelueCheck={contentVelueCheck}></AddComponent>
 
       </div>
 

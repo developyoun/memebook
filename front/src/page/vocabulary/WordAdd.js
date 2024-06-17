@@ -11,14 +11,13 @@ import OutsideHook from "../../util/OutsideHook";
 export default function WordAdd() {
   let {word} = useParams();
   const [titleValue, setTitleValue] = useState(false);
-  const [titleLength, setTitleLength] = useState();
   const [contentValue, setContentValue] = useState(false);
   // 툴팁
   const [tipBoxState, setTipBoxState] = useState(false);
   const tipRef = useRef(null);
   OutsideHook(tipRef, () => setTipBoxState(false));
 
-  const [memberIdx, setMemberIdx] = useState('123');
+  const [memberIdx, setMemberIdx] = useState(321);
 
   async function wordAddPost() {
     try {
@@ -35,13 +34,14 @@ export default function WordAdd() {
   }
 
   // 타이틀 받아오기
-  const titleValueCheck = (title) => {
-    setTitleValue(title);
+  const titleValueCheck = (length) => {
+    setTitleValue(length);
   }
 
   // 내용 받아오기
   const contentVelueCheck = (length) => {
     setContentValue(length);
+    console.log(length)
   }
 
   // 툴팁
@@ -70,7 +70,7 @@ export default function WordAdd() {
               </div>
             </div>
           </div>
-          <InputComponent length={20} word={word} titleValueCheck={titleValueCheck}></InputComponent>
+          <InputComponent length={20} titleValueCheck={titleValueCheck}></InputComponent>
         </div>
 
 
