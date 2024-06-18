@@ -19,8 +19,6 @@ export default function AddComponent(props) {
   const contentValueCount = (event) => {
     setContentValue(event.target.value);
     props.contentVelueCheck(event.target.value);
-    console.log(contentValue);
-    console.log(props.wordName)
   }
   async function wordAddPost() {
     try {

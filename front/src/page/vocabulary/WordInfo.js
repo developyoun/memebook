@@ -1,6 +1,6 @@
 import {memebookApi} from "./../../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useRef} from "react";
 import {Link} from 'react-router-dom';
 import {useParams} from "react-router-dom";
 import {scrapAddData, scrapDeleteData} from "./../../util/action/scrapAction";
@@ -8,6 +8,7 @@ import CommentPort from "./../../modal/CommentPort";
 import BtnBack from "./../../components/BtnBack";
 import './../../scss/page/vocabulary/wordInfo.scss'
 import AddComponent from "../../components/AddComponent";
+import OutsideHook from "../../util/OutsideHook";
 
 export default function WordInfo() {
   let {id} = useParams();
@@ -24,6 +25,11 @@ export default function WordInfo() {
   const [scrapData, setScrapData] = useState('');
   const scrapAdd = useSelector(state => state.meme.scrapAdd);
   const scrapDelete = useSelector(state => state.meme.scrapDelete);
+
+  // 클릭영역 외
+  const [isVisible, setIsVisible] = useState(false);
+  const setRef = useRef(null);
+  OutsideHook(setRef, () => setIsVisible(false));
 
   const [wordSetState, setWordSetState] = useState(false);
   // 수정하기
@@ -51,7 +57,7 @@ export default function WordInfo() {
         setWordData(wordDetailData.data);
         setScrapData(wordDetailData.data.scrapIdx);
         setWordListData(wordDetailData.data.wordContentList);
-        console.log(wordDetailData.data.wordContentList)
+        console.log(wordDetailData.data)
         if (wordDetailData?.data.status === "NOT_FOUND") {
           window.history.back();
         }
@@ -117,8 +123,9 @@ export default function WordInfo() {
   }
 
   // 수정하기
-  const wordSet = () => {
-    setWordSetState(!wordSetState);
+  const wordSet = (idx) => {
+    setWordSetState(idx);
+    setIsVisible(!isVisible);
   }
 
   // 수정하기
@@ -231,48 +238,45 @@ export default function WordInfo() {
                             </span>
                       </li>
 
+                      <li>
+                        <button type="button" className="btn_set" onClick={()=> wordSet(idx)}>
+                          <span className="blind">유저 셋</span>
+                        </button>
+                        {
+                          isVisible && wordSetState === idx && (
+                            <>
+                              <ul className="set_box" ref={setRef}>
+                                {
+                                  item.memberIdx === memberIdx ? (
+                                    <>
+                                      <li>
+                                        <button type="button" className="" onClick={() => modifyAction(idx)}>
+                                          <span className="">수정</span>
+                                        </button>
+                                      </li>
+                                      <li>
+                                        <button type="button" className="" onClick={() => {
+                                          wordDelete(item.wordContentIdx)
+                                        }}>
+                                          <span className="">삭제</span>
+                                        </button>
 
-                      {
-                        item.memberIdx === memberIdx && (
-                          <li>
-                            <button type="button" className="btn_set" onClick={wordSet}>
-                              <span className="blind">유저 셋</span>
-                            </button>
-                            {
-                              wordSetState && (
-                                <>
-                                  <ul className="set_box">
+                                      </li>
+                                    </>
+                                  ) : (
                                     <li>
                                       <button type="button" className="" onClick={commentReportOpen}>
                                         <span>신고하기</span>
                                       </button>
                                     </li>
-                                    {
-                                      item.memberIdx === memberIdx && (
-                                        <>
-                                          <li>
-                                            <button type="button" className="" onClick={() => modifyAction(idx)}>
-                                              <span className="">수정</span>
-                                            </button>
-                                          </li>
-                                          <li>
-                                            <button type="button" className="" onClick={() => {
-                                              wordDelete(item.wordContentIdx)
-                                            }}>
-                                              <span className="">삭제</span>
-                                            </button>
+                                  )
+                                }
+                              </ul>
+                            </>
+                          )
+                        }
+                      </li>
 
-                                          </li>
-                                        </>
-                                      )
-                                    }
-                                  </ul>
-                                </>
-                              )
-                            }
-                          </li>
-                        )
-                      }
 
 
                     </ul>
