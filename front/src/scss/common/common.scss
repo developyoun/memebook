@@ -454,7 +454,14 @@
         margin-top: 16px;
       }
     }
+  }
 
+  .wrap {
+    &:has(.layer_wrap), {
+      header {
+        display:none;
+      }
+    }
   }
 
   .input_sub {
