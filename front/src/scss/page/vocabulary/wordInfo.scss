@@ -104,8 +104,7 @@
   .content_box {
     display:flex;
     flex-wrap:wrap;
-    gap:8px 0;
-    margin-top:12px;
+    margin-top:20px;
     .word_modify_text {
       font-size:14px;
     }
@@ -127,14 +126,18 @@
       justify-content:center;
       flex-shrink:0;
       height:32px;
+      margin-top:24px;
       margin-left:auto;
       padding:0 16px;
-      color:var(--primary);
+      color:#fff;
       font-size:12px;
       line-height:26px;
-      border:1px solid var(--primary);
       border-radius:8px;
-      background:#fff;
+      background:var(--primary-20);
+      &:disabled {
+        color:var(--primary-20);
+        background:var(--primary-60);
+      }
     }
   }
 }

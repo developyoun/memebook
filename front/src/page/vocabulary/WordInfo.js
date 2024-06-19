@@ -129,9 +129,10 @@ export default function WordInfo() {
   }
 
   // 수정하기
-  const modifyAction = (idx) => {
+  const modifyAction = (idx, content) => {
     setModifyState(idx);
     setWordSetState(false);
+    setModifyContent(content);
   }
   // 수정된 단어
   const contentChange = (event) => {
@@ -250,7 +251,7 @@ export default function WordInfo() {
                                   item.memberIdx === memberIdx ? (
                                     <>
                                       <li>
-                                        <button type="button" className="" onClick={() => modifyAction(idx)}>
+                                        <button type="button" className="" onClick={() => modifyAction(idx, item.content)}>
                                           <span className="">수정</span>
                                         </button>
                                       </li>
@@ -290,12 +291,28 @@ export default function WordInfo() {
                         <>
                                   <textarea
                                     className="word_modify_area"
-                                    maxLength={99}
+                                    maxLength={101}
+                                    value={modifyContent}
                                     onChange={(event) => contentChange(event, idx)}
                                   >
-                                      {item.content}
                                   </textarea>
-                          <button type="button" className="word_modify_btn"
+                          <div className="input_sub">
+                            {
+                              modifyContent.length === 0 && (
+                                <p className="invalid_msg">&#128397; 한글자 이상 작성해주세요</p>
+                              )
+                            }
+                            {
+                              modifyContent.length >= 101 && (
+                                <p className="invalid_msg">&#128546; 100자 이하로 작성해주세요 !</p>
+                              )
+                            }
+                            <p className="character_count">
+                              {modifyContent.length}/100
+                            </p>
+                          </div>
+
+                          <button type="button" className="word_modify_btn" disabled={modifyContent.length === 0 || modifyContent.length >= 101}
                                   onClick={() => wordModify(item.wordContentIdx)}>
                             수정
                           </button>
