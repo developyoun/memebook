@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "./page/Layout";
 import {Route, Routes} from 'react-router-dom';
-import Login from "./page/main/Login";
+import Login from "./page/main/GoogleLoginButton";
 import Main from "./page/main/Main";
 import WordAdd from "./page/vocabulary/WordAdd";
 import WordInfo from "./page/vocabulary/WordInfo";
@@ -22,7 +22,7 @@ function App() {
   return (
     <Routes>
       <Route element={<Layout/>}>
-        <Route path="/" element={<Login/>}/>
+        <Route path="/" element={<Main/>}/>
         <Route path="/main" element={<Main/>}/>
         <Route path="/vocabulary/wordAdd/:id?/:word?" element={<WordAdd/>}/>
         <Route path="/vocabulary/wordInfo/:id" element={<WordInfo/>}/>

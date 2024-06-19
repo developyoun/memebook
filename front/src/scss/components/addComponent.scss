@@ -1,13 +1,6 @@
 .comment_input_box {
-    position:fixed;
-    left:50%;
-    bottom:0;
-    width:960px;
-    padding:16px 0;
-    z-index:10;
-    transform:translateX(-50%);
-    background:#fff;
-    box-sizing:border-box;
+    width:100%;
+    margin-top:36px;
     .input_box {
         display:flex;
         flex-wrap:wrap;
@@ -62,10 +55,13 @@
 
 @media screen and (max-width:960px) {
   .comment_input_box {
+    position:fixed;
     left:0;
-    bottom:80px;
+    bottom:20px;
     width:calc(100% - 40px);
     margin:0 20px;
-    transform:translateX(0);
+    z-index:10;
+    background:#fff;
+    box-sizing:border-box;
   }
 }

@@ -31,7 +31,7 @@ export default function PostInfo() {
   const sideRef = useRef(null);
   OutsideHook(sideRef, () => setIsVisible(false));
 
-  const [memberIdx, setMemberIdx] = useState(123);
+  const [memberIdx, setMemberIdx] = useState(321);
 
 
 

@@ -13,7 +13,7 @@ export default function Layout() {
   //   setIsDark(!isDark);
   // }
   return (
-    <div class="wrap">
+    <div className="wrap">
       <Header></Header>
       <div className={`content ${isDark ? 'dark' : ''}`}>
         <Outlet></Outlet>

@@ -18,7 +18,8 @@
   position:relative;
   margin:0 auto;
   min-width: 280px;
-  width: 960px;
+  width: 940px;
+  padding:0 20px;
   box-sizing: border-box;
   .input_box {
     .input_top {
@@ -460,6 +461,14 @@
   .wrap {
     &:has(.layer_wrap), {
       header {
+        display:none;
+      }
+    }
+    &:has(.post_wrap) {
+      .nav_sub {
+        display:none;
+      }
+      footer {
         display:none;
       }
     }

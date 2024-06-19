@@ -15,6 +15,7 @@ import './../../scss/page/main/main.scss';
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation, Pagination} from "swiper/modules";
 import OutsideHook from "../../util/OutsideHook";
+import GoogleLoginButton from "./GoogleLoginButton";
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -55,7 +56,6 @@ export default function Main() {
     dispatch(myWordListData(memberIdx));
     dispatch(postCommentData(memberIdx));
     dispatch(postCommentData(memberIdx));
-    console.log(myWordList)
   }, []);
 
 
@@ -119,6 +119,7 @@ export default function Main() {
           <NickName nickNameAdd={nickNameClose} nickNameInput={nickNameValue}></NickName>
         )
       }
+      <GoogleLoginButton />
 
       <div className="main_wrap">
 
