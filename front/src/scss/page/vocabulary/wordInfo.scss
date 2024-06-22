@@ -48,14 +48,14 @@
       &+.list {
         margin-top:32px;
         padding-top:32px;
-        border-top:1px solid #ddd;
+        border-top:1px solid var(--primary-60);
       }
     }
     .mean_top {
       display:flex;
       justify-content: space-between;
       .name {
-        font-size:12px;
+        font-size:14px;
       }
 
     }
@@ -69,6 +69,7 @@
           display:block;
           width:16px;
           height:16px;
+          margin-right:4px;
           background-position:center;
           background-repeat:no-repeat;
           &.btn_like {
@@ -92,7 +93,7 @@
         }
         .count {
           margin-left:4px;
-          font-size:12px;
+          font-size:14px;
         }
         &+li {
           margin-left:16px;
@@ -106,7 +107,7 @@
     flex-wrap:wrap;
     margin-top:20px;
     .word_modify_text {
-      font-size:14px;
+      font-size:16px;
     }
     .word_modify_area {
       display: flex;
@@ -114,7 +115,7 @@
       width: 100%;
       padding:16px;
       color: var(--primary-10);
-      font-size: 14px;
+      font-size: 16px;
       border: 1px solid var(--primary-50);
       border-radius: 6px;
       box-sizing: border-box;
@@ -130,7 +131,7 @@
       margin-left:auto;
       padding:0 16px;
       color:#fff;
-      font-size:12px;
+      font-size:14px;
       line-height:26px;
       border-radius:8px;
       background:var(--primary-20);

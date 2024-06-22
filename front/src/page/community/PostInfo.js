@@ -5,6 +5,7 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import {postDetailData} from "./../../util/action/communityAction";
 import './../../scss/page/community/postInfo.scss'
 import OutsideHook from "../../util/OutsideHook";
+import AddComponent from "../../components/AddComponent";
 
 export default function PostInfo() {
   const id = useParams();
@@ -34,6 +35,15 @@ export default function PostInfo() {
   const [memberIdx, setMemberIdx] = useState(321);
 
 
+  const [contentValue, setContentValue] = useState(false);
+  // 수정하기
+  const [addState, setAddState] = useState(false);
+  const contentVelueCheck = (length) => {
+    setContentValue(length);
+  }
+  const addStateCheck = (state) => {
+    setAddState(!addState);
+  }
 
   // 글 상세 Api
   useEffect(() => {
@@ -138,6 +148,15 @@ export default function PostInfo() {
       console.log(error)
     }
   }
+
+  const propsToSend = {
+    type: "community",
+    length: 100,
+    replyNickname : replyNickname,
+    replyIdx : replyIdx,
+    commentIdx : commentIdx
+  };
+
 
   return (
     <div className="post_wrap">
@@ -320,23 +339,33 @@ export default function PostInfo() {
           )
         }
 
+        <AddComponent {...propsToSend}
+                      addSubmit={addStateCheck}
+                      contentVelueCheck={contentVelueCheck}>
+        </AddComponent>
 
-        <div className="comment_input_box">
-          <div className={`input_box ${commentLength ? 'invalid' : ''}`}>
-            {
-              replyNickname && (
-                <span className="reply_nickname" onClick={replayNicknameDelete}>@{replyNickname}</span>
-              )
-            }
-            <textarea type="text" className={`${textareaActive ? 'active' : ''}`} ref={textRef} value={commentValue}
-                      placeholder="댓글 입력" onClick={commtentActive} onChange={commentValueCount}></textarea>
-            <button type="button" className="btn_comment_submit"
-                    onClick={() => { replyIdx > 0 ?  commentSubmitData('reply') : commentSubmitData('comment')}}
-            >
-              <span>등록</span>
-            </button>
-          </div>
-        </div>
+
+        {/*<div className="comment_input_box">*/}
+        {/*  <div className={`input_box ${commentLength ? 'invalid' : ''}`}>*/}
+        {/*    {*/}
+        {/*      replyNickname && (*/}
+        {/*        <span className="reply_nickname" onClick={replayNicknameDelete}>@{replyNickname}</span>*/}
+        {/*      )*/}
+        {/*    }*/}
+        {/*    <textarea placeholder="댓글 입력"*/}
+        {/*              className={`${textareaActive ? 'active' : ''}`}*/}
+        {/*              ref={textRef}*/}
+        {/*              value={commentValue}*/}
+        {/*              onClick={commtentActive}*/}
+        {/*              onChange={commentValueCount}>*/}
+        {/*    </textarea>*/}
+        {/*    <button type="button" className="btn_comment_submit"*/}
+        {/*            onClick={() => { replyIdx > 0 ?  commentSubmitData('reply') : commentSubmitData('comment')}}*/}
+        {/*    >*/}
+        {/*      <span>등록</span>*/}
+        {/*    </button>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
 
       </div>
     </div>
