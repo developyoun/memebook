@@ -604,6 +604,9 @@
     }
   }
   .list_box {
+    padding:0;
+    border-radius:0;
+    box-shadow:none;
     &.inside {
       padding:0;
     }
@@ -617,7 +620,7 @@
         border-top:1px solid var(--primary-60);
       }
       .link {
-        font-size:12px;
+        font-size:14px;
       }
       .content_count {
         display:flex;
