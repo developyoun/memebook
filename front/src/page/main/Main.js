@@ -177,11 +177,9 @@ export default function Main() {
            </div>
          </div>
 
-          <Swiper slidesPerView='auto' className="main_banner" navigation={true} pagination={true} modules={[Navigation, Pagination]}>
-            <SwiperSlide className={`tab_item`}>
-              광고
-            </SwiperSlide>
-          </Swiper>
+          <div className="main_banner">
+            광고
+          </div>
 
           <div className="main_con">
 

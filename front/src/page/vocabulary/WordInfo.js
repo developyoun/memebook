@@ -172,11 +172,15 @@ export default function WordInfo() {
   const [contentValue, setContentValue] = useState(false);
   const contentVelueCheck = (length) => {
     setContentValue(length);
-
   }
 
   const addStateCheck = (state) => {
     setAddState(!addState);
+  }
+
+  const propsToSend = {
+    type: "word",
+    length: 100
   }
 
   return (
@@ -329,8 +333,11 @@ export default function WordInfo() {
 
         </ul>
 
-        <AddComponent wordName={wordData?.wordName} length={100} addSubmit={addStateCheck}
-                      contentVelueCheck={contentVelueCheck}></AddComponent>
+        <AddComponent {...propsToSend}
+                      wordName={wordData?.wordName}
+                      addSubmit={addStateCheck}
+                      contentVelueCheck={contentVelueCheck}>
+        </AddComponent>
 
       </div>
 
