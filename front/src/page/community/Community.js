@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {Swiper, SwiperSlide} from "swiper/react";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
 import {postListData} from "../../util/action/communityAction";
 import './../../scss/page/community/community.scss'
@@ -15,7 +15,6 @@ export default function Community() {
     async function postListApi() {
       try {
         await dispatch(postListData());
-        console.log(postList);
       } catch (error) {
         console.log(error);
       }
@@ -86,9 +85,11 @@ export default function Community() {
                               <h3 className="post_tit">{item.articleTitle}</h3>
                               <span className="post_nickname">{item.memberNickname}</span>
                             </div>
+
                             <p className="post_con">{item.articleContent}</p>
+
                           </Link>
-                          <button type="button" className="btn_post_more">더보기</button>
+
 
                           <div className="post_reaction">
                             <button type="button" className={`btn_post_like ${postReactionState ? 'active' : ''}`} onClick={postReaction}>

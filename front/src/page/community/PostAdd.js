@@ -69,7 +69,7 @@ export default function PostAdd() {
             <h4 className="tit">내용</h4>
           </div>
 
-          <TextareaComponent length={100} content={content} contentVelueCheck={contentVelueCheck}></TextareaComponent>
+          <TextareaComponent length={1000} content={content} contentVelueCheck={contentVelueCheck}></TextareaComponent>
         </div>
         <div className="btn_box">
           <button type="button" className="btn_submit" onClick={title && content ? () => postAddData('modify') : () => postAddData('add')}>등록하기</button>

@@ -18,7 +18,7 @@
   position:relative;
   margin:0 auto;
   min-width: 280px;
-  width: 940px;
+  width: 1080px;
   padding:0 20px;
   box-sizing: border-box;
   .input_box {
@@ -438,7 +438,7 @@
   }
 }
 
-@media (max-width:960px) {
+@media screen and (max-width:1080px) {
   /* 공통 레이아웃 */
   .container {
     width:100%;
