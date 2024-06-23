@@ -125,17 +125,17 @@ export default function Main() {
 
         <div className="container">
          <div className="main_top">
-           <div className="user_country_box">
+           <div className="main_country">
              {
                studyCountryType === '' && (
-                 <span className="country_badge">언어 선택 하셨나요?</span>
+                 <span className="badge_country">언어 선택 하셨나요?</span>
                )
              }
              <button type="button" className={`user_country ${studyCountryType}`} onClick={countryChoiceClose}>
                <span className="blind">나라 선택</span>
              </button>
            </div>
-           <p>Let's Find Your Words!</p>
+           <p className="main_tit">Let's Find Your Words!</p>
 
            {
              nicknameSave && (
@@ -183,9 +183,8 @@ export default function Main() {
 
           <div className="main_con">
 
-            <div className="popular_box">
-              <h3 className="tit">💡 오늘 하루 인기 검색어 TOP </h3>
-
+            <div className="main_popular">
+              <h3 className="popular_tit">💡 오늘 하루 인기 검색어 TOP </h3>
               <ul className="popular_list">
                 {
                   wordList.wordList?.map((item, idx) => {
@@ -201,7 +200,7 @@ export default function Main() {
               </ul>
             </div>
 
-            <ul className="check_list">
+            <ul className="main_check">
 
               {/* 등록한 단어*/}
               <li className="list word">
@@ -275,6 +274,7 @@ export default function Main() {
                 }
               </li>
 
+              {/* 연속 방문 */}
               <li className="list visit">
                 <p className="link">
                   연속 방문 최대 <strong>12</strong>번을 달성했어요

@@ -9,7 +9,22 @@
     gap:0 16px;
     li {
       .item {
-        font-size:12px;
+        font-size:14px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width:1080px) {
+  .footer {
+    margin:40px 0 65px;
+    padding:16px 0 24px;
+    ul {
+      gap:0 8px;
+      li {
+        .item {
+          font-size:12px;
+        }
       }
     }
   }
