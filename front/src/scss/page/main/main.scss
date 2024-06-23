@@ -125,7 +125,7 @@
         display: flex;
         align-items: center;
         color: var(--primary-10);
-        font-size: 16px;
+        font-size: 18px;
         font-weight: bold;
       }
       .popular_list {
@@ -133,8 +133,8 @@
         flex-direction: column;
         flex-wrap: wrap;
         gap:24px 8px;
-        max-height: 216px;
-        margin-top:24px;
+        max-height: 222px;
+        margin-top:30px;
         li {
           display: flex;
           width: 50%;
@@ -146,7 +146,7 @@
             overflow: hidden;
             width: 100%;
             color: var(--primary-10);
-            font-size: 14px;
+            font-size: 16px;
             letter-spacing: -0.5px;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -208,7 +208,7 @@
     .main_check {
       position:relative;
       width:100%;
-      margin:40px 0 0 48px;
+      margin:46px 0 0 48px;
       .list {
         position:relative;
         display: flex;
@@ -220,14 +220,14 @@
           display: inline-block;
           width: 100%;
           color: var(--primary-10);
-          font-size:14px;
+          font-size:16px;
         }
         strong {
           color: #f09f2c;
         }
 
         & + .list {
-          margin-top: 16px;
+          margin-top: 24px;
         }
         &:before {
           position:absolute;
@@ -306,8 +306,8 @@
         }
         .main_tit {
           margin:12px 0 16px;
-          font-size:20px;
-          line-height: 20px;
+          font-size:22px;
+          line-height: 24px;
         }
         .search_box {
           width:calc(100% - 60px);
@@ -324,12 +324,15 @@
       .main_con {
         display:block;
         /* 메인 - 인기순위 */
-        .popular_box {
+        .main_popular {
+          .popular_tit {
+            font-size:16px;
+          }
           .popular_list {
             gap:16px 8px;
             li {
               .keyword {
-                font-size:12px;
+                font-size:14px;
               }
               .date {
                 color: #406A52;
@@ -355,6 +358,9 @@
             }
             & + .list {
               margin-top: 8px;
+            }
+            .link {
+              font-size:14px;
             }
           }
         }

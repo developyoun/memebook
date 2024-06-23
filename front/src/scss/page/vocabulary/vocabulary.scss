@@ -4,10 +4,10 @@
   .container {
     display:flex;
   }
-  // 타이틀
+  // 단어장 상단
   .voca_top {
-    flex:1;
-    width:100%;
+    flex-shrink:0;
+    width:260px;
     margin-bottom:24px;
     box-sizing:border-box;
     .voca_tit {
@@ -23,8 +23,8 @@
       .voca_txt {
         width:100%;
         margin-right:8px;
-        font-size:14px;
-        line-height:20px;
+        font-size:16px;
+        line-height:26px;
       }
       .btn_add_word {
         display:inline-flex;
@@ -41,19 +41,19 @@
       }
     }
   }
-  // 내용
+
+  // 단어장 컨텐츠
   .voca_con {
-    flex:3;
-    width:100%;
-    margin-left:28px;
+    width:calc(100% - 260px);
     .voca_desc {
-      margin:24px 0 12px;
-      font-size:14px;
+      margin:36px 0 24px;
+      font-size:16px;
     }
     .list_box {
       box-shadow:0 1px 12px -10px #000;
     }
   }
+
 }
 
 @media screen and (max-width:1080px) {
@@ -62,16 +62,17 @@
     .container {
       display:block;
     }
+    // 단어장 상단
     .voca_top {
-      padding:0 20px;
+      width:100%;
       .voca_tit {
         font-size:18px;
       }
       .voca_box {
-        margin-top:8px;
+        margin-top:16px;
         .voca_txt {
-          font-size:12px;
-          line-height:18px;
+          font-size:14px;
+          line-height:22px;
         }
         .btn_add_word {
           position:fixed;
@@ -92,17 +93,14 @@
         }
       }
     }
+
+    // 단어장 컨텐츠
     .voca_con {
+      width:100%;
       margin:0;
-      .tab_box {
-        margin-left:20px;
-      }
       .voca_desc {
-        margin:0 20px;
-        font-size:12px;
-      }
-      .list_box {
-        margin:16px 20px 0;
+        margin:24px 0 16px;
+        font-size:14px;
       }
     }
   }

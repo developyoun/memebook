@@ -83,7 +83,7 @@ export default function Word() {
 
         {/* 타이틀 */}
         <div className="voca_top">
-          <h2 className="voca_tit">&#128214; 사전</h2>
+          <h2 className="voca_tit">&#128214; 단어장</h2>
           <div className="voca_box">
             <span className="voca_txt">사전에 없는 단어가 있나요?<br/>지금 등록해보세요 &#128073;</span>
             <Link to="/vocabulary/wordAdd" className="btn_add_word">
