@@ -206,6 +206,9 @@ export default function PostInfo() {
               )
             }
           </div>
+
+          <p className="post_con">{postDetail?.articleContent}</p>
+
           <div className="post_reaction">
             <button type="button" className={`btn_post_like ${postReactionState ? 'active' : ''}`}
                     onClick={postReaction}>
@@ -220,7 +223,6 @@ export default function PostInfo() {
             </Link>
           </div>
 
-          <p className="post_con">{postDetail?.articleContent}</p>
 
         </div>
 

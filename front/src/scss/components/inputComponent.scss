@@ -22,14 +22,6 @@
 @media screen and (max-width:1080px) {
   .text_input {
     height:40px;
-    font-size:12px;
-    &::placeholder {
-      font-size:12px;
-    }
-  }
-  .input_sub {
-    .character_count {
-      font-size:12px;
-    }
+    font-size:14px;
   }
 }

@@ -166,11 +166,9 @@
 
 @media screen and (max-width:1080px) {
   .profile_wrap {
+    padding:0 0 120px;
     // 정보
     .user_info {
-      .info_visit {
-        font-size:12px;
-      }
       .info_desc {
         margin-top:12px;
         li {

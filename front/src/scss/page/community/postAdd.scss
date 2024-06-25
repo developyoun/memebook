@@ -31,3 +31,9 @@
     background:var(--primary-30);
   }
 }
+
+@media screen and (max-width:1080px) {
+  .post_add_wrap {
+    padding:0 0 140px;
+  }
+}
