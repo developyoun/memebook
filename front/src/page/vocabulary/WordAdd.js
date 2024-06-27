@@ -39,7 +39,7 @@ export default function WordAdd() {
   }
 
   // 내용 받아오기
-  const contentVelueCheck = (length) => {
+  const contentValueCheck = (length) => {
     setContentValue(length);
   }
 
@@ -79,7 +79,7 @@ export default function WordAdd() {
               설명
             </h4>
           </div>
-          <TextareaComponent length={100} contentVelueCheck={contentVelueCheck}></TextareaComponent>
+          <TextareaComponent length={100} contentValueCheck={contentValueCheck}></TextareaComponent>
         </div>
 
         <div className="floating_box">

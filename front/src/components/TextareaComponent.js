@@ -18,8 +18,8 @@ export default function TextareaComponent(props) {
     setExplainCount(event.target.value.length);
     event.target.value.length >= props.length - 1 ? setExplainOver(true) : setExplainOver(false);
     setExplainNull(false);
-    if (props.contentVelueCheck) {
-      props.contentVelueCheck(event.target.value);
+    if (props.contentValueCheck) {
+      props.contentValueCheck(event.target.value);
     }
   }
   return (

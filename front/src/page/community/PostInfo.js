@@ -38,7 +38,7 @@ export default function PostInfo() {
   const [contentValue, setContentValue] = useState(false);
   // 수정하기
   const [addState, setAddState] = useState(false);
-  const contentVelueCheck = (length) => {
+  const contentValueCheck = (length) => {
     setContentValue(length);
   }
   const addStateCheck = (state) => {
@@ -343,7 +343,7 @@ export default function PostInfo() {
 
         <AddComponent {...propsToSend}
                       addSubmit={addStateCheck}
-                      contentVelueCheck={contentVelueCheck}>
+                      contentValueCheck={contentValueCheck}>
         </AddComponent>
 
 
