@@ -13,9 +13,9 @@ services:
       - ./letsencrypt:/etc/letsencrypt
   back:
     container_name: app
-    build:
-      context: back/
-      dockerfile: Dockerfile
+#    build:
+#      context: back/
+#      dockerfile: Dockerfile
     environment:
       - PROFILE=dev
     image: pyoun820/memebook
