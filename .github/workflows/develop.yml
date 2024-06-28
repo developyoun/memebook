@@ -62,5 +62,5 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
           script: |
             docker rm -f app
-            docker pull pyoun820/memebook:latest
-            docker compose -f ${{ secrets.DEV_COMPOSE }} up -d --build
+            docker rmi -f $(docker images -q -f "dangling=true")
+            
