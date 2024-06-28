@@ -18,7 +18,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - PROFILE=dev
-    image: memebook:0.1
+    image: pyoun820/memebook
     ports:
       - "8080:8080"
 
