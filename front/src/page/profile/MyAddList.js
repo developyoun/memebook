@@ -40,7 +40,7 @@ export default function MyAddList() {
   }
 
   return (
-    <div className="my_word_wrap">
+    <div className="layer_wrap my_word_wrap">
 
       <Title title="참여한 단어" type="back"></Title>
 

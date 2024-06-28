@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {Swiper, SwiperSlide} from "swiper/react";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
 import {postListData} from "../../util/action/communityAction";
 import './../../scss/page/community/community.scss'
@@ -14,14 +14,14 @@ export default function Community() {
   useEffect(() => {
     async function postListApi() {
       try {
-        dispatch(postListData)
+        await dispatch(postListData());
       } catch (error) {
-        // window.history.back();
+        console.log(error);
       }
     }
 
     postListApi();
-  }, []);
+  }, [dispatch]);
 
   const postReaction = () => {
     setPostReactionState(!postReactionState)
@@ -31,16 +31,18 @@ export default function Community() {
     <div className="community_wrap">
         <div className="container">
 
+          {/* 타이틀 */}
           <div className="commu_top">
-            <h2 className="tit">&#128214; 커뮤니티</h2>
-            <div className="box_btn">
-              <span className="txt">궁금하거나 모르는게 있나요?<br/>지금 물어보세요 &#128073;</span>
+            <h2 className="commu_tit">&#128214; 커뮤니티</h2>
+            <div className="commu_box">
+              <span className="commu_txt">궁금하거나 모르는게 있나요?<br/>지금 물어보세요 &#128073;</span>
               <Link to={`/community/postAdd`} className="btn_add_post">
                 <span>글쓰기</span>
               </Link>
             </div>
           </div>
 
+          {/* 리스트 */}
           <div className="commu_con">
             <Swiper slidesPerView='auto' className="tab_box">
               <SwiperSlide className="tab_item active">
@@ -66,8 +68,13 @@ export default function Community() {
               </SwiperSlide>
             </Swiper>
 
-            <div className="post_list">
+            <div className="commu_desc">
+              총 {postList.totalCount}개
+            </div>
+
+            <div className="commu_list">
               <ul className="list">
+                {/* 포스트 */}
                 {
                   postList.articleList?.map((item, idx) => {
                     return (
@@ -75,21 +82,23 @@ export default function Community() {
                         <div className="post_item">
                           <Link to={`/community/postDetail/${item.articleIdx}`} className="post_link">
                             <div className="post_top">
-                              <h3 className="tit">{item.articleTitle}</h3>
-                              <span className="nickname">{item.memberNickname}</span>
+                              <h3 className="post_tit">{item.articleTitle}</h3>
+                              <span className="post_nickname">{item.memberNickname}</span>
                             </div>
-                            <p className="txt">{item.articleContent}</p>
+
+                            <p className="post_con">{item.articleContent}</p>
+
                           </Link>
-                          <button type="button" className="post_more_btn">더보기</button>
+
 
                           <div className="post_reaction">
                             <button type="button" className={`btn_post_like ${postReactionState ? 'active' : ''}`} onClick={postReaction}>
                               <span className="blind">좋아요</span>
                             </button>
-                            <Link to={`/community/postDetail/${item.articleIdx}`} className="comments_count">
-                              <span className={`${item.commentCount === 0 ? 'blind' : ''}`}>{item.commentCount === 0 ? '댓글' : item.commentCount}</span>
+                            <Link to={`/community/postDetail/${item.articleIdx}`} className="reaction_link reaction_comment">
+                              <span className={`txt_count ${item.commentCount === 0 ? 'blind' : ''}`}>{item.commentCount === 0 ? '댓글' : item.commentCount}</span>
                             </Link>
-                            <Link to={`/community/postDetail/${item.articleIdx}`} className="view_count">
+                            <Link to={`/community/postDetail/${item.articleIdx}`} className="reaction_link reaction_view">
                               <span className="blind">조회수</span>
                             </Link>
                           </div>

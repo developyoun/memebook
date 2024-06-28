@@ -51,7 +51,7 @@ export default function MyScrapeList() {
   }
 
   return (
-    <div className="scrap_list_wrap">
+    <div className="layer_wrap scrap_list_wrap">
 
       <Title title="스크랩한 단어" type="back"></Title>
 

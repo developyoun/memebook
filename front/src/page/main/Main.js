@@ -1,6 +1,6 @@
 import {memebookApi} from "./../../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {Link} from 'react-router-dom';
 import {debounce} from 'lodash';
 import {nationCheckData} from "./../../util/action/nationAction";
@@ -14,6 +14,8 @@ import 'swiper/css';
 import './../../scss/page/main/main.scss';
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation, Pagination} from "swiper/modules";
+import OutsideHook from "../../util/OutsideHook";
+import GoogleLoginButton from "./GoogleLoginButton";
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -39,6 +41,12 @@ export default function Main() {
   // 내 단어 리스트
   const myWordList = useSelector(state => state.meme.myWordList);
 
+  const [resultVisible, setResultVisible] = useState(false);
+
+  // 검색어
+  const resultRef = useRef(null);
+  OutsideHook(resultRef, () => setResultVisible(false));
+
   const [memberIdx, setMemberIdx] = useState(123);
 
   useEffect(() => {
@@ -48,7 +56,6 @@ export default function Main() {
     dispatch(myWordListData(memberIdx));
     dispatch(postCommentData(memberIdx));
     dispatch(postCommentData(memberIdx));
-    console.log(myWordList)
   }, []);
 
 
@@ -88,13 +95,15 @@ export default function Main() {
 
   // 단어 검색
   const wordSearchApi = debounce((event) => {
+    setResultVisible(!resultVisible);
     if (event.target.value.length > 0) {
       setSearchState(true);
       dispatch(wordSearchData(event.target.value));
     } else {
       setSearchState(false);
+
     }
-  }, 500)
+  }, 300)
 
   return (
     <>
@@ -110,22 +119,23 @@ export default function Main() {
           <NickName nickNameAdd={nickNameClose} nickNameInput={nickNameValue}></NickName>
         )
       }
+      <GoogleLoginButton />
 
       <div className="main_wrap">
 
         <div className="container">
          <div className="main_top">
-           <div className="user_country_box">
+           <div className="main_country">
              {
                studyCountryType === '' && (
-                 <span className="country_badge">언어 선택 하셨나요?</span>
+                 <span className="badge_country">언어 선택 하셨나요?</span>
                )
              }
              <button type="button" className={`user_country ${studyCountryType}`} onClick={countryChoiceClose}>
                <span className="blind">나라 선택</span>
              </button>
            </div>
-           <p>Let's Find Your Words!</p>
+           <p className="main_tit">Let's Find Your Words!</p>
 
            {
              nicknameSave && (
@@ -136,43 +146,45 @@ export default function Main() {
              <input type="text" className="text_input" placeholder="단어를 검색해보세요" onChange={wordSearchApi}/>
              {
                searchState && (
-                 <ul className="search_list">
+                 <div ref={resultRef}>
                    {
-                     wordSearch?.wordList.length === 0 && (
-                      <li>
-                        <span className="list_none">검색에 맞는 단어가 없어요</span>
-                      </li>
+                     resultVisible && (
+                       <ul className="search_list" >
+                         {
+                           wordSearch?.wordList.length === 0 && (
+                             <li>
+                               <span className="list_none">검색에 맞는 단어가 없어요</span>
+                             </li>
+                           )
+                         }
+                         {
+                           wordSearch?.wordList.length > 0 && wordSearch?.wordList.map((item, idx) => {
+                             return (
+                               <li key={idx}>
+                                 <Link to={`/vocabulary/wordInfo/${item.wordIdx}`}>
+                                   {item.wordName}
+                                 </Link>
+                               </li>
+                             )
+                           })
+                         }
+                       </ul>
                      )
                    }
-                   {
-                     wordSearch?.wordList.length > 0 && wordSearch?.wordList.map((item, idx) => {
-                       return (
-                         <li key={idx}>
-                           <Link to={`/vocabulary/wordInfo/${item.wordIdx}`}>
-                             {item.wordName}
-                           </Link>
-                         </li>
-                       )
-                     })
-                   }
-                 </ul>
+                 </div>
                )
              }
-
            </div>
          </div>
 
-          <Swiper slidesPerView='auto' className="main_banner" navigation={true} pagination={true} modules={[Navigation, Pagination]}>
-            <SwiperSlide className={`tab_item`}>
-              광고
-            </SwiperSlide>
-          </Swiper>
+          <div className="main_banner">
+            광고
+          </div>
 
           <div className="main_con">
 
-            <div className="popular_box">
-              <h3 className="tit">💡 오늘 하루 인기 검색어 TOP </h3>
-
+            <div className="main_popular">
+              <h3 className="popular_tit">💡 오늘 하루 인기 검색어 TOP </h3>
               <ul className="popular_list">
                 {
                   wordList.wordList?.map((item, idx) => {
@@ -188,7 +200,7 @@ export default function Main() {
               </ul>
             </div>
 
-            <ul className="check_list">
+            <ul className="main_check">
 
               {/* 등록한 단어*/}
               <li className="list word">
@@ -245,7 +257,7 @@ export default function Main() {
               </li>
 
               {/* 작성한 댓글 */}
-              <li className="list post">
+              <li className="list comment">
                 {
                   myCommentList?.commentList.length === 0 && (
                     <Link to="/profile/myCommentList" className="link">
@@ -262,6 +274,7 @@ export default function Main() {
                 }
               </li>
 
+              {/* 연속 방문 */}
               <li className="list visit">
                 <p className="link">
                   연속 방문 최대 <strong>12</strong>번을 달성했어요

@@ -1,17 +1,19 @@
 import {memebookApi} from "./../../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useRef} from "react";
 import {Link} from 'react-router-dom';
 import {useParams} from "react-router-dom";
 import {scrapAddData, scrapDeleteData} from "./../../util/action/scrapAction";
 import CommentPort from "./../../modal/CommentPort";
 import BtnBack from "./../../components/BtnBack";
 import './../../scss/page/vocabulary/wordInfo.scss'
+import AddComponent from "../../components/AddComponent";
+import OutsideHook from "../../util/OutsideHook";
 
 export default function WordInfo() {
   let {id} = useParams();
   const dispatch = useDispatch();
-  const [memberIdx, setMemberIdx] = useState(123);
+  const [memberIdx, setMemberIdx] = useState(321);
   // 단어 데이터
   const [wordData, setWordData] = useState([]);
   const [wordListData, setWordListData] = useState([]);
@@ -24,7 +26,14 @@ export default function WordInfo() {
   const scrapAdd = useSelector(state => state.meme.scrapAdd);
   const scrapDelete = useSelector(state => state.meme.scrapDelete);
 
+  // 클릭영역 외
+  const [isVisible, setIsVisible] = useState(false);
+  const setRef = useRef(null);
+  OutsideHook(setRef, () => setIsVisible(false));
+
   const [wordSetState, setWordSetState] = useState(false);
+  // 수정하기
+  const [addState, setAddState] = useState(false);
   // 수정하기
   const [modifyState, setModifyState] = useState(false);
   const [modifyContent, setModifyContent] = useState('');
@@ -32,6 +41,7 @@ export default function WordInfo() {
   const [deleteState, setDeleteState] = useState(false);
   // 신고하기
   const [reportOpen, setReportOpen] = useState(false);
+
 
   // 신고하기 팝업
   const commentReportOpen = ({commentPortClose}) => {
@@ -47,6 +57,7 @@ export default function WordInfo() {
         setWordData(wordDetailData.data);
         setScrapData(wordDetailData.data.scrapIdx);
         setWordListData(wordDetailData.data.wordContentList);
+        console.log(wordDetailData.data)
         if (wordDetailData?.data.status === "NOT_FOUND") {
           window.history.back();
         }
@@ -54,8 +65,9 @@ export default function WordInfo() {
         console.log(error)
       }
     }
+
     wordDetailApi();
-  }, [modifyState, setScrapData, deleteState]);
+  }, [modifyState, setScrapData, deleteState, memberIdx, id, addState]);
 
 
   // 좋아요/싫어요 update Api
@@ -66,24 +78,25 @@ export default function WordInfo() {
         setLikeCount(wordReactionCountData.data.likeCount);
         setDislikeCount(wordReactionCountData.data.dislikeCount);
       } catch (error) {
+        console.log(error);
       }
     }
 
     wordReactionApi();
-  }, [reactionState]);
+  }, [reactionState, id]);
 
   // 좋아요/싫어요 button Api
   async function wordReaction(type) {
     try {
       setReactionState(false);
       if (type === 'like') {
-        const wordLikeData = await memebookApi.wordReactionUpdateApi({
+        await memebookApi.wordReactionUpdateApi({
           "reactionType": "LIKE",
           "memberIdx": memberIdx,
           "wordIdx": id,
         });
       } else if (type === 'dislike') {
-        const wordLikeData = await memebookApi.wordReactionUpdateApi({
+        await memebookApi.wordReactionUpdateApi({
           "reactionType": "DISLIKE",
           "memberIdx": memberIdx,
           "wordIdx": id,
@@ -100,8 +113,7 @@ export default function WordInfo() {
     try {
       if (!scrapData) {
         dispatch(scrapAddData(id, memberIdx));
-      }
-      else {
+      } else {
         dispatch(scrapDeleteData(scrapData));
       }
       setScrapData(!scrapData);
@@ -111,14 +123,16 @@ export default function WordInfo() {
   }
 
   // 수정하기
-  const wordSet = () => {
-    setWordSetState(!wordSetState);
+  const wordSet = (idx) => {
+    setWordSetState(idx);
+    setIsVisible(!isVisible);
   }
 
   // 수정하기
-  const modifyAction = () => {
-    setModifyState(true);
+  const modifyAction = (idx, content) => {
+    setModifyState(idx);
     setWordSetState(false);
+    setModifyContent(content);
   }
   // 수정된 단어
   const contentChange = (event) => {
@@ -128,8 +142,7 @@ export default function WordInfo() {
   // 수정된 내용 put Api
   async function wordModify() {
     try {
-
-      const wordModifyData = await memebookApi.wordModifyApi({
+      await memebookApi.wordModifyApi({
         "wordIdx": wordListData[0].wordIdx,
         "wordName": wordListData[0].content,
         "wordContent": modifyContent,
@@ -139,8 +152,7 @@ export default function WordInfo() {
 
       setModifyState(false);
     } catch (error) {
-      console.log(error)
-      console.log('에러')
+      console.log(error);
     }
   }
 
@@ -148,158 +160,184 @@ export default function WordInfo() {
   async function wordDelete(wordContentIdx) {
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
-        const wordDeleteData = await memebookApi.wordDeleteApi(wordContentIdx);
+        await memebookApi.wordDeleteApi(wordContentIdx);
         setDeleteState(true);
       }
       setWordSetState(false);
-      console.log('성공');
     } catch (error) {
-      console.log(error)
-      console.log('에러')
+      console.log(error);
     }
   }
 
+  const [contentValue, setContentValue] = useState(false);
+  const contentValueCheck = (length) => {
+    setContentValue(length);
+  }
+
+  const addStateCheck = (state) => {
+    setAddState(!addState);
+  }
+
+  const propsToSend = {
+    type: "word",
+    length: 100
+  }
 
   return (
     <div className="word_info_wrap">
 
       <div className="container">
-          <BtnBack></BtnBack>
+        <BtnBack></BtnBack>
+        {
+          reportOpen && (
+            <CommentPort commentPortClose={commentReportOpen}></CommentPort>
+          )
+        }
+        <div className="info_top">
+          <h1 className="word_tit">
+            {wordData?.wordName}
+          </h1>
+
+        </div>
+
+        <div className="info_desc">
           {
-              reportOpen && (
-                  <CommentPort commentPortClose={commentReportOpen}></CommentPort>
-              )
+            wordListData?.memberIdx !== memberIdx && (
+              <button type="button" className={`btn_scrap ${scrapData ? 'active' : ''}`} onClick={ScrapeBtn}>
+                <span className="blind">스크랩</span>
+              </button>
+            )
           }
-          <div className="info_top">
-              <h1 className="word_tit">
-                  {wordData?.wordName}
-              </h1>
-
-          </div>
-
-          <div className="info_desc">
-            {
-              wordListData?.memberIdx !== memberIdx && (
-                <button type="button" className={`btn_scrap ${scrapData ? 'active' : ''}`} onClick={ScrapeBtn}>
-                  <span className="blind">스크랩</span>
-                </button>
-              )
-            }
-            <span className="list_count">
+          <span className="list_count">
               총 {wordListData?.length}개
             </span>
 
-            <Link to={`/vocabulary/wordAdd/${id}/${wordData.wordName}`} className="btn_add_word">
-              <span>작성하기</span>
-            </Link>
-          </div>
+        </div>
 
-          <ul className="info_list">
-              {
-                  wordListData?.map((item, idx) => {
-                      return (
-                          <li className="list" key={idx}>
-                              <div className="mean_top">
-                                  <Link to={`/profile/${memberIdx}`} className="name">김누징</Link>
-                                  <ul className="util_list">
-                                      <li>
-                                          <button type="button" className="btn_like" onClick={() => {
-                                              wordReaction('like')
-                                          }}>
-                                              <span className="blind">좋아요</span>
-                                          </button>
-                                          <span className="count">
+        <ul className="info_list">
+          {
+            wordListData?.map((item, idx) => {
+              return (
+                <li className="list" key={idx}>
+                  <div className="mean_top">
+                    <Link to={`/profile/${memberIdx}`} className="name">김누징</Link>
+                    <ul className="util_list">
+                      <li>
+                        <button type="button" className="btn_like" onClick={() => {
+                          wordReaction('like')
+                        }}>
+                          <span className="blind">좋아요</span>
+                        </button>
+                        <span className="count">
                               {likeCount}
                             </span>
-                                      </li>
-                                      <li>
-                                          <button type="button" className="btn_dislike" onClick={() => {
-                                              wordReaction('dislike')
-                                          }}>
-                                              <span className="blind">싫어요</span>
-                                          </button>
-                                          <span className="count">
+                      </li>
+                      <li>
+                        <button type="button" className="btn_dislike" onClick={() => {
+                          wordReaction('dislike')
+                        }}>
+                          <span className="blind">싫어요</span>
+                        </button>
+                        <span className="count">
                               {dislikeCount}
                             </span>
+                      </li>
+
+                      <li>
+                        <button type="button" className="btn_set" onClick={()=> wordSet(idx)}>
+                          <span className="blind">유저 셋</span>
+                        </button>
+                        {
+                          isVisible && wordSetState === idx && (
+                            <>
+                              <ul className="set_box" ref={setRef}>
+                                {
+                                  item.memberIdx === memberIdx ? (
+                                    <>
+                                      <li>
+                                        <button type="button" className="" onClick={() => modifyAction(idx, item.content)}>
+                                          <span className="">수정</span>
+                                        </button>
                                       </li>
+                                      <li>
+                                        <button type="button" className="" onClick={() => {
+                                          wordDelete(item.wordContentIdx)
+                                        }}>
+                                          <span className="">삭제</span>
+                                        </button>
+
+                                      </li>
+                                    </>
+                                  ) : (
+                                    <li>
+                                      <button type="button" className="" onClick={commentReportOpen}>
+                                        <span>신고하기</span>
+                                      </button>
+                                    </li>
+                                  )
+                                }
+                              </ul>
+                            </>
+                          )
+                        }
+                      </li>
 
 
-                                      {
-                                          item.memberIdx === memberIdx && (
-                                              <li>
-                                                  <button type="button" className="btn_set" onClick={wordSet}>
-                                                      <span className="blind">유저 셋</span>
-                                                  </button>
-                                                  {
-                                                      wordSetState && (
-                                                          <>
-                                                              <ul className="set_box">
-                                                                  <li>
-                                                                      <button type="button" className="" onClick={commentReportOpen}>
-                                                                          <span>신고하기</span>
-                                                                      </button>
-                                                                  </li>
-                                                                  {
-                                                                      item.memberIdx === memberIdx && (
-                                                                          <>
-                                                                              <li>
-                                                                                  <button type="button" className="" onClick={modifyAction}>
-                                                                                      <span className="">수정</span>
-                                                                                  </button>
-                                                                              </li>
-                                                                              <li>
-                                                                                  <button type="button" className="" onClick={() => {
-                                                                                      wordDelete(item.wordContentIdx)
-                                                                                  }}>
-                                                                                      <span className="">삭제</span>
-                                                                                  </button>
 
-                                                                              </li>
-                                                                          </>
-                                                                      )
-                                                                  }
-                                                              </ul>
-                                                          </>
-                                                      )
-                                                  }
-                                              </li>
-                                          )
-                                      }
+                    </ul>
+                  </div>
+                  <div className="content_box">
 
+                    {
+                      modifyState !== idx ? (
+                        <p className="word_modify_text">{item.content}</p>
+                      ) : (
+                        <>
+                                  <textarea
+                                    className="word_modify_area"
+                                    maxLength={101}
+                                    value={modifyContent}
+                                    onChange={(event) => contentChange(event, idx)}
+                                  >
+                                  </textarea>
+                          <div className="input_sub">
+                            {
+                              modifyContent.length === 0 && (
+                                <p className="invalid_msg">&#128397; 한글자 이상 작성해주세요</p>
+                              )
+                            }
+                            {
+                              modifyContent.length >= 101 && (
+                                <p className="invalid_msg">&#128546; 100자 이하로 작성해주세요 !</p>
+                              )
+                            }
+                            <p className="character_count">
+                              {modifyContent.length}/100
+                            </p>
+                          </div>
 
-                                  </ul>
-                              </div>
-                              <div className="content_box">
-                                  {
-                                      !modifyState && (
-                                          <p className="word_modify_text">
-                                              {item.content}
-                                          </p>
-                                      )
-                                  }
-
-                                  {
-                                      modifyState && (
-                                          <>
-                        <textarea className="text_input word_modify_area" name="" id="" maxLength={99} onChange={contentChange}>
-                           {item.content}
-                        </textarea>
-                                              <button type="button" className="word_modify_btn" onClick={() => wordModify(item.wordContentIdx)}>
-                                                  수정
-                                              </button>
-                                          </>
-                                      )
-                                  }
-
-                              </div>
-                          </li>
-
+                          <button type="button" className="word_modify_btn" disabled={modifyContent.length === 0 || modifyContent.length >= 101}
+                                  onClick={() => wordModify(item.wordContentIdx)}>
+                            수정
+                          </button>
+                        </>
                       )
-                  })
-              }
+                    }
 
-          </ul>
+                  </div>
+                </li>
 
+              )
+            })
+          }
+
+        </ul>
+
+        <AddComponent {...propsToSend}
+                      wordName={wordData?.wordName}
+                      addSubmit={addStateCheck}
+                      contentValueCheck={contentValueCheck}>
+        </AddComponent>
 
       </div>
 

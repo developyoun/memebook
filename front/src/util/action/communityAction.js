@@ -6,6 +6,7 @@ export const postListData = () => async (dispatch) => {
   try {
     const postListData = await memebookApi.postListApi();
     dispatch(postListAction(postListData));
+    console.log(postListData);
   } catch (error) {
     console.error(error);
   }

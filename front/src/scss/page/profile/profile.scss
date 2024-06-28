@@ -1,8 +1,9 @@
 .profile_wrap {
   min-height:calc(100vh - 40px);
   padding:20px 20px 120px;
+  // 정보
   .user_info {
-    .user_name {
+    .info_name {
       display:flex;
       align-items:center;
       justify-content:center;
@@ -10,28 +11,26 @@
         font-size:24px;
       }
     }
-    .user_info_desc {
-      margin-top:24px;
+    .info_desc {
+      display:flex;
+      align-items:center;
+      justify-content:space-around;
+      margin-top:36px;
+      padding:12px 20px;
+      border:1px solid #f2f4fa;
+      border-radius:12px;
       text-align:right;
-      ul {
-        display:flex;
-        align-items:center;
-        justify-content:space-around;
-        padding:12px 20px;
-        border:1px solid #f2f4fa;
-        border-radius:12px;
-        li {
-          color:var(--primary);
-          span {
-            display:block;
-            text-align:center;
-            color: var(--primary-40);
-            font-size:12px;
-            &.count {
-              color:var(--primary-10);
-              font-size:14px;
-              font-weight:bold;
-            }
+      li {
+        color:var(--primary);
+        span {
+          display:block;
+          text-align:center;
+          color: var(--primary-40);
+          font-size:14px;
+          &.count {
+            color:var(--primary-10);
+            font-size:14px;
+            font-weight:bold;
           }
         }
       }
@@ -52,7 +51,7 @@
         }
       }
     }
-    .visit_count {
+    .info_visit {
       margin-top:16px;
       font-size:14px;
       strong {
@@ -60,7 +59,8 @@
       }
     }
   }
-  .daily_box {
+  // 출석체크
+  .user_daily {
     margin: 40px 0 45px;
     .tit {
       color:var(--primary-10);
@@ -104,17 +104,18 @@
       }
     }
   }
+  // 히스토리
   .user_history {
     display:flex;
     flex-wrap:wrap;
     gap:12px;
-    .user_box {
+    .history_box {
       width:calc(50% - 6px);
-      padding:16px;
+      padding:24px;
       border-radius:12px;
       box-shadow:0 1px 12px -10px #000;
       background:#fff;
-      .user_tit {
+      .history_tit {
         display:flex;
         align-items:center;
         justify-content:space-between;
@@ -145,55 +146,31 @@
       }
     }
   }
+  // 초대하기
   .invite_box {
     margin-top:24px;
     text-align:center;
     .invite_txt {
       color:var(--primary-10);
-      font-size:12px;
+      font-size:14px;
       text-align:center;
     }
     .btn_primary {
+      height:40px;
       margin:16px auto 0;
+      font-size:14px;
     }
   }
 }
 
 
-@media (max-width:960px) {
+@media screen and (max-width:1080px) {
   .profile_wrap {
+    padding:0 0 120px;
+    // 정보
     .user_info {
-      .visit_count {
-        font-size:12px;
-      }
-    }
-    .daily_box {
-      .tit {
-        font-size:14px;
-      }
-    }
-    .user_history {
-      display:block;
-      .user_box {
-        width:100%;
-        .user_tit {
-          margin-bottom:16px;
-          h4 {
-            font-size:14px;
-          }
-          .item {
-            font-size:12px;
-          }
-        }
-        &+.user_box {
-          margin-top:16px;
-        }
-      }
-    }
-
-    .user_info_desc {
-      margin-top:12px;
-      ul {
+      .info_desc {
+        margin-top:12px;
         li {
           span {
             font-size:12px;
@@ -204,14 +181,39 @@
         }
       }
     }
+    // 출석체크
+    .user_daily {
+      .user_tit {
+        font-size:14px;
+      }
+    }
+    // 히스토리
+    .user_history {
+      display:block;
+      .history_box {
+        width:100%;
+        padding:12px;
+        .history_tit {
+          margin-bottom:16px;
+          h4 {
+            font-size:14px;
+          }
+          .item {
+            font-size:12px;
+          }
+        }
+        &+.history_box {
+          margin-top:16px;
+        }
+      }
+    }
 
+    // 초대하기
     .invite_box {
       .invite_txt {
         font-size:12px;
       }
     }
   }
-
-
 
 }

@@ -16,7 +16,7 @@ export default function HomeNav({type}) {
         </li>
         <li className="list">
           <Link to="/vocabulary" className={`link vocabulary ${location.pathname.startsWith('/vocabulary') ? 'active' : ''}`}>
-            <span className={type === 'main' ? '' : 'blind'}>사전</span>
+            <span className={type === 'main' ? '' : 'blind'}>단어장</span>
           </Link>
         </li>
         <li className="list">

@@ -36,12 +36,11 @@ export default function Word() {
       }
     }
     libraryList();
-  }, [dispatch]);
+  }, [dispatch, pageNumber]);
 
   useEffect(() => {
     if (wordList && wordList.wordList) {
       setLibraryData(wordList.wordList);
-      console.log(wordList)
     }
     // 현재 페이지가 마지막 페이지가 아니라면 더보기 미노출
     if (wordList?.nowPage !== wordList?.totalPage) {
@@ -82,16 +81,18 @@ export default function Word() {
     <div className="voca_wrap">
       <div className="container">
 
+        {/* 타이틀 */}
         <div className="voca_top">
-          <h2 className="tit">&#128214; 사전</h2>
-          <div className="box_btn">
-            <span className="txt">사전에 없는 단어가 있나요?<br/>지금 등록해보세요 &#128073;</span>
+          <h2 className="voca_tit">&#128214; 단어장</h2>
+          <div className="voca_box">
+            <span className="voca_txt">사전에 없는 단어가 있나요?<br/>지금 등록해보세요 &#128073;</span>
             <Link to="/vocabulary/wordAdd" className="btn_add_word">
               <span>단어 등록하기</span>
             </Link>
           </div>
         </div>
 
+        {/* 리스트 */}
         <div className="voca_con">
           <Swiper
             slidesPerView='auto'
@@ -111,24 +112,21 @@ export default function Word() {
             </SwiperSlide>
           </Swiper>
 
-
           <div className="voca_desc">
             총 {wordList?.totalCount} 개
           </div>
 
+          {/* 로딩 */}
           { libraryData === undefined && loadingState && (
-            <div>
-              로딩중
-            </div>
-          )
+              <div>
+                로딩중
+              </div>
+            )
           }
-
 
           {
             libraryData !== undefined && (
               <>
-
-
                 <ul className="list_box">
                   {
                     libraryData?.map((item, idx) => {
@@ -144,7 +142,6 @@ export default function Word() {
                   }
                 </ul>
 
-
                 {
                   moreBtnState && (
                     <div className="list_btm">
@@ -158,13 +155,6 @@ export default function Word() {
           }
         </div>
 
-        {/*{*/}
-        {/*  window.scrollY > 20 && (*/}
-        {/*    <button type="button" className="btn_top" onClick={commonEvent}>*/}
-        {/*      <span className="blind">올리기</span>*/}
-        {/*    </button>*/}
-        {/*  )*/}
-        {/*}*/}
       </div>
     </div>
   );

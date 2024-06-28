@@ -48,18 +48,19 @@
       &+.list {
         margin-top:32px;
         padding-top:32px;
-        border-top:1px solid #ddd;
+        border-top:1px solid var(--primary-60);
       }
     }
     .mean_top {
       display:flex;
       justify-content: space-between;
       .name {
-        font-size:12px;
+        font-size:14px;
       }
 
     }
     .util_list {
+      position:relative;
       display:flex;
       &>li {
         display:flex;
@@ -68,6 +69,7 @@
           display:block;
           width:16px;
           height:16px;
+          margin-right:4px;
           background-position:center;
           background-repeat:no-repeat;
           &.btn_like {
@@ -91,7 +93,7 @@
         }
         .count {
           margin-left:4px;
-          font-size:12px;
+          font-size:14px;
         }
         &+li {
           margin-left:16px;
@@ -103,14 +105,21 @@
   .content_box {
     display:flex;
     flex-wrap:wrap;
-    gap:8px 0;
-    margin-top:12px;
+    margin-top:20px;
     .word_modify_text {
-      font-size:14px;
+      font-size:16px;
     }
     .word_modify_area {
-      width:100%;
-      border:1px solid #ddd;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding:16px;
+      color: var(--primary-10);
+      font-size: 16px;
+      border: 1px solid var(--primary-50);
+      border-radius: 6px;
+      box-sizing: border-box;
+      resize: none;
     }
     .word_modify_btn {
       display:inline-flex;
@@ -118,21 +127,26 @@
       justify-content:center;
       flex-shrink:0;
       height:32px;
+      margin-top:24px;
       margin-left:auto;
       padding:0 16px;
-      color:var(--primary);
-      font-size:12px;
+      color:#fff;
+      font-size:14px;
       line-height:26px;
-      border:1px solid var(--primary);
       border-radius:8px;
-      background:#fff;
+      background:var(--primary-20);
+      &:disabled {
+        color:var(--primary-20);
+        background:var(--primary-60);
+      }
     }
   }
 }
 
 
-@media screen and (max-width:960px) {
+@media screen and (max-width:1080px) {
   .word_info_wrap {
+    padding:16px 0 120px;
     .info_desc {
       .btn_add_word {
         position:fixed;

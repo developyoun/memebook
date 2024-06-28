@@ -43,7 +43,7 @@ export default function MyCommentList() {
   }
 
   return (
-    <div className="my_word_wrap">
+    <div className="layer_wrap my_word_wrap">
 
       <Title title="작성한 댓글" type="back"></Title>
 

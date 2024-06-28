@@ -1,24 +1,30 @@
 import '../scss/components/textareaComponent.scss'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export default function TextareaComponent(props) {
-  const [contentValue, setContentValue] = useState(false);
+  const [contentValue, setContentValue] = useState('');
   const [explainCount, setExplainCount] = useState(0);
   const [explainOver, setExplainOver] = useState(false);
   const [explainNull, setExplainNull] = useState(false);
+
+  useEffect(() => {
+    if (props.content) {
+      setContentValue(props.content)
+    }
+  }, []);
 
   const contentValueCount = (event) => {
     setContentValue(event.target.value);
     setExplainCount(event.target.value.length);
     event.target.value.length >= props.length - 1 ? setExplainOver(true) : setExplainOver(false);
     setExplainNull(false);
-    if (props.contentVelueCheck) {
-      props.contentVelueCheck(event.target.value);
+    if (props.contentValueCheck) {
+      props.contentValueCheck(event.target.value);
     }
   }
   return (
     <>
-      <textarea className="textarea_input" name="" id="" cols="30" rows="10" maxLength={props.length} onChange={contentValueCount}></textarea>
+      <textarea className="textarea_input" name="" id="" cols="30" rows="10" value={contentValue} maxLength={props.length} onChange={contentValueCount}></textarea>
 
       <div className="input_sub">
         {
