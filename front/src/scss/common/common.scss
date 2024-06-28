@@ -1,10 +1,11 @@
 :root {
+  --primary:#34364A;
   --primary-10:#313F66;
   --primary-20:#234C7D;
   --primary-30:#5779A2;
   --primary-40:#7D8CB5;
   --primary-50:#d5e0f3;
-  --primary-60:#F1F4F9;
+  --primary-60:#F6F8FD;
   --bg-red: #F05161;
   --bg-yellow: #FFC960;
 }
@@ -324,12 +325,11 @@
     width:auto;
     height:32px;
     padding:0 12px;
-    color:var(--bg-brown);
     font-size:14px;
     border-radius:8px;
     background:var(--primary-60);
     button {
-      color:#747474;
+      color:var(--primary-40);
     }
     &+.tab_item {
       margin-left:12px;

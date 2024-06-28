@@ -12,19 +12,20 @@
     box-sizing:border-box;
     .voca_tit {
       width:100%;
-      font-size:24px;
+      font-size:30px;
+      font-weight:900;
     }
     .voca_box {
       display:flex;
       align-items:center;
       justify-content:space-between;
       flex-wrap:wrap;
-      margin-top:16px;
+      margin-top:36px;
       .voca_txt {
         width:100%;
         margin-right:8px;
-        font-size:16px;
-        line-height:26px;
+        font-size:18px;
+        line-height:30px;
       }
       .btn_add_word {
         display:inline-flex;
@@ -34,7 +35,7 @@
         margin-top:36px;
         padding:0 24px;
         color:#fff;
-        font-size:14px;
+        font-size:16px;
         border:1px solid var(--primary-30);
         border-radius:8px;
         background:var(--primary-30);
