@@ -63,4 +63,5 @@ jobs:
           script: |
             docker rm -f app
             docker rmi -f $(docker images -q -f "dangling=true")
-            
+            docker pull pyoun820/memebook:latest
+            docker compose -f ${{ secrets.DEV_COMPOSE }} up -d --build
