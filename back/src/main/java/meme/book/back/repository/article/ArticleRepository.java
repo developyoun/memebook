@@ -14,4 +14,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, Article
 
     List<Article> findAllByArticleIdxIn(List<Long> articleIdxList);
 
+    List<Article> findAllByMemberIdx(Long memberIdx);
+
 }

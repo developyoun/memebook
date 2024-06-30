@@ -103,28 +103,27 @@ public class ArticleService {
     }
 
     @Transactional
-    public void deleteArticle(Long articleIdx) {
-        Article article = articleRepository.findByArticleIdx(articleIdx)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_ARTICLE));
+    public void deleteAllArticle(Long memberIdx) {
+        List<Article> articleList = articleRepository.findAllByMemberIdx(memberIdx);
 
-        articleRepository.delete(article);
+        List<Long> articleIdxList = articleList.stream().map(Article::getArticleIdx).toList();
+        List<Comment> commentList = commentRepository.findAllByArticleIdxIn(articleIdxList);
 
-        List<Comment> commentList = commentRepository.findByArticleIdx(articleIdx);
-        log.info("Article Deleted, article Idx: {}, comment list: {}", articleIdx, commentList);
-
+        articleRepository.deleteAll(articleList);
         commentRepository.deleteAll(commentList);
+
+        log.info("All Article Delete, article: {}, comment: {}", articleList.size(), commentList.size());
     }
 
     @Transactional
     public void deleteArticleList(List<Long> articleIdxList) {
         List<Article> articleList = articleRepository.findAllByArticleIdxIn(articleIdxList);
-
         articleRepository.deleteAll(articleList);
 
         List<Comment> commentList = commentRepository.findAllByArticleIdxIn(articleIdxList);
-        log.info("Article Deleted, article Idx: {}, comment list: {}", articleIdxList, commentList);
-
         commentRepository.deleteAll(commentList);
+
+        log.info("Article Deleted, article Idx: {}, comment list: {}", articleIdxList, commentList);
     }
 
     @Transactional
