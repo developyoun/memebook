@@ -40,11 +40,11 @@ public class ScrapController {
         return ResponseEntity.ok(scrapService.saveScrap(scrapDto));
     }
 
-    @Operation(summary = "단어 스크랩 단일 삭제 API")
-    @DeleteMapping("/word/{scrapIdx}")
-    public ResponseEntity<?> deleteWordScrap(@PathVariable Long scrapIdx) {
-        log.info("Scrap One Delete Request: {}", scrapIdx);
-        scrapService.deleteWordScrap(scrapIdx);
+    @Operation(summary = "단어 스크랩 전체 삭제 API")
+    @DeleteMapping("/word/all")
+    public ResponseEntity<?> deleteAllWordScrap(@RequestParam Long memberIdx) {
+        log.info("Scrap One Delete Request, memberIdx: {}", memberIdx);
+        scrapService.deleteAllWordScrap(memberIdx);
         return ResponseEntity.ok().build();
     }
 

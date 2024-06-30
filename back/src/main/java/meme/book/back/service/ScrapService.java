@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -54,12 +53,11 @@ public class ScrapService {
     }
 
     @Transactional
-    public void deleteWordScrap(Long scrapIdx) {
-        Scrap scrap = scrapRepository.findByScrapIdx(scrapIdx)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_SCRAP));
+    public void deleteAllWordScrap(Long memberIdx) {
+        List<Scrap> scrapList = scrapRepository.findAllByMemberIdx(memberIdx);
 
-        scrapRepository.delete(scrap);
-        log.info("Delete Scrap: {}", scrap);
+        scrapRepository.deleteAll(scrapList);
+        log.info("Delete Scrap: {}", scrapList);
     }
 
     @Transactional

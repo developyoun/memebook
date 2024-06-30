@@ -10,9 +10,9 @@ import java.util.Optional;
 @Repository
 public interface ScrapRepository extends JpaRepository<Scrap, Long>, ScrapCustomRepository {
 
-    Optional<Scrap> findByScrapIdx(Long scrapIdx);
-
     Optional<Scrap> findByWordIdxAndMemberIdx(Long wordIdx, Long memberIdx);
 
     List<Scrap> findAllByScrapIdxIn(List<Long> scrapIdxList);
+
+    List<Scrap> findAllByMemberIdx(Long memberIdx);
 }
