@@ -1,31 +1,35 @@
 .country_state {
+  position:relative;
   display:flex;
   justify-content:center;
   margin:30px 0;
+  gap:0 60px;
+  &:before {
+    position:absolute;
+    top:48px;
+    left:50%;
+    display:inline-block;
+    width:32px;
+    height:32px;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32' fill='none'%3E%3Cpath d='M26.6667 16L5.33334 16M26.6667 16L18.6667 24M26.6667 16L18.6667 8' stroke='%23E05153' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
+    transform:translateX(-50%);
+    content:'';
+  }
   .state_box {
     position:relative;
     .country_txt {
       margin-bottom:12px;
       text-align:center;
+      font-size:18px;
     }
     .txt {
       display:block;
       margin:8px 0 24px;
       text-align:center;
-      font-size:14px;
+      font-size:16px;
     }
     &+.state_box {
       margin-left:24px;
-      &:before {
-        position:absolute;
-        top:48px;
-        left:-30px;
-        display:inline-block;
-        width:32px;
-        height:32px;
-        background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32' fill='none'%3E%3Cpath d='M26.6667 16L5.33334 16M26.6667 16L18.6667 24M26.6667 16L18.6667 8' stroke='%23E05153' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
-        content:'';
-      }
     }
   }
   .state {
@@ -79,7 +83,7 @@
 
 .country_notice {
   margin-bottom:20px;
-  font-size:12px;
+  font-size:14px;
   line-height:20px;
   text-align:center;
 }

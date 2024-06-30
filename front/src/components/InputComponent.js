@@ -37,9 +37,14 @@ export default function InputComponent(props) {
             <p className="invalid_msg">&#128546; {props.length}자 이하로 작성해주세요</p>
           )
         }
-        <p className="character_count">
-          {titleCount}/{props.length}
-        </p>
+        {
+          props.length && (
+            <p className="character_count">
+              {titleCount}/{props.length}
+            </p>
+          )
+        }
+
       </div>
     </>
   )

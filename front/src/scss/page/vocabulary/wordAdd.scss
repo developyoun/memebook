@@ -39,6 +39,8 @@
   /* 팁 */
   .word_add_tip {
     position:relative;
+    display:flex;
+    align-items:center;
     &.active {
       .tip_box {
         display:block;

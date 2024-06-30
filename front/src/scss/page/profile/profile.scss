@@ -8,14 +8,16 @@
       align-items:center;
       justify-content:center;
       .name {
-        font-size:24px;
+        color:var(--primary);
+        font-size:28px;
+        font-weight:900;
       }
     }
     .info_desc {
       display:flex;
       align-items:center;
       justify-content:space-around;
-      margin-top:36px;
+      margin:36px 0 24px;
       padding:12px 20px;
       border:1px solid #f2f4fa;
       border-radius:12px;
@@ -26,11 +28,11 @@
           display:block;
           text-align:center;
           color: var(--primary-40);
-          font-size:14px;
+          font-size:16px;
           &.count {
             color:var(--primary-10);
-            font-size:14px;
-            font-weight:bold;
+            font-size:16px;
+            font-weight:700;
           }
         }
       }
@@ -52,8 +54,7 @@
       }
     }
     .info_visit {
-      margin-top:16px;
-      font-size:14px;
+      font-size:16px;
       strong {
         color:#f09f2c;
       }
@@ -61,15 +62,15 @@
   }
   // 출석체크
   .user_daily {
-    margin: 40px 0 45px;
-    .tit {
+    margin: 40px 0 60px;
+    .daily_tit {
       color:var(--primary-10);
-      font-size:16px;
+      font-size:18px;
     }
     .daily_list {
       display: flex;
       align-items: center;
-      margin-top:16px;
+      margin-top:24px;
       li {
         width: 100%;
 
@@ -78,10 +79,10 @@
           align-items: center;
           justify-content: center;
           margin: 0 auto;
-          width: 32px;
-          height: 32px;
+          width: 42px;
+          height: 42px;
           color: var(--primary-40);
-          font-size:14px;
+          font-size:16px;
           border-radius: 50%;
           background:var(--primary-60);
 
@@ -94,9 +95,9 @@
 
             &:after {
               display: block;
-              width: 16px;
-              height: 16px;
-              background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17' height='16' viewBox='0 0 17 16' fill='none'%3E%3Cpath d='M8.26475 3.01932C9.83075 1.61332 12.2507 1.65999 13.7594 3.17132C15.2674 4.68332 15.3194 7.09132 13.9167 8.66199L8.26342 14.3233L2.61142 8.66199C1.20875 7.09132 1.26142 4.67932 2.76875 3.17132C4.27875 1.66199 6.69408 1.61132 8.26475 3.01932V3.01932Z' fill='white'/%3E%3C/svg%3E") no-repeat;
+              width: 20px;
+              height: 20px;
+              background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17' height='16' viewBox='0 0 17 16' fill='none'%3E%3Cpath d='M8.26475 3.01932C9.83075 1.61332 12.2507 1.65999 13.7594 3.17132C15.2674 4.68332 15.3194 7.09132 13.9167 8.66199L8.26342 14.3233L2.61142 8.66199C1.20875 7.09132 1.26142 4.67932 2.76875 3.17132C4.27875 1.66199 6.69408 1.61132 8.26475 3.01932V3.01932Z' fill='white'/%3E%3C/svg%3E") center / 100% no-repeat;
               content: '';
             }
           }
@@ -122,7 +123,7 @@
         margin-bottom:24px;
         h4 {
           color:var(--primary-10);
-          font-size:16px;
+          font-size:18px;
         }
         .count {
           display:inline-block;
@@ -148,17 +149,17 @@
   }
   // 초대하기
   .invite_box {
-    margin-top:24px;
+    margin-top:60px;
     text-align:center;
     .invite_txt {
       color:var(--primary-10);
-      font-size:14px;
+      font-size:16px;
       text-align:center;
     }
     .btn_primary {
-      height:40px;
-      margin:16px auto 0;
-      font-size:14px;
+      height:48px;
+      margin:24px auto 0;
+      font-size:16px;
     }
   }
 }

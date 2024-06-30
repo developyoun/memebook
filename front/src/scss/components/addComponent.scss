@@ -24,31 +24,28 @@
             height:36px;
             margin-bottom:16px;
             padding:0;
+            color:var(--primary);
             font-size: 14px;
             border:none;
             resize:none;
             &.active {
                 height:180px
             }
+          &::placeholder {
+            color:var(--primary-10);
+          }
         }
         .btn_comment_submit {
             display:flex;
             align-items:center;
             justify-content:center;
+            height:32px;
             margin-left:auto;
-            padding:0 4px 0 8px;
+            padding:0 32px;
             color:#fff;
-            font-size:12px;
+            font-size:14px;
             border-radius:4px;
-            background:var(--primary-20);
-            &:after {
-                content:'';
-                display:block;
-                margin-left:4px;
-                width:24px;
-                height:24px;
-                background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M15 1L1 6.76471L6.76471 9.23529M15 1L9.23529 15L6.76471 9.23529M15 1L6.76471 9.23529' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
-            }
+            background:var(--primary-30);
         }
     }
 }
@@ -60,5 +57,12 @@
     z-index:10;
     background:#fff;
     box-sizing:border-box;
+    .input_box {
+      .btn_comment_submit {
+        height:28px;
+        padding:0 16px;
+        font-size:12px;
+      }
+    }
   }
 }
