@@ -82,7 +82,9 @@ public class WordRepositoryImpl implements WordCustomRepository {
         return queryFactory.select(word)
                 .from(word)
                 .leftJoin(wordContent).on(word.wordIdx.eq(wordContent.wordIdx))
-                .where(wordContent.wordContentIdx.isNull().and(word.wordIdx.in(wordIdxList)))
+                .where(wordContent.wordContentIdx.isNull()
+                        .and(word.wordIdx.in(wordIdxList))
+                )
                 .fetch();
     }
 }
