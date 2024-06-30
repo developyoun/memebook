@@ -17,6 +17,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(name = "단어 API", description = "단어 관련 API")
 @Slf4j
 @RestController
@@ -72,10 +74,18 @@ public class WordController {
         return ResponseEntity.ok(wordService.getWordListService(pageable, requestDto));
     }
 
-    @Operation(summary = "단어 컨텐츠 삭제 API", description = "단어의 컨텐츠를 삭제한다.")
+    @Operation(summary = "단어 컨텐츠 전체 삭제 API", description = "전체 단어 컨텐츠를 삭제한다.")
+    @DeleteMapping("/delete/all")
+    public ResponseEntity<?> deleteWordContent(@RequestParam Long memberIdx) {
+        wordService.deleteAllWordContent(memberIdx);
+
+        return ResponseEntity.ok(null);
+    }
+
+    @Operation(summary = "단어 컨텐츠 선택 삭제 API", description = "단어의 컨텐츠를 선택 삭제한다.")
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteWordContent(@RequestParam Long wordContentIdx) {
-        wordService.deleteWordContent(wordContentIdx);
+    public ResponseEntity<?> deleteWordContentList(@RequestParam List<Long> wordContentIdx) {
+        wordService.deleteWordContentList(wordContentIdx);
 
         return ResponseEntity.ok(null);
     }

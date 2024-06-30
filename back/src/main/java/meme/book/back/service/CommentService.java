@@ -2,7 +2,6 @@ package meme.book.back.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import meme.book.back.dto.comment.CommentDto;
 import meme.book.back.dto.comment.CommentListDto;
 import meme.book.back.dto.comment.CommentRequestDto;
 import meme.book.back.dto.comment.CommentResponseDto;
@@ -104,16 +103,19 @@ public class CommentService {
     }
 
     @Transactional
-    public void deleteComment(Long commentIdx, Long reqMemIdx) {
-        Comment comment = commentRepository.findByCommentIdx(commentIdx)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_COMMENT));
+    public void deleteAllComment(Long memberIdx) {
+        List<Comment> commentList = commentRepository.findAllByMemberIdxAndDeletedFalse(memberIdx);
+        commentList.forEach(comment -> comment.setDeleted(true));
+        log.info("Deleted Comment: {}", commentList);
+    }
 
-        if (!comment.getMemberIdx().equals(reqMemIdx)) {
-            throw new CustomException(ErrorCode.NOT_MATCH_MEMBER);
-        }
+    @Transactional
+    public void deleteCommentList(List<Long> commentIdxList) {
+        List<Comment> commentList = commentRepository.findAllByCommentIdxIn(commentIdxList);
 
-        comment.setDeleted(true);
-        commentRepository.save(comment);
-        log.info("Deleted Comment, idx: {}", commentIdx);
+        commentList.forEach(comment -> comment.setDeleted(true));
+
+        commentRepository.saveAll(commentList);
+        log.info("Deleted Comment, idx: {}", commentIdxList);
     }
 }

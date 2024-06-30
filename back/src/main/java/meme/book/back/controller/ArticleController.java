@@ -15,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(name = "게시글 API", description = "게시글 관련 API")
 @Slf4j
 @RequiredArgsConstructor
@@ -67,13 +69,20 @@ public class ArticleController {
         return ResponseEntity.ok(articleService.updateArticle(articleIdx, requestDto));
     }
 
-    @Operation(summary = "게시글 삭제 API")
-    @DeleteMapping("/delete/{articleIdx}")
-    public ResponseEntity<?> deleteArticle(
-            @Parameter(description = "게시글 번호") @PathVariable Long articleIdx,
-            @Parameter(description = "요청 회원 번호") @RequestParam Long reqMemIdx) {
+    @Operation(summary = "게시글 선택 삭제 API")
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteArticleList(
+            @Parameter(description = "게시글 번호") @RequestParam List<Long> articleIdx) {
         log.info("Article Delete Request: {}", articleIdx);
-        articleService.deleteArticle(articleIdx, reqMemIdx);
+        articleService.deleteArticleList(articleIdx);
+        return ResponseEntity.ok().build();
+    }
+
+    @Operation(summary = "게시글 전체 삭제")
+    @DeleteMapping("/delete/all")
+    public ResponseEntity<?> deleteAllArticle(@RequestParam Long memberIdx) {
+        log.info("Delete All Article Request: {}", memberIdx);
+        articleService.deleteAllArticle(memberIdx);
         return ResponseEntity.ok().build();
     }
 

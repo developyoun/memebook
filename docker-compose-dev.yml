@@ -2,7 +2,7 @@
 services:
   app:
     container_name: npm
-    image: 'jc21/nginx-proxy-manager:latest'
+    image: 'jc21/nginx-proxy-manager:2.11.2'
     restart: unless-stopped
     ports:
       - "80:80"
@@ -13,12 +13,12 @@ services:
       - ./letsencrypt:/etc/letsencrypt
   back:
     container_name: app
-    build:
-      context: back/
-      dockerfile: Dockerfile
+#    build:
+#      context: back/
+#      dockerfile: Dockerfile
     environment:
       - PROFILE=dev
-    image: memebook:0.1
+    image: pyoun820/memebook
     ports:
       - "8080:8080"
 

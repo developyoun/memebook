@@ -1,4 +1,0 @@
-[submodule "back/sub-secret"]
-	path = back/sub-secret
-	url = https://github.com/developyoun/sub-memebook.git
-	branch = main

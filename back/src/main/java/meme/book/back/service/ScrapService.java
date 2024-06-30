@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -53,17 +53,20 @@ public class ScrapService {
     }
 
     @Transactional
-    public void deleteWordScrap(Long scrapIdx) {
-        Optional<Scrap> optionalScrap = scrapRepository.findByScrapIdx(scrapIdx);
+    public void deleteAllWordScrap(Long memberIdx) {
+        List<Scrap> scrapList = scrapRepository.findAllByMemberIdx(memberIdx);
 
-        optionalScrap.ifPresentOrElse(scrap -> {
-                    scrapRepository.delete(scrap);
-                    log.info("Delete ScrapIdx: {}, WordIdx: {}, MemberIdx: {}",
-                            scrap.getScrapIdx(), scrap.getWordIdx(), scrap.getMemberIdx());
-                },
-                () -> {
-                    throw new CustomException(ErrorCode.NOT_EXIST_SCRAP);
-                }
-        );
+        scrapRepository.deleteAll(scrapList);
+        log.info("Delete Scrap: {}", scrapList);
+    }
+
+    @Transactional
+    public void deleteWordScrapList(List<Long> scrapIdxList) {
+        List<Scrap> scrapList = scrapRepository.findAllByScrapIdxIn(scrapIdxList);
+
+        scrapRepository.deleteAll(scrapList);
+
+        log.info("Delete Scrap List: {}", scrapIdxList);
+
     }
 }

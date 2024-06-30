@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -135,25 +136,32 @@ public class WordService {
     }
 
     @Transactional
-    public void deleteWordContent(Long wordContentIdx) {
-        Optional<WordContent> optionalWordContent = wordContentRepository.findByWordContentIdx(wordContentIdx);
+    public void deleteAllWordContent(Long memberIdx) {
+        List<WordContent> wordContentList = wordContentRepository.findAllByMemberIdx(memberIdx);
+        List<Long> wordIdxList = wordContentList.stream().map(WordContent::getWordIdx).distinct().toList();
 
-        if (optionalWordContent.isEmpty()) {
-            throw new CustomException(ErrorCode.NOT_EXIST_WORD);
-        }
+        wordContentRepository.deleteAll(wordContentList);
+        log.info("Deleted Word Content: {}", wordContentList);
 
-        WordContent wordContent = optionalWordContent.get();
-        Long wordIdx = wordContent.getWordIdx();
+        List<Word> wordList = wordRepository.getWordListByNotExistContent(wordIdxList);
 
-        wordContentRepository.delete(wordContent);
-        long wordContentCount = wordContentRepository.countByWordIdx(wordIdx);
+        wordRepository.deleteAll(wordList);
+        log.info("Deleted Word Idx List: {}", wordList);
+    }
 
-        log.info("wordIdx: {}, Word Count: {}", wordIdx, wordContentCount);
+    @Transactional
+    public void deleteWordContentList(List<Long> wordContentIdxList) {
+        List<WordContent> wordContentList = wordContentRepository.findAllByWordContentIdxIn(wordContentIdxList);
+        List<Long> wordIdxList = wordContentList.stream().map(WordContent::getWordIdx).distinct().toList();
 
-        if (wordContentCount == 0) {
-            log.info("Word Content is Zero, Delete Word: {}", wordIdx);
-            wordRepository.deleteByWordIdx(wordIdx);
-        }
+        wordContentRepository.deleteAll(wordContentList);
+        log.info("Deleted Word Content: {}", wordContentList);
+
+        List<Word> wordList = wordRepository.getWordListByNotExistContent(wordIdxList);
+
+        wordRepository.deleteAll(wordList);
+        log.info("Deleted Word Idx List: {}", wordList);
+
     }
 
     public WordContentListResponseDto getWordListByMember(Pageable pageable, Long memberIdx) {

@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(name = "댓글 API", description = "댓글 관련 API")
 @Slf4j
 @RequiredArgsConstructor
@@ -55,13 +57,20 @@ public class CommentController {
         return ResponseEntity.ok(commentService.updateCommentLike(commentIdx, requestDto));
     }
 
-    @Operation(summary = "댓글 삭제 API")
-    @DeleteMapping("/delete/{commentIdx}")
-    public ResponseEntity<?> deleteComment(
-            @Parameter(description = "댓글 번호") @PathVariable Long commentIdx,
-            @Parameter(description = "요청 회원 번호") @RequestParam Long reqMemIdx) {
-        log.info("Comment Delete Request, idx: {}, mem: {}", commentIdx, reqMemIdx);
-        commentService.deleteComment(commentIdx, reqMemIdx);
+    @Operation(summary = "댓글 전체 삭제 API")
+    @DeleteMapping("/delete/all")
+    public ResponseEntity<?> deleteComment(@RequestParam Long memberIdx) {
+        log.info("Comment All Delete Request, memberIdx: {}", memberIdx);
+        commentService.deleteAllComment(memberIdx);
+        return ResponseEntity.ok().build();
+    }
+
+    @Operation(summary = "댓글 선택 삭제 API")
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteCommentList(
+            @Parameter(description = "댓글 번호 리스트") @RequestParam List<Long> commentIdx) {
+        log.info("Comment List Delete Request: {}", commentIdx);
+        commentService.deleteCommentList(commentIdx);
         return ResponseEntity.ok().build();
     }
 
