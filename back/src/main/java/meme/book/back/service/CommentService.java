@@ -2,7 +2,6 @@ package meme.book.back.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import meme.book.back.dto.comment.CommentDto;
 import meme.book.back.dto.comment.CommentListDto;
 import meme.book.back.dto.comment.CommentRequestDto;
 import meme.book.back.dto.comment.CommentResponseDto;
@@ -104,12 +103,10 @@ public class CommentService {
     }
 
     @Transactional
-    public void deleteComment(Long commentIdx) {
-        Comment comment = commentRepository.findByCommentIdx(commentIdx)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_COMMENT));
-
-        comment.setDeleted(true);
-        log.info("Deleted Comment: {}", comment);
+    public void deleteAllComment(Long memberIdx) {
+        List<Comment> commentList = commentRepository.findAllByMemberIdxAndDeletedFalse(memberIdx);
+        commentList.forEach(comment -> comment.setDeleted(true));
+        log.info("Deleted Comment: {}", commentList);
     }
 
     @Transactional

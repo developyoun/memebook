@@ -1,7 +1,6 @@
 package meme.book.back.repository.comment;
 
 import meme.book.back.entity.Comment;
-import meme.book.back.entity.Follow;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,9 +12,9 @@ import java.util.Optional;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long>, CommentCustomRepository {
 
-    List<Comment> findByArticleIdx(Long articleIdx);
-
     Optional<Comment> findByCommentIdx(Long commentIdx);
+
+    List<Comment> findAllByMemberIdxAndDeletedFalse(Long memberIdx);
 
     List<Comment> findAllByCommentIdxIn(List<Long> commentIdx);
 
