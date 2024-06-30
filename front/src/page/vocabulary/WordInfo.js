@@ -194,6 +194,7 @@ export default function WordInfo() {
           )
         }
         <div className="info_top">
+
           <h1 className="word_tit">
             {wordData?.wordName}
           </h1>
@@ -201,6 +202,10 @@ export default function WordInfo() {
         </div>
 
         <div className="info_desc">
+
+          <span className="list_count">
+              총 {wordListData?.length}개
+            </span>
           {
             wordListData?.memberIdx !== memberIdx && (
               <button type="button" className={`btn_scrap ${scrapData ? 'active' : ''}`} onClick={ScrapeBtn}>
@@ -208,10 +213,6 @@ export default function WordInfo() {
               </button>
             )
           }
-          <span className="list_count">
-              총 {wordListData?.length}개
-            </span>
-
         </div>
 
         <ul className="info_list">
@@ -286,7 +287,7 @@ export default function WordInfo() {
 
                     </ul>
                   </div>
-                  <div className="content_box">
+                  <div className="mean_con">
 
                     {
                       modifyState !== idx ? (
@@ -294,7 +295,7 @@ export default function WordInfo() {
                       ) : (
                         <>
                                   <textarea
-                                    className="word_modify_area"
+                                    className="mean_txt"
                                     maxLength={101}
                                     value={modifyContent}
                                     onChange={(event) => contentChange(event, idx)}
@@ -316,7 +317,7 @@ export default function WordInfo() {
                             </p>
                           </div>
 
-                          <button type="button" className="word_modify_btn" disabled={modifyContent.length === 0 || modifyContent.length >= 101}
+                          <button type="button" className="btn_modify" disabled={modifyContent.length === 0 || modifyContent.length >= 101}
                                   onClick={() => wordModify(item.wordContentIdx)}>
                             수정
                           </button>

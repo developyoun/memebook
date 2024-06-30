@@ -67,7 +67,7 @@ export default function PostAdd() {
           <div className="input_top">
             <h4 className="tit">제목</h4>
           </div>
-          <InputComponent length={20} word={title} titleValueCheck={titleValueCheck}></InputComponent>
+          <InputComponent word={title} titleValueCheck={titleValueCheck}></InputComponent>
         </div>
 
         <div className="input_box">

@@ -61,10 +61,6 @@ export default function MyScrapeList() {
           <span className="txt">
             총 {scrapList?.totalElements} 개
           </span>
-          <span className="check_box">
-            <input type="checkbox"/>
-            <label htmlFor="">전체 삭제</label>
-          </span>
         </div>
 
         {
@@ -87,6 +83,12 @@ export default function MyScrapeList() {
                 scrapList.content?.map((item, idx) => {
                   return (
                     <li className="list_item" key={idx}>
+                       <span className="check_box">
+                          <label htmlFor="all_delete">
+                            <input type="checkbox" id="all_delete"/>
+                            <span className="blind">전체 삭제</span>
+                          </label>
+                        </span>
                       <span className="check_box" onClick={() => checkAction(item.wordIdx)}>
                         <input type="checkbox" id="scrap_all_check" name="scrap_all_check"/>
                         <label htmlFor="scrap_all_check" className="blind">삭제</label>

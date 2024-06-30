@@ -54,13 +54,13 @@
         color:#fff;
         font-size:14px;
         border-radius:36px;
-        background:var(--primary-30);
+        background:#f09f2c;
         &:after {
           content: '';
           position: absolute;
           bottom: -7px;
           right:12px;
-          border-top: 8px solid var(--primary-30);
+          border-top: 8px solid #f09f2c;
           border-left: 8px solid transparent;
           border-right: 8px solid transparent;
           border-bottom: 0 solid transparent;
@@ -287,6 +287,7 @@
   .main_wrap {
     padding:40px 0 80px;
     .container {
+      padding:0;
       &:before {
         top:0;
         left:140px;
