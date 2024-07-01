@@ -10,7 +10,7 @@ export default function HomeNav({type}) {
     <nav className={type === 'main' ? 'nav_main' : 'nav_sub'}>
       <ul className="nav_list">
         <li className="list">
-          <Link to="/main" className={`link home ${location.pathname.startsWith('/main') ? 'active' : ''}`}>
+          <Link to="/main" className={`link home ${location.pathname.startsWith('/main') || location.pathname === '/' ? 'active' : ''}`}>
             <span className={type === 'main' ? '' : 'blind'}>홈</span>
           </Link>
         </li>

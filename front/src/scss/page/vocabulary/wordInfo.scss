@@ -105,7 +105,7 @@
       display:flex;
       flex-wrap:wrap;
       margin-top:20px;
-      .word_modify_text {
+      .word_txt {
         font-size:16px;
       }
       .mean_txt {
@@ -182,6 +182,9 @@
         }
       }
       .mean_con {
+        .word_txt {
+          font-size:14px;
+        }
         .mean_txt {
           font-size:14px;
         }
