@@ -152,8 +152,8 @@ export default function Main() {
                        <ul className="search_list" >
                          {
                            wordSearch?.wordList.length === 0 && (
-                             <li>
-                               <span className="list_none">검색에 맞는 단어가 없어요</span>
+                             <li className="list_none">
+                               검색에 맞는 단어가 없어요
                              </li>
                            )
                          }

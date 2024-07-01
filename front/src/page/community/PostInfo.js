@@ -32,7 +32,7 @@ export default function PostInfo() {
   const sideRef = useRef(null);
   OutsideHook(sideRef, () => setIsVisible(false));
 
-  const [memberIdx, setMemberIdx] = useState(321);
+  const [memberIdx, setMemberIdx] = useState(123);
 
 
   const [contentValue, setContentValue] = useState(false);
@@ -214,13 +214,13 @@ export default function PostInfo() {
                     onClick={postReaction}>
               <span className="blind">좋아요</span>
             </button>
-            <Link to="/community/postDetail" className="reaction_link reaction_comment">
+            <div className="reaction_link reaction_comment">
               <span
                 className={`txt_count ${postDetail?.commentCount === 0 ? 'blind' : ''}`}>{postDetail?.commentCount === 0 ? '댓글' : postDetail?.commentCount}</span>
-            </Link>
-            <Link to="/community/postDetail" className="reaction_link reaction_view">
+            </div>
+            <div className="reaction_link reaction_view">
               <span className="blind">조회수</span>
-            </Link>
+            </div>
           </div>
 
 

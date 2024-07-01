@@ -308,6 +308,18 @@
           width:160px;
           height:240px;
         }
+        .main_country {
+          .badge_country {
+            top:-42px;
+            right:0;
+            height:28px;
+            font-size:12px;
+          }
+          .user_country {
+            width:40px;
+            height:40px;
+          }
+        }
         .main_tit {
           margin:12px 0 16px;
           font-size:22px;
@@ -327,6 +339,7 @@
       /* 메인 컨텐츠 */
       .main_con {
         display:block;
+        margin-top:32px;
         /* 메인 - 인기순위 */
         .main_popular {
           .popular_tit {

@@ -291,7 +291,7 @@ export default function WordInfo() {
 
                     {
                       modifyState !== idx ? (
-                        <p className="word_modify_text">{item.content}</p>
+                        <p className="word_txt">{item.content}</p>
                       ) : (
                         <>
                                   <textarea
