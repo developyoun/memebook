@@ -36,13 +36,16 @@ export default function PostInfo() {
 
 
   const [contentValue, setContentValue] = useState(false);
+
   // 수정하기
   const [addState, setAddState] = useState(false);
+
+  // 코멘트 작성
   const contentValueCheck = (length) => {
     setContentValue(length);
   }
   const addStateCheck = (state) => {
-    setAddState(!addState);
+    setAddState(state);
   }
 
   // 글 상세 Api
@@ -57,7 +60,7 @@ export default function PostInfo() {
     }
 
     postDetailApi();
-  }, [commentState, dispatch, id.id]);
+  }, [addState, commentState, dispatch, id.id]);
 
   // 글 삭제하기
   async function postDeleteData(articleIdx) {
@@ -136,6 +139,7 @@ export default function PostInfo() {
           "memberIdx": memberIdx,
           "upperIdx": type === 'reply' ? replyIdx : commentIdx,
         });
+        console.log('성공')
         setCommentState(!commentState);
         setTextareaActive(false);
         setCommentValue('');
@@ -152,6 +156,7 @@ export default function PostInfo() {
   const propsToSend = {
     type: "community",
     length: 100,
+    articleIdx : id.id,
     replyNickname : replyNickname,
     replyIdx : replyIdx,
     commentIdx : commentIdx
