@@ -23,10 +23,8 @@ export default function AddComponent(props) {
     setCommentIdx(0);
   };
 
-
   const contentValueCount = (event) => {
     setContentValue(event.target.value);
-    props.contentValueCheck(event.target.value);
   }
   async function wordAddPost() {
 

@@ -1,7 +1,7 @@
 import {memebookApi} from "./../../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useRef, useState} from "react";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {postDetailData} from "./../../util/action/communityAction";
 import './../../scss/page/community/postInfo.scss'
 import OutsideHook from "../../util/OutsideHook";
@@ -14,36 +14,26 @@ export default function PostInfo() {
   const postDetail = useSelector(state => state.meme.postDetail);
   // 글 좋아요
   const [postReactionState, setPostReactionState] = useState(false);
-  // 댓글 폼 활성화
-  // 클릭영역 외
+  // 댓글 클릭영역 외
   const [textareaActive, setTextareaActive] = useState(false);
   const textRef = useRef(null);
   OutsideHook(textRef, () => setTextareaActive(false));
+  // 셋업 클릭영역 외
+  const [isVisible, setIsVisible] = useState(false);
+  const sideRef = useRef(null);
+  OutsideHook(sideRef, () => setIsVisible(false));
   // 댓글
   const [commentIdx, setCommentIdx] = useState();
-  const [commentValue, setCommentValue] = useState();
-  const [commentLength, setCommentLength] = useState(false);
   const [commentState, setCommentState] = useState(false);
   // 대댓글
   const [replyIdx, setReplyIdx] = useState('');
   const [replyNickname, setReplyNickname] = useState('');
-  // 클릭영역 외
-  const [isVisible, setIsVisible] = useState(false);
-  const sideRef = useRef(null);
-  OutsideHook(sideRef, () => setIsVisible(false));
-
-  const [memberIdx, setMemberIdx] = useState(123);
-
-
-  const [contentValue, setContentValue] = useState(false);
-
-  // 수정하기
+  // 댓글 상태
   const [addState, setAddState] = useState(false);
 
-  // 코멘트 작성
-  const contentValueCheck = (length) => {
-    setContentValue(length);
-  }
+  const [memberIdx, setMemberIdx] = useState(321);
+
+  // 댓글 등록 시 재랜더링
   const addStateCheck = (state) => {
     setAddState(state);
   }
@@ -74,36 +64,17 @@ export default function PostInfo() {
     }
   }
 
-  // 글 좋아요
-  const postReaction = () => {
-    setPostReactionState(!postReactionState)
-  }
-
-  // 댓글 클릭하면 커지기
-  const commtentActive = () => {
-    setTextareaActive(true);
-  }
-
   // 댓글 삭제하기
   async function commentDeleteData(commentIdx) {
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
         await memebookApi.commentDeleteApi(commentIdx, memberIdx);
         setCommentState(!commentState);
+        console.log(commentIdx)
       }
     } catch (error) {
       console.log(error);
     }
-  }
-
-  // 툴팁 열기
-  const wordSet = () => {
-    setIsVisible(!isVisible);
-  }
-
-  // 댓글 개수
-  const commentValueCount = (event) => {
-    setCommentValue(event.target.value);
   }
 
   // 제목, 설명 - 글 수정하기 페이지로 데이터 전달
@@ -129,30 +100,17 @@ export default function PostInfo() {
     setCommentIdx(0);
   };
 
-  // 댓글 달기
-  async function commentSubmitData(type) {
-    try {
-      if (commentValue?.length > 0) {
-        await memebookApi.commentAddApi({
-          "commentContent": commentValue,
-          "articleIdx": id.id,
-          "memberIdx": memberIdx,
-          "upperIdx": type === 'reply' ? replyIdx : commentIdx,
-        });
-        console.log('성공')
-        setCommentState(!commentState);
-        setTextareaActive(false);
-        setCommentValue('');
-        setReplyNickname('');
-        setCommentLength(false);
-      } else {
-        setCommentLength(true);
-      }
-    } catch (error) {
-      console.log(error)
-    }
+  // 글 좋아요
+  const postReaction = () => {
+    setPostReactionState(!postReactionState)
   }
 
+  // 툴팁 열기
+  const wordSet = () => {
+    setIsVisible(!isVisible);
+  }
+
+  // 댓글 컴포넌트에 데이터 보내기
   const propsToSend = {
     type: "community",
     length: 100,
@@ -347,32 +305,8 @@ export default function PostInfo() {
         }
 
         <AddComponent {...propsToSend}
-                      addSubmit={addStateCheck}
-                      contentValueCheck={contentValueCheck}>
+                      addSubmit={addStateCheck}>
         </AddComponent>
-
-
-        {/*<div className="comment_input_box">*/}
-        {/*  <div className={`input_box ${commentLength ? 'invalid' : ''}`}>*/}
-        {/*    {*/}
-        {/*      replyNickname && (*/}
-        {/*        <span className="reply_nickname" onClick={replayNicknameDelete}>@{replyNickname}</span>*/}
-        {/*      )*/}
-        {/*    }*/}
-        {/*    <textarea placeholder="댓글 입력"*/}
-        {/*              className={`${textareaActive ? 'active' : ''}`}*/}
-        {/*              ref={textRef}*/}
-        {/*              value={commentValue}*/}
-        {/*              onClick={commtentActive}*/}
-        {/*              onChange={commentValueCount}>*/}
-        {/*    </textarea>*/}
-        {/*    <button type="button" className="btn_comment_submit"*/}
-        {/*            onClick={() => { replyIdx > 0 ?  commentSubmitData('reply') : commentSubmitData('comment')}}*/}
-        {/*    >*/}
-        {/*      <span>등록</span>*/}
-        {/*    </button>*/}
-        {/*  </div>*/}
-        {/*</div>*/}
 
       </div>
     </div>
