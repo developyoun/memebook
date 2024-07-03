@@ -11,7 +11,7 @@ import BtnBack from "./../../components/BtnBack";
 import './../../scss/page/vocabulary/wordInfo.scss'
 import AddComponent from "../../components/AddComponent";
 import OutsideHook from "../../util/OutsideHook";
-import userIdxHigher from "../../components/userIdxHigher";
+import userIdxHigher from "../../components/UserIdxHigher";
 
 const WordInfo = ({ userIdx }) => {
   let {id} = useParams();
@@ -60,11 +60,10 @@ const WordInfo = ({ userIdx }) => {
         setWordData(wordDetailData.data);
         setScrapData(wordDetailData.data.scrapIdx);
         setWordListData(wordDetailData.data.wordContentList);
-        console.log(wordDetailData.data)
         if (wordDetailData?.data.status === "NOT_FOUND") {
           window.history.back();
         }
-        console.log(userIdx)
+
       } catch (error) {
         console.log(error)
       }
