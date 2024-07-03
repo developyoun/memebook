@@ -1,3 +1,11 @@
+// 회원
+export const userIdxAction = (data) => {
+  return {
+    type: "SEND_USER_IDX_ACTION",
+    payload: data.data
+  };
+};
+
 // 회원 국가 조회
 export const nationCheckAction = (data) => {
   return {

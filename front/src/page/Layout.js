@@ -1,17 +1,18 @@
 import {Outlet} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import HomeNav from "../components/HomeNav";
 import {useTop} from "../util/commonEvent";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import {memebookApi} from "../util/memebookApi";
+import {userIdxData} from "../util/action/userAction";
+import {useDispatch, useSelector} from "react-redux";
 
 export default function Layout() {
   useTop();
   const [isDark, setIsDark] = useState(false);
 
-  // const darkModeCheck = () => {
-  //   setIsDark(!isDark);
-  // }
+
   return (
     <div className="wrap">
       <Header></Header>

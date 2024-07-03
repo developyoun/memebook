@@ -4,13 +4,16 @@ import {useState, useEffect, useRef} from "react";
 import {Link} from 'react-router-dom';
 import {useParams} from "react-router-dom";
 import {scrapAddData, scrapDeleteData} from "./../../util/action/scrapAction";
+
+
 import CommentPort from "./../../modal/CommentPort";
 import BtnBack from "./../../components/BtnBack";
 import './../../scss/page/vocabulary/wordInfo.scss'
 import AddComponent from "../../components/AddComponent";
 import OutsideHook from "../../util/OutsideHook";
+import userIdxHigher from "../../components/userIdxHigher";
 
-export default function WordInfo() {
+const WordInfo = ({ userIdx }) => {
   let {id} = useParams();
   const dispatch = useDispatch();
   const [memberIdx, setMemberIdx] = useState(321);
@@ -61,6 +64,7 @@ export default function WordInfo() {
         if (wordDetailData?.data.status === "NOT_FOUND") {
           window.history.back();
         }
+        console.log(userIdx)
       } catch (error) {
         console.log(error)
       }
@@ -345,3 +349,4 @@ export default function WordInfo() {
     </div>
   );
 }
+export default userIdxHigher(WordInfo);
