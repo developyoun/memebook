@@ -38,7 +38,7 @@ export const memebookApi = {
   // 댓글 등록
   commentAddApi : (commentInfo) => request.post(`comment/create`, commentInfo),
   // 댓글 삭제
-  commentDeleteApi : (commentIdx, memberIdx) => request.delete(`comment/delete/${commentIdx}?reqMemIdx=${memberIdx}`),
+  commentDeleteApi : (commentIdx,) => request.delete(`comment/delete?commentIdx=${commentIdx}`),
 
   // 전체 단어 리스트 조회
   wordListApi : (country, pageNumber) => request.get(`word/list?page=${pageNumber}`),

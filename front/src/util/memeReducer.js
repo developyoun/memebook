@@ -9,6 +9,11 @@ const initialState = {
 
 const memeReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "SEND_USER_IDX_ACTION":
+      return {
+        ...state,
+        userIdx: action.payload,
+      };
     case "SEND_NATION_CHECK_ACTION":
       return {
         ...state,

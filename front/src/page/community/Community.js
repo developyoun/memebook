@@ -4,8 +4,9 @@ import {useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
 import {postListData} from "../../util/action/communityAction";
 import './../../scss/page/community/community.scss'
+import userIdxHigher from "../../components/UserIdxHigher";
 
-export default function Community() {
+const Community = ({ userIdx }) => {
   const dispatch = useDispatch();
   const postList = useSelector(state => state.meme.postList);
   const [postReactionState, setPostReactionState] = useState(false);
@@ -119,3 +120,5 @@ export default function Community() {
     </div>
   );
 }
+
+export default userIdxHigher(Community);

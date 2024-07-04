@@ -13,7 +13,6 @@ export default function AddComponent(props) {
   const [memberIdx, setMemberIdx] = useState(321);
   const [contentValue, setContentValue] = useState();
 
-  // 댓글 클릭하면 커지기
   const commtentActive = () => {
     setTextareaActive(true);
   }
@@ -24,12 +23,11 @@ export default function AddComponent(props) {
     setCommentIdx(0);
   };
 
-
   const contentValueCount = (event) => {
     setContentValue(event.target.value);
-    props.contentValueCheck(event.target.value);
   }
   async function wordAddPost() {
+
     try {
       if (props.type === 'word') {
         await memebookApi.wordAddApi( {
@@ -38,14 +36,12 @@ export default function AddComponent(props) {
           wordNation : "KOR",
           memberIdx : memberIdx,
         });
-        console.log('단어 추가 성공');
-      } else if (props.type === 'comminity') {
+      } else if (props.type === 'community') {
         await memebookApi.commentAddApi({
           "commentContent": contentValue,
-          "articleIdx": '',
+          "articleIdx": props.articleIdx,
           "memberIdx": memberIdx,
         });
-        console.log('코멘트 추가 성공');
       }
       props.addSubmit(true);
       setContentValue('');

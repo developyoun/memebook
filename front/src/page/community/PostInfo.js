@@ -1,48 +1,40 @@
 import {memebookApi} from "./../../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useRef, useState} from "react";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {postDetailData} from "./../../util/action/communityAction";
 import './../../scss/page/community/postInfo.scss'
 import OutsideHook from "../../util/OutsideHook";
 import AddComponent from "../../components/AddComponent";
+import userIdxHigher from "../../components/UserIdxHigher";
 
-export default function PostInfo() {
+const PostInfo = ({ userIdx }) => {
   const id = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const postDetail = useSelector(state => state.meme.postDetail);
   // 글 좋아요
   const [postReactionState, setPostReactionState] = useState(false);
-  // 댓글 폼 활성화
-  // 클릭영역 외
+  // 댓글 클릭영역 외
   const [textareaActive, setTextareaActive] = useState(false);
   const textRef = useRef(null);
   OutsideHook(textRef, () => setTextareaActive(false));
+  // 셋업 클릭영역 외
+  const [isVisible, setIsVisible] = useState(false);
+  const sideRef = useRef(null);
+  OutsideHook(sideRef, () => setIsVisible(false));
   // 댓글
   const [commentIdx, setCommentIdx] = useState();
-  const [commentValue, setCommentValue] = useState();
-  const [commentLength, setCommentLength] = useState(false);
   const [commentState, setCommentState] = useState(false);
   // 대댓글
   const [replyIdx, setReplyIdx] = useState('');
   const [replyNickname, setReplyNickname] = useState('');
-  // 클릭영역 외
-  const [isVisible, setIsVisible] = useState(false);
-  const sideRef = useRef(null);
-  OutsideHook(sideRef, () => setIsVisible(false));
-
-  const [memberIdx, setMemberIdx] = useState(321);
-
-
-  const [contentValue, setContentValue] = useState(false);
-  // 수정하기
+  // 댓글 상태
   const [addState, setAddState] = useState(false);
-  const contentValueCheck = (length) => {
-    setContentValue(length);
-  }
+
+  // 댓글 등록 시 재랜더링
   const addStateCheck = (state) => {
-    setAddState(!addState);
+    setAddState(state);
   }
 
   // 글 상세 Api
@@ -50,20 +42,19 @@ export default function PostInfo() {
     async function postDetailApi() {
       try {
         await dispatch(postDetailData(id.id));
-        console.log(postDetail)
       } catch (error) {
         console.log(error)
       }
     }
 
     postDetailApi();
-  }, [commentState, dispatch, id.id]);
+  }, [addState, commentState, dispatch, id.id]);
 
   // 글 삭제하기
   async function postDeleteData(articleIdx) {
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
-        await memebookApi.postDeleteApi(articleIdx, memberIdx);
+        await memebookApi.postDeleteApi(articleIdx, userIdx);
         window.history.back();
       }
     } catch (error) {
@@ -71,36 +62,17 @@ export default function PostInfo() {
     }
   }
 
-  // 글 좋아요
-  const postReaction = () => {
-    setPostReactionState(!postReactionState)
-  }
-
-  // 댓글 클릭하면 커지기
-  const commtentActive = () => {
-    setTextareaActive(true);
-  }
-
   // 댓글 삭제하기
   async function commentDeleteData(commentIdx) {
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
-        await memebookApi.commentDeleteApi(commentIdx, memberIdx);
+        await memebookApi.commentDeleteApi(commentIdx, userIdx);
         setCommentState(!commentState);
+        console.log(commentIdx)
       }
     } catch (error) {
       console.log(error);
     }
-  }
-
-  // 툴팁 열기
-  const wordSet = () => {
-    setIsVisible(!isVisible);
-  }
-
-  // 댓글 개수
-  const commentValueCount = (event) => {
-    setCommentValue(event.target.value);
   }
 
   // 제목, 설명 - 글 수정하기 페이지로 데이터 전달
@@ -126,32 +98,21 @@ export default function PostInfo() {
     setCommentIdx(0);
   };
 
-  // 댓글 달기
-  async function commentSubmitData(type) {
-    try {
-      if (commentValue?.length > 0) {
-        await memebookApi.commentAddApi({
-          "commentContent": commentValue,
-          "articleIdx": id.id,
-          "memberIdx": memberIdx,
-          "upperIdx": type === 'reply' ? replyIdx : commentIdx,
-        });
-        setCommentState(!commentState);
-        setTextareaActive(false);
-        setCommentValue('');
-        setReplyNickname('');
-        setCommentLength(false);
-      } else {
-        setCommentLength(true);
-      }
-    } catch (error) {
-      console.log(error)
-    }
+  // 글 좋아요
+  const postReaction = () => {
+    setPostReactionState(!postReactionState)
   }
 
+  // 툴팁 열기
+  const wordSet = () => {
+    setIsVisible(!isVisible);
+  }
+
+  // 댓글 컴포넌트에 데이터 보내기
   const propsToSend = {
     type: "community",
     length: 100,
+    articleIdx : id.id,
     replyNickname : replyNickname,
     replyIdx : replyIdx,
     commentIdx : commentIdx
@@ -175,7 +136,7 @@ export default function PostInfo() {
                 <>
                   <ul className="set_box" ref={sideRef}>
                     {
-                      postDetail?.articleMemberIdx !== memberIdx && (
+                      postDetail?.articleMemberIdx !== userIdx && (
                         <li>
                           <button type="button" className="">
                             <span>신고하기</span>
@@ -185,7 +146,7 @@ export default function PostInfo() {
                     }
 
                     {
-                      postDetail?.articleMemberIdx === memberIdx && (
+                      postDetail?.articleMemberIdx === userIdx && (
                         <>
                           <li>
                             <button type="button" onClick={postModifyToPage} className="">
@@ -214,13 +175,13 @@ export default function PostInfo() {
                     onClick={postReaction}>
               <span className="blind">좋아요</span>
             </button>
-            <Link to="/community/postDetail" className="reaction_link reaction_comment">
+            <div className="reaction_link reaction_comment">
               <span
                 className={`txt_count ${postDetail?.commentCount === 0 ? 'blind' : ''}`}>{postDetail?.commentCount === 0 ? '댓글' : postDetail?.commentCount}</span>
-            </Link>
-            <Link to="/community/postDetail" className="reaction_link reaction_view">
+            </div>
+            <div className="reaction_link reaction_view">
               <span className="blind">조회수</span>
-            </Link>
+            </div>
           </div>
 
 
@@ -257,7 +218,7 @@ export default function PostInfo() {
                                    <span className="blind">좋아요</span>
                                  </button>
                                  {
-                                   item?.commentMemberIdx === memberIdx && (
+                                   item?.commentMemberIdx === userIdx && (
                                      <button type="button" className="btn_delete" onClick={() => {
                                        commentDeleteData(item?.commentIdx)
                                      }}>
@@ -308,7 +269,7 @@ export default function PostInfo() {
                                                  <span className="blind">좋아요</span>
                                                </button>
                                                {
-                                                 reply?.commentMemberIdx === memberIdx && (
+                                                 reply?.commentMemberIdx === userIdx && (
                                                    <button type="button" className="btn_delete" onClick={() => {
                                                      commentDeleteData(reply?.commentIdx)
                                                    }}>
@@ -342,34 +303,12 @@ export default function PostInfo() {
         }
 
         <AddComponent {...propsToSend}
-                      addSubmit={addStateCheck}
-                      contentValueCheck={contentValueCheck}>
+                      addSubmit={addStateCheck}>
         </AddComponent>
-
-
-        {/*<div className="comment_input_box">*/}
-        {/*  <div className={`input_box ${commentLength ? 'invalid' : ''}`}>*/}
-        {/*    {*/}
-        {/*      replyNickname && (*/}
-        {/*        <span className="reply_nickname" onClick={replayNicknameDelete}>@{replyNickname}</span>*/}
-        {/*      )*/}
-        {/*    }*/}
-        {/*    <textarea placeholder="댓글 입력"*/}
-        {/*              className={`${textareaActive ? 'active' : ''}`}*/}
-        {/*              ref={textRef}*/}
-        {/*              value={commentValue}*/}
-        {/*              onClick={commtentActive}*/}
-        {/*              onChange={commentValueCount}>*/}
-        {/*    </textarea>*/}
-        {/*    <button type="button" className="btn_comment_submit"*/}
-        {/*            onClick={() => { replyIdx > 0 ?  commentSubmitData('reply') : commentSubmitData('comment')}}*/}
-        {/*    >*/}
-        {/*      <span>등록</span>*/}
-        {/*    </button>*/}
-        {/*  </div>*/}
-        {/*</div>*/}
 
       </div>
     </div>
   );
 }
+
+export default userIdxHigher(PostInfo);

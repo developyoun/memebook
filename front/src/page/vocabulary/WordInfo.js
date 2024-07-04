@@ -9,11 +9,12 @@ import BtnBack from "./../../components/BtnBack";
 import './../../scss/page/vocabulary/wordInfo.scss'
 import AddComponent from "../../components/AddComponent";
 import OutsideHook from "../../util/OutsideHook";
+import userIdxHigher from "../../components/UserIdxHigher";
 
-export default function WordInfo() {
+const WordInfo = ({ userIdx }) => {
   let {id} = useParams();
   const dispatch = useDispatch();
-  const [memberIdx, setMemberIdx] = useState(321);
+
   // 단어 데이터
   const [wordData, setWordData] = useState([]);
   const [wordListData, setWordListData] = useState([]);
@@ -53,13 +54,14 @@ export default function WordInfo() {
   useEffect(() => {
     async function wordDetailApi() {
       try {
-        const wordDetailData = await memebookApi.wordDetailApi(id, memberIdx);
-        setWordData(wordDetailData.data);
-        setScrapData(wordDetailData.data.scrapIdx);
-        setWordListData(wordDetailData.data.wordContentList);
-        console.log(wordDetailData.data)
-        if (wordDetailData?.data.status === "NOT_FOUND") {
-          window.history.back();
+        if (userIdx !== undefined) {
+          const wordDetailData = await memebookApi.wordDetailApi(id, userIdx);
+          setWordData(wordDetailData.data);
+          setScrapData(wordDetailData.data.scrapIdx);
+          setWordListData(wordDetailData.data.wordContentList);
+          if (wordDetailData?.data.status === "NOT_FOUND") {
+            window.history.back();
+          }
         }
       } catch (error) {
         console.log(error)
@@ -67,7 +69,7 @@ export default function WordInfo() {
     }
 
     wordDetailApi();
-  }, [modifyState, setScrapData, deleteState, memberIdx, id, addState]);
+  }, [modifyState, setScrapData, deleteState, userIdx, id, addState]);
 
 
   // 좋아요/싫어요 update Api
@@ -92,13 +94,13 @@ export default function WordInfo() {
       if (type === 'like') {
         await memebookApi.wordReactionUpdateApi({
           "reactionType": "LIKE",
-          "memberIdx": memberIdx,
+          "memberIdx": userIdx,
           "wordIdx": id,
         });
       } else if (type === 'dislike') {
         await memebookApi.wordReactionUpdateApi({
           "reactionType": "DISLIKE",
-          "memberIdx": memberIdx,
+          "memberIdx": userIdx,
           "wordIdx": id,
         });
       }
@@ -112,7 +114,7 @@ export default function WordInfo() {
   async function ScrapeBtn() {
     try {
       if (!scrapData) {
-        dispatch(scrapAddData(id, memberIdx));
+        dispatch(scrapAddData(id, userIdx));
       } else {
         dispatch(scrapDeleteData(scrapData));
       }
@@ -147,7 +149,7 @@ export default function WordInfo() {
         "wordName": wordListData[0].content,
         "wordContent": modifyContent,
         "wordNation": "KOR",
-        "memberIdx": memberIdx,
+        "memberIdx": userIdx,
       });
 
       setModifyState(false);
@@ -207,7 +209,7 @@ export default function WordInfo() {
               총 {wordListData?.length}개
             </span>
           {
-            wordListData?.memberIdx !== memberIdx && (
+            wordListData?.userIdx !== userIdx && (
               <button type="button" className={`btn_scrap ${scrapData ? 'active' : ''}`} onClick={ScrapeBtn}>
                 <span className="blind">스크랩</span>
               </button>
@@ -221,7 +223,7 @@ export default function WordInfo() {
               return (
                 <li className="list" key={idx}>
                   <div className="mean_top">
-                    <Link to={`/profile/${memberIdx}`} className="name">김누징</Link>
+                    <Link to={`/profile/${userIdx}`} className="name">김누징</Link>
                     <ul className="util_list">
                       <li>
                         <button type="button" className="btn_like" onClick={() => {
@@ -253,7 +255,7 @@ export default function WordInfo() {
                             <>
                               <ul className="set_box" ref={setRef}>
                                 {
-                                  item.memberIdx === memberIdx ? (
+                                  item.memberIdx === userIdx ? (
                                     <>
                                       <li>
                                         <button type="button" className="" onClick={() => modifyAction(idx, item.content)}>
@@ -291,7 +293,7 @@ export default function WordInfo() {
 
                     {
                       modifyState !== idx ? (
-                        <p className="word_modify_text">{item.content}</p>
+                        <p className="word_txt">{item.content}</p>
                       ) : (
                         <>
                                   <textarea
@@ -345,3 +347,4 @@ export default function WordInfo() {
     </div>
   );
 }
+export default userIdxHigher(WordInfo);

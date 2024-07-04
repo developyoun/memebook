@@ -75,6 +75,10 @@
         font-size:14px;
       }
     }
+    .list_none {
+      padding:0;
+      font-size:14px;
+    }
   }
 }
 
@@ -480,12 +484,11 @@
   .search_box {
     .search_list {
       position:absolute;
-      top:42px;
+      top:39px;
       left:0;
       width:100%;
-      padding:12px;
+      padding:12px 20px;
       border-radius:6px;
-      box-shadow: 0 1px 12px -10px #000;
       background:#fff;
       z-index:10;
       li {
@@ -499,9 +502,9 @@
           width:100%;
           font-size:12px;
         }
-        .list_none {
-          font-size:12px
-        }
+      }
+      .list_none {
+        font-size:12px
       }
     }
   }

@@ -5,22 +5,22 @@ import {Link} from "react-router-dom";
 import {postCommentData} from "./../../util/action/communityAction";
 import Title from "./../../components/Title";
 import './../../scss/page/profile/myAddList.scss'
+import userIdxHigher from "../../components/UserIdxHigher";
 
-export default function MyCommentList() {
+const MyCommentList = ({ userIdx }) => {
   const dispatch = useDispatch();
   // 댓글 리스트
   const myCommentList = useSelector(state => state.meme.myCommentList);
   // 댓글 상태
   const [commentState, setCommentState] = useState(false);
 
-  const [memberIdx, setMemberIdx] = useState(123);
-
   // 댓글 리스트 Api
   useEffect(() => {
     async function myCommentListApi() {
       try {
-        dispatch(postCommentData(memberIdx));
-        console.log(myCommentList)
+        if (userIdx !== undefined) {
+          dispatch(postCommentData(userIdx));
+        }
       } catch (error) {
         console.log(error)
       }
@@ -33,7 +33,7 @@ export default function MyCommentList() {
   async function commentDeleteData(commentIdx) {
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
-        await memebookApi.commentDeleteApi(commentIdx, memberIdx);
+        await memebookApi.commentDeleteApi(commentIdx, userIdx);
         setCommentState(!commentState);
         console.log('성공')
       }
@@ -100,3 +100,5 @@ export default function MyCommentList() {
     </div>
   );
 }
+
+export default userIdxHigher(MyCommentList);
