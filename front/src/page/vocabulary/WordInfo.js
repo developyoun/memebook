@@ -12,10 +12,18 @@ import './../../scss/page/vocabulary/wordInfo.scss'
 import AddComponent from "../../components/AddComponent";
 import OutsideHook from "../../util/OutsideHook";
 import userIdxHigher from "../../components/UserIdxHigher";
+import {userIdxData} from "../../util/action/userAction";
 
 const WordInfo = ({ userIdx }) => {
   let {id} = useParams();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(userIdxData())
+    console.log(userIdx)
+  }, [dispatch]);
+
+
   const [memberIdx, setMemberIdx] = useState(321);
   // 단어 데이터
   const [wordData, setWordData] = useState([]);

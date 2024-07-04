@@ -2,7 +2,7 @@
 export const userIdxAction = (data) => {
   return {
     type: "SEND_USER_IDX_ACTION",
-    payload: data.data
+    payload: data
   };
 };
 

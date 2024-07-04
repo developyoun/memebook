@@ -9,6 +9,7 @@ const UserIdxHigher = (WrappedComponent) => {
 
         useEffect(() => {
             dispatch(userIdxData())
+            console.log(userIdx)
         }, [dispatch]);
 
         return <WrappedComponent userIdx={userIdx} {...props} />;
