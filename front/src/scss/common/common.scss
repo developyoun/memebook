@@ -67,9 +67,12 @@
     li {
       padding:8px 0;
       a {
-        display: block;
-        width: 100%;
-        font-size: 14px;
+        display:block;
+        width:100%;
+        font-size:14px;
+      }
+      .list_none {
+        font-size:14px;
       }
     }
     .list_none {
