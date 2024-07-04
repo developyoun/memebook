@@ -5,20 +5,21 @@ import {Link} from "react-router-dom";
 import {postListData} from "./../../util/action/communityAction";
 import Title from "./../../components/Title";
 import './../../scss/page/profile/myAddList.scss'
+import userIdxHigher from "../../components/UserIdxHigher";
 
-export default function MyPostList() {
+const MyPostList = ({ userIdx }) => {
   const dispatch = useDispatch();
   // 내가 등록한 글 리스트
   const postList = useSelector(state => state.meme.postList);
   // 삭제 상태
   const [deleteState, setDeleteState] = useState(false);
 
-  const [memberIdx, setMemberIdx] = useState(123);
-
   useEffect(() => {
     async function wordAddListApi() {
       try {
-        dispatch(postListData(memberIdx));
+        if (userIdx !== undefined) {
+          dispatch(postListData(userIdx));
+        }
       } catch (error) {
         console.log(error)
       }
@@ -30,7 +31,7 @@ export default function MyPostList() {
   async function postDeleteData(articleIdx) {
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
-        await memebookApi.postDeleteApi(articleIdx, memberIdx);
+        await memebookApi.postDeleteApi(articleIdx, userIdx);
         setDeleteState(!deleteState)
       }
     } catch(error) {
@@ -95,3 +96,5 @@ export default function MyPostList() {
     </div>
   );
 }
+
+export default userIdxHigher(MyPostList);

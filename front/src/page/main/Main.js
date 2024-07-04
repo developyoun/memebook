@@ -16,8 +16,9 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation, Pagination} from "swiper/modules";
 import OutsideHook from "../../util/OutsideHook";
 import GoogleLoginButton from "./GoogleLoginButton";
+import userIdxHigher from "../../components/UserIdxHigher";
 
-export default function Main() {
+const Main = ({ userIdx }) => {
   const dispatch = useDispatch();
   // 검색
   const wordSearch = useSelector(state => state.meme.wordSearch);
@@ -47,15 +48,15 @@ export default function Main() {
   const resultRef = useRef(null);
   OutsideHook(resultRef, () => setResultVisible(false));
 
-  const [memberIdx, setMemberIdx] = useState(123);
-
   useEffect(() => {
-    dispatch(wordListData('ALL', 1));
-    dispatch(nationCheckData(memberIdx));
-    dispatch(scrapListData(memberIdx));
-    dispatch(myWordListData(memberIdx));
-    dispatch(postCommentData(memberIdx));
-    dispatch(postCommentData(memberIdx));
+    if (userIdx !== undefined) {
+      dispatch(wordListData('ALL', 1));
+      dispatch(nationCheckData(userIdx));
+      dispatch(scrapListData(userIdx));
+      dispatch(myWordListData(userIdx));
+      dispatch(postCommentData(userIdx));
+      dispatch(postCommentData(userIdx));
+    }
   }, []);
 
 
@@ -290,3 +291,5 @@ export default function Main() {
     </>
   );
 }
+
+export default userIdxHigher(Main);

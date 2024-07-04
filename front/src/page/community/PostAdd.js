@@ -5,16 +5,15 @@ import Title from './../../components/Title'
 import InputComponent from "../../components/InputComponent";
 import TextareaComponent from "../../components/TextareaComponent";
 import './../../scss/page/community/postAdd.scss'
+import userIdxHigher from "../../components/UserIdxHigher";
 
-export default function PostAdd() {
+const PostAdd = ({ userIdx }) => {
   const id = useParams();
   const location = useLocation();
   const [titleValue, setTitleValue] = useState('');
   const [contentValue, setContentValue] = useState('');
   // 글 디테일 페이지에서 가져온 제목, 내용
   const { title, content } = location.state || {};
-
-  const [memberIdx, setMemberIdx] = useState(321);
 
   useEffect(() => {
     // 입력하지 않으면 titleValueCheck, contentValue 값이 Null로 나오는 오류 방지
@@ -37,7 +36,7 @@ export default function PostAdd() {
         // 등록
         await memebookApi.postAddApi( {
           "articleTitle": titleValue,
-          "memberIdx": memberIdx,
+          "memberIdx": userIdx,
           "articleContent": contentValue,
         });
         console.log('등록성공')
@@ -46,7 +45,7 @@ export default function PostAdd() {
         // 수정
         await memebookApi.postModifyApi(id.id, {
           "articleTitle": titleValue,
-          "memberIdx": memberIdx,
+          "memberIdx": userIdx,
           "articleContent": contentValue,
         });
         window.history.back();
@@ -86,3 +85,5 @@ export default function PostAdd() {
 
   );
 }
+
+export default userIdxHigher(PostAdd);

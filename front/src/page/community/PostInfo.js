@@ -6,8 +6,9 @@ import {postDetailData} from "./../../util/action/communityAction";
 import './../../scss/page/community/postInfo.scss'
 import OutsideHook from "../../util/OutsideHook";
 import AddComponent from "../../components/AddComponent";
+import userIdxHigher from "../../components/UserIdxHigher";
 
-export default function PostInfo() {
+const PostInfo = ({ userIdx }) => {
   const id = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,8 +32,6 @@ export default function PostInfo() {
   // 댓글 상태
   const [addState, setAddState] = useState(false);
 
-  const [memberIdx, setMemberIdx] = useState(321);
-
   // 댓글 등록 시 재랜더링
   const addStateCheck = (state) => {
     setAddState(state);
@@ -43,7 +42,6 @@ export default function PostInfo() {
     async function postDetailApi() {
       try {
         await dispatch(postDetailData(id.id));
-        console.log(postDetail)
       } catch (error) {
         console.log(error)
       }
@@ -56,7 +54,7 @@ export default function PostInfo() {
   async function postDeleteData(articleIdx) {
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
-        await memebookApi.postDeleteApi(articleIdx, memberIdx);
+        await memebookApi.postDeleteApi(articleIdx, userIdx);
         window.history.back();
       }
     } catch (error) {
@@ -68,7 +66,7 @@ export default function PostInfo() {
   async function commentDeleteData(commentIdx) {
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
-        await memebookApi.commentDeleteApi(commentIdx, memberIdx);
+        await memebookApi.commentDeleteApi(commentIdx, userIdx);
         setCommentState(!commentState);
         console.log(commentIdx)
       }
@@ -138,7 +136,7 @@ export default function PostInfo() {
                 <>
                   <ul className="set_box" ref={sideRef}>
                     {
-                      postDetail?.articleMemberIdx !== memberIdx && (
+                      postDetail?.articleMemberIdx !== userIdx && (
                         <li>
                           <button type="button" className="">
                             <span>신고하기</span>
@@ -148,7 +146,7 @@ export default function PostInfo() {
                     }
 
                     {
-                      postDetail?.articleMemberIdx === memberIdx && (
+                      postDetail?.articleMemberIdx === userIdx && (
                         <>
                           <li>
                             <button type="button" onClick={postModifyToPage} className="">
@@ -220,7 +218,7 @@ export default function PostInfo() {
                                    <span className="blind">좋아요</span>
                                  </button>
                                  {
-                                   item?.commentMemberIdx === memberIdx && (
+                                   item?.commentMemberIdx === userIdx && (
                                      <button type="button" className="btn_delete" onClick={() => {
                                        commentDeleteData(item?.commentIdx)
                                      }}>
@@ -271,7 +269,7 @@ export default function PostInfo() {
                                                  <span className="blind">좋아요</span>
                                                </button>
                                                {
-                                                 reply?.commentMemberIdx === memberIdx && (
+                                                 reply?.commentMemberIdx === userIdx && (
                                                    <button type="button" className="btn_delete" onClick={() => {
                                                      commentDeleteData(reply?.commentIdx)
                                                    }}>
@@ -312,3 +310,5 @@ export default function PostInfo() {
     </div>
   );
 }
+
+export default userIdxHigher(PostInfo);

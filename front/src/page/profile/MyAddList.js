@@ -4,21 +4,22 @@ import {Link} from "react-router-dom";
 import {myWordListData, wordDeleteData} from "./../../util/action/wordAction";
 import Title from "./../../components/Title";
 import './../../scss/page/profile/myAddList.scss'
+import userIdxHigher from "../../components/UserIdxHigher";
 
-export default function MyAddList() {
+const MyAddList = ({ userIdx }) => {
   const dispatch = useDispatch();
   // 단어 리스트
   const myWordList = useSelector(state => state.meme.myWordList);
   // 삭제 상태
   const [deleteState, SetDeleteState] = useState(false);
 
-  const [memberIdx, setMemberIdx] = useState(123);
-
   // 단어 리스트 Api
   useEffect(() => {
     async function wordAddListApi() {
       try {
-        dispatch(myWordListData(memberIdx));
+        if (userIdx !== undefined) {
+          dispatch(myWordListData(userIdx));
+        }
       } catch (error) {
         console.log(error)
       }
@@ -97,3 +98,5 @@ export default function MyAddList() {
     </div>
   );
 }
+
+export default userIdxHigher(MyAddList);

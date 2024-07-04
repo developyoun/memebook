@@ -7,8 +7,9 @@ import {wordListData, wordSortData} from "./../../util/action/wordAction";
 import {debounce} from 'lodash';
 import 'swiper/css';
 import './../../scss/page/vocabulary/vocabulary.scss'
+import userIdxHigher from "../../components/UserIdxHigher";
 
-export default function Word() {
+const Vocabulary = ({ userIdx }) => {
   const dispatch = useDispatch();
   // 단어 리스트
   const wordList = useSelector(state => state.meme.wordList);
@@ -160,3 +161,4 @@ export default function Word() {
   );
 }
 
+export default userIdxHigher(Vocabulary);

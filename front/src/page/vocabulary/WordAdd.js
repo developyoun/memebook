@@ -1,15 +1,13 @@
 import {memebookApi} from "./../../util/memebookApi";
 import {useRef, useState} from "react";
-import {useParams} from "react-router-dom";
 import Title from './../../components/Title'
 import './../../scss/page/vocabulary/wordAdd.scss'
 import InputComponent from "../../components/InputComponent";
 import TextareaComponent from "../../components/TextareaComponent";
 import OutsideHook from "../../util/OutsideHook";
+import userIdxHigher from "../../components/UserIdxHigher";
 
-
-export default function WordAdd() {
-  let {word} = useParams();
+const WordAdd = ({ userIdx }) => {
   const [titleValue, setTitleValue] = useState(false);
   const [contentValue, setContentValue] = useState(false);
   // 툴팁
@@ -17,15 +15,13 @@ export default function WordAdd() {
   const tipRef = useRef(null);
   OutsideHook(tipRef, () => setTipBoxState(false));
 
-  const [memberIdx, setMemberIdx] = useState(321);
-
   async function wordAddPost() {
     try {
       await memebookApi.wordAddApi( {
         wordName : titleValue,
         wordContent : contentValue,
         wordNation : "KOR",
-        memberIdx : memberIdx,
+        memberIdx : userIdx,
       });
       window.history.back();
     } catch (error) {
@@ -90,3 +86,5 @@ export default function WordAdd() {
 
   );
 }
+
+export default userIdxHigher(WordAdd);

@@ -6,8 +6,9 @@ import {scrapListData} from "./../../util/action/scrapAction";
 import {myWordListData} from "./../../util/action/wordAction";
 import {postCommentData, postListData} from "./../../util/action/communityAction";
 import './../../scss/page/profile/profile.scss'
+import userIdxHigher from "../../components/UserIdxHigher";
 
-export default function Profile() {
+const Profile = ({ userIdx }) => {
   let id = useParams();
   const dispatch = useDispatch();
   // 스크랩 리스트
@@ -25,27 +26,27 @@ export default function Profile() {
   // 링크 복사 상태
   const [copyState , setCopyState] = useState(false);
 
-  const [memberIdx, setMemberIdx] = useState(123);
-
   useEffect(() => {
     async function profileApi() {
       try {
-        dispatch(scrapListData(memberIdx));
-        dispatch(myWordListData(memberIdx));
-        dispatch(postListData(memberIdx));
-        dispatch(postCommentData(memberIdx));
+        if (userIdx !== undefined) {
+          dispatch(scrapListData(userIdx));
+          dispatch(myWordListData(userIdx));
+          dispatch(postListData(userIdx));
+          dispatch(postCommentData(userIdx));
+        }
       } catch (error) {
         console.log(error)
       }
     }
     profileApi();
-  }, [dispatch, memberIdx]);
+  }, [dispatch, userIdx]);
 
   async function followerAdd() {
     try {
       await memebookApi.followerAddApi({
         "follower": id,
-        "followee": memberIdx,
+        "followee": userIdx,
       });
       setFollowerAddState(!followerAddState);
     } catch (error) {
@@ -71,7 +72,7 @@ export default function Profile() {
           <div className="user_info">
                 <div className="follower_box">
                     {
-                        id !== memberIdx && (
+                        id !== userIdx && (
                             <button type="button" className={`btn_followers ${followerState ? 'active' : ''}`} onClick={followerAdd}>
                                 <span className="blind">팔로워</span>
                             </button>
@@ -290,3 +291,4 @@ export default function Profile() {
     </div>
   );
 }
+export default userIdxHigher(Profile);

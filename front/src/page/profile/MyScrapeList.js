@@ -4,8 +4,9 @@ import {Link} from "react-router-dom";
 import {scrapDeleteData, scrapListData} from "./../../util/action/scrapAction";
 import Title from "./../../components/Title";
 import './../../scss/page/profile/scrapeList.scss'
+import userIdxHigher from "../../components/UserIdxHigher";
 
-export default function MyScrapeList() {
+const MyScrapeList = ({ userIdx }) => {
   const dispatch = useDispatch();
   // 스크랩 리스트
   const scrapList = useSelector(state => state.meme.scrapList);
@@ -14,13 +15,13 @@ export default function MyScrapeList() {
   // 리스트 선택
   const [deleteListCheck, setDeleteListCheck] = useState([]);
 
-  const [memberIdx, setMemberIdx] = useState(123);
-
   // 스크랩 리스트 Api
   useEffect(() => {
     async function scrapeApi() {
       try {
-        dispatch(scrapListData(memberIdx));
+        if (userIdx !== undefined) {
+          dispatch(scrapListData(userIdx));
+        }
       } catch (error) {
         console.log(error)
       }
@@ -114,3 +115,5 @@ export default function MyScrapeList() {
     </div>
   );
 }
+
+export default userIdxHigher(MyScrapeList);
