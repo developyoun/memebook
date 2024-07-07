@@ -108,6 +108,9 @@
       .word_modify_text {
         font-size:16px;
       }
+      .word_txt {
+        white-space:pre-wrap;
+      }
       .mean_txt {
         display: flex;
         align-items: center;
