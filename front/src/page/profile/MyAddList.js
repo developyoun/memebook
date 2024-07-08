@@ -25,7 +25,7 @@ const MyAddList = ({ userIdx }) => {
       }
     }
     wordAddListApi();
-  }, [deleteState]);
+  }, [deleteState, userIdx]);
 
   // 설명 삭제
   async function myAddWordDelete(wordContentIdx) {

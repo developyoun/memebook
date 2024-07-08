@@ -97,6 +97,7 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
+        white-space:pre-wrap;
       }
     }
     // 포스트 리액션

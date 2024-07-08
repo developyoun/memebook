@@ -25,7 +25,7 @@ export default function HomeNav({type}) {
           </Link>
         </li>
         <li className="list">
-          <Link to={`/profile/${memberIdx}`} className={`link profile ${location.pathname.startsWith('/profile') ? 'active' : ''}`}>
+          <Link to={`/profile`} className={`link profile ${location.pathname.startsWith('/profile') ? 'active' : ''}`}>
             <span className={type === 'main' ? '' : 'blind'}>프로필</span>
           </Link>
         </li>

@@ -26,7 +26,7 @@ const MyCommentList = ({ userIdx }) => {
       }
     }
     myCommentListApi();
-  }, [commentState]);
+  }, [commentState, userIdx]);
 
 
   // 댓글 삭제하기

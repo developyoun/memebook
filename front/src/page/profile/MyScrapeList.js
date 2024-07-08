@@ -27,7 +27,7 @@ const MyScrapeList = ({ userIdx }) => {
       }
     }
     scrapeApi();
-  }, [scrapState]);
+  }, [scrapState, userIdx]);
 
   // 리스트 선택
   const checkAction = (wordIdx) => {

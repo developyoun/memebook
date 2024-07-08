@@ -9,23 +9,36 @@ import userIdxHigher from "../../components/UserIdxHigher";
 
 const MyPostList = ({ userIdx }) => {
   const dispatch = useDispatch();
+  const [checkedItems, setCheckedItems] = useState([]);
+
   // 내가 등록한 글 리스트
   const postList = useSelector(state => state.meme.postList);
   // 삭제 상태
   const [deleteState, setDeleteState] = useState(false);
+
+  const selectCheckboxChange = (articleIdx) => {
+    setCheckedItems(prevCheckedItems => {
+      if (prevCheckedItems.includes(articleIdx)) {
+        return prevCheckedItems.filter(idx => idx !== articleIdx);
+      } else {
+        return [...prevCheckedItems, articleIdx];
+      }
+    });
+  }
 
   useEffect(() => {
     async function wordAddListApi() {
       try {
         if (userIdx !== undefined) {
           dispatch(postListData(userIdx));
+          console.log(postList);
         }
       } catch (error) {
         console.log(error)
       }
     }
     wordAddListApi();
-  }, [deleteState]);
+  }, [deleteState, userIdx]);
 
   // 글 삭제하기
   async function postDeleteData(articleIdx) {
@@ -50,9 +63,10 @@ const MyPostList = ({ userIdx }) => {
           <span className="txt">
             총 {postList.totalCount} 개
           </span>
+
           <span className="check_box">
-            <input type="checkbox"/>
-            <label htmlFor="">전체 삭제</label>
+            <input type="checkbox" id="allDelete"/>
+            <label htmlFor="allDelete">전체 삭제</label>
           </span>
         </div>
         {
@@ -75,6 +89,12 @@ const MyPostList = ({ userIdx }) => {
                 postList.articleList?.map((item, idx) => {
                   return (
                     <li className="list_item" key={idx}>
+                      <span className="check_box">
+                        <input type="checkbox" id={item.articleIdx} onClick={() => selectCheckboxChange(item.articleIdx)}/>
+                        <label htmlFor={item.articleIdx}>
+                          <span className="blind">선택 삭제</span>
+                        </label>
+                      </span>
                       <Link to={`/community/postDetail/${item.articleIdx}`} className="link" key={idx}>{item.articleTitle}</Link>
                       <button type="button" className="btn_delete" onClick={() => {postDeleteData(item.articleIdx)}}>
                         <span className="blind">글 삭제</span>
