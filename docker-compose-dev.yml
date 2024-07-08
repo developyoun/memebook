@@ -18,7 +18,6 @@ services:
 #      dockerfile: Dockerfile
     environment:
       - PROFILE=dev
-      - TZ=Asia/Seoul
     image: pyoun820/memebook
     ports:
       - "8080:8080"
