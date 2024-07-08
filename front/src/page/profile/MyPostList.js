@@ -19,8 +19,10 @@ const MyPostList = ({ userIdx }) => {
   const selectCheckboxChange = (articleIdx) => {
     setCheckedItems(prevCheckedItems => {
       if (prevCheckedItems.includes(articleIdx)) {
+        console.log(checkedItems);
         return prevCheckedItems.filter(idx => idx !== articleIdx);
       } else {
+        console.log(checkedItems);
         return [...prevCheckedItems, articleIdx];
       }
     });
@@ -41,16 +43,34 @@ const MyPostList = ({ userIdx }) => {
   }, [deleteState, userIdx]);
 
   // 글 삭제하기
-  async function postDeleteData(articleIdx) {
+  async function postCheckDelete(articleIdx) {
+    setDeleteState(!deleteState)
+    setCheckedItems([]);
+    if (checkedItems.length !== 0) {
+      try {
+        if (window.confirm("정말 삭제하시겠습니까?")) {
+          await memebookApi.postDeleteApi(articleIdx);
+        }
+      } catch(error) {
+        console.log(error);
+      }
+    }
+  }
+
+  // 작성된 글 전체 삭제
+  async function postAllDelete() {
+
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
-        await memebookApi.postDeleteApi(articleIdx, userIdx);
-        setDeleteState(!deleteState)
+        await memebookApi.postAllDeleteApi(userIdx);
+        setDeleteState(!deleteState);
       }
+      console.log('성공')
     } catch(error) {
       console.log(error);
     }
   }
+
 
   return (
     <div className="layer_wrap my_word_wrap">
@@ -63,11 +83,8 @@ const MyPostList = ({ userIdx }) => {
           <span className="txt">
             총 {postList.totalCount} 개
           </span>
-
-          <span className="check_box">
-            <input type="checkbox" id="allDelete"/>
-            <label htmlFor="allDelete">전체 삭제</label>
-          </span>
+          <button type="button" className={`btn_check_delete ${deleteState ? 'active' : ''}`} onClick={postCheckDelete}>선택 삭제</button>
+          <button type="button" className="btn_all_delete" onClick={postAllDelete}>전체 삭제</button>
         </div>
         {
           postList.articleList?.length === 0 && (
@@ -89,14 +106,19 @@ const MyPostList = ({ userIdx }) => {
                 postList.articleList?.map((item, idx) => {
                   return (
                     <li className="list_item" key={idx}>
-                      <span className="check_box">
-                        <input type="checkbox" id={item.articleIdx} onClick={() => selectCheckboxChange(item.articleIdx)}/>
-                        <label htmlFor={item.articleIdx}>
-                          <span className="blind">선택 삭제</span>
-                        </label>
-                      </span>
+                      {
+                        deleteState && (
+                          <span className="check_box">
+                            <input type="checkbox" id={item.articleIdx} onClick={() => selectCheckboxChange(item.articleIdx)}/>
+                            <label htmlFor={item.articleIdx}>
+                              <span className="blind">선택 삭제</span>
+                            </label>
+                          </span>
+                        )
+                      }
+
                       <Link to={`/community/postDetail/${item.articleIdx}`} className="link" key={idx}>{item.articleTitle}</Link>
-                      <button type="button" className="btn_delete" onClick={() => {postDeleteData(item.articleIdx)}}>
+                      <button type="button" className="btn_delete" onClick={() => {postCheckDelete(item.articleIdx)}}>
                         <span className="blind">글 삭제</span>
                       </button>
                     </li>

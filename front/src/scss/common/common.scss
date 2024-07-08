@@ -234,12 +234,42 @@
 .list_top {
   display:flex;
   align-items:center;
-  justify-content:space-between;
+  justify-content:flex-end;
+  gap:0 20px;
   margin-bottom:12px;
   padding-bottom:12px;
   border-bottom:1px solid var(--primary-50);
   .txt {
+    margin-right:auto;
     font-size:14px;
+  }
+  .btn_check_delete {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:36px;
+    padding:0 16px;
+    color:var(--primary-10);
+    font-size:14px;
+    border:1px solid var(--primary-10);
+    border-radius:4px;
+    background:#fff;
+    &.active {
+      color:#fff;
+      background:var(--primary-10);
+    }
+  }
+  .btn_all_delete {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:36px;
+    padding:0 16px;
+    color:var(--primary-10);
+    font-size:14px;
+    border:1px solid var(--primary-10);
+    border-radius:4px;
+    background:#fff;
   }
 }
 .list_box {
