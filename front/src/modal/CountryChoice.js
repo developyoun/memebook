@@ -9,8 +9,10 @@ const CountryChoice = ({ countryChoiceClose, userIdx }) => {
   const dispatch = useDispatch();
   const nationCheck = useSelector(state => state.meme.nationCheck);
 
+  // 모국어
   const [originNationCheck, setOriginNationCheck] = useState('');
   const [originNationTxt, setOriginNationTxt] = useState('');
+  // 선택한 언어
   const [targetNationCheck, setTargetNationCheck] = useState('');
   const [targetNationTxt, setTargetNationTxt] = useState('');
 
@@ -20,7 +22,7 @@ const CountryChoice = ({ countryChoiceClose, userIdx }) => {
     setOriginNationTxt(nationCheck.targetNation);
     setTargetNationCheck(nationCheck.originNation);
     setTargetNationTxt(nationCheck.targetNation);
-    console.log(nationCheck.originNation);
+    console.log(nationCheck);
   }, [dispatch, userIdx, nationCheck.length]);
 
   // 모국어
@@ -43,6 +45,7 @@ const CountryChoice = ({ countryChoiceClose, userIdx }) => {
         "targetNation": targetNationCheck,
       });
       countryChoiceClose();
+      console.log('성공');
     } catch (error) {
       console.log(error)
       console.log('에러')
