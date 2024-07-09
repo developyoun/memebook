@@ -84,7 +84,7 @@ const Main = ({ userIdx }) => {
   }
 
   // 모달 열고 닫히기
-  const countryChoiceClose = ({}) => {
+  const countryChoiceClose = () => {
     setCountryModalOpen(!countryModalOpen);
   }
 
