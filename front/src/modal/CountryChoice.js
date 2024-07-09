@@ -8,6 +8,7 @@ import userIdxHigher from "../components/UserIdxHigher";
 const CountryChoice = ({ countryChoiceClose, userIdx }) => {
   const dispatch = useDispatch();
   const nationCheck = useSelector(state => state.meme.nationCheck);
+  dispatch(nationCheckData(userIdx));
 
   // 모국어
   const [originNationCheck, setOriginNationCheck] = useState('');
@@ -17,24 +18,22 @@ const CountryChoice = ({ countryChoiceClose, userIdx }) => {
   const [targetNationTxt, setTargetNationTxt] = useState('');
 
   useEffect(() => {
-    dispatch(nationCheckData(userIdx));
     setOriginNationCheck(nationCheck.originNation);
-    setOriginNationTxt(nationCheck.targetNation);
-    setTargetNationCheck(nationCheck.originNation);
+    setOriginNationTxt(nationCheck.originNation);
+    setTargetNationCheck(nationCheck.targetNation);
     setTargetNationTxt(nationCheck.targetNation);
-    console.log(nationCheck);
-  }, [dispatch, userIdx, nationCheck.length]);
+  }, [dispatch, userIdx]);
 
   // 모국어
-  const nativeCountryChange = (type, txt) => {
+  const nativeCountryChange = (type) => {
     setOriginNationCheck(type);
-    setOriginNationTxt(txt);
+    setOriginNationTxt(type);
   }
 
   // 선택한 언어
-  const studyCountryChange = (type, txt) => {
+  const studyCountryChange = (type) => {
     setTargetNationCheck(type);
-    setTargetNationTxt(txt);
+    setTargetNationTxt(type);
   }
 
   async function countrySave() {
@@ -45,7 +44,6 @@ const CountryChoice = ({ countryChoiceClose, userIdx }) => {
         "targetNation": targetNationCheck,
       });
       countryChoiceClose();
-      console.log('성공');
     } catch (error) {
       console.log(error)
       console.log('에러')
@@ -69,23 +67,30 @@ const CountryChoice = ({ countryChoiceClose, userIdx }) => {
             </div>
 
             {/* 언어 이름 */}
-            <span  className="txt">{originNationTxt ? originNationTxt : '없음'}</span>
+            <span className="txt">
+              {
+                originNationTxt === 'KOR' ? '한국' :
+                  originNationTxt === 'JPN' ? '일본' :
+                    originNationTxt === 'ENG' ? '미국' :
+                      '없음'
+              }
+            </span>
 
             {/* 언어 리스트 */}
             <ul className="country_list">
               <li>
-                <button type="button" className="state korean" onClick={() => nativeCountryChange('KOR', '한국')}>
+                <button type="button" className="state korean" onClick={() => nativeCountryChange('KOR')}>
                   <span className="blind">모국어/native language</span>
                 </button>
 
               </li>
               <li>
-                <button type="button" className="state english" onClick={() => nativeCountryChange('ENG', '미국')}>
+                <button type="button" className="state english" onClick={() => nativeCountryChange('ENG')}>
                   <span className="blind">모국어/native language</span>
                 </button>
               </li>
               <li>
-                <button type="button" className="state japanese" onClick={() => nativeCountryChange('JPN', '일본')}>
+                <button type="button" className="state japanese" onClick={() => nativeCountryChange('JPN')}>
                   <span className="blind">모국어/native language</span>
                 </button>
               </li>
@@ -100,7 +105,14 @@ const CountryChoice = ({ countryChoiceClose, userIdx }) => {
             </div>
 
             {/* 언어 이름 */}
-            <span  className="txt">{targetNationTxt ? targetNationTxt : '없음'}</span>
+            <span className="txt">
+              {
+                targetNationTxt === 'KOR' ? '한국' :
+                  targetNationTxt === 'JPN' ? '일본' :
+                    targetNationTxt === 'ENG' ? '미국' :
+                      '없음'
+              }
+            </span>
 
             {/* 언어 리스트 */}
             <ul className="country_list">
