@@ -15,8 +15,10 @@ const MyPostList = ({ userIdx }) => {
   const postList = useSelector(state => state.meme.postList);
   // 삭제 상태
   const [deleteState, setDeleteState] = useState(false);
+  const [deleteNone, setDeleteNone] = useState(false);
 
   const selectCheckboxChange = (articleIdx) => {
+    setDeleteNone(false);
     setCheckedItems(prevCheckedItems => {
       if (prevCheckedItems.includes(articleIdx)) {
         console.log(checkedItems);
@@ -43,16 +45,27 @@ const MyPostList = ({ userIdx }) => {
   }, [deleteState, userIdx]);
 
   // 글 삭제하기
-  async function postCheckDelete(articleIdx) {
-    setDeleteState(!deleteState)
-    setCheckedItems([]);
-    if (checkedItems.length !== 0) {
+  async function postCheckDelete(type, articleIdx) {
+    if (type === 'single') {
       try {
         if (window.confirm("정말 삭제하시겠습니까?")) {
           await memebookApi.postDeleteApi(articleIdx);
         }
       } catch(error) {
         console.log(error);
+      }
+    } else if (type === 'multiple') {
+      setDeleteState(true);
+      if (deleteState !== false && checkedItems.length !== 0) {
+        try {
+          if (window.confirm("정말 삭제하시겠습니까?")) {
+            await memebookApi.postDeleteApi(articleIdx);
+          }
+        } catch(error) {
+          console.log(error);
+        }
+      } else if (deleteState !== false && checkedItems.length === 0) {
+        setDeleteNone(true);
       }
     }
   }
@@ -71,6 +84,10 @@ const MyPostList = ({ userIdx }) => {
     }
   }
 
+  const deleteCancel = () => {
+    setDeleteState(!deleteState);
+  }
+
 
   return (
     <div className="layer_wrap my_word_wrap">
@@ -83,7 +100,15 @@ const MyPostList = ({ userIdx }) => {
           <span className="txt">
             총 {postList.totalCount} 개
           </span>
-          <button type="button" className={`btn_check_delete ${deleteState ? 'active' : ''}`} onClick={postCheckDelete}>선택 삭제</button>
+          <button type="button" className={`btn_check_delete ${deleteState ? 'active' : ''}`} disabled={deleteNone} onClick={()=> postCheckDelete('multiple')}>
+            {deleteState ? '삭제' : '선택 삭제'}
+          </button>
+
+          {
+            deleteState && (
+              <button type="button" className="btn_all_delete" onClick={deleteCancel}>취소</button>
+            )
+          }
           <button type="button" className="btn_all_delete" onClick={postAllDelete}>전체 삭제</button>
         </div>
         {
@@ -108,19 +133,28 @@ const MyPostList = ({ userIdx }) => {
                     <li className="list_item" key={idx}>
                       {
                         deleteState && (
-                          <span className="check_box">
-                            <input type="checkbox" id={item.articleIdx} onClick={() => selectCheckboxChange(item.articleIdx)}/>
-                            <label htmlFor={item.articleIdx}>
-                              <span className="blind">선택 삭제</span>
-                            </label>
-                          </span>
+                          <>
+                            <span className="check_box">
+                              <input type="checkbox" id={item.articleIdx} onClick={() => selectCheckboxChange(item.articleIdx)}/>
+                              <label htmlFor={item.articleIdx}>
+                                <span className="link">{item.articleTitle}</span>
+                              </label>
+                            </span>
+                          </>
+                        )
+                      }
+                      {
+                        !deleteState && (
+                          <>
+                            <Link to={`/community/postDetail/${item.articleIdx}`} className="link" key={idx}>{item.articleTitle}</Link>
+                            <button type="button" className="btn_delete" onClick={() => {postCheckDelete('single', item.articleIdx)}}>
+                              <span className="blind">글 삭제</span>
+                            </button>
+                          </>
                         )
                       }
 
-                      <Link to={`/community/postDetail/${item.articleIdx}`} className="link" key={idx}>{item.articleTitle}</Link>
-                      <button type="button" className="btn_delete" onClick={() => {postCheckDelete(item.articleIdx)}}>
-                        <span className="blind">글 삭제</span>
-                      </button>
+
                     </li>
                   )
                 })
