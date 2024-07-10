@@ -49,15 +49,14 @@ const Main = ({ userIdx }) => {
   OutsideHook(resultRef, () => setResultVisible(false));
 
   useEffect(() => {
-    if (userIdx !== undefined) {
-      dispatch(wordListData('ALL', 1));
-      dispatch(nationCheckData(userIdx));
-      dispatch(scrapListData(userIdx));
-      dispatch(myWordListData(userIdx));
-      dispatch(postCommentData(userIdx));
-      dispatch(postCommentData(userIdx));
-    }
-  }, []);
+    dispatch(wordListData('ALL', 1));
+    dispatch(nationCheckData(userIdx));
+    dispatch(scrapListData(userIdx));
+    dispatch(myWordListData(userIdx));
+    dispatch(postCommentData(userIdx));
+    dispatch(postCommentData(userIdx));
+    setStudyCountryType(nationCheck.targetNation);
+  }, [dispatch, userIdx, nationCheck.targetNation]);
 
 
   // 닉네임 설정 모달
@@ -75,7 +74,7 @@ const Main = ({ userIdx }) => {
   // 닉네임 설정
   async function nickNamePost() {
     try {
-      const nickNameApi = await memebookApi.nickNameAddApi(nickname);
+      await memebookApi.nickNameAddApi(nickname);
       console.log('성공');
     } catch (error) {
       console.log(error)
@@ -85,12 +84,6 @@ const Main = ({ userIdx }) => {
 
   // 모달 열고 닫히기
   const countryChoiceClose = () => {
-    setCountryModalOpen(!countryModalOpen);
-  }
-
-  // 선택한 언어 저장
-  const studyCountrySave = (selectType) => {
-    setStudyCountryType(selectType);
     setCountryModalOpen(!countryModalOpen);
   }
 
@@ -110,7 +103,7 @@ const Main = ({ userIdx }) => {
     <>
       {
         countryModalOpen && (
-          <CountryChoice countryChoiceClose={countryChoiceClose} selectType={studyCountrySave}></CountryChoice>
+          <CountryChoice countryChoiceClose={countryChoiceClose}></CountryChoice>
         )
       }
 
