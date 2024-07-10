@@ -17,7 +17,7 @@ services:
 #      context: back/
 #      dockerfile: Dockerfile
     environment:
-      - PROFILE: dev
+      - PROFILE=dev
     image: pyoun820/memebook
     ports:
       - "8080:8080"
