@@ -31,4 +31,4 @@ ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} app.jar
 
 ## 컨테이너 실행 명령어
-ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=${PROFILE}", "/app/app.jar"]
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=${PROFILE}", "-Duser.timezone=Asia/Seoul", "/app/app.jar"]
