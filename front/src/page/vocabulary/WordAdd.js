@@ -65,7 +65,7 @@ const WordAdd = ({ userIdx }) => {
               </div>
             </div>
           </div>
-          <InputComponent length={20} titleValueCheck={titleValueCheck}></InputComponent>
+          <InputComponent titleValueCheck={titleValueCheck}></InputComponent>
         </div>
 
 
