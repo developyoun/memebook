@@ -26,8 +26,8 @@ public class SwaggerConfig {
 
         return new OpenAPI()
                 .components(new Components())
-                .info(apiInfo());
-//                .servers(List.of(server));
+                .info(apiInfo())
+                .servers(List.of(server));
     }
 
     private Info apiInfo() {
