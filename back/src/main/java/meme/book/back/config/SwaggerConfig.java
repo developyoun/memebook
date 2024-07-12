@@ -18,17 +18,17 @@ public class SwaggerConfig {
     @Value(value = "${springdoc.domain.url}")
     private String domain;
 
-//    @Bean
-//    public OpenAPI openAPI() {
-//
-//        Server server = new Server();
-//        server.setUrl(domain);
-//
-//        return new OpenAPI()
-//                .components(new Components())
-//                .info(apiInfo())
+    @Bean
+    public OpenAPI openAPI() {
+
+        Server server = new Server();
+        server.setUrl(domain);
+
+        return new OpenAPI()
+                .components(new Components())
+                .info(apiInfo());
 //                .servers(List.of(server));
-//    }
+    }
 
     private Info apiInfo() {
         return new Info()
