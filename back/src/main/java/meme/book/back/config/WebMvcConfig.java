@@ -14,6 +14,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedMethods("*")
                 .allowedOriginPatterns("*:3000")
+                .allowedOrigins("https://memebook.co.kr")
 //                .allowCredentials(true)
         ;
     }
