@@ -53,11 +53,13 @@ const WordInfo = ({ userIdx }) => {
   useEffect(() => {
     async function wordDetailApi() {
       try {
-        if (userIdx !== undefined) {
-          const wordDetailData = await memebookApi.wordDetailApi(id, userIdx);
-          setWordData(wordDetailData.data);
-          setScrapData(wordDetailData.data.scrapIdx);
-          setWordListData(wordDetailData.data.wordContentList);
+        const wordDetailData = await memebookApi.wordDetailApi(id, userIdx);
+        setWordData(wordDetailData.data);
+        setScrapData(wordDetailData.data.scrapIdx);
+        setWordListData(wordDetailData.data.wordContentList);
+        console.log(wordData)
+        if (wordDetailData?.data.status === "NOT_FOUND") {
+          window.history.back();
         }
       } catch (error) {
         console.log(error)
