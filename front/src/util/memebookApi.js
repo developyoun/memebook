@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const request = axios.create({
-  baseURL: `https://memebook.co.kr/api/`,
+  baseURL: `http://memebook.co.kr/api/`,
 })
 
 export const memebookApi = {
