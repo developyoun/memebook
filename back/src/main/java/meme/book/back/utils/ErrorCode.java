@@ -24,6 +24,8 @@ public enum ErrorCode {
     ALREADY_EXIST_MEMBER_WORD(HttpStatus.CONFLICT, "이미 회원의 단어가 존재합니다."),
     ALREADY_EXIST_MEMBER_SCRAP(HttpStatus.CONFLICT, "이미 회원의 스크랩 단어가 존재합니다."),
     NOT_MATCH_MEMBER(HttpStatus.BAD_REQUEST, "생성회원과 요청회원이 다릅니다"),
+
+    FAILED_LOGIN(HttpStatus.BAD_REQUEST, "로그인에 실패하였습니다"),
     ;
 
     private final HttpStatus status;

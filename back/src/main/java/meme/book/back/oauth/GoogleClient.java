@@ -14,16 +14,16 @@ public class GoogleClient {
 
     private final String GRANT_CODE = "authorization_code";
 
-    @Value("${spring.oauth2.client.google.url}")
+    @Value("${spring.auth.client.google.url}")
     private String authUrl;
 
-    @Value("${spring.oauth2.client.google.client-id}")
+    @Value("${spring.auth.client.google.client-id}")
     private String clientId;
 
-    @Value("${spring.oauth2.client.google.client-secret}")
+    @Value("${spring.auth.client.google.client-secret}")
     private String clientSecret;
 
-    @Value("${spring.oauth2.client.google.redirect-url}")
+    @Value("${spring.auth.client.google.redirect-url}")
     private String redirectUrl;
 
     public GoogleTokenDto getAccessToken(String code) {
