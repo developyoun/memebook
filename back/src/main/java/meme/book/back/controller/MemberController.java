@@ -4,10 +4,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import meme.book.back.dto.MemberDto;
+import meme.book.back.dto.MemberRequestDto;
 import meme.book.back.dto.member.NationRequestDto;
 import meme.book.back.service.MemberService;
-import meme.book.back.utils.NationCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,13 +24,6 @@ public class MemberController {
     public ResponseEntity<?> createNicknameController(@RequestParam String nickname) {
 
         return ResponseEntity.ok(memberService.saveNickname(nickname));
-    }
-
-    @Operation(summary = "회원 생성 API", description = "회원을 생성하기 위한 API")
-    @PostMapping("/create")
-    public ResponseEntity<?> createMemberController(@RequestBody MemberDto memberDto) {
-
-        return ResponseEntity.ok(memberService.createMemberService(memberDto));
     }
 
     @Operation(summary = "닉네임 중복 API", description = "닉네임 중복 여부를 체크한다.")

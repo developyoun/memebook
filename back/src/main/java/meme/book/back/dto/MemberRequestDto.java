@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Accessors(chain = true)
-public class MemberDto {
+public class MemberRequestDto {
 
     // 회원 고유 번호
     private Long memberIdx;
@@ -37,13 +37,10 @@ public class MemberDto {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime memberRegDtm;
 
-    public static MemberDto toDto(Member membersEntity) {
-        return new MemberDto()
+    public static MemberRequestDto toDto(Member membersEntity) {
+        return new MemberRequestDto()
                 .setMemberIdx(membersEntity.getMemberIdx())
-                .setMemberId(membersEntity.getMemberId())
-                .setMemberPw(membersEntity.getMemberPw())
                 .setNickname(membersEntity.getNickname())
-                .setImgUrl(membersEntity.getImgUrl())
                 .setOriginNation(membersEntity.getOriginNation())
                 .setTargetNation(membersEntity.getTargetNation())
                 .setMemberRegDtm(membersEntity.getMemberRegDtm());

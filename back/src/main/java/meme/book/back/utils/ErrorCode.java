@@ -26,6 +26,7 @@ public enum ErrorCode {
     NOT_MATCH_MEMBER(HttpStatus.BAD_REQUEST, "생성회원과 요청회원이 다릅니다"),
 
     FAILED_LOGIN(HttpStatus.BAD_REQUEST, "로그인에 실패하였습니다"),
+    NOT_FOUND_PROVIDER(HttpStatus.BAD_REQUEST, "일치하는 로그인 제공자가 없습니다.")
     ;
 
     private final HttpStatus status;
