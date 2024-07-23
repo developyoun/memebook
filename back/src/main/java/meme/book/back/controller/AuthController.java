@@ -17,9 +17,11 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping("/login/{provider}")
-    public ResponseEntity<?> login(@PathVariable String provider,
-                        @RequestBody AuthRequestDto authRequest) {
+    @PostMapping("/login")
+    public ResponseEntity<?> login(
+            @RequestParam(defaultValue = "google") String provider,
+            @RequestBody AuthRequestDto authRequest) {
+
         log.debug("Authenticate Request: {}", authRequest);
 
         if (provider.equals("google")) {
