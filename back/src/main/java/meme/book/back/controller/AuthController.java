@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthController {
 
     private final AuthService authService;
@@ -24,13 +24,15 @@ public class AuthController {
 
         log.debug("Authenticate Request: {}", authRequest);
 
+        String accessToken;
+
         if (provider.equals("google")) {
-            String accessToken = authService.memberDoLogin(authRequest.getCode());
+            accessToken = authService.memberDoLogin(authRequest.getCode());
         } else {
             log.error("Provider 값을 확인해야 합니다.");
             throw new AuthException(ErrorCode.NOT_FOUND_PROVIDER);
         }
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(accessToken);
     }
 }

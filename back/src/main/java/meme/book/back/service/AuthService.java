@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import meme.book.back.dto.member.MemberDto;
 import meme.book.back.dto.member.MemberLoginDto;
 import meme.book.back.exception.CustomException;
+import meme.book.back.oauth.JwtTokenProvider;
 import meme.book.back.oauth.TokenVerifier;
 import meme.book.back.utils.ErrorCode;
 import meme.book.back.utils.ProviderType;
@@ -21,9 +22,12 @@ import java.security.GeneralSecurityException;
 public class AuthService {
 
     private final TokenVerifier tokenVerifier;
+    private final JwtTokenProvider jwtTokenProvider;
     private final MemberService memberService;
 
     public String memberDoLogin(String code) {
+        String jwtAccessToken;
+
         try {
             GoogleIdToken googleIdToken = tokenVerifier.getGoogleTokenVerifier().verify(code);
             if (googleIdToken == null) throw new CustomException(ErrorCode.FAILED_LOGIN);
@@ -41,6 +45,8 @@ public class AuthService {
 
             MemberDto memberDto = memberService.findOrCreateMember(memberLoginDto);
 
+            jwtAccessToken = jwtTokenProvider.createAccessToken(memberDto.getMemberEmail());
+
             log.debug("Login Member Info: {}", memberDto);
 
         } catch (GeneralSecurityException | IOException e) {
@@ -48,6 +54,6 @@ public class AuthService {
             throw new CustomException(ErrorCode.FAILED_LOGIN);
         }
 
-        return null;
+        return jwtAccessToken;
     }
 }
