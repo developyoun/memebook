@@ -21,7 +21,6 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Configuration
-@EnableMethodSecurity
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -36,7 +35,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(config -> {
                     config.requestMatchers("/docs", "/swagger-ui/**", "/v3/api-docs/**").permitAll();
                     config.requestMatchers("/auth/login").permitAll();
-                    config.requestMatchers("/api/**").authenticated();
+                    config.anyRequest().authenticated();
                 })
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
@@ -48,7 +47,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOriginPatterns(List.of(":3000", "https://memebook.co.kr"));
         config.setAllowedMethods(List.of("GET", "POST", "DELETE", "PUT", "OPTIONS"));
-        config.setAllowCredentials(true);
+//        config.addAllowedHeader("Authorization");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);

@@ -48,6 +48,7 @@ public class AuthService {
             jwtAccessToken = jwtTokenProvider.createAccessToken(memberDto.getMemberEmail());
 
             log.debug("Login Member Info: {}", memberDto);
+            log.info("Create JWT Access Token: {}", jwtAccessToken);
 
         } catch (GeneralSecurityException | IOException e) {
             log.error(e.getLocalizedMessage());
