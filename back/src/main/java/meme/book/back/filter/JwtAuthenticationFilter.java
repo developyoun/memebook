@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 @Slf4j
-@Component
+//@Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
