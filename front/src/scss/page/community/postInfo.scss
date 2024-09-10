@@ -81,6 +81,7 @@
     // 포스트 내용
     .post_con {
       font-size:16px;
+      white-space:pre-wrap;
     }
     .btn_post_more {
       color:var(--primary);
@@ -118,6 +119,7 @@
             margin-top:8px;
             font-size:16px;
             word-break:break-all;
+            white-space: pre-wrap;
             &.none {
               color:var(--primary-40);
               font-size:14px;

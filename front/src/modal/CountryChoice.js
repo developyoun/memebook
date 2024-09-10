@@ -1,45 +1,54 @@
 import '../scss/modal/countryChoice.scss'
 import { useDispatch, useSelector } from 'react-redux';
 import {nationCheckData} from "../util/action/nationAction";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {memebookApi} from "../util/memebookApi";
+import userIdxHigher from "../components/UserIdxHigher";
 
-export default function CountryChoice({ countryChoiceClose, selectType }) {
+const CountryChoice = ({ countryChoiceClose, userIdx }) => {
   const dispatch = useDispatch();
   const nationCheck = useSelector(state => state.meme.nationCheck);
-  const [memberIdx, setMemberIdx] = useState('123');
+  dispatch(nationCheckData(userIdx));
 
+  // 모국어
   const [originNationCheck, setOriginNationCheck] = useState('');
   const [originNationTxt, setOriginNationTxt] = useState('');
+  // 선택한 언어
   const [targetNationCheck, setTargetNationCheck] = useState('');
   const [targetNationTxt, setTargetNationTxt] = useState('');
+
+  useEffect(() => {
+    setOriginNationCheck(nationCheck.originNation);
+    setOriginNationTxt(nationCheck.originNation);
+    setTargetNationCheck(nationCheck.targetNation);
+    setTargetNationTxt(nationCheck.targetNation);
+  }, [dispatch, userIdx]);
+
   // 모국어
-  const nativeCountryChange = (type, txt) => {
+  const nativeCountryChange = (type) => {
     setOriginNationCheck(type);
-    setOriginNationTxt(txt);
-    console.log(type, txt)
+    setOriginNationTxt(type);
   }
 
   // 선택한 언어
-  const studyCountryChange = (type, txt) => {
+  const studyCountryChange = (type) => {
     setTargetNationCheck(type);
-    setTargetNationTxt(txt);
-    console.log(type, txt)
+    setTargetNationTxt(type);
   }
 
   async function countrySave() {
     try {
-      const nationChangeData = memebookApi.nationModifyApi({
-        "memberIdx": memberIdx,
+      await memebookApi.nationModifyApi({
+        "memberIdx": userIdx,
         "originNation": originNationCheck,
         "targetNation": targetNationCheck,
       });
+      countryChoiceClose();
     } catch (error) {
       console.log(error)
       console.log('에러')
     }
   }
-
 
   return (
     <div className="modalBox">
@@ -58,23 +67,30 @@ export default function CountryChoice({ countryChoiceClose, selectType }) {
             </div>
 
             {/* 언어 이름 */}
-            <span  className="txt">{originNationTxt ? originNationTxt : '없음'}</span>
+            <span className="txt">
+              {
+                originNationTxt === 'KOR' ? '한국' :
+                  originNationTxt === 'JPN' ? '일본' :
+                    originNationTxt === 'ENG' ? '미국' :
+                      '없음'
+              }
+            </span>
 
             {/* 언어 리스트 */}
             <ul className="country_list">
               <li>
-                <button type="button" className="state korean" onClick={() => nativeCountryChange('KOR', '한국')}>
+                <button type="button" className="state korean" onClick={() => nativeCountryChange('KOR')}>
                   <span className="blind">모국어/native language</span>
                 </button>
 
               </li>
               <li>
-                <button type="button" className="state english" onClick={() => nativeCountryChange('ENG', '미국')}>
+                <button type="button" className="state english" onClick={() => nativeCountryChange('ENG')}>
                   <span className="blind">모국어/native language</span>
                 </button>
               </li>
               <li>
-                <button type="button" className="state japanese" onClick={() => nativeCountryChange('JPN', '일본')}>
+                <button type="button" className="state japanese" onClick={() => nativeCountryChange('JPN')}>
                   <span className="blind">모국어/native language</span>
                 </button>
               </li>
@@ -89,7 +105,14 @@ export default function CountryChoice({ countryChoiceClose, selectType }) {
             </div>
 
             {/* 언어 이름 */}
-            <span  className="txt">{targetNationTxt ? targetNationTxt : '없음'}</span>
+            <span className="txt">
+              {
+                targetNationTxt === 'KOR' ? '한국' :
+                  targetNationTxt === 'JPN' ? '일본' :
+                    targetNationTxt === 'ENG' ? '미국' :
+                      '없음'
+              }
+            </span>
 
             {/* 언어 리스트 */}
             <ul className="country_list">
@@ -122,3 +145,5 @@ export default function CountryChoice({ countryChoiceClose, selectType }) {
     </div>
   )
 }
+
+export default userIdxHigher(CountryChoice);

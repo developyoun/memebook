@@ -1,9 +1,10 @@
 import React from 'react';
 import {GoogleLogin, GoogleOAuthProvider} from "@react-oauth/google";
 import {jwtDecode} from "jwt-decode";
+import { LOGIN_KEY } from './../../config';
 
 const GoogleLoginButton = () => {
-  const clientId ="";
+  const clientId = LOGIN_KEY;
 
   return (
     <>

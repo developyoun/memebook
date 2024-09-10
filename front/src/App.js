@@ -29,7 +29,7 @@ function App() {
         <Route path="/vocabulary" element={<Vocabulary/>}/>
         <Route path="/community" element={<Community/>}/>
         <Route path="/community/postAdd/:id?" element={<PostAdd/>}/>
-        <Route path="/profile/:id" element={<Profile/>}/>
+        <Route path="/profile" element={<Profile/>}/>
         <Route path="/community/postDetail/:id" element={<PostInfo/>}/>
         <Route path="/profile/myWordList" element={<MyAddList/>}/>
         <Route path="/profile/scrapList" element={<MyScrapeList/>}/>

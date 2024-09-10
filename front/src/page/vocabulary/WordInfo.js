@@ -19,20 +19,14 @@ const WordInfo = ({ userIdx }) => {
   const [wordData, setWordData] = useState([]);
   const [wordListData, setWordListData] = useState([]);
   // 좋아요, 싫어요
-  const [reactionState, setReactionState] = useState(false);
+  const [likeState, setLikeState] = useState(false);
+  const [dislikeState, setDislikeState] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
   // 스크랩
   const [scrapData, setScrapData] = useState('');
   const scrapAdd = useSelector(state => state.meme.scrapAdd);
   const scrapDelete = useSelector(state => state.meme.scrapDelete);
-
-  // 클릭영역 외
-  const [isVisible, setIsVisible] = useState(false);
-  const setRef = useRef(null);
-  OutsideHook(setRef, () => setIsVisible(false));
-
-  const [wordSetState, setWordSetState] = useState(false);
   // 수정하기
   const [addState, setAddState] = useState(false);
   // 수정하기
@@ -43,6 +37,11 @@ const WordInfo = ({ userIdx }) => {
   // 신고하기
   const [reportOpen, setReportOpen] = useState(false);
 
+  // 클릭영역 외
+  const [wordSetState, setWordSetState] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const setRef = useRef(null);
+  OutsideHook(setRef, () => setIsVisible(false));
 
   // 신고하기 팝업
   const commentReportOpen = ({commentPortClose}) => {
@@ -59,9 +58,6 @@ const WordInfo = ({ userIdx }) => {
           setWordData(wordDetailData.data);
           setScrapData(wordDetailData.data.scrapIdx);
           setWordListData(wordDetailData.data.wordContentList);
-          if (wordDetailData?.data.status === "NOT_FOUND") {
-            window.history.back();
-          }
         }
       } catch (error) {
         console.log(error)
@@ -85,26 +81,29 @@ const WordInfo = ({ userIdx }) => {
     }
 
     wordReactionApi();
-  }, [reactionState, id]);
+  }, [likeState, dislikeState, id]);
 
   // 좋아요/싫어요 button Api
   async function wordReaction(type) {
     try {
-      setReactionState(false);
       if (type === 'like') {
+        setLikeState(true);
+        setDislikeState(false);
         await memebookApi.wordReactionUpdateApi({
           "reactionType": "LIKE",
           "memberIdx": userIdx,
           "wordIdx": id,
         });
+
       } else if (type === 'dislike') {
+        setLikeState(false);
+        setDislikeState(true);
         await memebookApi.wordReactionUpdateApi({
           "reactionType": "DISLIKE",
           "memberIdx": userIdx,
           "wordIdx": id,
         });
       }
-      setReactionState(true);
     } catch (error) {
       console.log(error)
     }
@@ -226,7 +225,7 @@ const WordInfo = ({ userIdx }) => {
                     <Link to={`/profile/${userIdx}`} className="name">김누징</Link>
                     <ul className="util_list">
                       <li>
-                        <button type="button" className="btn_like" onClick={() => {
+                        <button type="button" className={`btn_like ${likeState ? 'active' : ''}`} onClick={() => {
                           wordReaction('like')
                         }}>
                           <span className="blind">좋아요</span>
@@ -236,7 +235,7 @@ const WordInfo = ({ userIdx }) => {
                             </span>
                       </li>
                       <li>
-                        <button type="button" className="btn_dislike" onClick={() => {
+                        <button type="button" className={`btn_dislike ${dislikeState ? 'active' : ''}`} onClick={() => {
                           wordReaction('dislike')
                         }}>
                           <span className="blind">싫어요</span>
