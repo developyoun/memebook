@@ -2,7 +2,9 @@ package meme.book.back.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import meme.book.back.dto.MemberDto;
+import meme.book.back.dto.MemberRequestDto;
+import meme.book.back.dto.member.MemberDto;
+import meme.book.back.dto.member.MemberLoginDto;
 import meme.book.back.dto.member.NationRequestDto;
 import meme.book.back.entity.Member;
 import meme.book.back.exception.CustomException;
@@ -12,8 +14,7 @@ import meme.book.back.utils.NationCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -21,23 +22,6 @@ import java.time.LocalDateTime;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-
-    // 신규 회원 생성
-    @Transactional
-    public MemberDto createMemberService(MemberDto memberDto) {
-        LocalDateTime now = LocalDateTime.now();
-
-        Member member = new Member()
-                .setMemberId(memberDto.getMemberId())
-                .setMemberPw(memberDto.getMemberPw())
-                .setNickname(memberDto.getNickname())
-                .setMemberRegDtm(now);
-
-        Member membersEntity = memberRepository.save(member);
-        log.info("### Create New Member: {}", membersEntity);
-
-        return MemberDto.toDto(membersEntity);
-    }
 
     // 중복 닉네임 체크
     @Transactional(readOnly = true)
@@ -66,13 +50,13 @@ public class MemberService {
 
     // 저장된 국가 코드 조회
     @Transactional(readOnly = true)
-    public MemberDto getNationCodeByMemberIdx(String memberIdx) {
+    public MemberRequestDto getNationCodeByMemberIdx(String memberIdx) {
         Member member = memberRepository.findByMemberIdx(Long.parseLong(memberIdx))
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_MEMBER));
 
         log.info("### member: {}", member);
 
-        return new MemberDto()
+        return new MemberRequestDto()
                 .setMemberIdx(member.getMemberIdx())
                 .setOriginNation(member.getOriginNation())
                 .setTargetNation(member.getTargetNation());
@@ -80,7 +64,7 @@ public class MemberService {
 
     // 회원 국가 변경
     @Transactional
-    public MemberDto updateNationByMemberIdx(NationRequestDto requestDto) {
+    public MemberRequestDto updateNationByMemberIdx(NationRequestDto requestDto) {
         Long memberIdx = requestDto.getMemberIdx();
         NationCode originNation = requestDto.getOriginNation();
         NationCode targetNation = requestDto.getTargetNation();
@@ -93,11 +77,36 @@ public class MemberService {
         memberRepository.save(member);
         log.info("### Complete update Nation: memberIdx: {}, host nation: {}, target nation: {}", memberIdx, originNation, targetNation);
 
-        return new MemberDto()
+        return new MemberRequestDto()
                 .setMemberIdx(member.getMemberIdx())
                 .setOriginNation(member.getOriginNation())
                 .setTargetNation(member.getTargetNation());
 
+    }
+
+    // 회원 조회 or 생성
+    @Transactional
+    public MemberDto findOrCreateMember(MemberLoginDto memberLoginDto) {
+        Optional<Member> optionalMember = memberRepository.findByMemberEmail(memberLoginDto.getEmail());
+
+        MemberDto memberDto;
+        if (optionalMember.isPresent()) {
+            memberDto = MemberDto.toDto(optionalMember.get());
+            log.debug("Exist Member: {}", memberDto);
+
+        } else {
+            Member member = new Member()
+                    .setMemberEmail(memberLoginDto.getEmail())
+                    .setProfileImg(memberLoginDto.getProfileImage())
+                    .setProvider(memberLoginDto.getProvider());
+
+            memberRepository.save(member);
+
+            memberDto = MemberDto.toDto(member);
+            log.debug("Create new Member: {}", memberDto);
+        }
+
+        return memberDto;
     }
 
 }

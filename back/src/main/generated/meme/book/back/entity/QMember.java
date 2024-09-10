@@ -19,19 +19,19 @@ public class QMember extends EntityPathBase<Member> {
 
     public static final QMember member = new QMember("member1");
 
-    public final StringPath imgUrl = createString("imgUrl");
-
-    public final StringPath memberId = createString("memberId");
+    public final StringPath memberEmail = createString("memberEmail");
 
     public final NumberPath<Long> memberIdx = createNumber("memberIdx", Long.class);
-
-    public final StringPath memberPw = createString("memberPw");
 
     public final DateTimePath<java.time.LocalDateTime> memberRegDtm = createDateTime("memberRegDtm", java.time.LocalDateTime.class);
 
     public final StringPath nickname = createString("nickname");
 
     public final EnumPath<meme.book.back.utils.NationCode> originNation = createEnum("originNation", meme.book.back.utils.NationCode.class);
+
+    public final StringPath profileImg = createString("profileImg");
+
+    public final EnumPath<meme.book.back.utils.ProviderType> provider = createEnum("provider", meme.book.back.utils.ProviderType.class);
 
     public final EnumPath<meme.book.back.utils.NationCode> targetNation = createEnum("targetNation", meme.book.back.utils.NationCode.class);
 

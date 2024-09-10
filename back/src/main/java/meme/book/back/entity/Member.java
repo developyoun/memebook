@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.Accessors;
 import meme.book.back.utils.NationCode;
+import meme.book.back.utils.ProviderType;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -28,28 +29,24 @@ public class Member implements Serializable {
     @Column(name = "MEMBER_IDX")
     private Long memberIdx;
 
-    // 회원 ID
-    @Column(name = "MEMBER_ID")
-    private String memberId;
-
-    // 회원 PW
-    @Column(name = "MEMBER_PW")
-    private String memberPw;
+    // 회원 Email
+    @Column(name = "MEMBER_EMAIL")
+    private String memberEmail;
 
     // 회원 닉네임
-    @NotNull
     @Column(name = "NICKNAME")
     private String nickname;
 
     // 프로필 이미지
-    @Column(name = "IMG_URL")
-    private String imgUrl;
+    @Column(name = "PROFILE_IMG")
+    private String profileImg;
 
-    // 회원 소속 국가
+    // 소속 국가
     @Enumerated(value = EnumType.STRING)
     @Column(name = "ORIGIN_NATION")
     private NationCode originNation = NationCode.KOR;
 
+    // 대상 국가
     @Enumerated(value = EnumType.STRING)
     @Column(name = "TARGET_NATION")
     private NationCode targetNation = NationCode.KOR;
@@ -58,6 +55,11 @@ public class Member implements Serializable {
     @CreatedDate
     @Column(name = "MEMBER_REG_DTM")
     private LocalDateTime memberRegDtm;
+
+    // 로그인 제공자
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "PROVIDER")
+    private ProviderType provider;
 
 }
 
