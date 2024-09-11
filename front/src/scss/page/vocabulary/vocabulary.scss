@@ -1,43 +1,32 @@
 .voca_wrap {
   min-height:100vh;
   padding:80px 20px 120px;
-  .container {
-    display:flex;
-  }
   // 단어장 상단
   .voca_top {
-    flex-shrink:0;
-    width:260px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
     margin-bottom:24px;
     box-sizing:border-box;
     .voca_tit {
-      width:100%;
       font-size:30px;
-      font-weight:900;
+      font-weight:700;
     }
     .voca_box {
       display:flex;
       align-items:center;
       justify-content:space-between;
       flex-wrap:wrap;
-      margin-top:36px;
-      .voca_txt {
-        width:100%;
-        margin-right:8px;
-        font-size:18px;
-        line-height:30px;
-      }
       .btn_add_word {
         display:inline-flex;
         align-items:center;
         justify-content:center;
-        height:40px;
-        margin-top:36px;
+        height:34px;
         padding:0 24px;
         color:#fff;
-        font-size:16px;
+        font-size:14px;
         border:1px solid var(--primary-30);
-        border-radius:8px;
+        border-radius:4px;
         background:var(--primary-30);
       }
     }
@@ -45,7 +34,9 @@
 
   // 단어장 컨텐츠
   .voca_con {
-    width:calc(100% - 260px);
+      .swiper-wrapper {
+          justify-content:end;
+      }
     .voca_desc {
       margin:36px 0 24px;
       font-size:16px;
@@ -74,11 +65,6 @@
         font-size:20px;
       }
       .voca_box {
-        margin-top:16px;
-        .voca_txt {
-          font-size:14px;
-          line-height:22px;
-        }
         .btn_add_word {
           position:fixed;
           right:24px;
@@ -88,7 +74,7 @@
           justify-content:center;
           flex-shrink:0;
           padding:0;
-          width:40px;
+          width:4px;
           height:40px;
           border-radius:50%;
           background:var(--primary-30) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 26 26' fill='none'%3E%3Cpath opacity='0.15' d='M4.33301 21.6667H8.66634L19.4997 10.8333L15.1663 6.5L4.33301 17.3333V21.6667Z' fill='white'/%3E%3Cpath d='M19.4997 10.8333L22.7497 7.58333L18.4163 3.25L15.1663 6.5M19.4997 10.8333L8.66634 21.6667H4.33301V17.3333L15.1663 6.5M19.4997 10.8333L15.1663 6.5' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;

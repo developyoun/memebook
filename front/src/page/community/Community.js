@@ -34,9 +34,8 @@ const Community = ({ userIdx }) => {
 
           {/* 타이틀 */}
           <div className="commu_top">
-            <h2 className="commu_tit">&#128214; 커뮤니티</h2>
+            <h2 className="commu_tit">&#128214;&nbsp;&nbsp;커뮤니티</h2>
             <div className="commu_box">
-              <span className="commu_txt">궁금하거나 모르는게 있나요?<br/>지금 물어보세요 &#128073;</span>
               <Link to={`/community/postAdd`} className="btn_add_post">
                 <span>글쓰기</span>
               </Link>
@@ -47,19 +46,19 @@ const Community = ({ userIdx }) => {
           <div className="commu_con">
             <Swiper slidesPerView='auto' className="tab_box">
               <SwiperSlide className="tab_item active">
-                <button type="button" className="item">&#127775; 최신</button>
+                <button type="button" className="item">&#127775;&nbsp;&nbsp;최신</button>
               </SwiperSlide>
               <SwiperSlide className="tab_item">
-                <button type="button" className="item">&#128400; 단어 질문</button>
+                <button type="button" className="item">&#128400;&nbsp;&nbsp;단어 질문</button>
               </SwiperSlide>
               <SwiperSlide className="tab_item">
-                <button type="button" className="item">&#128640; 요즘 유행</button>
+                <button type="button" className="item">&#128640;&nbsp;&nbsp;요즘 유행</button>
               </SwiperSlide>
               <SwiperSlide className="tab_item">
-                <button type="button" className="item">&#128640; 문화 이슈</button>
+                <button type="button" className="item">&#128640;&nbsp;&nbsp;문화 이슈</button>
               </SwiperSlide>
               <SwiperSlide className="tab_item">
-                <button type="button" className="item">&#128640; K-POP</button>
+                <button type="button" className="item">&#128640;&nbsp;&nbsp;K-POP</button>
               </SwiperSlide>
               <SwiperSlide className="tab_item">
                 <button type="button" className="item">&#128640; K-DRAMA</button>

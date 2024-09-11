@@ -84,9 +84,8 @@ const Vocabulary = ({ userIdx }) => {
 
         {/* 타이틀 */}
         <div className="voca_top">
-          <h2 className="voca_tit">&#128214; 단어장</h2>
+          <h2 className="voca_tit">&#128214;&nbsp;&nbsp;단어장</h2>
           <div className="voca_box">
-            <span className="voca_txt">사전에 없는 단어가 있나요?<br/>지금 등록해보세요 &#128073;</span>
             <Link to="/vocabulary/wordAdd" className="btn_add_word">
               <span>단어 등록하기</span>
             </Link>
@@ -100,16 +99,16 @@ const Vocabulary = ({ userIdx }) => {
             className="tab_box"
           >
             <SwiperSlide className={`tab_item ${libraryTab === 'ALL' ? 'active' : ''}`}>
-              <button type="button" className="item" onClick={() => wordSortBtn('ALL')}>&#128218; 전체</button>
+              <button type="button" className="item" onClick={() => wordSortBtn('ALL')}>&#128218;&nbsp;&nbsp;전체</button>
             </SwiperSlide>
             <SwiperSlide className={`tab_item ${libraryTab === 'LIKE' ? 'active' : ''}`}>
-              <button type="button" className="item" onClick={() => wordSortBtn('LIKE')}>&#128077; 좋아요순</button>
+              <button type="button" className="item" onClick={() => wordSortBtn('LIKE')}>&#128077;&nbsp;&nbsp;좋아요순</button>
             </SwiperSlide>
             <SwiperSlide className={`tab_item ${libraryTab === 'DISLIKE' ? 'active' : ''}`}>
-              <button type="button" className="item" onClick={() => wordSortBtn('DISLIKE')}>&#128078; 싫어요순</button>
+              <button type="button" className="item" onClick={() => wordSortBtn('DISLIKE')}>&#128078;&nbsp;&nbsp;싫어요순</button>
             </SwiperSlide>
             <SwiperSlide className={`tab_item ${libraryTab === 'LATEST' ? 'active' : ''}`}>
-              <button type="button" className="item" onClick={() => wordSortBtn('LATEST')}>&#127775; 최신순</button>
+              <button type="button" className="item" onClick={() => wordSortBtn('LATEST')}>&#127775;&nbsp;&nbsp;최신순</button>
             </SwiperSlide>
           </Swiper>
 
