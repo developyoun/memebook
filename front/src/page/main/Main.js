@@ -120,6 +120,7 @@ const Main = ({ userIdx }) => {
         <div className="container">
          <div className="main_top">
            <div className="main_country">
+             <p className="main_tit">Let's Find Your Words!</p>
              {
                studyCountryType === '' && (
                  <span className="badge_country">언어 선택 하셨나요?</span>
@@ -129,7 +130,7 @@ const Main = ({ userIdx }) => {
                <span className="blind">나라 선택</span>
              </button>
            </div>
-           <p className="main_tit">Let's Find Your Words!</p>
+
 
            {
              nicknameSave && (

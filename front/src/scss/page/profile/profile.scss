@@ -10,16 +10,16 @@
       .name {
         color:var(--primary);
         font-size:28px;
-        font-weight:900;
+        font-weight:700;
       }
     }
     .info_desc {
       display:flex;
       align-items:center;
       justify-content:space-around;
-      margin:36px 0 24px;
-      padding:12px 20px;
-      border:1px solid #f2f4fa;
+      margin:40px 0;
+      padding:24px;
+      border:1px solid var(--primary-50);
       border-radius:12px;
       text-align:right;
       li {
@@ -27,10 +27,10 @@
         span {
           display:block;
           text-align:center;
-          color: var(--primary-40);
-          font-size:16px;
+          color: #5c667b;
+          font-size:14px;
           &.count {
-            color:var(--primary-10);
+            color:#1d1d1f;
             font-size:16px;
             font-weight:700;
           }
@@ -64,7 +64,7 @@
   .user_daily {
     margin: 40px 0 60px;
     .daily_tit {
-      color:var(--primary-10);
+      color:#1d1d1f;
       font-size:18px;
     }
     .daily_list {
@@ -81,10 +81,10 @@
           margin: 0 auto;
           width: 42px;
           height: 42px;
-          color: var(--primary-40);
+          color: #5c667b;
           font-size:16px;
           border-radius: 50%;
-          background:var(--primary-60);
+          background:#f4f6fa;
 
           &.check {
             background: #f05161;
@@ -122,8 +122,9 @@
         justify-content:space-between;
         margin-bottom:24px;
         h4 {
-          color:var(--primary-10);
+          color:#1d1d1f;
           font-size:18px;
+            font-weight:500;
         }
         .count {
           display:inline-block;
@@ -152,14 +153,22 @@
     margin-top:60px;
     text-align:center;
     .invite_txt {
-      color:var(--primary-10);
+        margin-bottom:24px;
+      color:#1d1d1f;
       font-size:16px;
       text-align:center;
     }
-    .btn_primary {
-      height:48px;
-      margin:24px auto 0;
-      font-size:16px;
+    .btn_link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 34px;
+        padding: 0 24px;
+        color: #fff;
+        font-size: 14px;
+        border: 1px solid var(--primary-30);
+        border-radius: 4px;
+        background: var(--primary-30);
     }
   }
 }

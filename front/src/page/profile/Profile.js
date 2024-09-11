@@ -282,7 +282,7 @@ const Profile = ({ userIdx }) => {
           {/* 초대하기 */}
           <div className="invite_box">
                 <p className="invite_txt">&#127881; 친구 초대를 통해 밈북의 세계를 넓혀주세요 &#127881;</p>
-                <button type="button" onClick={inviteLink} className="btn_primary size_m">
+                <button type="button" onClick={inviteLink} className="btn_link">
                     {copyState === true ? '복사 완료 ! 친구에게 공유해주세요!' : '링크 복사하기'}
                 </button>
             </div>
