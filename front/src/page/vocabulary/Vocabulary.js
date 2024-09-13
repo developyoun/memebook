@@ -145,7 +145,7 @@ const Vocabulary = ({ userIdx }) => {
                 {
                   moreBtnState && (
                     <div className="list_btm">
-                      <button type="button" className="btn_primary size_s" onClick={pageMore}>더보기</button>
+                      <button type="button" className="btn_more_word" onClick={pageMore}>더보기</button>
                     </div>
                   )
                 }

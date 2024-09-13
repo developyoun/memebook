@@ -46,6 +46,20 @@
       border-top:2px solid var(--primary-60);
       box-shadow:0 1px 12px -10px #000;
     }
+      .list_btm {
+          .btn_more_word {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              height: 34px;
+              padding: 0 24px;
+              color: #fff;
+              font-size: 14px;
+              border: 1px solid var(--primary-30);
+              border-radius: 4px;
+              background: var(--primary-30);
+          }
+      }
   }
 
 }
@@ -62,7 +76,7 @@
       width:100%;
       padding:0 20px;
       .voca_tit {
-        font-size:20px;
+        font-size:16px;
       }
       .voca_box {
         .btn_add_word {
