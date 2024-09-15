@@ -6,10 +6,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import meme.book.back.entity.Member;
 import meme.book.back.exception.CustomException;
 import meme.book.back.oauth.JwtTokenProvider;
 import meme.book.back.utils.ErrorCode;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 @Slf4j
-//@Component
+@Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -32,25 +32,29 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
         try {
-            String authorizationToken = request.getHeader("Authorization");
-            if (authorizationToken == null) {
-                throw new CustomException(ErrorCode.INVALID_AUTHENTICATION_TOKEN);
+
+            if (!request.getMethod().equals(HttpMethod.GET.name())) {
+                String authorizationToken = request.getHeader("Authorization");
+                if (authorizationToken == null) {
+                    throw new CustomException(ErrorCode.INVALID_AUTHENTICATION_TOKEN);
+                }
+
+                String memberEmail = jwtTokenProvider.getEmailByToken(authorizationToken);
+                if (memberEmail == null) {
+                    throw new CustomException(ErrorCode.INVALID_AUTHENTICATION_TOKEN);
+                }
+
+                UserDetails userDetails = User.builder()
+                        .username(memberEmail)
+                        .password(memberEmail)
+                        .build();
+
+                Authentication authentication =
+                        new UsernamePasswordAuthenticationToken(userDetails, null, new ArrayList<>());
+
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
             }
-
-            String memberEmail = jwtTokenProvider.getEmailByToken(authorizationToken);
-            if (memberEmail == null) {
-                throw new CustomException(ErrorCode.INVALID_AUTHENTICATION_TOKEN);
-            }
-
-            UserDetails userDetails = User.builder()
-                    .username(memberEmail)
-                    .password(memberEmail)
-                    .build();
-
-            Authentication authentication =
-                    new UsernamePasswordAuthenticationToken(userDetails, null, new ArrayList<>());
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
 
             filterChain.doFilter(request, response);
 
@@ -63,6 +67,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String[] excludePath = {"/auth/login", "/swagger-ui", "/swagger", "/v3/api-docs", "/docs"};
         String path = request.getRequestURI();
+
+        log.info("path: {}", path);
+
         return Arrays.stream(excludePath).anyMatch(path::startsWith);
     }
 
