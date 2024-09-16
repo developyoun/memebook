@@ -2,6 +2,7 @@ package meme.book.back.config;
 
 import lombok.RequiredArgsConstructor;
 import meme.book.back.filter.JwtAuthenticationFilter;
+import meme.book.back.oauth.JwtTokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -20,7 +21,7 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtTokenProvider provider;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -34,14 +35,14 @@ public class SecurityConfig {
 //                        config.addAllowedHeader("Authorization");
                     return config;
                 }))
+                .authorizeHttpRequests(config -> config.requestMatchers("/**").permitAll()
+                        .requestMatchers("/docs", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                        .anyRequest().authenticated())
+                .addFilterBefore(new JwtAuthenticationFilter(provider), UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(config -> {
-                    config.requestMatchers("/docs", "/swagger-ui/**", "/v3/api-docs/**").permitAll();
-                    config.requestMatchers("/auth/login").permitAll();
-                    config.requestMatchers(HttpMethod.GET, "/api/**").permitAll();
-                    config.anyRequest().authenticated();
-                })
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        ;
 
         return http.build();
     }

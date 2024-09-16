@@ -15,7 +15,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -23,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 @Slf4j
-@Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -32,8 +30,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
         try {
-
             if (!request.getMethod().equals(HttpMethod.GET.name())) {
+
+                log.debug("Request Filter URL: {}, ", request.getRequestURI());
+
                 String authorizationToken = request.getHeader("Authorization");
                 if (authorizationToken == null) {
                     throw new CustomException(ErrorCode.INVALID_AUTHENTICATION_TOKEN);
@@ -53,7 +53,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         new UsernamePasswordAuthenticationToken(userDetails, null, new ArrayList<>());
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-
             }
 
             filterChain.doFilter(request, response);
@@ -65,12 +64,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        String[] excludePath = {"/auth/login", "/swagger-ui", "/swagger", "/v3/api-docs", "/docs"};
+        String[] excludePath = {"/auth/login", "/swagger-ui", "/swagger", "/v3/api-docs", "/docs", "/"};
         String path = request.getRequestURI();
 
         log.info("path: {}", path);
 
-        return Arrays.stream(excludePath).anyMatch(path::startsWith);
+        return Arrays.asList(excludePath).contains(path);
     }
 
 }
