@@ -113,7 +113,7 @@ const Vocabulary = ({ userIdx }) => {
           </Swiper>
 
           <div className="voca_desc">
-            총 {wordList?.totalCount} 개
+            총 {wordList?.totalCount ?? 0} 개
           </div>
 
           {/* 로딩 */}
@@ -124,8 +124,15 @@ const Vocabulary = ({ userIdx }) => {
             )
           }
 
+          { libraryData.length === 0 && (
+              <div>
+                단어가 없어요
+              </div>
+            )
+          }
+
           {
-            libraryData !== undefined && (
+            libraryData && !loadingState && libraryData.length !== 0 && (
               <>
                 <ul className="list_box">
                   {
