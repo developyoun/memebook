@@ -22,6 +22,7 @@ const Main = ({ userIdx }) => {
   const dispatch = useDispatch();
   // 검색
   const wordSearch = useSelector(state => state.meme.wordSearch);
+  const [searchText, setSearchText] = useState('');
   const [searchState, setSearchState] = useState(false);
   // 단어 인기 리스트
   const wordList = useSelector(state => state.meme.wordList);
@@ -87,17 +88,24 @@ const Main = ({ userIdx }) => {
     setCountryModalOpen(!countryModalOpen);
   }
 
-  // 단어 검색
-  const wordSearchApi = debounce((event) => {
-    setResultVisible(!resultVisible);
-    if (event.target.value.length > 0) {
-      setSearchState(true);
-      dispatch(wordSearchData(event.target.value));
-    } else {
-      setSearchState(false);
-
+  const wordSearchKey = (event) => {
+    if (event.key === 'Backspace') {
+      if (event.target.value.length <= 0) {
+        setSearchState(false);
+      }
     }
-  }, 300)
+  }
+    // 단어 검색
+  const wordSearchApi = debounce((event) => {
+    const value = event.target.value;
+    setSearchText(value);
+    if (value.length <= 0) {
+      setSearchState(false);
+    } else {
+      setSearchState(true);
+      dispatch(wordSearchData(value));
+    }
+  }, 200);
 
   return (
     <>
@@ -106,8 +114,6 @@ const Main = ({ userIdx }) => {
           <CountryChoice countryChoiceClose={countryChoiceClose}></CountryChoice>
         )
       }
-
-
             {
         nicknameModalOpen && (
           <NickName nickNameAdd={nickNameClose} nickNameInput={nickNameValue}></NickName>
@@ -138,35 +144,29 @@ const Main = ({ userIdx }) => {
              )
            }
            <div className="search_box">
-             <input type="text" className="text_input" placeholder="단어를 검색해보세요" onChange={wordSearchApi}/>
+             <input type="text" className="text_input" placeholder="단어를 검색해보세요" onChange={wordSearchApi} onKeyDown={wordSearchKey}/>
              {
                searchState && (
-                 <div ref={resultRef}>
+                 <ul className="search_list" ref={resultRef}>
                    {
-                     resultVisible && (
-                       <ul className="search_list" >
-                         {
-                           wordSearch?.wordList.length === 0 && (
-                             <li className="list_none">
-                               검색에 맞는 단어가 없어요
-                             </li>
-                           )
-                         }
-                         {
-                           wordSearch?.wordList.length > 0 && wordSearch?.wordList.map((item, idx) => {
-                             return (
-                               <li key={idx}>
-                                 <Link to={`/vocabulary/wordInfo/${item.wordIdx}`}>
-                                   {item.wordName}
-                                 </Link>
-                               </li>
-                             )
-                           })
-                         }
-                       </ul>
+                     wordSearch?.wordList.length === 0 && (
+                       <li className="list_none">
+                         검색에 맞는 단어가 없어요
+                       </li>
                      )
                    }
-                 </div>
+                   {
+                     wordSearch?.wordList.length > 0 && wordSearch?.wordList.map((item, idx) => {
+                       return (
+                         <li key={idx}>
+                           <Link to={`/vocabulary/wordInfo/${item.wordIdx}`}>
+                             {item.wordName}
+                           </Link>
+                         </li>
+                       )
+                     })
+                   }
+                 </ul>
                )
              }
            </div>
