@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {scrapDeleteData, scrapListData} from "./../../util/action/scrapAction";
 import Title from "./../../components/Title";
@@ -14,6 +14,8 @@ const MyScrapeList = ({ userIdx }) => {
   const [scrapState, setScrapState] = useState(false);
   // 리스트 선택
   const [deleteListCheck, setDeleteListCheck] = useState([]);
+  // 페이지 넘버 더보기
+  const [pageNumber, setPageNumber] = useState(1);
 
   // 스크랩 리스트 Api
   useEffect(() => {
@@ -21,6 +23,7 @@ const MyScrapeList = ({ userIdx }) => {
       try {
         if (userIdx !== undefined) {
           dispatch(scrapListData(userIdx));
+          setPageNumber(scrapList.totalPage);
         }
       } catch (error) {
         console.log(error)
@@ -106,9 +109,13 @@ const MyScrapeList = ({ userIdx }) => {
           )
         }
 
-        <div className="list_btm">
-          <button type="button" className="btn_primary size_s">더보기</button>
-        </div>
+        {
+          pageNumber >= 2 && (
+            <div className="list_btm">
+              <button type="button" className="btn_primary size_s">더보기</button>
+            </div>
+          )
+        }
 
       </div>
 

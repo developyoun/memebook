@@ -1,6 +1,6 @@
 import {memebookApi} from "./../../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {postListData} from "./../../util/action/communityAction";
 import Title from "./../../components/Title";
@@ -16,6 +16,8 @@ const MyPostList = ({ userIdx }) => {
   // 삭제 상태
   const [deleteState, setDeleteState] = useState(false);
   const [deleteNone, setDeleteNone] = useState(false);
+  // 페이지 넘버 더보기
+  const [pageNumber, setPageNumber] = useState(1);
 
   const selectCheckboxChange = (articleIdx) => {
     setDeleteNone(false);
@@ -35,7 +37,7 @@ const MyPostList = ({ userIdx }) => {
       try {
         if (userIdx !== undefined) {
           dispatch(postListData(userIdx));
-          console.log(postList);
+          setPageNumber(postList.totalPage)
         }
       } catch (error) {
         console.log(error)
@@ -163,9 +165,14 @@ const MyPostList = ({ userIdx }) => {
           )
         }
 
-        <div className="list_btm">
-          <button type="button" className="btn_primary size_s">더보기</button>
-        </div>
+
+        {
+          pageNumber >= 2 && (
+            <div className="list_btm">
+              <button type="button" className="btn_primary size_s">더보기</button>
+            </div>
+          )
+        }
 
       </div>
 

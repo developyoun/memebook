@@ -12,6 +12,8 @@ const MyAddList = ({ userIdx }) => {
   const myWordList = useSelector(state => state.meme.myWordList);
   // 삭제 상태
   const [deleteState, SetDeleteState] = useState(false);
+  // 페이지 넘버 더보기
+  const [pageNumber, setPageNumber] = useState(1);
 
   // 단어 리스트 Api
   useEffect(() => {
@@ -19,6 +21,7 @@ const MyAddList = ({ userIdx }) => {
       try {
         if (userIdx !== undefined) {
           dispatch(myWordListData(userIdx));
+          setPageNumber(myWordList.totalPage)
         }
       } catch (error) {
         console.log(error)
@@ -89,9 +92,13 @@ const MyAddList = ({ userIdx }) => {
           )
         }
 
-        <div className="list_btm">
-          <button type="button" className="btn_primary size_s">더보기</button>
-        </div>
+        {
+          pageNumber >= 2 && (
+            <div className="list_btm">
+              <button type="button" className="btn_primary size_s">더보기</button>
+            </div>
+          )
+        }
 
       </div>
 

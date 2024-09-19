@@ -411,7 +411,7 @@
 
 
 .content_none {
-  font-size:12px;
+  font-size:16px;
   &.list {
     text-align:center;
     &:before {
@@ -427,15 +427,16 @@
 
 // BUTTON
 .btn_primary {
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  color:#fff;
-  font-size:14px;
-  font-weight:bold;
-  border:1px solid var(--primary-30);
-  border-radius:8px;
-  background:var(--primary-30);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 34px;
+    padding: 0 24px;
+    color: #fff;
+    font-size: 14px;
+    border: 1px solid var(--primary-30);
+    border-radius: 4px;
+    background: var(--primary-30);
   &.size_s {
     padding:0 16px;
     height:30px;
@@ -447,15 +448,16 @@
 }
 // BUTTON - LINE
 .btn_primary_line {
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--primary-30);
-  font-size:12px;
-  font-weight:bold;
-  border:1px solid var(--primary-30);
-  border-radius:8px;
-  background:#fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 34px;
+    padding: 0 24px;
+    color:var(--primary-30);
+    font-size: 14px;
+    border: 1px solid var(--primary-30);
+    border-radius: 4px;
+    background:#fff;
   &.size_s {
     padding:0 16px;
     height:30px;
