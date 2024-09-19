@@ -29,20 +29,22 @@ const Vocabulary = ({ userIdx }) => {
   const [loadingState, setLoadingState] = useState(true);
 
   useEffect(() => {
-    async function libraryList() {
+    async function vocaApi() {
       try {
         await dispatch(wordListData('KOR', pageNumber));
       } catch (error) {
         console.log(error)
       }
     }
-    libraryList();
+    vocaApi();
   }, [dispatch, pageNumber]);
 
   useEffect(() => {
     if (wordList && wordList.wordList) {
       setLibraryData(wordList.wordList);
+      setLoadingState(false);
     }
+
     // 현재 페이지가 마지막 페이지가 아니라면 더보기 미노출
     if (wordList?.nowPage !== wordList?.totalPage) {
       setMoreBtnState(true);
@@ -72,11 +74,17 @@ const Vocabulary = ({ userIdx }) => {
     try {
       setLibraryTab(word);
       dispatch(wordSortData(nationName, word));
-      setLibraryData(wordSort.wordList);
+
     } catch(error) {
       console.log(error)
     }
   }
+
+  useEffect(() => {
+    if (wordSort && wordSort?.wordList) {
+      setLibraryData(wordSort.wordList);
+    }
+  }, [wordSort]);
 
   return (
     <div className="voca_wrap">
@@ -116,7 +124,6 @@ const Vocabulary = ({ userIdx }) => {
             총 {wordList?.totalCount ?? 0} 개
           </div>
 
-          {/* 로딩 */}
           { libraryData === undefined && loadingState && (
               <div>
                 로딩중

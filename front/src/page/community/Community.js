@@ -10,19 +10,31 @@ const Community = ({ userIdx }) => {
   const dispatch = useDispatch();
   const postList = useSelector(state => state.meme.postList);
   const [postReactionState, setPostReactionState] = useState(false);
+  // 글 리스트
+  const [postData, setPostData] = useState([]);
+  // 로딩
+  const [loadingState, setLoadingState] = useState(true);
 
   // 포스트 Api
   useEffect(() => {
     async function postListApi() {
       try {
         await dispatch(postListData());
+
       } catch (error) {
         console.log(error);
       }
     }
-
     postListApi();
   }, [dispatch]);
+
+  useEffect(() => {
+    if (postList && postList.articleList) {
+      setPostData(postList.articleList)
+      setLoadingState(false);
+    }
+    console.log(postList)
+  }, [postList]);
 
   const postReaction = () => {
     setPostReactionState(!postReactionState)
@@ -72,15 +84,20 @@ const Community = ({ userIdx }) => {
               총 {postList.totalCount ?? 0} 개
             </div>
 
-            { postList.length === 0 && (
+            { postData === undefined && loadingState && (
               <div>
+                로딩중
+              </div>
+              )
+            }
+
+            { postData.length === 0 && <div>
                 작성된 글이 없어요
               </div>
-            )
             }
 
             {
-              postList && postList.length !== 0 && (
+              !loadingState && postList && postData.length !== 0 && (
                 <div className="commu_list">
                   <ul className="list">
                     {/* 포스트 */}

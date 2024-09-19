@@ -26,14 +26,14 @@
     .input_top {
       display:flex;
       align-items:center;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
     .tit {
       color:var(--primary-10);
       font-size:16px;
     }
     & + .input_box {
-      margin-top: 16px;
+      margin-top: 32px;
     }
   }
 }
@@ -304,7 +304,7 @@
       padding:0 8px;
       font-size:14px;
       border-radius:4px;
-      background:var(--primary-60);
+      background:#f4f6fa;
     }
   }
 }

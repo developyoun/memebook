@@ -151,7 +151,7 @@
           .keyword {
             overflow: hidden;
             width: 100%;
-            color: var(--primary-10);
+            color: #373f57;
             font-size: 16px;
             letter-spacing: -0.5px;
             text-overflow: ellipsis;
@@ -159,7 +159,7 @@
 
             &:before {
               display: inline-flex;
-              margin-right: 8px;
+              margin-right: 12px;
               width: 22px;
               height: 22px;
               border: 1px solid var(--primary-20);
