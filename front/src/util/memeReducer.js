@@ -5,6 +5,7 @@ const initialState = {
   myWordList : [],
   nationCheck : [],
   postList : [],
+  userIdx: null,
 };
 
 const memeReducer = (state = initialState, action) => {

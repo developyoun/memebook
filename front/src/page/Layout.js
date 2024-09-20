@@ -11,7 +11,8 @@ import {useDispatch, useSelector} from "react-redux";
 export default function Layout() {
   useTop();
   const [isDark, setIsDark] = useState(false);
-
+  const userIdx = useSelector((state) => state.meme.userIdx);
+  console.log(userIdx)
 
   return (
     <div className="wrap">
