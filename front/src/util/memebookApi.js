@@ -1,9 +1,8 @@
-import axios from 'axios';
-import { API_URL } from './../config';
+import {useSelector} from "react-redux";
 
-const request = axios.create({
-  baseURL: API_URL,
-})
+// const userIdx = useSelector((state) => state.meme.userIdx);
+// const request = createRequest(userIdx);
+
 
 export const memebookApi = {
   // 회원 생성
