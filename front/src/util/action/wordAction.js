@@ -2,9 +2,10 @@ import {memebookApi} from "../memebookApi";
 import {wordListAction, myWordListAction, wordSortAction, wordDeleteAction} from "../action";
 
 // 단어 리스트
-export const wordListData = (id, memberIdx) => async (dispatch) => {
+export const wordListData = (id, userIdx) => async (dispatch) => {
   try {
-    const wordListData = await memebookApi.wordListApi(id, memberIdx);
+    const api = memebookApi(userIdx);
+    const wordListData = await api.wordListApi(id);
     dispatch(wordListAction(wordListData));
   } catch (error) {
     console.error(error);

@@ -17,10 +17,15 @@ import {Navigation, Pagination} from "swiper/modules";
 import OutsideHook from "../../util/OutsideHook";
 import GoogleLoginButton from "./GoogleLoginButton";
 import userIdxHigher from "../../components/UserIdxHigher";
+import createRequest from "../../util/request";
 
-const Main = ({ userIdx }) => {
-  const api = memebookApi();
+const Main = ({  }) => {
   const dispatch = useDispatch();
+
+  const userIdx = useSelector((state) => state.meme.userIdx);
+
+  const api = memebookApi(userIdx);
+
   // 검색
   const wordSearch = useSelector(state => state.meme.wordSearch);
   const [searchText, setSearchText] = useState('');
@@ -51,7 +56,7 @@ const Main = ({ userIdx }) => {
   OutsideHook(resultRef, () => setResultVisible(false));
 
   useEffect(() => {
-    dispatch(wordListData('ALL', 1));
+    dispatch(wordListData('1', userIdx));
     dispatch(nationCheckData(userIdx));
     dispatch(scrapListData(userIdx));
     dispatch(myWordListData(userIdx));

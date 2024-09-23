@@ -2,8 +2,7 @@ import {useSelector} from "react-redux";
 import createRequest from "./request";
 
 
-export const memebookApi = () => {
-  const userIdx = useSelector((state) => state.meme.userIdx);
+export const memebookApi = (userIdx) => {
   const request = createRequest(userIdx);
   return {
     // 회원 생성
@@ -44,7 +43,7 @@ export const memebookApi = () => {
     commentDeleteApi : (commentIdx,) => request.delete(`comment/delete?commentIdx=${commentIdx}`),
 
     // 전체 단어 리스트 조회
-    wordListApi : (country, pageNumber) => request.get(`word/list?page=${pageNumber}`),
+    wordListApi : (pageNumber) => request.get(`word/list?page=${pageNumber}`),
     // 전체 단어 리스트 조회
     wordSearchApi : (searchWord) => request.get(`word/list?search=${searchWord}`),
     // 단어 정렬
