@@ -8,7 +8,7 @@ const UserIdxHigher = (WrappedComponent) => {
         const userIdx = useSelector((state) => state.meme.userIdx);
 
         useEffect(() => {
-            dispatch(userIdxData())
+            dispatch(userIdxData());
         }, [userIdx]);
 
         return <WrappedComponent userIdx={userIdx} {...props} />;

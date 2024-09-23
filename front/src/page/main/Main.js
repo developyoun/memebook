@@ -19,12 +19,8 @@ import GoogleLoginButton from "./GoogleLoginButton";
 import userIdxHigher from "../../components/UserIdxHigher";
 import createRequest from "../../util/request";
 
-const Main = ({  }) => {
+const Main = ({userIdx}) => {
   const dispatch = useDispatch();
-
-  const userIdx = useSelector((state) => state.meme.userIdx);
-
-  const api = memebookApi(userIdx);
 
   // 검색
   const wordSearch = useSelector(state => state.meme.wordSearch);
