@@ -20,7 +20,6 @@ const Community = ({ userIdx }) => {
     async function postListApi() {
       try {
         await dispatch(postListData());
-
       } catch (error) {
         console.log(error);
       }
@@ -33,7 +32,6 @@ const Community = ({ userIdx }) => {
       setPostData(postList.articleList)
       setLoadingState(false);
     }
-    console.log(postList)
   }, [postList]);
 
   const postReaction = () => {
