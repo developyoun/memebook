@@ -52,12 +52,12 @@ const Main = ({userIdx}) => {
   OutsideHook(resultRef, () => setResultVisible(false));
 
   useEffect(() => {
-    dispatch(wordListData('1', userIdx));
-    dispatch(nationCheckData(userIdx));
-    dispatch(scrapListData(userIdx));
-    dispatch(myWordListData(userIdx));
-    dispatch(postCommentData(userIdx));
-    dispatch(postCommentData(userIdx));
+    dispatch(wordListData('1', '123'));
+    dispatch(nationCheckData('123'));
+    dispatch(scrapListData('123'));
+    dispatch(myWordListData('123'));
+    dispatch(postCommentData('123'));
+    dispatch(postCommentData('123'));
     setStudyCountryType(nationCheck.targetNation);
   }, [dispatch, userIdx, nationCheck.targetNation]);
 
@@ -199,13 +199,14 @@ const Main = ({userIdx}) => {
 
             <ul className="main_check">
 
-              {/* 등록한 단어*/}
-              <li className="list word">
+              {
+                myWordList?.myWordList && (
+                <li className="list word">
                   {
                     myWordList.wordContentList?.length === 0 && (
-                      <Link to="/profile/myWordList" className="link">
-                        아직 등록한 단어가 없어요
-                      </Link>
+                    <Link to="/profile/myWordList" className="link">
+                    아직 등록한 단어가 없어요
+                    </Link>
                     )
                   }
                   {
@@ -215,7 +216,10 @@ const Main = ({userIdx}) => {
                       </Link>
                     )
                   }
-              </li>
+                </li>
+                )
+              }
+
 
               {/* 스크랩한 단어 */}
               <li className="list scrap">
