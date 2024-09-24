@@ -83,15 +83,17 @@ const Community = ({ userIdx }) => {
             </div>
 
             { postData === undefined && loadingState && (
-              <div>
+              <div className="loading_box">
                 로딩중
               </div>
               )
             }
 
-            { postData.length === 0 && <div>
-                작성된 글이 없어요
-              </div>
+            { postData.length === 0 && (
+                <div className="none_box">
+                  작성된 글이 없어요
+                </div>
+              )
             }
 
             {

@@ -125,15 +125,15 @@ const Vocabulary = ({ userIdx }) => {
           </div>
 
           { libraryData === undefined && loadingState && (
-              <div>
+              <div className="loading_box">
                 로딩중
               </div>
             )
           }
 
           { libraryData.length === 0 && (
-              <div>
-                단어가 없어요
+              <div className="none_box">
+                등록된 단어가 없어요
               </div>
             )
           }

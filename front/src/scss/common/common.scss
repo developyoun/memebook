@@ -82,6 +82,17 @@
   }
 }
 
+/* 공통 박스 */
+.none_box {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:200px;
+    padding:20px;
+    color:#5c667b;
+    font-size:16px;
+}
+
 /* 유효성 문구 */
 .invalid_msg {
   margin-right:auto;
@@ -510,9 +521,10 @@
     }
   }
 
-
-
-
+    // 공통 박스
+    .none_box {
+        font-size:14px
+    }
 
   // 검색 리스트
 
