@@ -10,6 +10,10 @@ const Community = ({ userIdx }) => {
   const dispatch = useDispatch();
   const postList = useSelector(state => state.meme.postList);
   const [postReactionState, setPostReactionState] = useState(false);
+  // 글 리스트
+  const [postData, setPostData] = useState([]);
+  // 로딩
+  const [loadingState, setLoadingState] = useState(true);
 
   // 포스트 Api
   useEffect(() => {
@@ -20,9 +24,15 @@ const Community = ({ userIdx }) => {
         console.log(error);
       }
     }
-
     postListApi();
   }, [dispatch]);
+
+  useEffect(() => {
+    if (postList && postList.articleList) {
+      setPostData(postList.articleList)
+      setLoadingState(false);
+    }
+  }, [postList]);
 
   const postReaction = () => {
     setPostReactionState(!postReactionState)
@@ -34,9 +44,8 @@ const Community = ({ userIdx }) => {
 
           {/* 타이틀 */}
           <div className="commu_top">
-            <h2 className="commu_tit">&#128214; 커뮤니티</h2>
+            <h2 className="commu_tit">&#128214;&nbsp;&nbsp;커뮤니티</h2>
             <div className="commu_box">
-              <span className="commu_txt">궁금하거나 모르는게 있나요?<br/>지금 물어보세요 &#128073;</span>
               <Link to={`/community/postAdd`} className="btn_add_post">
                 <span>글쓰기</span>
               </Link>
@@ -47,19 +56,19 @@ const Community = ({ userIdx }) => {
           <div className="commu_con">
             <Swiper slidesPerView='auto' className="tab_box">
               <SwiperSlide className="tab_item active">
-                <button type="button" className="item">&#127775; 최신</button>
+                <button type="button" className="item">&#127775;&nbsp;&nbsp;최신</button>
               </SwiperSlide>
               <SwiperSlide className="tab_item">
-                <button type="button" className="item">&#128400; 단어 질문</button>
+                <button type="button" className="item">&#128400;&nbsp;&nbsp;단어 질문</button>
               </SwiperSlide>
               <SwiperSlide className="tab_item">
-                <button type="button" className="item">&#128640; 요즘 유행</button>
+                <button type="button" className="item">&#128640;&nbsp;&nbsp;요즘 유행</button>
               </SwiperSlide>
               <SwiperSlide className="tab_item">
-                <button type="button" className="item">&#128640; 문화 이슈</button>
+                <button type="button" className="item">&#128640;&nbsp;&nbsp;문화 이슈</button>
               </SwiperSlide>
               <SwiperSlide className="tab_item">
-                <button type="button" className="item">&#128640; K-POP</button>
+                <button type="button" className="item">&#128640;&nbsp;&nbsp;K-POP</button>
               </SwiperSlide>
               <SwiperSlide className="tab_item">
                 <button type="button" className="item">&#128640; K-DRAMA</button>
@@ -70,48 +79,68 @@ const Community = ({ userIdx }) => {
             </Swiper>
 
             <div className="commu_desc">
-              총 {postList.totalCount}개
+              총 {postList.totalCount ?? 0} 개
             </div>
 
-            <div className="commu_list">
-              <ul className="list">
-                {/* 포스트 */}
-                {
-                  postList.articleList?.map((item, idx) => {
-                    return (
-                      <li key={idx}>
-                        <div className="post_item">
-                          <Link to={`/community/postDetail/${item.articleIdx}`} className="post_link">
-                            <div className="post_top">
-                              <h3 className="post_tit">{item.articleTitle}</h3>
-                              <span className="post_nickname">{item.memberNickname}</span>
+            { postData === undefined && loadingState && (
+              <div className="loading_box">
+                로딩중
+              </div>
+              )
+            }
+
+            { postData.length === 0 && (
+                <div className="none_box">
+                  작성된 글이 없어요
+                </div>
+              )
+            }
+
+            {
+              !loadingState && postList && postData.length !== 0 && (
+                <div className="commu_list">
+                  <ul className="list">
+                    {/* 포스트 */}
+                    {
+                      postList.articleList?.map((item, idx) => {
+                        return (
+                          <li key={idx}>
+                            <div className="post_item">
+                              <Link to={`/community/postDetail/${item.articleIdx}`} className="post_link">
+                                <div className="post_top">
+                                  <h3 className="post_tit">{item.articleTitle}</h3>
+                                  <span className="post_nickname">{item.memberNickname}</span>
+                                </div>
+
+                                <p className="post_con">{item.articleContent}</p>
+
+                              </Link>
+
+
+                              <div className="post_reaction">
+                                <button type="button" className={`btn_post_like ${postReactionState ? 'active' : ''}`} onClick={postReaction}>
+                                  <span className="blind">좋아요</span>
+                                </button>
+                                <Link to={`/community/postDetail/${item.articleIdx}`} className="reaction_link reaction_comment">
+                                  <span className={`txt_count ${item.commentCount === 0 ? 'blind' : ''}`}>{item.commentCount === 0 ? '댓글' : item.commentCount}</span>
+                                </Link>
+                                <Link to={`/community/postDetail/${item.articleIdx}`} className="reaction_link reaction_view">
+                                  <span className="blind">조회수</span>
+                                </Link>
+                              </div>
                             </div>
 
-                            <p className="post_con">{item.articleContent}</p>
+                          </li>
+                        )
+                      })
+                    }
 
-                          </Link>
+                  </ul>
+                </div>
+              )
+            }
 
 
-                          <div className="post_reaction">
-                            <button type="button" className={`btn_post_like ${postReactionState ? 'active' : ''}`} onClick={postReaction}>
-                              <span className="blind">좋아요</span>
-                            </button>
-                            <Link to={`/community/postDetail/${item.articleIdx}`} className="reaction_link reaction_comment">
-                              <span className={`txt_count ${item.commentCount === 0 ? 'blind' : ''}`}>{item.commentCount === 0 ? '댓글' : item.commentCount}</span>
-                            </Link>
-                            <Link to={`/community/postDetail/${item.articleIdx}`} className="reaction_link reaction_view">
-                              <span className="blind">조회수</span>
-                            </Link>
-                          </div>
-                        </div>
-
-                      </li>
-                    )
-                  })
-                }
-
-              </ul>
-            </div>
           </div>
 
 

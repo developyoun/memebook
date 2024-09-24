@@ -29,20 +29,22 @@ const Vocabulary = ({ userIdx }) => {
   const [loadingState, setLoadingState] = useState(true);
 
   useEffect(() => {
-    async function libraryList() {
+    async function vocaApi() {
       try {
         await dispatch(wordListData('KOR', pageNumber));
       } catch (error) {
         console.log(error)
       }
     }
-    libraryList();
+    vocaApi();
   }, [dispatch, pageNumber]);
 
   useEffect(() => {
     if (wordList && wordList.wordList) {
       setLibraryData(wordList.wordList);
+      setLoadingState(false);
     }
+
     // 현재 페이지가 마지막 페이지가 아니라면 더보기 미노출
     if (wordList?.nowPage !== wordList?.totalPage) {
       setMoreBtnState(true);
@@ -72,11 +74,17 @@ const Vocabulary = ({ userIdx }) => {
     try {
       setLibraryTab(word);
       dispatch(wordSortData(nationName, word));
-      setLibraryData(wordSort.wordList);
+
     } catch(error) {
       console.log(error)
     }
   }
+
+  useEffect(() => {
+    if (wordSort && wordSort?.wordList) {
+      setLibraryData(wordSort.wordList);
+    }
+  }, [wordSort]);
 
   return (
     <div className="voca_wrap">
@@ -84,9 +92,8 @@ const Vocabulary = ({ userIdx }) => {
 
         {/* 타이틀 */}
         <div className="voca_top">
-          <h2 className="voca_tit">&#128214; 단어장</h2>
+          <h2 className="voca_tit">&#128214;&nbsp;&nbsp;단어장</h2>
           <div className="voca_box">
-            <span className="voca_txt">사전에 없는 단어가 있나요?<br/>지금 등록해보세요 &#128073;</span>
             <Link to="/vocabulary/wordAdd" className="btn_add_word">
               <span>단어 등록하기</span>
             </Link>
@@ -100,33 +107,39 @@ const Vocabulary = ({ userIdx }) => {
             className="tab_box"
           >
             <SwiperSlide className={`tab_item ${libraryTab === 'ALL' ? 'active' : ''}`}>
-              <button type="button" className="item" onClick={() => wordSortBtn('ALL')}>&#128218; 전체</button>
+              <button type="button" className="item" onClick={() => wordSortBtn('ALL')}>&#128218;&nbsp;&nbsp;전체</button>
             </SwiperSlide>
             <SwiperSlide className={`tab_item ${libraryTab === 'LIKE' ? 'active' : ''}`}>
-              <button type="button" className="item" onClick={() => wordSortBtn('LIKE')}>&#128077; 좋아요순</button>
+              <button type="button" className="item" onClick={() => wordSortBtn('LIKE')}>&#128077;&nbsp;&nbsp;좋아요순</button>
             </SwiperSlide>
             <SwiperSlide className={`tab_item ${libraryTab === 'DISLIKE' ? 'active' : ''}`}>
-              <button type="button" className="item" onClick={() => wordSortBtn('DISLIKE')}>&#128078; 싫어요순</button>
+              <button type="button" className="item" onClick={() => wordSortBtn('DISLIKE')}>&#128078;&nbsp;&nbsp;싫어요순</button>
             </SwiperSlide>
             <SwiperSlide className={`tab_item ${libraryTab === 'LATEST' ? 'active' : ''}`}>
-              <button type="button" className="item" onClick={() => wordSortBtn('LATEST')}>&#127775; 최신순</button>
+              <button type="button" className="item" onClick={() => wordSortBtn('LATEST')}>&#127775;&nbsp;&nbsp;최신순</button>
             </SwiperSlide>
           </Swiper>
 
           <div className="voca_desc">
-            총 {wordList?.totalCount} 개
+            총 {wordList?.totalCount ?? 0} 개
           </div>
 
-          {/* 로딩 */}
           { libraryData === undefined && loadingState && (
-              <div>
+              <div className="loading_box">
                 로딩중
               </div>
             )
           }
 
+          { libraryData.length === 0 && (
+              <div className="none_box">
+                등록된 단어가 없어요
+              </div>
+            )
+          }
+
           {
-            libraryData !== undefined && (
+            libraryData && !loadingState && libraryData.length !== 0 && (
               <>
                 <ul className="list_box">
                   {
@@ -146,7 +159,7 @@ const Vocabulary = ({ userIdx }) => {
                 {
                   moreBtnState && (
                     <div className="list_btm">
-                      <button type="button" className="btn_primary size_s" onClick={pageMore}>더보기</button>
+                      <button type="button" className="btn_more_word" onClick={pageMore}>더보기</button>
                     </div>
                   )
                 }

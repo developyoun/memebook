@@ -2,43 +2,32 @@
 .community_wrap {
   min-height: calc(100vh - 40px);
   padding: 80px 20px 140px 20px;
-  .container {
-    display:flex;
-  }
   // 커뮤니티 상단
   .commu_top {
-    flex-shrink:0;
-    width:260px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
     margin-bottom:24px;
     box-sizing:border-box;
     .commu_tit {
-      width:100%;
       font-size:30px;
-      font-weight:900;
+      font-weight:700;
     }
     .commu_box {
       display:flex;
       align-items:center;
       justify-content:space-between;
       flex-wrap:wrap;
-      margin-top:36px;
-      .commu_txt {
-        width:100%;
-        margin-right:8px;
-        font-size:18px;
-        line-height:30px;
-      }
       .btn_add_post {
         display:inline-flex;
         align-items:center;
         justify-content:center;
-        height:40px;
-        margin-top:32px;
+        height:34px;
         padding:0 24px;
         color:#fff;
-        font-size:16px;
+        font-size:14px;
         border:1px solid var(--primary-30);
-        border-radius:8px;
+        border-radius:4px;
         background:var(--primary-30);
         z-index:10;
       }
@@ -47,7 +36,6 @@
 
   // 커뮤니티 컨텐츠
   .commu_con {
-    width:calc(100% - 260px);
     .commu_desc {
       margin:36px 0 24px;
       font-size:16px;
@@ -174,14 +162,10 @@
       width:100%;
       padding:0 20px;
       .commu_tit {
-        font-size:20px;
+        font-size:16px;
       }
       .commu_box {
         margin-top:16px;
-        .commu_txt {
-          font-size:14px;
-          line-height:22px;
-        }
         .btn_add_post {
           position:fixed;
           right:24px;

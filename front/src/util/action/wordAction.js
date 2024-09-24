@@ -2,9 +2,10 @@ import {memebookApi} from "../memebookApi";
 import {wordListAction, myWordListAction, wordSortAction, wordDeleteAction} from "../action";
 
 // 단어 리스트
-export const wordListData = (id, memberIdx) => async (dispatch) => {
+export const wordListData = (id, userIdx) => async (dispatch) => {
   try {
-    const wordListData = await memebookApi.wordListApi(id, memberIdx);
+    const api = memebookApi(userIdx);
+    const wordListData = await api.wordListApi(id);
     dispatch(wordListAction(wordListData));
   } catch (error) {
     console.error(error);
@@ -17,13 +18,13 @@ export const wordSortData = (nation, word) => async (dispatch) => {
     let wordSortData;
     switch (word) {
       case 'LIKE' :
-        wordSortData = await memebookApi.wordSortApi(nation, word);
+        wordSortData = await memebookApi().wordSortApi(nation, word);
         break;
       case 'DISLIKE' :
-        wordSortData = await memebookApi.wordSortApi(nation, word);
+        wordSortData = await memebookApi().wordSortApi(nation, word);
         break;
       case 'LATEST' :
-        wordSortData = await memebookApi.wordSortApi(nation, word);
+        wordSortData = await memebookApi().wordSortApi(nation, word);
         break;
     }
     dispatch(wordSortAction(wordSortData));
@@ -36,7 +37,7 @@ export const wordSortData = (nation, word) => async (dispatch) => {
 // 내가 등록한 단어 리스트
 export const myWordListData = (memberIdx) => async (dispatch) => {
   try {
-    const myWordListData = await memebookApi.myWordListApi(memberIdx);
+    const myWordListData = await memebookApi().myWordListApi(memberIdx);
     dispatch(myWordListAction(myWordListData));
   } catch (error) {
     console.error(error);

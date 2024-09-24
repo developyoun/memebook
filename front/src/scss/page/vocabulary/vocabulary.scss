@@ -1,43 +1,32 @@
 .voca_wrap {
   min-height:100vh;
   padding:80px 20px 120px;
-  .container {
-    display:flex;
-  }
   // 단어장 상단
   .voca_top {
-    flex-shrink:0;
-    width:260px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
     margin-bottom:24px;
     box-sizing:border-box;
     .voca_tit {
-      width:100%;
       font-size:30px;
-      font-weight:900;
+      font-weight:700;
     }
     .voca_box {
       display:flex;
       align-items:center;
       justify-content:space-between;
       flex-wrap:wrap;
-      margin-top:36px;
-      .voca_txt {
-        width:100%;
-        margin-right:8px;
-        font-size:18px;
-        line-height:30px;
-      }
       .btn_add_word {
         display:inline-flex;
         align-items:center;
         justify-content:center;
-        height:40px;
-        margin-top:36px;
-        padding:0 24px;
+          width:150px;
+        height:34px;
         color:#fff;
-        font-size:16px;
+        font-size:14px;
         border:1px solid var(--primary-30);
-        border-radius:8px;
+        border-radius:4px;
         background:var(--primary-30);
       }
     }
@@ -45,8 +34,11 @@
 
   // 단어장 컨텐츠
   .voca_con {
-    width:calc(100% - 260px);
+      .swiper-wrapper {
+          justify-content:end;
+      }
     .voca_desc {
+        color:#5c667b;
       margin:36px 0 24px;
       font-size:16px;
     }
@@ -55,6 +47,20 @@
       border-top:2px solid var(--primary-60);
       box-shadow:0 1px 12px -10px #000;
     }
+      .list_btm {
+          .btn_more_word {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              height: 34px;
+              padding: 0 24px;
+              color: #fff;
+              font-size: 14px;
+              border: 1px solid var(--primary-30);
+              border-radius: 4px;
+              background: var(--primary-30);
+          }
+      }
   }
 
 }
@@ -71,14 +77,9 @@
       width:100%;
       padding:0 20px;
       .voca_tit {
-        font-size:20px;
+        font-size:16px;
       }
       .voca_box {
-        margin-top:16px;
-        .voca_txt {
-          font-size:14px;
-          line-height:22px;
-        }
         .btn_add_word {
           position:fixed;
           right:24px;
@@ -103,6 +104,9 @@
     .voca_con {
       width:100%;
       margin:0;
+        .swiper-wrapper {
+            justify-content:flex-start;
+        }
       .tab_box {
         padding:0 20px;
       }

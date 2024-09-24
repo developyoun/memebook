@@ -1,17 +1,19 @@
 import React from 'react';
 import {GoogleLogin, GoogleOAuthProvider} from "@react-oauth/google";
-import {jwtDecode} from "jwt-decode";
-import { LOGIN_KEY } from './../../config';
+import {useDispatch} from "react-redux";
+import {userIdxAction} from "../../util/action";
 
 const GoogleLoginButton = () => {
-  const clientId = LOGIN_KEY;
+  const clientId = "";
+  const dispatch = useDispatch();
 
   return (
     <>
       <GoogleOAuthProvider clientId={clientId}>
         <GoogleLogin
           onSuccess={credentialResponse => {
-            console.log(jwtDecode(credentialResponse.credential));
+            const userIdx = credentialResponse.credential;
+            dispatch(userIdxAction(userIdx));
           }}
           onError={() => {
             console.log("Login Failed");
