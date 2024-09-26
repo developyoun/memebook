@@ -5,7 +5,9 @@ const createRequest = (userIdx) => {
   return axios.create({
     baseURL: API_URL,
     headers: {
-      Authorization: userIdx
+      Authorization: userIdx,
+      key: "Cross-Origin-Opener-Policy",
+      value: "same-origin-allow-popups",
     }
   });
 };
