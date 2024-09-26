@@ -55,7 +55,7 @@ export const memebookApi = (userIdx) => {
     // 내가 쓴 단어 리스트 조회
     myWordListApi : (memberIdx) => getRequest.get(`word/list/${memberIdx}`),
     // 단어 디테일 조회
-    wordDetailApi : (wordIdx, memberIdx) => request.get(`word/${wordIdx}?memberIdx=${memberIdx}`),
+    wordDetailApi : (wordIdx, memberIdx) => getRequest.get(`word/${wordIdx}?memberIdx=${memberIdx}`),
 
     // 단어 추가
     wordAddApi : (addList) => request.post(`word/create`, addList),

@@ -34,7 +34,7 @@ const PostAdd = ({ userIdx }) => {
     try {
       if (type === 'add') {
         // 등록
-        await memebookApi.postAddApi( {
+        await memebookApi().postAddApi( {
           "articleTitle": titleValue,
           "memberIdx": userIdx,
           "articleContent": contentValue,
@@ -43,7 +43,7 @@ const PostAdd = ({ userIdx }) => {
         window.history.back();
       } else if (type === 'modify') {
         // 수정
-        await memebookApi.postModifyApi(id.id, {
+        await memebookApi().postModifyApi(id.id, {
           "articleTitle": titleValue,
           "memberIdx": userIdx,
           "articleContent": contentValue,

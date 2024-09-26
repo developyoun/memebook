@@ -36,6 +36,7 @@ const Profile = ({ userIdx }) => {
           dispatch(postListData('123'));
           dispatch(postCommentData('123'));
         }
+
       } catch (error) {
         console.log(error)
       }
@@ -45,7 +46,7 @@ const Profile = ({ userIdx }) => {
 
   async function followerAdd() {
     try {
-      await memebookApi.followerAddApi({
+      await memebookApi().followerAddApi({
         "follower": id,
         "followee": userIdx,
       });
@@ -144,7 +145,7 @@ const Profile = ({ userIdx }) => {
           {/* 히스토리 */}
           <div className="user_history">
 
-            {/*<ProfileHistory historyList={myWordList} type="myWord"></ProfileHistory>*/}
+            <ProfileHistory historyList={myWordList} type="myWord"></ProfileHistory>
             {/*<ProfileHistory historyList={scrapList} type="myScrap"></ProfileHistory>*/}
             {/*<ProfileHistory historyList={postList} type="myPost"></ProfileHistory>*/}
             {/*<ProfileHistory historyList={myCommentList} type="myComment"></ProfileHistory>*/}

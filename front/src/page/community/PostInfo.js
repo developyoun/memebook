@@ -54,7 +54,7 @@ const PostInfo = ({ userIdx }) => {
   async function postDeleteData(articleIdx) {
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
-        await memebookApi.postDeleteApi(articleIdx, userIdx);
+        await memebookApi().postDeleteApi(articleIdx, userIdx);
         window.history.back();
       }
     } catch (error) {
@@ -66,7 +66,7 @@ const PostInfo = ({ userIdx }) => {
   async function commentDeleteData(commentIdx) {
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
-        await memebookApi.commentDeleteApi(commentIdx, userIdx);
+        await memebookApi().commentDeleteApi(commentIdx, userIdx);
         setCommentState(!commentState);
         console.log(commentIdx)
       }

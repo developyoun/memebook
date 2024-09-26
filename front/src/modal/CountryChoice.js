@@ -38,7 +38,7 @@ const CountryChoice = ({ countryChoiceClose, userIdx }) => {
 
   async function countrySave() {
     try {
-      await memebookApi.nationModifyApi({
+      await memebookApi().nationModifyApi({
         "memberIdx": userIdx,
         "originNation": originNationCheck,
         "targetNation": targetNationCheck,

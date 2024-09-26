@@ -51,7 +51,7 @@ const MyPostList = ({ userIdx }) => {
     if (type === 'single') {
       try {
         if (window.confirm("정말 삭제하시겠습니까?")) {
-          await memebookApi.postDeleteApi(articleIdx);
+          await memebookApi().postDeleteApi(articleIdx);
         }
       } catch(error) {
         console.log(error);
@@ -61,7 +61,7 @@ const MyPostList = ({ userIdx }) => {
       if (deleteState !== false && checkedItems.length !== 0) {
         try {
           if (window.confirm("정말 삭제하시겠습니까?")) {
-            await memebookApi.postDeleteApi(articleIdx);
+            await memebookApi().postDeleteApi(articleIdx);
           }
         } catch(error) {
           console.log(error);
@@ -77,7 +77,7 @@ const MyPostList = ({ userIdx }) => {
 
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
-        await memebookApi.postAllDeleteApi(userIdx);
+        await memebookApi().postAllDeleteApi(userIdx);
         setDeleteState(!deleteState);
       }
       console.log('성공')

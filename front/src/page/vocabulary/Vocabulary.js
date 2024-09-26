@@ -31,7 +31,7 @@ const Vocabulary = ({ userIdx }) => {
   useEffect(() => {
     async function vocaApi() {
       try {
-        await dispatch(wordListData('KOR', pageNumber));
+        await dispatch(wordListData(pageNumber));
       } catch (error) {
         console.log(error)
       }
@@ -58,7 +58,7 @@ const Vocabulary = ({ userIdx }) => {
       const nextPage = pageNumber + 1;
       setPageNumber(nextPage);
       // 다른 변수에 담기 위해 새로 가져오기
-      const libraryApi = await memebookApi.wordListApi('ALL', nextPage);
+      const libraryApi = await memebookApi().wordListApi('ALL', nextPage);
       setLibraryData((prevLibraryData) => [...prevLibraryData, ...libraryApi.data.wordList]);
       // 총 리스트의 페이지가 마지막 페이지가 아니라면 더보기 미노출
       if (libraryApi.data.nowPage === libraryApi.data.totalPage) {

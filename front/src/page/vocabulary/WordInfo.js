@@ -54,7 +54,7 @@ const WordInfo = ({ userIdx }) => {
     async function wordDetailApi() {
       try {
         if (userIdx !== undefined) {
-          const wordDetailData = await memebookApi.wordDetailApi(id, userIdx);
+          const wordDetailData = await memebookApi().wordDetailApi(id, '123');
           setWordData(wordDetailData.data);
           setScrapData(wordDetailData.data.scrapIdx);
           setWordListData(wordDetailData.data.wordContentList);
@@ -72,7 +72,7 @@ const WordInfo = ({ userIdx }) => {
   useEffect(() => {
     async function wordReactionApi() {
       try {
-        const wordReactionCountData = await memebookApi.wordReactionCountApi(id);
+        const wordReactionCountData = await memebookApi().wordReactionCountApi(id);
         setLikeCount(wordReactionCountData.data.likeCount);
         setDislikeCount(wordReactionCountData.data.dislikeCount);
       } catch (error) {
@@ -89,18 +89,18 @@ const WordInfo = ({ userIdx }) => {
       if (type === 'like') {
         setLikeState(true);
         setDislikeState(false);
-        await memebookApi.wordReactionUpdateApi({
+        await memebookApi().wordReactionUpdateApi({
           "reactionType": "LIKE",
-          "memberIdx": userIdx,
+          "memberIdx": '123',
           "wordIdx": id,
         });
 
       } else if (type === 'dislike') {
         setLikeState(false);
         setDislikeState(true);
-        await memebookApi.wordReactionUpdateApi({
+        await memebookApi().wordReactionUpdateApi({
           "reactionType": "DISLIKE",
-          "memberIdx": userIdx,
+          "memberIdx": '123',
           "wordIdx": id,
         });
       }
@@ -143,7 +143,7 @@ const WordInfo = ({ userIdx }) => {
   // 수정된 내용 put Api
   async function wordModify() {
     try {
-      await memebookApi.wordModifyApi({
+      await memebookApi().wordModifyApi({
         "wordIdx": wordListData[0].wordIdx,
         "wordName": wordListData[0].content,
         "wordContent": modifyContent,
@@ -161,7 +161,7 @@ const WordInfo = ({ userIdx }) => {
   async function wordDelete(wordContentIdx) {
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
-        await memebookApi.wordDeleteApi(wordContentIdx);
+        await memebookApi().wordDeleteApi(wordContentIdx);
         setDeleteState(true);
       }
       setWordSetState(false);

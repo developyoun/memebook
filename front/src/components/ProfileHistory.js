@@ -1,55 +1,65 @@
 import '../scss/components/layerHeader.scss'
 import {Link} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {scrapListData} from "../util/action/scrapAction";
+import {myWordListData} from "../util/action/wordAction";
+import {postCommentData, postListData} from "../util/action/communityAction";
 
 const ProfileHistory = ({ historyList, type }) => {
-  const [list, setList] = useState(historyList);
+  const [listDetail, setListDetail] = useState(historyList);
   const [listLength, setListLength] = useState(0);
+  const [title, setTitle] = useState('');
+  const [noneText, setNoneText] = useState('');
+  const [moreLink, setMoreLink] = useState('');
+  const [listLink, setListLink] = useState('');
+  const [listText, setListText] = useState('');
 
-  let title;
-  let noneText;
-  let moreLink;
-  let listLink;
-  let listText;
+  useEffect(() => {
+    console.log(historyList.wordContentList)
 
-  switch (type) {
-    case "myWord" :
-      title = '참여한 단어';
-      noneText = '등록한 단어가 없어요 &#128172;';
-      moreLink = '/profile/myWordList';
-      listLink = '/vocabulary/wordInfo/${item.wordIdx}';
-      listText = 'item.wordName';
-      setList(historyList.wordContentList);
-      setListLength(historyList.wordContentList);
-      break;
-    case "myScrap" :
-      title = '스크랩한 단어';
-      noneText = '스크랩한 단어가 없어요 &#128172;';
-      moreLink = '/profile/scrapList';
-      listLink = '/vocabulary/wordInfo/${item.wordIdx}';
-      listText = 'item.wordName';
-      setList(historyList.content);
-      setListLength(historyList.content);
-      break;
-    case "myPost" :
-      title = '내가 쓴 글';
-      noneText = '작성한 글이 없어요 &#128172;';
-      moreLink = '/profile/myPostList';
-      listLink = '/community/postDetail/${item.articleIdx}';
-      listText = 'item.articleTitle';
-      setList(historyList.articleList);
-      setListLength(historyList.articleList);
-      break;
-    case "myComment" :
-      title = '내가 쓴 댓글';
-      noneText = '작성한 댓글이 없어요 &#128172;';
-      moreLink = '/profile/myCommentList'
-      listLink = '/community/postDetail/${item.articleIdx}';
-      listText = 'item.commentContent';
-      setList(historyList.commentList);
-      setListLength(historyList.commentList);
-      break;
-  }
+    if (historyList.length !== 0) {
+      switch (type) {
+        case "myWord" :
+          setTitle('참여한 단어');
+          setNoneText('등록한 단어가 없어요 &#128172;');
+          setMoreLink('/profile/myWordList');
+          setListLink('/vocabulary/wordInfo/${item.wordIdx}');
+          setListText('item.wordName');
+          setListDetail(historyList?.wordContentList);
+          setListLength(historyList.wordContentList?.totalCount);
+          break;
+        case "myScrap" :
+          setTitle('스크랩한 단어');
+          setNoneText('스크랩한 단어가 없어요 &#128172;');
+          setMoreLink('/profile/scrapList');
+          setListLink('/vocabulary/wordInfo/${item.wordIdx}');
+          setListText('item.wordName');
+          // setList(historyList.content);
+          // setListLength(historyList.content);
+          break;
+        case "myPost" :
+          setTitle('내가 쓴 글');
+          setNoneText('작성한 글이 없어요 &#128172;');
+          setMoreLink('/profile/myPostList');
+          setListLink('/community/postDetail/${item.articleIdx}');
+          setListText('item.articleTitle');
+          // setList(historyList.articleList);
+          // setListLength(historyList.articleList);
+          break;
+        case "myComment" :
+          setTitle('내가 쓴 댓글');
+          setNoneText('작성한 댓글이 없어요 &#128172;');
+          setMoreLink('/profile/myCommentList)');
+          setListLink('/community/postDetail/${item.articleIdx}');
+          setListText('item.commentContent');
+          // setList(historyList.commentList);
+          // setListLength(historyList.commentList);
+          break;
+      }
+    }
+    console.log(listDetail)
+    console.log(listLength)
+  }, [historyList, historyList.length]);
 
   return (
     <div className="history_box">
@@ -77,7 +87,7 @@ const ProfileHistory = ({ historyList, type }) => {
         listLength > 0 && (
           <ul className="list_box inside">
             {
-              list?.slice(0, 3).map((item, idx) => {
+              listDetail?.slice(0, 3).map((item, idx) => {
                 return (
                   <li className="list_item" key={idx}>
                     <Link to={listLink} className="link" key={idx}>{listText}</Link>

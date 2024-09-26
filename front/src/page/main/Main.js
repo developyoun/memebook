@@ -77,7 +77,7 @@ const Main = ({userIdx}) => {
   // 닉네임 설정
   async function nickNamePost() {
     try {
-      await memebookApi.nickNameAddApi(nickname);
+      await memebookApi().nickNameAddApi(nickname);
       console.log('성공');
     } catch (error) {
       console.log(error)

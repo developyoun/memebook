@@ -30,14 +30,14 @@ export default function AddComponent(props) {
 
     try {
       if (props.type === 'word') {
-        await memebookApi.wordAddApi( {
+        await memebookApi().wordAddApi( {
           wordName : props.wordName,
           wordContent : contentValue,
           wordNation : "KOR",
           memberIdx : memberIdx,
         });
       } else if (props.type === 'community') {
-        await memebookApi.commentAddApi({
+        await memebookApi().commentAddApi({
           "commentContent": contentValue,
           "articleIdx": props.articleIdx,
           "memberIdx": memberIdx,

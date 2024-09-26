@@ -17,7 +17,7 @@ const WordAdd = ({ userIdx }) => {
 
   async function wordAddPost() {
     try {
-      await memebookApi.wordAddApi( {
+      await memebookApi().wordAddApi( {
         wordName : titleValue,
         wordContent : contentValue,
         wordNation : "KOR",

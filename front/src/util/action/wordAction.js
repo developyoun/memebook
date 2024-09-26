@@ -48,7 +48,7 @@ export const myWordListData = (memberIdx) => async (dispatch) => {
 // 설명 삭제
 export const wordDeleteData = (wordContentIdx) => async (dispatch) => {
   try {
-    const wordDeleteData = await memebookApi.wordDeleteApi(wordContentIdx);
+    const wordDeleteData = await memebookApi().wordDeleteApi(wordContentIdx);
     dispatch(wordDeleteAction(wordDeleteData));
   } catch (error) {
     console.error(error);
