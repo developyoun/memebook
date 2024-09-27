@@ -12,21 +12,21 @@ const ProfileHistory = ({ historyList, type }) => {
   const [noneText, setNoneText] = useState('');
   const [moreLink, setMoreLink] = useState('');
   const [listLink, setListLink] = useState('');
-  const [listText, setListText] = useState('');
+  const [listText, setListText] = useState(``);
 
   useEffect(() => {
-    console.log(historyList.wordContentList)
+    console.log(historyList)
 
-    if (historyList.length !== 0) {
+    if (historyList !== undefined) {
       switch (type) {
         case "myWord" :
           setTitle('참여한 단어');
           setNoneText('등록한 단어가 없어요 &#128172;');
           setMoreLink('/profile/myWordList');
           setListLink('/vocabulary/wordInfo/${item.wordIdx}');
-          setListText('item.wordName');
+          setListText(`item.wordNam}`);
           setListDetail(historyList?.wordContentList);
-          setListLength(historyList.wordContentList?.totalCount);
+          setListLength(historyList?.totalCount);
           break;
         case "myScrap" :
           setTitle('스크랩한 단어');
@@ -34,8 +34,8 @@ const ProfileHistory = ({ historyList, type }) => {
           setMoreLink('/profile/scrapList');
           setListLink('/vocabulary/wordInfo/${item.wordIdx}');
           setListText('item.wordName');
-          // setList(historyList.content);
-          // setListLength(historyList.content);
+          setListDetail(historyList.content);
+          setListLength(historyList?.content.length);
           break;
         case "myPost" :
           setTitle('내가 쓴 글');
@@ -43,8 +43,8 @@ const ProfileHistory = ({ historyList, type }) => {
           setMoreLink('/profile/myPostList');
           setListLink('/community/postDetail/${item.articleIdx}');
           setListText('item.articleTitle');
-          // setList(historyList.articleList);
-          // setListLength(historyList.articleList);
+          setListDetail(historyList.articleList);
+          setListLength(historyList?.totalCount);
           break;
         case "myComment" :
           setTitle('내가 쓴 댓글');
@@ -52,14 +52,12 @@ const ProfileHistory = ({ historyList, type }) => {
           setMoreLink('/profile/myCommentList)');
           setListLink('/community/postDetail/${item.articleIdx}');
           setListText('item.commentContent');
-          // setList(historyList.commentList);
-          // setListLength(historyList.commentList);
+          setListDetail(historyList.commentList);
+          setListLength(historyList?.totalCount);
           break;
       }
     }
-    console.log(listDetail)
-    console.log(listLength)
-  }, [historyList, historyList.length]);
+  }, [historyList]);
 
   return (
     <div className="history_box">

@@ -146,9 +146,9 @@ const Profile = ({ userIdx }) => {
           <div className="user_history">
 
             <ProfileHistory historyList={myWordList} type="myWord"></ProfileHistory>
-            {/*<ProfileHistory historyList={scrapList} type="myScrap"></ProfileHistory>*/}
-            {/*<ProfileHistory historyList={postList} type="myPost"></ProfileHistory>*/}
-            {/*<ProfileHistory historyList={myCommentList} type="myComment"></ProfileHistory>*/}
+            <ProfileHistory historyList={scrapList} type="myScrap"></ProfileHistory>
+            <ProfileHistory historyList={postList} type="myPost"></ProfileHistory>
+            <ProfileHistory historyList={myCommentList} type="myComment"></ProfileHistory>
             </div>
 
           {/* 초대하기 */}
