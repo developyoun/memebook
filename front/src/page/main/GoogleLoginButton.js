@@ -13,7 +13,7 @@ const GoogleLoginButton = () => {
         <GoogleLogin
           onSuccess={credentialResponse => {
             const userIdx = credentialResponse.credential;
-            dispatch(userIdxAction(userIdx));
+            dispatch(userIdxAction(userIdx))
           }}
           onError={() => {
             console.log("Login Failed");

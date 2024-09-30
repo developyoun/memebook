@@ -6,6 +6,7 @@ import InputComponent from "../../components/InputComponent";
 import TextareaComponent from "../../components/TextareaComponent";
 import OutsideHook from "../../util/OutsideHook";
 import userIdxHigher from "../../components/UserIdxHigher";
+import {useDispatch, useSelector} from "react-redux";
 
 const WordAdd = ({ userIdx }) => {
   const [titleValue, setTitleValue] = useState(false);
@@ -17,11 +18,11 @@ const WordAdd = ({ userIdx }) => {
 
   async function wordAddPost() {
     try {
-      await memebookApi().wordAddApi( {
+      await memebookApi(userIdx).wordAddApi( {
         wordName : titleValue,
         wordContent : contentValue,
         wordNation : "KOR",
-        memberIdx : userIdx,
+        memberIdx : '123',
       });
       window.history.back();
     } catch (error) {
