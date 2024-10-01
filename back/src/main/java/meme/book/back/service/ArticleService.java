@@ -33,7 +33,7 @@ public class ArticleService {
 
     public ArticleListResponseDto getArticleList(Pageable pageable, ArticleListRequestDto requestDto) {
         Page<ArticleListDto> articleDtoList = articleRepository.getArticleList(pageable, requestDto);
-        log.info("Get Article List");
+        log.info("Get Article List: {}", articleDtoList.getNumber());
 
         return new ArticleListResponseDto()
                 .setArticleList(articleDtoList.getContent())

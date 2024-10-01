@@ -1,29 +1,50 @@
 package meme.book.back.config;
 
 import lombok.RequiredArgsConstructor;
+import meme.book.back.filter.JwtAuthenticationFilter;
+import meme.book.back.oauth.JwtTokenProvider;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
-import java.util.Collections;
+import java.util.List;
+
 @RequiredArgsConstructor
-//@Configuration
-//@EnableWebSecurity
-//@EnableMethodSecurity
+@Configuration
 public class SecurityConfig {
 
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http.csrf(AbstractHttpConfigurer::disable)
-//                .formLogin(AbstractHttpConfigurer::disable)
-//                .cors(corsConfig -> corsConfig.configurationSource(request -> {
-//                    CorsConfiguration config = new CorsConfiguration();
-//                    config.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
-//                    config.setAllowedMethods(Collections.singletonList("*"));
-//                    config.setAllowCredentials(true);
-//                    config.setAllowedHeaders(Collections.singletonList("*"));
-//                    return config;
-//                }))
-//                .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authorizeHttpRequests(config -> config.anyRequest().permitAll());
-//
-//        return http.build();
-//    }
+    private final JwtTokenProvider provider;
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.httpBasic(HttpBasicConfigurer::disable)
+                .csrf(CsrfConfigurer::disable)
+                .formLogin(AbstractHttpConfigurer::disable)
+                .cors(corsConfig -> corsConfig.configurationSource(request -> {
+                    CorsConfiguration config = new CorsConfiguration();
+                    config.setAllowedOriginPatterns(List.of("*:3000", "https://memebook.co.kr"));
+                    config.setAllowedMethods(List.of("*"));
+//                        config.addAllowedHeader("Authorization");
+                    return config;
+                }))
+                .authorizeHttpRequests(config -> config.requestMatchers("/**").permitAll()
+                        .requestMatchers("/docs", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                        .anyRequest().authenticated())
+                .addFilterBefore(new JwtAuthenticationFilter(provider), UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        ;
+
+        return http.build();
+    }
+
 }

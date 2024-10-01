@@ -42,7 +42,7 @@ public class ArticleController {
                 .setTag(tag)
                 .setSearch(search)
                 .setMemberIdx(memberIdx);
-        log.info("Get Article List Request, page: {}, pageSize: {}, request: {}", page, page, requestDto);
+        log.info("Get Article List Request, page: {}, pageSize: {}, request: {}", page, pageSize, requestDto);
 
         return ResponseEntity.ok(articleService.getArticleList(pageable, requestDto));
     }

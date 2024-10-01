@@ -10,10 +10,9 @@ import java.util.Optional;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long>, MemberCustomRepository {
 
-    // 중복 닉네임 체크
     Boolean existsByNickname(String nickname);
 
-//    Member findByMemberIdx(Long memberIdx);
-
     Optional<Member> findByMemberIdx(Long memberIdx);
+
+    Optional<Member> findByMemberEmail(String email);
 }

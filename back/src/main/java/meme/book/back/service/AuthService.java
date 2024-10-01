@@ -1,23 +1,60 @@
 package meme.book.back.service;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import meme.book.back.dto.GoogleTokenDto;
-import meme.book.back.oauth.GoogleClient;
+import meme.book.back.dto.member.MemberDto;
+import meme.book.back.dto.member.MemberLoginDto;
+import meme.book.back.exception.CustomException;
+import meme.book.back.oauth.JwtTokenProvider;
+import meme.book.back.oauth.TokenVerifier;
+import meme.book.back.utils.ErrorCode;
+import meme.book.back.utils.ProviderType;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 @RequiredArgsConstructor
 @Slf4j
 @Service
 public class AuthService {
 
-    private final GoogleClient googleClient;
+    private final TokenVerifier tokenVerifier;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final MemberService memberService;
 
-    public String accessTokenService(String code) {
+    public String memberDoLogin(String code) {
+        String jwtAccessToken;
 
-        GoogleTokenDto googleToken = googleClient.getAccessToken(code);
-        log.info("Google Token: {}", googleToken);
+        try {
+            GoogleIdToken googleIdToken = tokenVerifier.getGoogleTokenVerifier().verify(code);
+            if (googleIdToken == null) throw new CustomException(ErrorCode.FAILED_LOGIN);
 
-        return null;
+            Payload payload = googleIdToken.getPayload();
+
+            String name = String.valueOf(payload.get("name"));
+            String profileImg = String.valueOf(payload.get("picture"));
+
+            MemberLoginDto memberLoginDto = new MemberLoginDto()
+                    .setEmail(payload.getEmail())
+                    .setName(name)
+                    .setProfileImage(profileImg)
+                    .setProvider(ProviderType.GOOGLE);
+
+            MemberDto memberDto = memberService.findOrCreateMember(memberLoginDto);
+
+            jwtAccessToken = jwtTokenProvider.createAccessToken(memberDto.getMemberEmail());
+
+            log.debug("Login Member Info: {}", memberDto);
+            log.info("Create JWT Access Token: {}", jwtAccessToken);
+
+        } catch (GeneralSecurityException | IOException e) {
+            log.error(e.getLocalizedMessage());
+            throw new CustomException(ErrorCode.FAILED_LOGIN);
+        }
+
+        return jwtAccessToken;
     }
 }
