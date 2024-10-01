@@ -5,7 +5,6 @@ import meme.book.back.filter.JwtAuthenticationFilter;
 import meme.book.back.oauth.JwtTokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
@@ -32,14 +31,16 @@ public class SecurityConfig {
                     CorsConfiguration config = new CorsConfiguration();
                     config.setAllowedOriginPatterns(List.of("*:3000", "https://memebook.co.kr"));
                     config.setAllowedMethods(List.of("*"));
-//                        config.addAllowedHeader("Authorization");
+                    config.addAllowedHeader("*");
+
                     return config;
                 }))
-                .authorizeHttpRequests(config -> config.requestMatchers("/**").permitAll()
+                .authorizeHttpRequests(config -> config
                         .requestMatchers("/docs", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
-                        .anyRequest().authenticated())
+                        .requestMatchers( "/api/**").permitAll()
+                        .anyRequest().authenticated()
+                )
                 .addFilterBefore(new JwtAuthenticationFilter(provider), UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         ;

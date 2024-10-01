@@ -30,9 +30,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
         try {
-            if (!request.getMethod().equals(HttpMethod.GET.name())) {
+            if (!request.getMethod().equals(HttpMethod.GET.name()) && !request.getRequestURI().equals("/auth/login")) {
 
-                log.debug("Request Filter URL: {}, ", request.getRequestURI());
+                log.debug("Request Method: {}, Filter URL: {}, ", request.getMethod(), request.getRequestURI());
 
                 String authorizationToken = request.getHeader("Authorization");
                 if (authorizationToken == null) {
