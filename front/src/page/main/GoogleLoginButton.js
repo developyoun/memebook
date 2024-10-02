@@ -3,6 +3,7 @@ import {GoogleLogin, GoogleOAuthProvider} from "@react-oauth/google";
 import {useDispatch} from "react-redux";
 import {userIdxAction} from "../../util/action";
 import {memebookApi} from "../../util/memebookApi";
+import axios from "axios";
 
 const GoogleLoginButton = () => {
   const clientId = "";
@@ -15,9 +16,12 @@ const GoogleLoginButton = () => {
           onSuccess={credentialResponse => {
             const userIdx = credentialResponse.credential;
             dispatch(userIdxAction(userIdx))
-            memebookApi().loginApi({
+
+            const response =  axios.post('https://memebook.co.kr/auth/login', {
               "code": userIdx
             });
+            const responseIdx = response.data;
+            dispatch(userIdxAction(responseIdx))
           }}
           onError={() => {
             console.log("Login Failed");
