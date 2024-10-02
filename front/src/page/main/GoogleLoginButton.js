@@ -2,6 +2,7 @@ import React from 'react';
 import {GoogleLogin, GoogleOAuthProvider} from "@react-oauth/google";
 import {useDispatch} from "react-redux";
 import {userIdxAction} from "../../util/action";
+import {memebookApi} from "../../util/memebookApi";
 
 const GoogleLoginButton = () => {
   const clientId = "";
@@ -14,6 +15,9 @@ const GoogleLoginButton = () => {
           onSuccess={credentialResponse => {
             const userIdx = credentialResponse.credential;
             dispatch(userIdxAction(userIdx))
+            memebookApi().loginApi({
+              "code": userIdx
+            });
           }}
           onError={() => {
             console.log("Login Failed");

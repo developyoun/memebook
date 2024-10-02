@@ -6,9 +6,17 @@ const getRequest = axios.create({
   baseURL: `https://memebook.co.kr/api/`,
 })
 
+const loginRequest = axios.create({
+  baseURL: `https://memebook.co.kr/`,
+})
+
 export const memebookApi = (userIdx) => {
   const request = createRequest(userIdx);
   return {
+
+    // 로그인
+    loginApi : (memberInfo) => loginRequest.post(`auth/login`, memberInfo),
+
     // 회원 생성
     memberAddApi : (memberInfo) => request.post(`member/create`, memberInfo),
     // 회원 국가 조회
