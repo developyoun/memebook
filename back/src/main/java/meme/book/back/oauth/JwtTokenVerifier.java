@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collections;
 
 @Component
-public class TokenVerifier {
+public class JwtTokenVerifier {
 
     @Value("${spring.auth.client.google.client-id}")
     private String googleClientId;

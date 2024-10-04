@@ -90,10 +90,10 @@ public class MemberService {
         Optional<Member> optionalMember = memberRepository.findByMemberEmail(memberLoginDto.getEmail());
 
         MemberDto memberDto;
+
         if (optionalMember.isPresent()) {
             memberDto = MemberDto.toDto(optionalMember.get());
-            log.debug("Exist Member: {}", memberDto);
-
+            log.info("Exist Member: {}", memberDto);
         } else {
             Member member = new Member()
                     .setMemberEmail(memberLoginDto.getEmail())
@@ -103,7 +103,7 @@ public class MemberService {
             memberRepository.save(member);
 
             memberDto = MemberDto.toDto(member);
-            log.debug("Create new Member: {}", memberDto);
+            log.info("Create new Member: {}", memberDto);
         }
 
         return memberDto;

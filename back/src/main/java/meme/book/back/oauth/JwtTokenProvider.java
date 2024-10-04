@@ -21,7 +21,7 @@ public class JwtTokenProvider {
     }
 
     // Access 토큰 유효 기간 = 1시간
-    private static final long ACCESS_TOKEN_PERIOD = 3_600 * 1_000;
+    private static final long ACCESS_TOKEN_PERIOD = 6 * 3_600 * 1_000;
 
     // Refresh 토큰 유효 기간 = 7일
     private static final long REFRESH_TOKEN_PERIOD =  7 * 24 * 3_600 * 1_000;
