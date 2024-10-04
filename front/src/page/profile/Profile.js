@@ -8,10 +8,14 @@ import {postCommentData, postListData} from "./../../util/action/communityAction
 import './../../scss/page/profile/profile.scss'
 import userIdxHigher from "../../components/UserIdxHigher";
 import ProfileHistory from "../../components/ProfileHistory";
+import GoogleLoginButton from "../main/GoogleLoginButton";
 
 const Profile = ({ userIdx }) => {
   let id = useParams();
   const dispatch = useDispatch();
+
+  const loginToken = localStorage.getItem("token");
+
   // 스크랩 리스트
   const scrapList = useSelector(state => state.meme.scrapList);
   // 내가 참여한 리스트
@@ -66,81 +70,98 @@ const Profile = ({ userIdx }) => {
     })
   }
 
+  const logoutBtn = () => {
+    if(window.confirm("로그아웃 하세유?")) {
+      localStorage.removeItem("token");
+    }
+  }
+
   return (
-    <div className="profile_wrap">
+
+
+
+  <div className="profile_wrap">
+    {
+      loginToken === null && (
+        <GoogleLoginButton />
+      )
+    }
+
+    {
+      loginToken !== null && (
         <div className="container">
 
           {/* 정보 */}
           <div className="user_info">
-                <div className="follower_box">
-                    {
-                        id !== userIdx && (
-                            <button type="button" className={`btn_followers ${followerState ? 'active' : ''}`} onClick={followerAdd}>
-                                <span className="blind">팔로워</span>
-                            </button>
-                        )
-                    }
-                </div>
-                <div className="info_name">
-                    <h3 className="name">누징</h3>
-                </div>
-
-                <ul className="info_desc">
-                  <li>
-                    <span className="count">{followerCount ? followerCount : 0}</span>
-                    <span className="txt">follower</span>
-                  </li>
-                  <li>
-                    <span className="count">0</span>
-                    <span className="txt">following</span>
-                  </li>
-                </ul>
-
-                <p className="info_visit">🏡 연속 방문 최대 <strong>12</strong>번을 달성했어요!</p>
-
+            <div className="follower_box">
+              {
+                id !== userIdx && (
+                  <button type="button" className={`btn_followers ${followerState ? 'active' : ''}`} onClick={followerAdd}>
+                    <span className="blind">팔로워</span>
+                  </button>
+                )
+              }
             </div>
+            <div className="info_name">
+              <h3 className="name">누징</h3>
+            </div>
+
+            <ul className="info_desc">
+              <li>
+                <span className="count">{followerCount ? followerCount : 0}</span>
+                <span className="txt">follower</span>
+              </li>
+              <li>
+                <span className="count">0</span>
+                <span className="txt">following</span>
+              </li>
+            </ul>
+
+            <p className="info_visit">🏡 연속 방문 최대 <strong>12</strong>번을 달성했어요!</p>
+
+          </div>
 
           {/* 출석체크 */}
           <div className="user_daily">
-                <h3 className="daily_tit">🌻 출석체크</h3>
-                <ul className="daily_list">
-                    <li>
-                        <div className="day check">
-                            <span>월</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="day">
-                            <span>화</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="day">
-                            <span>수</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="day">
-                            <span>목</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="day">
-                            <span>금</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="day">
-                            <span>토</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="day">
-                            <span>일</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+            <h3 className="daily_tit">🌻 출석체크</h3>
+            <ul className="daily_list">
+              <li>
+                <div className="day check">
+                  <span>월</span>
+                </div>
+              </li>
+              <li>
+                <div className="day">
+                  <span>화</span>
+                </div>
+              </li>
+              <li>
+                <div className="day">
+                  <span>수</span>
+                </div>
+              </li>
+              <li>
+                <div className="day">
+                  <span>목</span>
+                </div>
+              </li>
+              <li>
+                <div className="day">
+                  <span>금</span>
+                </div>
+              </li>
+              <li>
+                <div className="day">
+                  <span>토</span>
+                </div>
+              </li>
+              <li>
+                <div className="day">
+                  <span>일</span>
+                </div>
+              </li>
+            </ul>
+          </div>
 
           {/* 히스토리 */}
           <div className="user_history">
@@ -149,18 +170,20 @@ const Profile = ({ userIdx }) => {
             <ProfileHistory historyList={scrapList} type="myScrap"></ProfileHistory>
             <ProfileHistory historyList={postList} type="myPost"></ProfileHistory>
             <ProfileHistory historyList={myCommentList} type="myComment"></ProfileHistory>
-            </div>
+          </div>
 
           {/* 초대하기 */}
           <div className="invite_box">
-                <p className="invite_txt">&#127881; 친구 초대를 통해 밈북의 세계를 넓혀주세요 &#127881;</p>
-                <button type="button" onClick={inviteLink} className="btn_link">
-                    {copyState === true ? '복사 완료 ! 친구에게 공유해주세요!' : '링크 복사하기'}
-                </button>
-            </div>
-
+            <p className="invite_txt">&#127881; 친구 초대를 통해 밈북의 세계를 넓혀주세요 &#127881;</p>
+            <button type="button" onClick={inviteLink} className="btn_link">
+              {copyState === true ? '복사 완료 ! 친구에게 공유해주세요!' : '링크 복사하기'}
+            </button>
+          </div>
+          <button type="button" onClick={logoutBtn}>로그아웃</button>
         </div>
-    </div>
+      )
+    }
+  </div>
   );
 }
 export default userIdxHigher(Profile);

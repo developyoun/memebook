@@ -22,7 +22,7 @@ import createRequest from "../../util/request";
 const Main = ({userIdx}) => {
   const dispatch = useDispatch();
 
-  const loginToken = localStorage.getItem("token");
+
 
   // 검색
   const wordSearch = useSelector(state => state.meme.wordSearch);
@@ -121,12 +121,6 @@ const Main = ({userIdx}) => {
             {
         nicknameModalOpen && (
           <NickName nickNameAdd={nickNameClose} nickNameInput={nickNameValue}></NickName>
-        )
-      }
-
-      {
-        loginToken === undefined && (
-          <GoogleLoginButton />
         )
       }
 
