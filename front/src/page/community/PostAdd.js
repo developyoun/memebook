@@ -9,7 +9,6 @@ import userIdxHigher from "../../components/UserIdxHigher";
 
 const PostAdd = ({ userIdx }) => {
   const id = useParams();
-  console.log(userIdx)
   const location = useLocation();
   const [titleValue, setTitleValue] = useState('');
   const [contentValue, setContentValue] = useState('');

@@ -18,6 +18,7 @@ const GoogleLoginButton = () => {
                 });
                 const responseIdx = response.data;
                 localStorage.setItem("token", responseIdx);
+                window.location.replace("/")
               } catch (error) {
                 console.error(error);
               }

@@ -35,7 +35,7 @@ const ProfileHistory = ({ historyList, type }) => {
           setListLink('/vocabulary/wordInfo/${item.wordIdx}');
           setListText('item.wordName');
           setListDetail(historyList.content);
-          setListLength(historyList?.content.length);
+          setListLength(historyList?.content?.length);
           break;
         case "myPost" :
           setTitle('내가 쓴 글');

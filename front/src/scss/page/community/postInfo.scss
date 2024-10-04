@@ -10,7 +10,9 @@
       position:relative;
       display:flex;
       justify-content:end;
-      margin-bottom:24px;
+      margin-bottom:36px;
+      padding-bottom:36px;
+      border-bottom:1px solid #e0e5ed;
       .post_nickname {
         flex-shrink:0;
         margin-left:16px;

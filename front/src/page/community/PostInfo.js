@@ -12,6 +12,7 @@ const PostInfo = ({ userIdx }) => {
   const id = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const memberIdx = 322
   const postDetail = useSelector(state => state.meme.postDetail);
   // 글 좋아요
   const [postReactionState, setPostReactionState] = useState(false);
@@ -46,7 +47,7 @@ const PostInfo = ({ userIdx }) => {
         console.log(error)
       }
     }
-
+    console.log(postDetail)
     postDetailApi();
   }, [addState, commentState, dispatch, id.id]);
 
@@ -136,7 +137,7 @@ const PostInfo = ({ userIdx }) => {
                 <>
                   <ul className="set_box" ref={sideRef}>
                     {
-                      postDetail?.articleMemberIdx !== userIdx && (
+                      postDetail?.articleMemberIdx !== memberIdx && (
                         <li>
                           <button type="button" className="">
                             <span>신고하기</span>
@@ -146,7 +147,7 @@ const PostInfo = ({ userIdx }) => {
                     }
 
                     {
-                      postDetail?.articleMemberIdx === userIdx && (
+                      postDetail?.articleMemberIdx === memberIdx && (
                         <>
                           <li>
                             <button type="button" onClick={postModifyToPage} className="">

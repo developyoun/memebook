@@ -72,6 +72,7 @@ const Profile = ({ userIdx }) => {
 
   const logoutBtn = () => {
     if(window.confirm("로그아웃 하세유?")) {
+      window.location.replace("/")
       localStorage.removeItem("token");
     }
   }
@@ -83,7 +84,10 @@ const Profile = ({ userIdx }) => {
   <div className="profile_wrap">
     {
       loginToken === null && (
-        <GoogleLoginButton />
+        <div>
+          <p>로그인</p>
+          <GoogleLoginButton />
+        </div>
       )
     }
 
