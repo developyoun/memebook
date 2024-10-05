@@ -16,7 +16,7 @@ const GoogleLoginButton = () => {
                 const response = await axios.post('https://memebook.co.kr/auth/login', {
                   "code": userIdx
                 });
-                const responseIdx = response.data;
+                const responseIdx = response.data.accessToken;
                 localStorage.setItem("token", responseIdx);
                 window.location.replace("/")
               } catch (error) {

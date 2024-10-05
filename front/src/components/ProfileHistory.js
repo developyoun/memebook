@@ -88,7 +88,14 @@ const ProfileHistory = ({ historyList, type }) => {
               listDetail?.slice(0, 3).map((item, idx) => {
                 return (
                   <li className="list_item" key={idx}>
-                    <Link to={listLink} className="link" key={idx}>{listText}</Link>
+                    <Link to={listLink} className="link" key={idx}> {item.wordName
+                      ? item.wordName
+                      : type === 'myScrap'
+                        ? item?.articleTitle
+                        : type === 'myComment'
+                          ? item.commentContent
+                          : null
+                    }</Link>
                   </li>
                 )
               })
