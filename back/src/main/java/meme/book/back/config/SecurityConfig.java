@@ -29,13 +29,13 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .cors(corsConfig -> corsConfig.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
-                    config.setAllowedOriginPatterns(List.of("*:3000"));
+                    config.setAllowedOrigins(List.of("*"));
                     config.setAllowedMethods(List.of("*"));
                     config.addAllowedHeader("*");
 
                     return config;
                 }))
-                .authorizeHttpRequests(config -> config.requestMatchers("/**").permitAll()
+                .authorizeHttpRequests(config -> config
                         .requestMatchers("/index.html", "/docs", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/auth/login").permitAll()
                         .requestMatchers( "/api/**").permitAll()
