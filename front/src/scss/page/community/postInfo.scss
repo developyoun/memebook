@@ -2,6 +2,7 @@
   min-height:calc(100vh - 40px);
   padding:80px 0 120px;
   .post_item {
+    margin-bottom:80px;
     .post_link {
       display:block;
     }
@@ -9,24 +10,41 @@
     .post_top {
       position:relative;
       display:flex;
-      justify-content:end;
+      flex-wrap:wrap;
       margin-bottom:36px;
       padding-bottom:36px;
       border-bottom:1px solid #e0e5ed;
-      .post_nickname {
-        flex-shrink:0;
-        margin-left:16px;
-        font-size:14px;
-        line-height:18px;
-      }
       .post_tit {
-        margin-right:auto;
+        width:calc(100% - 40px);
+        margin-bottom:24px;
         font-size:20px;
         font-weight:bold;
       }
-      .btn_set {
-        margin-left:8px;
+      .set_box {
+        margin-left:auto;
       }
+      .post_desc {
+        display:flex;
+        align-items:center;
+        width:100%;
+        .post_nickname {
+          font-size:14px;
+          line-height:18px;
+        }
+        .post_date {
+          display:flex;
+          font-size:14px;
+          line-height:18px;
+          &:before {
+            content:'';
+            width:1px;
+            height:18px;
+            margin:0 8px;
+            background:#e0e5ed;
+          }
+        }
+      }
+
     }
     // 포스트 리액션
     .post_reaction {
@@ -34,8 +52,7 @@
       align-items: center;
       justify-content: end;
       gap:0 16px;
-      margin:18px 0;
-
+      margin-left:auto;
       .reaction_link {
         display:flex;
         align-items:center;
@@ -90,11 +107,17 @@
       font-size:14px;
     }
   }
+  .comment_wrap {
+    margin-top:24px;
+    padding-top:24px;
+    border-top:1px solid #e0e5ed;
+    .comment_tit {
+      margin-bottom:24px;
+      font-size:16px;
+    }
+  }
   // 코멘트 리스트
   .post_comment {
-    margin-top:24px;
-    padding:24px 0 80px;
-    border-top:3px solid var(--primary-60);
     &.active {
       padding-bottom:200px;
     }
@@ -113,12 +136,13 @@
           }
           .comment_nickname {
             margin-right:16px;
-            font-size:14px;
+            color:var(--primary-20);
+            font-size:12px;
           }
           .comment_txt {
             display:flex;
             align-items:center;
-            margin-top:8px;
+            margin:4px 0;
             font-size:16px;
             word-break:break-all;
             white-space: pre-wrap;
@@ -131,11 +155,11 @@
         .comment_btm {
           display:flex;
           justify-content:end;
-          margin-top:8px;
           .btn_reply {
             margin-right:auto;
             color:var(--primary-20);
-            font-size:14px;
+            font-size:12px;
+            line-height:16px;
           }
         }
       }
