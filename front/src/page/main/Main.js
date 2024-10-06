@@ -21,8 +21,7 @@ import createRequest from "../../util/request";
 
 const Main = ({userIdx}) => {
   const dispatch = useDispatch();
-
-
+  const loginIdx = localStorage.getItem("memberIdx");
 
   // 검색
   const wordSearch = useSelector(state => state.meme.wordSearch);
@@ -54,12 +53,12 @@ const Main = ({userIdx}) => {
   OutsideHook(resultRef, () => setResultVisible(false));
 
   useEffect(() => {
-    dispatch(wordListData('1', '123'));
-    dispatch(nationCheckData('123'));
-    dispatch(scrapListData('123'));
-    dispatch(myWordListData('123'));
-    dispatch(postCommentData('123'));
-    dispatch(postCommentData('123'));
+    dispatch(wordListData('1', loginIdx));
+    dispatch(nationCheckData(loginIdx));
+    dispatch(scrapListData(loginIdx));
+    dispatch(myWordListData(loginIdx));
+    dispatch(postCommentData(loginIdx));
+    dispatch(postCommentData(loginIdx));
     setStudyCountryType(nationCheck.targetNation);
   }, [dispatch, userIdx, nationCheck.targetNation]);
 

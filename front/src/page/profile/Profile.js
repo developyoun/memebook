@@ -12,9 +12,11 @@ import GoogleLoginButton from "../main/GoogleLoginButton";
 
 const Profile = ({ userIdx }) => {
   let id = useParams();
+
+  console.log(userIdx)
   const dispatch = useDispatch();
 
-  const loginToken = localStorage.getItem("token");
+  const loginToken = localStorage.getItem("memberIdx");
 
   // 스크랩 리스트
   const scrapList = useSelector(state => state.meme.scrapList);
@@ -74,6 +76,7 @@ const Profile = ({ userIdx }) => {
     if(window.confirm("로그아웃 하세유?")) {
       window.location.replace("/")
       localStorage.removeItem("token");
+      localStorage.removeItem("memberIdx");
     }
   }
 

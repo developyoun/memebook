@@ -1,8 +1,8 @@
 import {memebookApi} from "./../../util/memebookApi";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useRef, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
-import {postDetailData} from "./../../util/action/communityAction";
+import {Link, useNavigate, useParams} from "react-router-dom";
+import {postDetailData, postListData} from "./../../util/action/communityAction";
 import './../../scss/page/community/postInfo.scss'
 import OutsideHook from "../../util/OutsideHook";
 import AddComponent from "../../components/AddComponent";
@@ -12,8 +12,10 @@ const PostInfo = ({ userIdx }) => {
   const id = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const memberIdx = 322
   const postDetail = useSelector(state => state.meme.postDetail);
+  const postList = useSelector(state => state.meme.postList);
+  const loginToken = localStorage.getItem("memberIdx");
+
   // 글 좋아요
   const [postReactionState, setPostReactionState] = useState(false);
   // 댓글 클릭영역 외
@@ -32,7 +34,8 @@ const PostInfo = ({ userIdx }) => {
   const [replyNickname, setReplyNickname] = useState('');
   // 댓글 상태
   const [addState, setAddState] = useState(false);
-
+  // 글 리스트
+  const [postData, setPostData] = useState([]);
   // 댓글 등록 시 재랜더링
   const addStateCheck = (state) => {
     setAddState(state);
@@ -43,14 +46,19 @@ const PostInfo = ({ userIdx }) => {
     async function postDetailApi() {
       try {
         await dispatch(postDetailData(id.id));
+        await dispatch(postListData());
       } catch (error) {
         console.log(error)
       }
     }
-    console.log(postDetail)
     postDetailApi();
   }, [addState, commentState, dispatch, id.id]);
 
+  useEffect(() => {
+    if (postList && postList.articleList) {
+      setPostData(postList.articleList)
+    }
+  }, [postList]);
   // 글 삭제하기
   async function postDeleteData(articleIdx) {
     try {
@@ -137,7 +145,7 @@ const PostInfo = ({ userIdx }) => {
                   <>
                     <ul className="set_box" ref={sideRef}>
                       {
-                        postDetail?.articleMemberIdx !== memberIdx && (
+                        postDetail?.articleMemberIdx !== loginToken && (
                           <li>
                             <button type="button" className="">
                               <span>신고하기</span>
@@ -147,7 +155,7 @@ const PostInfo = ({ userIdx }) => {
                       }
 
                       {
-                        postDetail?.articleMemberIdx === memberIdx && (
+                        postDetail?.articleMemberIdx === loginToken && (
                           <>
                             <li>
                               <button type="button" onClick={postModifyToPage} className="">
@@ -186,14 +194,9 @@ const PostInfo = ({ userIdx }) => {
                 </div>
               </div>
             </div>
-
-
           </div>
 
           <p className="post_con">{postDetail?.articleContent}</p>
-
-
-
 
         </div>
 
@@ -232,7 +235,7 @@ const PostInfo = ({ userIdx }) => {
                                       <span className="blind">좋아요</span>
                                     </button>
                                     {
-                                      item?.commentMemberIdx === userIdx && (
+                                      item?.commentMemberIdx === loginToken && (
                                         <button type="button" className="btn_delete" onClick={() => {
                                           commentDeleteData(item?.commentIdx)
                                         }}>
@@ -319,8 +322,51 @@ const PostInfo = ({ userIdx }) => {
                         addSubmit={addStateCheck}>
           </AddComponent>
         </div>
+        {
+          postList && postData.length !== 0 && (
+            <div className="commu_list">
+              <ul className="list">
+                {/* 포스트 */}
+                {
+                  postList.articleList?.map((item, idx) => {
+                    return (
+                      <li key={idx}>
+                        <div className="post_item">
+                          <Link to={`/community/postDetail/${item.articleIdx}`} className="post_link">
+                            <div className="post_top">
+                              <h3 className="post_tit">{item.articleTitle}</h3>
+                              <span className="post_nickname">{item.memberNickname}</span>
+                            </div>
 
+                            <p className="post_con">{item.articleContent}</p>
+
+                          </Link>
+
+
+                          <div className="post_reaction">
+                            <button type="button" className={`btn_post_like ${postReactionState ? 'active' : ''}`} onClick={postReaction}>
+                              <span className="blind">좋아요</span>
+                            </button>
+                            <Link to={`/community/postDetail/${item.articleIdx}`} className="reaction_link reaction_comment">
+                              <span className={`txt_count ${item.commentCount === 0 ? 'blind' : ''}`}>{item.commentCount === 0 ? '댓글' : item.commentCount}</span>
+                            </Link>
+                            <Link to={`/community/postDetail/${item.articleIdx}`} className="reaction_link reaction_view">
+                              <span className="blind">조회수</span>
+                            </Link>
+                          </div>
+                        </div>
+
+                      </li>
+                    )
+                  })
+                }
+
+              </ul>
+            </div>
+          )
+        }
       </div>
+
     </div>
   );
 }

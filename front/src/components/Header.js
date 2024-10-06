@@ -14,8 +14,6 @@ export default function Header() {
 
   // 단어 검색
   const wordSearchApi = debounce((event) => {
-    console.log(event.target.value)
-    console.log(event.target.value.length)
     if (event.target.value.length > 0) {
       setSearchState(true);
       dispatch(wordSearchData(event.target.value));

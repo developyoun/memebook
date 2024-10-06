@@ -10,6 +10,7 @@ import userIdxHigher from "../../components/UserIdxHigher";
 const PostAdd = ({ userIdx }) => {
   const id = useParams();
   const location = useLocation();
+  const loginToken = localStorage.getItem("memberIdx");
   const [titleValue, setTitleValue] = useState('');
   const [contentValue, setContentValue] = useState('');
   // 글 디테일 페이지에서 가져온 제목, 내용
@@ -36,7 +37,7 @@ const PostAdd = ({ userIdx }) => {
         // 등록
         await memebookApi().postAddApi( {
           "articleTitle": titleValue,
-          "memberIdx": '322',
+          "memberIdx": loginToken,
           "articleContent": contentValue,
         });
         console.log('등록성공')
@@ -45,7 +46,7 @@ const PostAdd = ({ userIdx }) => {
         // 수정
         await memebookApi().postModifyApi(id.id, {
           "articleTitle": titleValue,
-          "memberIdx": '322',
+          "memberIdx": loginToken,
           "articleContent": contentValue,
         });
         window.history.back();

@@ -20,7 +20,6 @@ const Community = ({ userIdx }) => {
     async function postListApi() {
       try {
         await dispatch(postListData());
-        console.log(postList)
       } catch (error) {
         console.log(error);
       }

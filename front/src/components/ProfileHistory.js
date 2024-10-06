@@ -15,8 +15,6 @@ const ProfileHistory = ({ historyList, type }) => {
   const [listText, setListText] = useState(``);
 
   useEffect(() => {
-    console.log(historyList)
-
     if (historyList !== undefined) {
       switch (type) {
         case "myWord" :
@@ -24,7 +22,6 @@ const ProfileHistory = ({ historyList, type }) => {
           setNoneText('등록한 단어가 없어요 &#128172;');
           setMoreLink('/profile/myWordList');
           setListLink('/vocabulary/wordInfo/${item.wordIdx}');
-          setListText(`item.wordNam}`);
           setListDetail(historyList?.wordContentList);
           setListLength(historyList?.totalCount);
           break;
@@ -33,7 +30,6 @@ const ProfileHistory = ({ historyList, type }) => {
           setNoneText('스크랩한 단어가 없어요 &#128172;');
           setMoreLink('/profile/scrapList');
           setListLink('/vocabulary/wordInfo/${item.wordIdx}');
-          setListText('item.wordName');
           setListDetail(historyList.content);
           setListLength(historyList?.content?.length);
           break;
@@ -42,7 +38,6 @@ const ProfileHistory = ({ historyList, type }) => {
           setNoneText('작성한 글이 없어요 &#128172;');
           setMoreLink('/profile/myPostList');
           setListLink('/community/postDetail/${item.articleIdx}');
-          setListText('item.articleTitle');
           setListDetail(historyList.articleList);
           setListLength(historyList?.totalCount);
           break;
@@ -51,7 +46,6 @@ const ProfileHistory = ({ historyList, type }) => {
           setNoneText('작성한 댓글이 없어요 &#128172;');
           setMoreLink('/profile/myCommentList)');
           setListLink('/community/postDetail/${item.articleIdx}');
-          setListText('item.commentContent');
           setListDetail(historyList.commentList);
           setListLength(historyList?.totalCount);
           break;
@@ -88,14 +82,7 @@ const ProfileHistory = ({ historyList, type }) => {
               listDetail?.slice(0, 3).map((item, idx) => {
                 return (
                   <li className="list_item" key={idx}>
-                    <Link to={listLink} className="link" key={idx}> {item.wordName
-                      ? item.wordName
-                      : type === 'myScrap'
-                        ? item?.articleTitle
-                        : type === 'myComment'
-                          ? item.commentContent
-                          : null
-                    }</Link>
+                    <Link to={listLink} className="link" key={idx}> { type === 'myPost' ? item?.articleTitle : type === 'myComment' ? item?.commentContent : item?.wordName}</Link>
                   </li>
                 )
               })
