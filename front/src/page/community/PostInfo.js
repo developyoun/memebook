@@ -322,49 +322,57 @@ const PostInfo = ({ userIdx }) => {
                         addSubmit={addStateCheck}>
           </AddComponent>
         </div>
-        {
-          postList && postData.length !== 0 && (
-            <div className="commu_list">
-              <ul className="list">
-                {/* 포스트 */}
-                {
-                  postList.articleList?.map((item, idx) => {
-                    return (
-                      <li key={idx}>
-                        <div className="post_item">
-                          <Link to={`/community/postDetail/${item.articleIdx}`} className="post_link">
-                            <div className="post_top">
-                              <h3 className="post_tit">{item.articleTitle}</h3>
-                              <span className="post_nickname">{item.memberNickname}</span>
+
+
+        <div className="commu_sub_box">
+          <div className="commu_top">
+            <button type="type" className="전체글"></button>
+          </div>
+          {
+            postList && postData.length !== 0 && (
+              <div className="commu_list">
+                <ul className="list">
+                  {/* 포스트 */}
+                  {
+                    postList.articleList?.map((item, idx) => {
+                      return (
+                        <li key={idx}>
+                          <div className="post_item">
+                            <Link to={`/community/postDetail/${item.articleIdx}`} className="post_link">
+                              <div className="post_top">
+                                <h3 className="post_tit">{item.articleTitle}</h3>
+                                <span className="post_nickname">{item.memberNickname}</span>
+                              </div>
+
+                              <p className="post_con">{item.articleContent}</p>
+
+                            </Link>
+
+
+                            <div className="post_reaction">
+                              <button type="button" className={`btn_post_like ${postReactionState ? 'active' : ''}`} onClick={postReaction}>
+                                <span className="blind">좋아요</span>
+                              </button>
+                              <Link to={`/community/postDetail/${item.articleIdx}`} className="reaction_link reaction_comment">
+                                <span className={`txt_count ${item.commentCount === 0 ? 'blind' : ''}`}>{item.commentCount === 0 ? '댓글' : item.commentCount}</span>
+                              </Link>
+                              <Link to={`/community/postDetail/${item.articleIdx}`} className="reaction_link reaction_view">
+                                <span className="blind">조회수</span>
+                              </Link>
                             </div>
-
-                            <p className="post_con">{item.articleContent}</p>
-
-                          </Link>
-
-
-                          <div className="post_reaction">
-                            <button type="button" className={`btn_post_like ${postReactionState ? 'active' : ''}`} onClick={postReaction}>
-                              <span className="blind">좋아요</span>
-                            </button>
-                            <Link to={`/community/postDetail/${item.articleIdx}`} className="reaction_link reaction_comment">
-                              <span className={`txt_count ${item.commentCount === 0 ? 'blind' : ''}`}>{item.commentCount === 0 ? '댓글' : item.commentCount}</span>
-                            </Link>
-                            <Link to={`/community/postDetail/${item.articleIdx}`} className="reaction_link reaction_view">
-                              <span className="blind">조회수</span>
-                            </Link>
                           </div>
-                        </div>
 
-                      </li>
-                    )
-                  })
-                }
+                        </li>
+                      )
+                    })
+                  }
 
-              </ul>
-            </div>
-          )
-        }
+                </ul>
+              </div>
+            )
+          }
+        </div>
+
       </div>
 
     </div>

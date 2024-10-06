@@ -186,7 +186,7 @@ const Profile = ({ userIdx }) => {
               {copyState === true ? '복사 완료 ! 친구에게 공유해주세요!' : '링크 복사하기'}
             </button>
           </div>
-          <button type="button" onClick={logoutBtn}>로그아웃</button>
+          <button type="button" className="btn_logout" onClick={logoutBtn}>로그아웃</button>
         </div>
       )
     }
