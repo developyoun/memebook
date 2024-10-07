@@ -19,10 +19,6 @@ const createRequest = axios.create({
 
 export const memebookApi = () => {
   return {
-
-    // 로그인
-    loginApi : (memberInfo) => loginRequest.post(`auth/login`, memberInfo),
-
     // 회원 생성
     memberAddApi : (memberInfo) => createRequest.post(`member/create`, memberInfo),
     // 회원 국가 조회
@@ -46,7 +42,7 @@ export const memebookApi = () => {
     postReactionApi : (postIdx) => createRequest.post(`article/like`, postIdx),
     // 게시글 삭제
     postDeleteApi : (postIdx) => createRequest.delete(`article/delete?articleIdx=${postIdx}`),
-    // 게시글 삭제
+    // 게시글 전체삭제
     postAllDeleteApi : (memberIdx) => createRequest.delete(`article/delete/all?memberIdx=${memberIdx}`),
 
     // 댓글 리스트

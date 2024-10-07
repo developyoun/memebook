@@ -13,7 +13,6 @@ import GoogleLoginButton from "../main/GoogleLoginButton";
 const Profile = ({ userIdx }) => {
   let id = useParams();
 
-  console.log(userIdx)
   const dispatch = useDispatch();
 
   const loginToken = localStorage.getItem("memberIdx");

@@ -9,6 +9,8 @@ import userIdxHigher from "../../components/UserIdxHigher";
 
 const MyPostList = ({ userIdx }) => {
   const dispatch = useDispatch();
+  const loginToken = localStorage.getItem("memberIdx");
+
   const [checkedItems, setCheckedItems] = useState([]);
 
   // 내가 등록한 글 리스트
@@ -23,10 +25,8 @@ const MyPostList = ({ userIdx }) => {
     setDeleteNone(false);
     setCheckedItems(prevCheckedItems => {
       if (prevCheckedItems.includes(articleIdx)) {
-        console.log(checkedItems);
         return prevCheckedItems.filter(idx => idx !== articleIdx);
       } else {
-        console.log(checkedItems);
         return [...prevCheckedItems, articleIdx];
       }
     });
@@ -61,7 +61,7 @@ const MyPostList = ({ userIdx }) => {
       if (deleteState !== false && checkedItems.length !== 0) {
         try {
           if (window.confirm("정말 삭제하시겠습니까?")) {
-            await memebookApi().postDeleteApi(articleIdx);
+            await memebookApi().postDeleteApi(loginToken);
           }
         } catch(error) {
           console.log(error);
@@ -74,13 +74,10 @@ const MyPostList = ({ userIdx }) => {
 
   // 작성된 글 전체 삭제
   async function postAllDelete() {
-
     try {
       if (window.confirm("정말 삭제하시겠습니까?")) {
-        await memebookApi().postAllDeleteApi(userIdx);
-        setDeleteState(!deleteState);
+        await memebookApi().postAllDeleteApi(loginToken);
       }
-      console.log('성공')
     } catch(error) {
       console.log(error);
     }
