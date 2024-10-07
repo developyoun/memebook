@@ -15,7 +15,6 @@ const PostInfo = ({ userIdx }) => {
   const postDetail = useSelector(state => state.meme.postDetail);
   const postList = useSelector(state => state.meme.postList);
   const loginToken = localStorage.getItem("memberIdx");
-
   // 글 좋아요
   const [postReactionState, setPostReactionState] = useState(false);
   // 댓글 클릭영역 외
@@ -56,7 +55,7 @@ const PostInfo = ({ userIdx }) => {
 
   useEffect(() => {
     if (postList && postList.articleList) {
-      setPostData(postList.articleList)
+      setPostData(postList.articleList);
     }
   }, [postList]);
   // 글 삭제하기
@@ -133,49 +132,54 @@ const PostInfo = ({ userIdx }) => {
       <div className="container">
 
         {/* 포스트 */}
-        <div className="post_item">
+        <div className="post_detail">
           <div className="post_top">
-            <h3 className="post_tit">{postDetail?.articleTitle}</h3>
-            <div className="set_box">
-              <button type="button" className="btn_set" onClick={wordSet}>
-                <span className="blind">유저 셋</span>
-              </button>
-              {
-                isVisible && (
-                  <>
-                    <ul className="set_box" ref={sideRef}>
-                      {
-                        postDetail?.articleMemberIdx !== loginToken && (
-                          <li>
-                            <button type="button" className="">
-                              <span>신고하기</span>
-                            </button>
-                          </li>
-                        )
-                      }
-
-                      {
-                        postDetail?.articleMemberIdx === loginToken && (
-                          <>
+            <span className="post_badge">단어 질문</span>
+            <div className="post_tit">
+              <h3 className="tit">{postDetail?.articleTitle}</h3>
+              <div className="set_box">
+                <button type="button" className="btn_set" onClick={wordSet}>
+                  <span className="blind">유저 셋</span>
+                </button>
+                {
+                  isVisible && (
+                    <>
+                      <ul className="set_box" ref={sideRef}>
+                        {
+                          postDetail?.articleMemberIdx !== loginToken && (
                             <li>
-                              <button type="button" onClick={postModifyToPage} className="">
-                                <span className="">수정</span>
+                              <button type="button" className="">
+                                <span>신고하기</span>
                               </button>
                             </li>
-                            <li>
-                              <button type="button" className="" onClick={() => postDeleteData(postDetail.articleIdx)}>
-                                <span className="">삭제</span>
-                              </button>
+                          )
+                        }
 
-                            </li>
-                          </>
-                        )
-                      }
-                    </ul>
-                  </>
-                )
-              }
+                        {
+                          postDetail?.articleMemberIdx === loginToken && (
+                            <>
+                              <li>
+                                <button type="button" onClick={postModifyToPage} className="">
+                                  <span className="">수정</span>
+                                </button>
+                              </li>
+                              <li>
+                                <button type="button" className="" onClick={() => postDeleteData(postDetail.articleIdx)}>
+                                  <span className="">삭제</span>
+                                </button>
+
+                              </li>
+                            </>
+                          )
+                        }
+                      </ul>
+                    </>
+                  )
+                }
+              </div>
             </div>
+
+
 
             <div className="post_desc">
               <span className="post_nickname">{postDetail?.nickname}맛보돈</span>
@@ -196,7 +200,11 @@ const PostInfo = ({ userIdx }) => {
             </div>
           </div>
 
-          <p className="post_con">{postDetail?.articleContent}</p>
+          <div className="post_con">
+            <p className="post_txt">
+              {postDetail?.articleContent}
+            </p>
+          </div>
 
         </div>
 
@@ -226,7 +234,9 @@ const PostInfo = ({ userIdx }) => {
                               item?.deleted === false && (
                                 <>
                                   <span className="comment_nickname">김누징{item?.nickname}</span>
+                                  <span className="comment_date">{item?.commentRegDtm}</span>
                                   <p className="comment_txt">{item?.commentContent}</p>
+
                                   <div className="comment_btm">
                                     <button type="button" className="btn_reply"
                                             onClick={() => commentReplyData(item?.nickname, item?.commentIdx, item?.upperIdx)}>답글 달기
@@ -323,52 +333,54 @@ const PostInfo = ({ userIdx }) => {
           </AddComponent>
         </div>
 
+        <div className="banner_box">
+
+        </div>
 
         <div className="commu_sub_box">
-          <div className="commu_top">
-            <button type="type" className="전체글"></button>
+          <div className="commu_sub_top">
+            <button type="type" className="">전체글</button>
+            <button type="type" className="">글쓰기</button>
           </div>
           {
             postList && postData.length !== 0 && (
-              <div className="commu_list">
-                <ul className="list">
-                  {/* 포스트 */}
-                  {
-                    postList.articleList?.map((item, idx) => {
-                      return (
-                        <li key={idx}>
-                          <div className="post_item">
-                            <Link to={`/community/postDetail/${item.articleIdx}`} className="post_link">
-                              <div className="post_top">
-                                <h3 className="post_tit">{item.articleTitle}</h3>
-                                <span className="post_nickname">{item.memberNickname}</span>
-                              </div>
-
-                              <p className="post_con">{item.articleContent}</p>
-
-                            </Link>
-
-
-                            <div className="post_reaction">
-                              <button type="button" className={`btn_post_like ${postReactionState ? 'active' : ''}`} onClick={postReaction}>
-                                <span className="blind">좋아요</span>
-                              </button>
-                              <Link to={`/community/postDetail/${item.articleIdx}`} className="reaction_link reaction_comment">
-                                <span className={`txt_count ${item.commentCount === 0 ? 'blind' : ''}`}>{item.commentCount === 0 ? '댓글' : item.commentCount}</span>
-                              </Link>
-                              <Link to={`/community/postDetail/${item.articleIdx}`} className="reaction_link reaction_view">
-                                <span className="blind">조회수</span>
-                              </Link>
+              <ul className="commu_list">
+                {/* 포스트 */}
+                {
+                  postList.articleList?.map((item, idx) => {
+                    return (
+                      <li key={idx}>
+                        <div className="post_item">
+                          <Link to={`/community/postDetail/${item.articleIdx}`} className="post_link">
+                            <div className="post_top">
+                              <h3 className="post_tit">{item.articleTitle}</h3>
+                              <span className="post_nickname">맛보돈{item.memberNickname}</span>
+                              <span className="post_date">{item.regDtm}</span>
                             </div>
+
+                            <p className="post_con">{item.articleContent}</p>
+
+                          </Link>
+
+
+                          <div className="post_reaction">
+                            <button type="button" className={`btn_post_like ${postReactionState ? 'active' : ''}`} onClick={postReaction}>
+                              <span className="blind">좋아요</span>
+                            </button>
+                            <Link to={`/community/postDetail/${item.articleIdx}`} className="reaction_link reaction_comment">
+                              <span className={`txt_count ${item.commentCount === 0 ? 'blind' : ''}`}>{item.commentCount === 0 ? '댓글' : item.commentCount}</span>
+                            </Link>
+                            <Link to={`/community/postDetail/${item.articleIdx}`} className="reaction_link reaction_view">
+                              <span className="blind">조회수</span>
+                            </Link>
                           </div>
+                        </div>
 
-                        </li>
-                      )
-                    })
-                  }
-
-                </ul>
-              </div>
+                      </li>
+                    )
+                  })
+                }
+              </ul>
             )
           }
         </div>
