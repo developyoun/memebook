@@ -42,8 +42,7 @@ const Community = ({ userIdx }) => {
   }
 
   const pageClick = (index) => {
-    setPageNumber(pageNumber);
-
+    setPageNumber(index);
   }
 
   return (

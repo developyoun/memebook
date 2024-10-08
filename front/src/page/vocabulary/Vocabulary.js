@@ -32,6 +32,7 @@ const Vocabulary = ({ userIdx }) => {
     async function vocaApi() {
       try {
         await dispatch(wordListData(pageNumber));
+        console.log(wordList)
       } catch (error) {
         console.log(error)
       }
@@ -50,29 +51,15 @@ const Vocabulary = ({ userIdx }) => {
     }
   }, [wordList]);
 
-
-  // 더보기
-  const pageMore = useCallback(debounce(async () => {
+  async function pageClick(index){
     try {
-      const nextPage = pageNumber + 1;
-      setPageNumber(nextPage);
-      // 다른 변수에 담기 위해 새로 가져오기
-      const libraryApi = await memebookApi().wordListApi(nextPage);
-      setLibraryData((prevLibraryData) => {
-        return [
-          ...prevLibraryData,
-          ...(libraryApi.data.wordList || [])
-        ];
-      });
-      // 총 리스트의 페이지가 마지막 페이지가 아니라면 더보기 미노출
-      if (libraryApi.data.nowPage === libraryApi.data.totalPage) {
-        setMoreBtnState(false);
-      }
-
-    } catch (error) {
-      console.log(error);
+      setPageNumber(index);
+      const libraryApi = await memebookApi().wordListApi(index);
+      setLibraryData(libraryApi.data.wordList);
+    } catch(error) {
+      console.log(error)
     }
-  }, 1000), [pageNumber]);
+  }
 
   // 단어 정렬
   async function wordSortBtn(word) {
@@ -160,18 +147,17 @@ const Vocabulary = ({ userIdx }) => {
                     })
                   }
                 </ul>
-
-                {
-                  moreBtnState && (
-                    <div className="list_btm">
-                      <button type="button" className="btn_more_word" onClick={pageMore}>더보기</button>
-                    </div>
-                  )
-                }
-
               </>
             )
           }
+
+          <div className="pagination_box">
+            {Array.from({ length: wordList?.totalPage }, (_, index) => (
+              <button key={index} onClick={() => pageClick(index + 1)} type="button" className={`page ${pageNumber === index + 1? 'active' : ''}`}>
+                {index + 1}
+              </button>
+            ))}
+          </div>
         </div>
 
       </div>

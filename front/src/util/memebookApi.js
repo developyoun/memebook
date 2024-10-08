@@ -57,7 +57,7 @@ export const memebookApi = () => {
     commentDeleteApi : (commentIdx) => createRequest.delete(`comment/delete?commentIdx=${commentIdx}`),
 
     // 전체 단어 리스트 조회
-    wordListApi : (pageNumber) => getRequest.get(`word/list?page=${pageNumber}`),
+    wordListApi : (pageNumber) => getRequest.get(`word/list?page=${pageNumber}&pageSize=20`),
     // 전체 단어 리스트 조회
     wordSearchApi : (searchWord) => getRequest.get(`word/list?search=${searchWord}`),
     // 단어 정렬
