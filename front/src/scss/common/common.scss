@@ -479,6 +479,29 @@
   }
 }
 
+.pagination_box {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:0 12px;
+  margin-top:42px;
+  .page {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:24px;
+    height:24px;
+    color:#5c667b;
+    font-size:14px;
+    border:1px solid #e0e5ed;
+    border-radius:4px;
+    &.active {
+      color:#fff;
+      border-color:#5c667b;
+      background:#5c667b;
+    }
+  }
+}
 @media screen and (max-width:1080px) {
   /* 공통 레이아웃 */
   .container {

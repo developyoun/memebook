@@ -12,6 +12,8 @@ const Community = ({ userIdx }) => {
   const [postReactionState, setPostReactionState] = useState(false);
   // 글 리스트
   const [postData, setPostData] = useState([]);
+  // 단어 페이지
+  const [pageNumber, setPageNumber] = useState(1);
   // 로딩
   const [loadingState, setLoadingState] = useState(true);
 
@@ -19,7 +21,7 @@ const Community = ({ userIdx }) => {
   useEffect(() => {
     async function postListApi() {
       try {
-        await dispatch(postListData());
+        await dispatch(postListData(pageNumber));
         console.log(postList)
       } catch (error) {
         console.log(error);
@@ -37,6 +39,11 @@ const Community = ({ userIdx }) => {
 
   const postReaction = () => {
     setPostReactionState(!postReactionState)
+  }
+
+  const pageClick = (index) => {
+    setPageNumber(pageNumber);
+
   }
 
   return (
@@ -138,6 +145,15 @@ const Community = ({ userIdx }) => {
                 </ul>
               )
             }
+
+
+            <div className="pagination_box">
+              {Array.from({ length: postList?.totalPage }, (_, index) => (
+                <button key={index} onClick={() => pageClick(index + 1)} type="button" className={`page ${pageNumber === index + 1? 'active' : ''}`}>
+                  {index + 1}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
