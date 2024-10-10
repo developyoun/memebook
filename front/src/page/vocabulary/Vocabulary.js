@@ -114,9 +114,9 @@ const Vocabulary = ({ userIdx }) => {
             </SwiperSlide>
           </Swiper>
 
-          <div className="voca_desc">
+          <p className="voca_desc">
             총 {wordList?.totalCount ?? 0} 개
-          </div>
+          </p>
 
           { libraryData === undefined && loadingState && (
               <div className="loading_box">
@@ -135,7 +135,7 @@ const Vocabulary = ({ userIdx }) => {
           {
             libraryData && !loadingState && libraryData.length !== 0 && (
               <>
-                <ul className="list_box">
+                <ul className="voca_list">
                   {
                     libraryData?.map((item, idx) => {
                       return (
