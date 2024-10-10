@@ -286,38 +286,7 @@
     background:#fff;
   }
 }
-.list_box {
-  padding:16px;
-  border-radius:12px;
-  background:#fff;
-  &.inside {
-    padding:0;
-  }
-  .list_item {
-    display:flex;
-    align-items:center;
-    justify-content: space-between;
-    &+.list_item {
-      margin-top:8px;
-      padding-top:8px;
-      border-top:1px solid var(--primary-60);
-    }
-    .link {
-      width:100%;
-      padding:6px 0;
-      font-size:16px;
-    }
-    .content_count {
-      display:flex;
-      align-items:center;
-      height:26px;
-      padding:0 8px;
-      font-size:14px;
-      border-radius:4px;
-      background:#f4f6fa;
-    }
-  }
-}
+
 
 .list_btm {
   margin-top:24px;

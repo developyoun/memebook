@@ -56,6 +56,7 @@ const Vocabulary = ({ userIdx }) => {
       setPageNumber(index);
       const libraryApi = await memebookApi().wordListApi(index);
       setLibraryData(libraryApi.data.wordList);
+      window.scrollTo(0, 0);
     } catch(error) {
       console.log(error)
     }
@@ -65,8 +66,9 @@ const Vocabulary = ({ userIdx }) => {
   async function wordSortBtn(word) {
     try {
       setLibraryTab(word);
-      dispatch(wordSortData(nationName, word));
-
+      setPageNumber(1);
+      window.scrollTo(0, 0);
+      dispatch(wordSortData(pageNumber, nationName, word));
     } catch(error) {
       console.log(error)
     }

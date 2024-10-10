@@ -185,7 +185,7 @@ const Main = ({userIdx}) => {
               <h3 className="popular_tit">💡 오늘 하루 인기 검색어 TOP </h3>
               <ul className="popular_list">
                 {
-                  wordList.wordList?.map((item, idx) => {
+                  wordList.wordList?.slice(0, 10).map((item, idx) => {
                     return (
                       <li key={idx}>
                         <Link to={`/vocabulary/wordInfo/${item.wordIdx}`} className="keyword">

@@ -34,19 +34,56 @@
 
   // 단어장 컨텐츠
   .voca_con {
-      .swiper-wrapper {
-          justify-content:end;
-      }
     .voca_desc {
         color:#5c667b;
       margin:36px 0 24px;
       font-size:16px;
     }
     .list_box {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 16px 40px;
       padding:24px 20px;
       border-top:2px solid var(--primary-60);
       box-shadow:0 1px 12px -10px #000;
+      .list_item {
+        width:calc(50% - 20px);
+      }
     }
+
+    .list_box {
+      padding:16px;
+      border-radius:12px;
+      background:#fff;
+      &.inside {
+        padding:0;
+      }
+      .list_item {
+        display:flex;
+        align-items:center;
+        justify-content: space-between;
+        &+.list_item {
+          margin-top:8px;
+          padding-top:8px;
+          border-top:1px solid var(--primary-60);
+        }
+        .link {
+          width:100%;
+          padding:6px 0;
+          font-size:16px;
+        }
+        .content_count {
+          display:flex;
+          align-items:center;
+          height:26px;
+          padding:0 8px;
+          font-size:14px;
+          border-radius:4px;
+          background:#f4f6fa;
+        }
+      }
+    }
+
       .list_btm {
           .btn_more_word {
               display: inline-flex;
