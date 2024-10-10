@@ -38,11 +38,13 @@
           align-items:center;
           width:100%;
           .post_nickname {
+            color:#5c667b;
             font-size:14px;
             line-height:18px;
           }
           .post_date {
             display:flex;
+            color:#5c667b;
             font-size:14px;
             line-height:18px;
             &:before {

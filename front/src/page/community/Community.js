@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import {postListData} from "../../util/action/communityAction";
 import './../../scss/page/community/community.scss'
 import userIdxHigher from "../../components/UserIdxHigher";
+import {wordSortData} from "../../util/action/wordAction";
 
 const Community = ({ userIdx }) => {
   const dispatch = useDispatch();
@@ -12,6 +13,8 @@ const Community = ({ userIdx }) => {
   const [postReactionState, setPostReactionState] = useState(false);
   // 글 리스트
   const [postData, setPostData] = useState([]);
+  // 글 탭
+  const [libraryTab, setLibraryTab] = useState('ALL');
   // 단어 페이지
   const [pageNumber, setPageNumber] = useState(1);
   // 로딩
@@ -29,6 +32,18 @@ const Community = ({ userIdx }) => {
     }
     postListApi();
   }, [dispatch]);
+
+  // 글 정렬
+  async function postSortBtn(tab) {
+    try {
+      setLibraryTab(tab);
+      setPageNumber(1);
+      window.scrollTo(0, 0);
+      dispatch(postListData(pageNumber, tab));
+    } catch(error) {
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
     if (postList && postList.articleList) {
@@ -63,31 +78,31 @@ const Community = ({ userIdx }) => {
           <div className="commu_con">
             <Swiper slidesPerView='auto' className="tab_box">
               <SwiperSlide className="tab_item active">
-                <button type="button" className="item">&#127775;&nbsp;&nbsp;최신</button>
+                <button type="button" className="item" onClick={() => postSortBtn('recent')}>&#127775;&nbsp;&nbsp;최신</button>
               </SwiperSlide>
               <SwiperSlide className="tab_item">
-                <button type="button" className="item">&#128400;&nbsp;&nbsp;단어 질문</button>
+                <button type="button" className="item" onClick={() => postSortBtn('question')}>&#128400;&nbsp;&nbsp;단어 질문</button>
               </SwiperSlide>
               <SwiperSlide className="tab_item">
-                <button type="button" className="item">&#128640;&nbsp;&nbsp;요즘 유행</button>
+                <button type="button" className="item" onClick={() => postSortBtn('trend')}>&#128640;&nbsp;&nbsp;요즘 유행</button>
               </SwiperSlide>
               <SwiperSlide className="tab_item">
-                <button type="button" className="item">&#128640;&nbsp;&nbsp;문화 이슈</button>
+                <button type="button" className="item" onClick={() => postSortBtn('culture')}>&#128640;&nbsp;&nbsp;문화 이슈</button>
               </SwiperSlide>
               <SwiperSlide className="tab_item">
-                <button type="button" className="item">&#128640;&nbsp;&nbsp;K-POP</button>
+                <button type="button" className="item" onClick={() => postSortBtn('kPop')}>&#128640;&nbsp;&nbsp;K-POP</button>
               </SwiperSlide>
               <SwiperSlide className="tab_item">
-                <button type="button" className="item">&#128640;&nbsp;&nbsp;K-DRAMA</button>
+                <button type="button" className="item" onClick={() => postSortBtn('kDrama')}>&#128640;&nbsp;&nbsp;K-DRAMA</button>
               </SwiperSlide>
               <SwiperSlide className="tab_item">
-                <button type="button" className="item">&#128640;&nbsp;&nbsp;MEME</button>
+                <button type="button" className="item" onClick={() => postSortBtn('meme')}>&#128640;&nbsp;&nbsp;MEME</button>
               </SwiperSlide>
             </Swiper>
 
-            <div className="commu_desc">
+            <p className="commu_desc">
               총 {postList.totalCount ?? 0} 개
-            </div>
+            </p>
 
             { postData === undefined && loadingState && (
               <div className="loading_box">

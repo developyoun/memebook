@@ -34,6 +34,8 @@ export const memebookApi = () => {
     postAddApi : (postInfo) => createRequest.post(`article/create`, postInfo),
     // 게시글 리스트
     postListApi : (pageNumber) => getRequest.get(`article/list?page=${pageNumber}&pageSize=20`),
+    // 게시글 정렬ㄴ ㅂㄷㄷㅈ
+    postSortApi : (pageNumber, country, sort) => getRequest.get(`word/list?page=${pageNumber}&nation=${country}&sort=${sort}&pageSize=20`),
     // 게시글 상세
     postDetailApi : (postIdx) => getRequest.get(`article/detail/${postIdx}`),
     // 게시글 수정
