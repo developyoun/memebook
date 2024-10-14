@@ -82,7 +82,7 @@ const MyScrapeList = ({ userIdx }) => {
 
         {
           scrapList.content?.length > 0 && (
-            <ul className="list_box inside">
+            <ul className="list_box">
               {
                 scrapList.content?.map((item, idx) => {
                   return (

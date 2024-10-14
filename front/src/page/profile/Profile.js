@@ -35,11 +35,11 @@ const Profile = ({ userIdx }) => {
   useEffect(() => {
     async function profileApi() {
       try {
-        if (userIdx !== undefined) {
-          dispatch(scrapListData('123'));
-          dispatch(myWordListData('123'));
-          dispatch(postListData('123'));
-          dispatch(postCommentData('123'));
+        if (loginToken !== undefined) {
+          dispatch(scrapListData(loginToken));
+          dispatch(myWordListData(loginToken));
+          dispatch(postListData(1));
+          dispatch(postCommentData(loginToken));
         }
 
       } catch (error) {
@@ -47,7 +47,7 @@ const Profile = ({ userIdx }) => {
       }
     }
     profileApi();
-  }, [dispatch, userIdx]);
+  }, [dispatch, loginToken]);
 
   async function followerAdd() {
     try {

@@ -125,7 +125,7 @@ const MyPostList = ({ userIdx }) => {
 
         {
           postList.articleList?.length > 0 && (
-            <ul className="list_box inside">
+            <ul className="list_box">
               {
                 postList.articleList?.map((item, idx) => {
                   return (

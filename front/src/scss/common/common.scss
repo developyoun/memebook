@@ -469,6 +469,36 @@
     }
   }
 }
+
+.my_list_top {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:8px;
+  padding-bottom:8px;
+  .txt {
+    color:#5c667b;
+  }
+}
+.my_list_box {
+  .list_item {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    .link {
+      width:100%;
+      margin-right:16px;
+      padding:16px 8px;
+    }
+    &+.list_item {
+      border-top:1px solid #e0e5ed;
+    }
+    .btn_delete {
+      flex-shrink:0;
+    }
+  }
+}
+
 @media screen and (max-width:1080px) {
   /* 공통 레이아웃 */
   .container {
@@ -667,16 +697,14 @@
     padding-bottom:12px;
     border-bottom:1px solid var(--primary-50);
     .txt {
-      font-size:12px;
+      color: #5c667b;
+      font-size: 16px;
     }
   }
   .list_box {
     padding:0;
     border-radius:0;
     box-shadow:none;
-    &.inside {
-      padding:0;
-    }
     .list_item {
       display:flex;
       align-items:center;

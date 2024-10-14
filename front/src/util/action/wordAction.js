@@ -37,7 +37,7 @@ export const wordSortData = (pageNumber, nation, word) => async (dispatch) => {
 // 내가 등록한 단어 리스트
 export const myWordListData = (memberIdx) => async (dispatch) => {
   try {
-    const myWordListData = await memebookApi().myWordListApi(memberIdx);
+    const myWordListData = await memebookApi().myWordListApi(memberIdx, 1);
     dispatch(myWordListAction(myWordListData));
   } catch (error) {
     console.error(error);

@@ -77,7 +77,7 @@ const ProfileHistory = ({ historyList, type }) => {
       }
       {
         listLength > 0 && (
-          <ul className="list_box inside">
+          <ul className="list_box">
             {
               listDetail?.slice(0, 5).map((item, idx) => {
                 return (

@@ -5,30 +5,36 @@ import {myWordListData, wordDeleteData} from "./../../util/action/wordAction";
 import Title from "./../../components/Title";
 import './../../scss/page/profile/myAddList.scss'
 import userIdxHigher from "../../components/UserIdxHigher";
+import {memebookApi} from "../../util/memebookApi";
 
 const MyAddList = ({ userIdx }) => {
   const dispatch = useDispatch();
+  const loginToken = localStorage.getItem("memberIdx");
   // 단어 리스트
   const myWordList = useSelector(state => state.meme.myWordList);
+  const [wordData, setWordData] = useState([]);
   // 삭제 상태
   const [deleteState, SetDeleteState] = useState(false);
   // 페이지 넘버 더보기
   const [pageNumber, setPageNumber] = useState(1);
+  // 더보기 버튼
+  const [moreBtnState, setMoreBtnState] = useState(true);
 
   // 단어 리스트 Api
   useEffect(() => {
     async function wordAddListApi() {
       try {
-        if (userIdx !== undefined) {
-          dispatch(myWordListData(userIdx));
-          setPageNumber(myWordList.totalPage)
+        if (loginToken !== undefined) {
+          dispatch(myWordListData(loginToken));
+          setPageNumber(myWordList?.totalPage);
+          console.log(loginToken)
         }
       } catch (error) {
         console.log(error)
       }
     }
     wordAddListApi();
-  }, [deleteState, userIdx]);
+  }, [deleteState, loginToken]);
 
   // 설명 삭제
   async function myAddWordDelete(wordContentIdx) {
@@ -43,6 +49,26 @@ const MyAddList = ({ userIdx }) => {
     }
   }
 
+  useEffect(() => {
+    if (myWordList && myWordList.wordContentList && pageNumber === 1) {
+      setWordData(myWordList.wordContentList);
+    }
+    // 현재 페이지가 마지막 페이지가 아니라면 더보기 미노출
+    if (myWordList?.nowPage !== myWordList?.totalPage) {
+      setMoreBtnState(true);
+    }
+  }, [myWordList]);
+  async function pageClick(index){
+    try {
+      setPageNumber(index);
+      const libraryApi = await memebookApi().myWordListApi(loginToken, pageNumber);
+      setWordData(libraryApi.data.wordList);
+      window.scrollTo(0, 0);
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className="layer_wrap my_word_wrap">
 
@@ -50,7 +76,7 @@ const MyAddList = ({ userIdx }) => {
 
       <div className="container">
 
-        <div className="list_top">
+        <div className="my_list_top">
           <span className="txt">
             총 {myWordList.totalCount} 개
           </span>
@@ -75,7 +101,7 @@ const MyAddList = ({ userIdx }) => {
 
         {
           myWordList.wordContentList?.length > 0 && (
-            <ul className="list_box inside">
+            <ul className="my_list_box">
               {
                 myWordList.wordContentList?.map((item, idx) => {
                   return (
@@ -92,13 +118,13 @@ const MyAddList = ({ userIdx }) => {
           )
         }
 
-        {
-          pageNumber >= 2 && (
-            <div className="list_btm">
-              <button type="button" className="btn_primary size_s">더보기</button>
-            </div>
-          )
-        }
+        <div className="pagination_box">
+          {Array.from({ length: myWordList?.totalPage }, (_, index) => (
+            <button key={index} onClick={() => pageClick(index + 1)} type="button" className={`page ${pageNumber === index + 1? 'active' : ''}`}>
+              {index + 1}
+            </button>
+          ))}
+        </div>
 
       </div>
 
