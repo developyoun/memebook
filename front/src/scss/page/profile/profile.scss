@@ -110,9 +110,9 @@
   .user_history {
     display:flex;
     flex-wrap:wrap;
-    gap:12px;
+    gap:16px;
     .history_box {
-      width:calc(50% - 6px);
+      width:calc(50% - 8px);
       padding:24px;
       border-radius:12px;
       box-shadow:0 1px 12px -10px #000;
@@ -125,7 +125,7 @@
         h4 {
           color:#1d1d1f;
           font-size:16px;
-            font-weight:500;
+          font-weight:700;
         }
         .count {
           display:inline-block;
@@ -144,6 +144,13 @@
             width:14px;
             height:14px;
             background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M5.83301 9.91659L8.74967 6.99992L5.83301 4.08325' stroke='%23234C7D' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
+          }
+        }
+      }
+      .list_box {
+        .list_item {
+          &+.list_item {
+            margin-top:10px;
           }
         }
       }

@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
-import {postListData} from "../../util/action/communityAction";
+import {postListData, postSortData} from "../../util/action/communityAction";
 import './../../scss/page/community/community.scss'
 import userIdxHigher from "../../components/UserIdxHigher";
 import {wordSortData} from "../../util/action/wordAction";
@@ -14,7 +14,7 @@ const Community = ({ userIdx }) => {
   // 글 리스트
   const [postData, setPostData] = useState([]);
   // 글 탭
-  const [libraryTab, setLibraryTab] = useState('ALL');
+  const [libraryTab, setLibraryTab] = useState('recent');
   // 단어 페이지
   const [pageNumber, setPageNumber] = useState(1);
   // 로딩
@@ -39,7 +39,7 @@ const Community = ({ userIdx }) => {
       setLibraryTab(tab);
       setPageNumber(1);
       window.scrollTo(0, 0);
-      dispatch(postListData(pageNumber, tab));
+      dispatch(postSortData(pageNumber, tab));
     } catch(error) {
       console.log(error)
     }
@@ -77,25 +77,25 @@ const Community = ({ userIdx }) => {
           {/* 리스트 */}
           <div className="commu_con">
             <Swiper slidesPerView='auto' className="tab_box">
-              <SwiperSlide className="tab_item active">
+              <SwiperSlide className={`tab_item ${libraryTab === 'recent' ? 'active' : ''}`}>
                 <button type="button" className="item" onClick={() => postSortBtn('recent')}>&#127775;&nbsp;&nbsp;최신</button>
               </SwiperSlide>
-              <SwiperSlide className="tab_item">
+              <SwiperSlide className={`tab_item ${libraryTab === 'question' ? 'active' : ''}`}>
                 <button type="button" className="item" onClick={() => postSortBtn('question')}>&#128400;&nbsp;&nbsp;단어 질문</button>
               </SwiperSlide>
-              <SwiperSlide className="tab_item">
+              <SwiperSlide className={`tab_item ${libraryTab === 'trend' ? 'active' : ''}`}>
                 <button type="button" className="item" onClick={() => postSortBtn('trend')}>&#128640;&nbsp;&nbsp;요즘 유행</button>
               </SwiperSlide>
-              <SwiperSlide className="tab_item">
+              <SwiperSlide className={`tab_item ${libraryTab === 'culture' ? 'active' : ''}`}>
                 <button type="button" className="item" onClick={() => postSortBtn('culture')}>&#128640;&nbsp;&nbsp;문화 이슈</button>
               </SwiperSlide>
-              <SwiperSlide className="tab_item">
+              <SwiperSlide className={`tab_item ${libraryTab === 'kPop' ? 'active' : ''}`}>
                 <button type="button" className="item" onClick={() => postSortBtn('kPop')}>&#128640;&nbsp;&nbsp;K-POP</button>
               </SwiperSlide>
-              <SwiperSlide className="tab_item">
+              <SwiperSlide className={`tab_item ${libraryTab === 'kDrama' ? 'active' : ''}`}>
                 <button type="button" className="item" onClick={() => postSortBtn('kDrama')}>&#128640;&nbsp;&nbsp;K-DRAMA</button>
               </SwiperSlide>
-              <SwiperSlide className="tab_item">
+              <SwiperSlide className={`tab_item ${libraryTab === 'meme' ? 'active' : ''}`}>
                 <button type="button" className="item" onClick={() => postSortBtn('meme')}>&#128640;&nbsp;&nbsp;MEME</button>
               </SwiperSlide>
             </Swiper>

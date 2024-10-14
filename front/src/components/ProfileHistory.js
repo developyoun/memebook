@@ -19,7 +19,7 @@ const ProfileHistory = ({ historyList, type }) => {
       switch (type) {
         case "myWord" :
           setTitle('참여한 단어');
-          setNoneText('등록한 단어가 없어요 &#128172;');
+          setNoneText('등록한 단어가 없어요');
           setMoreLink('/profile/myWordList');
           setListLink('/vocabulary/wordInfo/${item.wordIdx}');
           setListDetail(historyList?.wordContentList);
@@ -27,7 +27,7 @@ const ProfileHistory = ({ historyList, type }) => {
           break;
         case "myScrap" :
           setTitle('스크랩한 단어');
-          setNoneText('스크랩한 단어가 없어요 &#128172;');
+          setNoneText('스크랩한 단어가 없어요');
           setMoreLink('/profile/scrapList');
           setListLink('/vocabulary/wordInfo/${item.wordIdx}');
           setListDetail(historyList.content);
@@ -35,7 +35,7 @@ const ProfileHistory = ({ historyList, type }) => {
           break;
         case "myPost" :
           setTitle('내가 쓴 글');
-          setNoneText('작성한 글이 없어요 &#128172;');
+          setNoneText('작성한 글이 없어요');
           setMoreLink('/profile/myPostList');
           setListLink('/community/postDetail/${item.articleIdx}');
           setListDetail(historyList.articleList);
@@ -43,7 +43,7 @@ const ProfileHistory = ({ historyList, type }) => {
           break;
         case "myComment" :
           setTitle('내가 쓴 댓글');
-          setNoneText('작성한 댓글이 없어요 &#128172;');
+          setNoneText('작성한 댓글이 없어요');
           setMoreLink('/profile/myCommentList)');
           setListLink('/community/postDetail/${item.articleIdx}');
           setListDetail(historyList.commentList);
@@ -72,14 +72,14 @@ const ProfileHistory = ({ historyList, type }) => {
       </div>
       {
         listLength === 0 && (
-          <div className="content_none">{noneText}</div>
+          <div className="content_none">{noneText} &#128549;</div>
         )
       }
       {
         listLength > 0 && (
           <ul className="list_box inside">
             {
-              listDetail?.slice(0, 3).map((item, idx) => {
+              listDetail?.slice(0, 5).map((item, idx) => {
                 return (
                   <li className="list_item" key={idx}>
                     <Link to={listLink} className="link" key={idx}> { type === 'myPost' ? item?.articleTitle : type === 'myComment' ? item?.commentContent : item?.wordName}</Link>

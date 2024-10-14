@@ -11,10 +11,10 @@ export const postListData = (pageNumber) => async (dispatch) => {
   }
 };
 
-// 포스트 리스트 조회
+// 포스트 카테고리 조회
 export const postSortData = (pageNumber, tab) => async (dispatch) => {
   try {
-    const postListData = await memebookApi().wordSortApi(pageNumber, tab);
+    const postListData = await memebookApi().postCateApi(pageNumber, tab);
     dispatch(postListAction(postListData));
   } catch (error) {
     console.error(error);
