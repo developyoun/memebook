@@ -7,6 +7,8 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class AuthRequestDto {
 
+    private String provider = "google";
+
     private String code;
 
 }

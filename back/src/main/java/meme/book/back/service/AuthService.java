@@ -26,7 +26,7 @@ public class AuthService {
     private final JwtTokenProvider jwtTokenProvider;
     private final MemberService memberService;
 
-    public LoginResponseDto memberDoLogin(String code) {
+    public LoginResponseDto memberLogin(String code) {
         String jwtAccessToken;
 
         GoogleIdToken googleIdToken;
@@ -48,8 +48,8 @@ public class AuthService {
 
         MemberLoginDto memberLoginDto = new MemberLoginDto()
                 .setEmail(payload.getEmail())
-                .setName(name)
-                .setProfileImage(profileImg)
+                .setNickname(name)
+                .setProfileImg(profileImg)
                 .setProvider(ProviderType.GOOGLE);
 
         MemberDto memberDto = memberService.findOrCreateMember(memberLoginDto);

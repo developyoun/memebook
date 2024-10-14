@@ -37,6 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
 
             String memberEmail = jwtTokenProvider.getEmailByToken(authorizationToken);
+
             if (memberEmail == null) {
                 throw new CustomException(ErrorCode.INVALID_AUTHENTICATION_TOKEN);
             }

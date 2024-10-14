@@ -46,7 +46,9 @@ public class JwtTokenProvider {
 
     public String getEmailByToken(String bearerToken) {
         String token = bearerToken.replace("Bearer ", "");
-        log.debug("Authorize Token is: {}", token);
+
+        log.debug("Authorize Token: {}", token);
+
         Claims claims = null;
         try {
             claims = jwtParser().parseSignedClaims(token).getPayload();
