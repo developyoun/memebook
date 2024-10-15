@@ -10,6 +10,11 @@ const initialState = {
 
 const memeReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "SEND_USER_INFO_ACTION":
+      return {
+        ...state,
+        userInfo: action.payload,
+      };
     case "SEND_USER_IDX_ACTION":
       return {
         ...state,

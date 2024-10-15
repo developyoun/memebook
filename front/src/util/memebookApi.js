@@ -19,6 +19,8 @@ const createRequest = axios.create({
 
 export const memebookApi = () => {
   return {
+    // 회원 조회
+    memberInfoApi : (memberInfo) => createRequest.get(`member/info`, memberInfo),
     // 회원 생성
     memberAddApi : (memberInfo) => createRequest.post(`member/create`, memberInfo),
     // 회원 국가 조회

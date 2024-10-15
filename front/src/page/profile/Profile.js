@@ -9,6 +9,7 @@ import './../../scss/page/profile/profile.scss'
 import userIdxHigher from "../../components/UserIdxHigher";
 import ProfileHistory from "../../components/ProfileHistory";
 import GoogleLoginButton from "../main/GoogleLoginButton";
+import {userInfoData} from "../../util/action/userAction";
 
 const Profile = ({ userIdx }) => {
   let id = useParams();
@@ -16,7 +17,7 @@ const Profile = ({ userIdx }) => {
   const dispatch = useDispatch();
 
   const loginToken = localStorage.getItem("memberIdx");
-
+  const userInfo = useSelector(state => state.meme.userInfo);
   // 스크랩 리스트
   const scrapList = useSelector(state => state.meme.scrapList);
   // 내가 참여한 리스트
@@ -40,6 +41,8 @@ const Profile = ({ userIdx }) => {
           dispatch(myWordListData(loginToken));
           dispatch(postListData(1));
           dispatch(postCommentData(loginToken));
+          dispatch(userInfoData(loginToken));
+          console.log(userInfo)
         }
 
       } catch (error) {

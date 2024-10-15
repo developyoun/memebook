@@ -1,4 +1,12 @@
 // 회원
+export const userAction = (data) => {
+  return {
+    type: "SEND_USER_INFO_ACTION",
+    payload: data.data
+  };
+};
+
+// 회원
 export const userIdxAction = (data) => {
   return {
     type: "SEND_USER_IDX_ACTION",
