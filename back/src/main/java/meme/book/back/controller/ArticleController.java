@@ -5,10 +5,13 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import meme.book.back.dto.article.ArticleDto;
+import meme.book.back.dto.article.ArticleDto.ArticleCreateDto;
+import meme.book.back.dto.article.ArticleDto.ArticleUpdateDto;
 import meme.book.back.dto.article.ArticleListRequestDto;
-import meme.book.back.dto.article.ArticleRequestDto;
 import meme.book.back.exception.CustomException;
 import meme.book.back.service.ArticleService;
+import meme.book.back.utils.AppUtils;
 import meme.book.back.utils.ErrorCode;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +36,7 @@ public class ArticleController {
                                             @RequestParam(required = false) String tag,
                                             @RequestParam(required = false) String search,
                                             @RequestParam(required = false) Long memberIdx) {
+
         if (search != null && search.length() < 3) {
             throw new CustomException(ErrorCode.NOT_ALLOW_SIZE_LIMIT);
         }
@@ -56,17 +60,34 @@ public class ArticleController {
 
     @Operation(summary = "게시글 생성 API")
     @PostMapping("/create")
-    public ResponseEntity<?> createArticle(@RequestBody ArticleRequestDto requestDto) {
-        log.info("Create Article Request: {}", requestDto);
-        return ResponseEntity.ok(articleService.createArticle(requestDto));
+    public ResponseEntity<?> createArticle(@RequestBody ArticleCreateDto articleCreateDto) {
+        log.info("Create Article Request: {}", articleCreateDto);
+        Long memberIdx = AppUtils.getMemberIdxBySecurityContext();
+
+        ArticleDto articleDto = new ArticleDto()
+                .setArticleTitle(articleCreateDto.articleTitle())
+                .setArticleContent(articleCreateDto.articleContent())
+                .setTag(articleCreateDto.tag())
+                .setMemberIdx(memberIdx);
+
+        return ResponseEntity.ok(articleService.createArticle(articleDto));
     }
 
     @Operation(summary = "게시글 수정 API")
-    @PutMapping("/update/{articleIdx}")
-    public ResponseEntity<?> updateArticle(@PathVariable Long articleIdx,
-                                           @RequestBody ArticleRequestDto requestDto) {
-        log.info("Article Update Request: {}", requestDto);
-        return ResponseEntity.ok(articleService.updateArticle(articleIdx, requestDto));
+    @PutMapping("/update")
+    public ResponseEntity<?> updateArticle(@RequestBody ArticleUpdateDto articleUpdateDto) {
+        log.info("Article Update Request: {}", articleUpdateDto);
+
+        Long memberIdx = AppUtils.getMemberIdxBySecurityContext();
+
+        ArticleDto articleDto = new ArticleDto()
+                .setArticleIdx(articleUpdateDto.articleIdx())
+                .setArticleTitle(articleUpdateDto.articleTitle())
+                .setArticleContent(articleUpdateDto.articleContent())
+                .setTag(articleUpdateDto.tag())
+                .setMemberIdx(memberIdx);
+
+        return ResponseEntity.ok(articleService.updateArticle(articleDto));
     }
 
     @Operation(summary = "게시글 선택 삭제 API")
@@ -88,10 +109,11 @@ public class ArticleController {
 
     @Operation(summary = "게시글 좋아요 업데이트 API")
     @PostMapping("/like/{articleIdx}")
-    public ResponseEntity<?> likeUpdateArticle(@PathVariable Long articleIdx,
-                                                @RequestBody ArticleRequestDto requestDto) {
-        log.info("Article Like Update: {}, Request: {}", articleIdx, requestDto);
-        return ResponseEntity.ok(articleService.countArticleUpdate(articleIdx, requestDto));
+    public ResponseEntity<?> likeUpdateArticle(@PathVariable Long articleIdx) {
+        Long memberIdx = AppUtils.getMemberIdxBySecurityContext();
+        log.info("Article Like Update article: {}, member: {}", articleIdx, memberIdx);
+
+        return ResponseEntity.ok(articleService.countArticleUpdate(memberIdx, articleIdx));
     }
 
 }

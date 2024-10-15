@@ -1,4 +1,4 @@
-package meme.book.back.dto;
+package meme.book.back.dto.auth;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;

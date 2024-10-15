@@ -32,19 +32,16 @@ public class MemberService {
 
     // 회원 닉네임 수정
     @Transactional
-    public String saveNickname(MemberDto.MemberNickname memberInfo, String memberEmail) {
-        String nickname = memberInfo.nickname();
+    public String saveNickname(MemberDto memberDto) {
+        String nickname = memberDto.getNickname();
 
         if (isExistNickname(nickname)) {
             log.info("### 이미 존재하는 닉네임입니다. Nickname: {}", nickname);
             throw new CustomException(ErrorCode.ALREADY_EXIST_NICKNAME);
         }
-        Member member = memberRepository.findByMemberIdx(memberInfo.memberIdx())
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_MEMBER));
 
-        if (!member.getMemberEmail().equals(memberEmail)) {
-            throw new CustomException(ErrorCode.NOT_MATCH_MEMBER);
-        }
+        Member member = memberRepository.findByMemberIdx(memberDto.getMemberIdx())
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_MEMBER));
 
         member.setNickname(nickname);
         memberRepository.save(member);
@@ -55,8 +52,8 @@ public class MemberService {
 
     // 회원 정보 조회
     @Transactional(readOnly = true)
-    public MemberDto getMemberInfo(String memberEmail) {
-        Member member = memberRepository.findByMemberEmail(memberEmail)
+    public MemberDto getMemberInfo(Long memberIdx) {
+        Member member = memberRepository.findByMemberIdx(memberIdx)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_MEMBER));
 
         log.info("### member: {}", member);
@@ -67,18 +64,19 @@ public class MemberService {
     // 회원 국가 변경
     @Transactional
     public MemberDto updateNation(MemberDto memberDto) {
-        String memberEmail = memberDto.getMemberEmail();
+        Long memberIdx = memberDto.getMemberIdx();
         NationCode originNation = memberDto.getOriginNation();
         NationCode targetNation = memberDto.getTargetNation();
 
-        Member member = memberRepository.findByMemberEmail(memberEmail)
+        Member member = memberRepository.findByMemberIdx(memberIdx)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_MEMBER));
 
         member.setOriginNation(originNation)
               .setTargetNation(targetNation);
         memberRepository.save(member);
+
         log.info("### Complete update Nation: memberIdx: {}, origin nation: {}, target nation: {}",
-                memberEmail, originNation, targetNation);
+                memberIdx, originNation, targetNation);
 
         return memberDto;
 
@@ -110,13 +108,13 @@ public class MemberService {
     }
 
     @Transactional
-    public void deleteMember(String memberEmail) {
-        Member member = memberRepository.findByMemberEmail(memberEmail)
+    public void deleteMember(Long memberIdx) {
+        Member member = memberRepository.findByMemberIdx(memberIdx)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_MEMBER));
 
-        log.info("### Delete Member: {}", member);
-
         memberRepository.delete(member);
+
+        log.info("### Delete Member: {}", member);
     }
 
 }

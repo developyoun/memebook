@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import meme.book.back.exception.CustomException;
 import meme.book.back.oauth.JwtTokenProvider;
+import meme.book.back.repository.member.MemberRepository;
 import meme.book.back.utils.ErrorCode;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,6 +26,7 @@ import java.util.Arrays;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider jwtTokenProvider;
+    private final MemberRepository memberRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
@@ -42,8 +44,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 throw new CustomException(ErrorCode.INVALID_AUTHENTICATION_TOKEN);
             }
 
+            long memberIdx = memberRepository.findByMemberEmail(memberEmail)
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_MEMBER))
+                    .getMemberIdx();
+
             UserDetails userDetails = User.builder()
-                    .username(memberEmail)
+                    .username(String.valueOf(memberIdx))
                     .password(memberEmail)
                     .build();
 

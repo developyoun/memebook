@@ -2,7 +2,7 @@ package meme.book.back.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import meme.book.back.dto.AuthRequestDto;
+import meme.book.back.dto.auth.AuthRequestDto;
 import meme.book.back.dto.auth.LoginResponseDto;
 import meme.book.back.service.AuthService;
 import org.springframework.http.ResponseEntity;

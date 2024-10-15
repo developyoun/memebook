@@ -75,7 +75,7 @@ public class ArticleService {
     }
 
     @Transactional
-    public ArticleResponseDto createArticle(ArticleRequestDto requestDto) {
+    public ArticleResponseDto createArticle(ArticleDto requestDto) {
         Article article = new Article()
                 .setArticleTitle(requestDto.getArticleTitle())
                 .setMemberIdx(requestDto.getMemberIdx())
@@ -89,12 +89,17 @@ public class ArticleService {
     }
 
     @Transactional
-    public ArticleResponseDto updateArticle(Long articleIdx, ArticleRequestDto requestDto) {
-        Article article = articleRepository.findByArticleIdx(articleIdx)
+    public ArticleResponseDto updateArticle(ArticleDto articleDto) {
+        Article article = articleRepository.findByArticleIdx(articleDto.getArticleIdx())
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_ARTICLE));
 
-        article.setArticleTitle(requestDto.getArticleTitle())
-                .setArticleContent(requestDto.getArticleContent());
+        if (!articleDto.getMemberIdx().equals(article.getMemberIdx())) {
+            throw new CustomException(ErrorCode.NOT_MATCH_MEMBER);
+        }
+
+        article.setArticleTitle(articleDto.getArticleTitle())
+                .setArticleContent(articleDto.getArticleContent())
+                .setTag(article.getTag());
 
         articleRepository.save(article);
 
@@ -127,7 +132,7 @@ public class ArticleService {
     }
 
     @Transactional
-    public ArticleResponseDto countArticleUpdate(Long articleIdx, ArticleRequestDto requestDto) {
+    public ArticleResponseDto countArticleUpdate(Long memberIdx, Long articleIdx) {
         Article article = articleRepository.findByArticleIdx(articleIdx)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_ARTICLE));
 
@@ -142,7 +147,7 @@ public class ArticleService {
             log.info("Count Down Article Count: {}", article);
         } else {
             Reaction reaction = new Reaction().setReactionType(ActionType.ARTICLE_LIKE)
-                    .setMemberIdx(requestDto.getMemberIdx())
+                    .setMemberIdx(memberIdx)
                     .setTargetIdx(articleIdx);
 
             article.setArticleLikeCnt(article.getArticleLikeCnt() + 1);

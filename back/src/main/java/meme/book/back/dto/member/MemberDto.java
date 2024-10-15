@@ -41,7 +41,7 @@ public class MemberDto {
     private ProviderType provider;
 
     // 회원 닉네임 수정 DTO
-    public record MemberNickname(Long memberIdx, String nickname) { }
+    public record MemberNickname(String nickname) { }
 
     // 회원 국가 수정 DTO
     public record MemberNation(NationCode origin, NationCode target) { }

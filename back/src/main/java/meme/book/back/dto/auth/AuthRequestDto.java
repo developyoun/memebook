@@ -1,4 +1,4 @@
-package meme.book.back.dto;
+package meme.book.back.dto.auth;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
