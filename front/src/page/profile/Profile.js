@@ -42,7 +42,7 @@ const Profile = ({ userIdx }) => {
           dispatch(postListData(1));
           dispatch(postCommentData(loginToken));
           dispatch(userInfoData(loginToken));
-          console.log(userInfo)
+          console.log(userInfo);
         }
 
       } catch (error) {
@@ -112,7 +112,7 @@ const Profile = ({ userIdx }) => {
               }
             </div>
             <div className="info_name">
-              <h3 className="name">누징</h3>
+              <h3 className="name">{userInfo?.provider}</h3>
             </div>
 
             <ul className="info_desc">

@@ -23,8 +23,6 @@ export const memebookApi = () => {
     memberInfoApi : (memberInfo) => createRequest.get(`member/info`, memberInfo),
     // 회원 생성
     memberAddApi : (memberInfo) => createRequest.post(`member/create`, memberInfo),
-    // 회원 국가 조회
-    nationCheckApi : (memberIdx) => getRequest.get(`member/nation?memberIdx=${memberIdx}`),
     // 회원 국가 변경
     nationModifyApi : (nationInfo) => createRequest.put(`member/update/nation`, nationInfo),
     // 닉네임 생성
