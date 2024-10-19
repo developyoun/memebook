@@ -12,11 +12,12 @@ public class MemberLoginDto {
     private String email;
 
     /* 회원 이름 */
-    private String name;
+    private String nickname;
 
     /* 프로필 이미지 */
-    private String profileImage;
+    private String profileImg;
 
     /* 로그인 제공자 */
     private ProviderType provider;
+
 }

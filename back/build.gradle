@@ -77,40 +77,40 @@ sourceSets {
         }
     }
 }
-processResources {
-    dependsOn "copyReactFile"
-}
-
-tasks.register('installReact', Exec) {
-    workingDir "$reactAppDir"
-    inputs.dir "$reactAppDir"
-    group = BasePlugin.BUILD_GROUP
-    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-        commandLine "npm.cmd", "audit", "fix"
-        commandLine 'npm.cmd', 'install'
-    } else {
-        commandLine "npm", "audit", "fix"
-        commandLine 'npm', 'install'
-    }
-}
-
-tasks.register('buildReact', Exec) {
-    dependsOn "installReact"
-    workingDir "$reactAppDir"
-    inputs.dir "$reactAppDir"
-    group = BasePlugin.BUILD_GROUP
-    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-        commandLine "npm.cmd", "run-script", "build"
-    } else {
-        commandLine "npm", "run-script", "build"
-    }
-}
-
-tasks.register('copyReactFile', Copy) {
-    dependsOn "buildReact"
-    from "$reactAppDir/build"
-    into "$buildDir/resources/main/static"
-}
+//processResources {
+//    dependsOn "copyReactFile"
+//}
+//
+//tasks.register('installReact', Exec) {
+//    workingDir "$reactAppDir"
+//    inputs.dir "$reactAppDir"
+//    group = BasePlugin.BUILD_GROUP
+//    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+//        commandLine "npm.cmd", "audit", "fix"
+//        commandLine 'npm.cmd', 'install'
+//    } else {
+//        commandLine "npm", "audit", "fix"
+//        commandLine 'npm', 'install'
+//    }
+//}
+//
+//tasks.register('buildReact', Exec) {
+//    dependsOn "installReact"
+//    workingDir "$reactAppDir"
+//    inputs.dir "$reactAppDir"
+//    group = BasePlugin.BUILD_GROUP
+//    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+//        commandLine "npm.cmd", "run-script", "build"
+//    } else {
+//        commandLine "npm", "run-script", "build"
+//    }
+//}
+//
+//tasks.register('copyReactFile', Copy) {
+//    dependsOn "buildReact"
+//    from "$reactAppDir/build"
+//    into "$buildDir/resources/main/static"
+//}
 
 
 test {

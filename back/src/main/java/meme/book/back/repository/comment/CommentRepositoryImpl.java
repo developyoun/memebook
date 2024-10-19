@@ -29,8 +29,9 @@ public class CommentRepositoryImpl implements CommentCustomRepository {
                         comment.deleted.as("deleted")
                 ))
                 .from(comment)
-                .join(member).on(comment.memberIdx.eq(member.memberIdx))
+                .leftJoin(member).on(comment.memberIdx.eq(member.memberIdx))
                 .where(comment.articleIdx.eq(articleIdx))
+                .orderBy(comment.commentIdx.desc())
                 .fetch();
     }
 }
