@@ -13,6 +13,7 @@ import meme.book.back.repository.comment.CommentRepository;
 import meme.book.back.repository.member.MemberRepository;
 import meme.book.back.repository.reaction.ReactionRepository;
 import meme.book.back.utils.ActionType;
+import meme.book.back.utils.AppUtils;
 import meme.book.back.utils.ErrorCode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -109,24 +110,41 @@ public class ArticleService {
 
     @Transactional
     public void deleteAllArticle(Long memberIdx) {
+        if (!memberIdx.equals(AppUtils.getMemberIdxBySecurityContext())) {
+            throw new CustomException(ErrorCode.NOT_MATCH_MEMBER);
+        }
+
         List<Article> articleList = articleRepository.findAllByMemberIdx(memberIdx);
+        articleRepository.deleteAllInBatch(articleList);
 
         List<Long> articleIdxList = articleList.stream().map(Article::getArticleIdx).toList();
         List<Comment> commentList = commentRepository.findAllByArticleIdxIn(articleIdxList);
 
-        articleRepository.deleteAll(articleList);
-        commentRepository.deleteAll(commentList);
+        commentRepository.deleteAllInBatch(commentList);
 
         log.info("All Article Delete, article: {}, comment: {}", articleList.size(), commentList.size());
     }
 
     @Transactional
     public void deleteArticleList(List<Long> articleIdxList) {
+        Long memberIdx = AppUtils.getMemberIdxBySecurityContext();
+
         List<Article> articleList = articleRepository.findAllByArticleIdxIn(articleIdxList);
-        articleRepository.deleteAll(articleList);
+        articleList.forEach(article -> {
+            if (!article.getMemberIdx().equals(memberIdx)) {
+                throw new CustomException(ErrorCode.NOT_MATCH_MEMBER);
+            }
+        });
+        articleRepository.deleteAllInBatch(articleList);
 
         List<Comment> commentList = commentRepository.findAllByArticleIdxIn(articleIdxList);
-        commentRepository.deleteAll(commentList);
+        commentList.forEach(comment -> {
+            if (!comment.getMemberIdx().equals(memberIdx)) {
+                throw new CustomException(ErrorCode.NOT_MATCH_MEMBER);
+            }
+        });
+
+        commentRepository.deleteAllInBatch(commentList);
 
         log.info("Article Deleted, article Idx: {}, comment list: {}", articleIdxList, commentList);
     }

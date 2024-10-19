@@ -18,6 +18,8 @@ public interface CommentRepository extends JpaRepository<Comment, Long>, Comment
 
     List<Comment> findAllByCommentIdxIn(List<Long> commentIdx);
 
+    List<Comment> findAllByDeletedFalseAndCommentIdxIn(List<Long> commentIdx);
+
     Optional<Comment> findByCommentIdxAndArticleIdx(Long commentIdx, Long articleIdx);
 
     List<Comment> findAllByArticleIdxIn(List<Long> articleIdxList);

@@ -11,6 +11,7 @@ import meme.book.back.exception.CustomException;
 import meme.book.back.repository.comment.CommentRepository;
 import meme.book.back.repository.reaction.ReactionRepository;
 import meme.book.back.utils.ActionType;
+import meme.book.back.utils.AppUtils;
 import meme.book.back.utils.ErrorCode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -104,6 +105,10 @@ public class CommentService {
 
     @Transactional
     public void deleteAllComment(Long memberIdx) {
+        if (!memberIdx.equals(AppUtils.getMemberIdxBySecurityContext())) {
+            throw new CustomException(ErrorCode.NOT_MATCH_MEMBER);
+        }
+
         List<Comment> commentList = commentRepository.findAllByMemberIdxAndDeletedFalse(memberIdx);
         commentList.forEach(comment -> comment.setDeleted(true));
         log.info("Deleted Comment: {}", commentList);
@@ -111,7 +116,14 @@ public class CommentService {
 
     @Transactional
     public void deleteCommentList(List<Long> commentIdxList) {
-        List<Comment> commentList = commentRepository.findAllByCommentIdxIn(commentIdxList);
+        List<Comment> commentList = commentRepository.findAllByDeletedFalseAndCommentIdxIn(commentIdxList);
+        Long memberIdx = AppUtils.getMemberIdxBySecurityContext();
+
+        commentList.forEach(comment -> {
+            if (!comment.getMemberIdx().equals(memberIdx)) {
+                throw new CustomException(ErrorCode.NOT_MATCH_MEMBER);
+            }
+        });
 
         commentList.forEach(comment -> comment.setDeleted(true));
 
